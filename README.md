@@ -9,7 +9,7 @@ Enterprise‑Sundai‑Bot is a sanitized showcase of an AI assistant that automa
 * **FastAPI API Layer:** Provides RESTful endpoints for chat interaction, knowledge retrieval and administrative functions.
 * **RAG Architecture:** Uses a vector store (ChromaDB or Pinecone) to index corporate documents and provide contextually relevant responses.
 * **Shift & Task Planning:** Implements scheduling algorithms and integrates with calendar APIs to automate shift assignment and task distribution.
-* **Secure Deployment:** Follows best practices for secret management (using environment variables and managed identities), rate limiting and input sanitisation. Token‑based authentication is preferred over static secrets【987667603810256†L350-L394】.
+* **Secure Deployment:** Follows best practices for secret management (using environment variables and managed identities), rate limiting and input sanitisation. Token‑based authentication is preferred over static secrets.
 * **Observability:** Integrated logging and tracing across components with Prometheus exporters and structured logs.
 
 ### Structure
