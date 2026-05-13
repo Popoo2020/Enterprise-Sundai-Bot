@@ -1,63 +1,123 @@
-# Enterprise‑Sundai‑Bot
+# Enterprise-Sundai-Bot
 
-[![CI](https://github.com/your-org/Enterprise-Sundai-Bot/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/Enterprise-Sundai-Bot/actions/workflows/ci.yml)
+[![CI](https://github.com/Popoo2020/Enterprise-Sundai-Bot/actions/workflows/ci.yml/badge.svg)](https://github.com/Popoo2020/Enterprise-Sundai-Bot/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Enterprise‑Sundai‑Bot** is a blueprint for building a secure, scalable
-conversational assistant using retrieval‑augmented generation (RAG).  It
-illustrates how to ingest proprietary data, chunk and index it, and feed
-retrieval results into a large language model (LLM) to answer queries with
-contextual accuracy.  The focus is on enterprise requirements such as
-authentication, auditing and compliance.
+**Enterprise-Sundai-Bot** is a secure RAG-assistant blueprint that now includes a working **document normalisation and chunking layer** as the first practical building block for ingestion pipelines.  
+The repository is intentionally developed in transparent stages: implemented modules are clearly separated from future architecture work such as retrieval adapters, API endpoints, authentication and audit logging.
 
-## Features
+> **Status:** working RAG-ingestion baseline / active expansion.
 
-* **Retrieval‑augmented generation (RAG):** Designed to ingest unstructured
-  documents, perform chunking with metadata and expose an API for
-  query‑time retrieval.
-* **Architecture transparency:** Detailed architecture documentation
-  (`docs/architecture.md`) explains each component – ingestion, vector
-  storage, LLM orchestration and API layers.  A visual diagram
-  (`architecture.png`) accompanies the description.
-* **Security & compliance:** Planned features include rate limiting,
-  authentication and role‑based access control, audit logging, secret
-  management and sanitisation of outputs.
-* **Extensibility:** The `src/` directory will evolve into a full
-  FastAPI-based service with modular components for ingestion, retrieval and
-  response generation.
+## What is implemented
+
+| Capability | Status |
+|---|---|
+| Text normalisation | ✅ Implemented |
+| Overlapping document chunking | ✅ Implemented |
+| Deterministic chunk IDs | ✅ Implemented |
+| Chunk metadata model | ✅ Implemented |
+| Pytest coverage for ingestion helpers | ✅ Implemented |
+| CI that runs the test suite | ✅ Implemented |
+| Vector-store adapter | 🟡 Planned |
+| Retrieval API | 🟡 Planned |
+| Authentication / RBAC | 🟡 Planned |
+| Audit logging | 🟡 Planned |
+
+## Repository structure
+
+```text
+src/
+  rag_ingestion.py            # Document normalisation and chunking helpers
+
+tests/
+  test_rag_ingestion.py       # Test coverage for ingestion behaviour
+
+requirements.txt
+.github/workflows/ci.yml
+```
+
+## Current implemented workflow
+
+```text
+Raw text document
+        │
+        ▼
+Whitespace normalisation
+        │
+        ▼
+Overlapping chunk generation
+        │
+        ▼
+Metadata-rich chunk objects
+```
+
+## Implemented module
+
+### `src/rag_ingestion.py`
+
+Provides:
+
+- `normalise_text(text)`
+- `chunk_text(text, source_id, chunk_size=280, overlap=40)`
+- deterministic `TextChunk` objects with:
+  - `chunk_id`
+  - `source_id`
+  - `text`
+  - `index`
+  - `total_chunks`
+
+This creates a credible ingestion foundation for a future secure RAG pipeline.
 
 ## Quickstart
 
-This repository currently provides documentation and scaffolding.  To get
-started:
+```bash
+git clone https://github.com/Popoo2020/Enterprise-Sundai-Bot.git
+cd Enterprise-Sundai-Bot
 
-1. Clone the repository and review `docs/architecture.md` to familiarise
-   yourself with the high‑level design.
-2. Extend `src/rag_ingestion.py` with code to load your documents, chunk
-   them into passages and ingest them into a vector store (e.g. FAISS,
-   Milvus or Pinecone).
-3. Add a FastAPI app that exposes endpoints for ingestion and query,
-   implements authentication and calls an LLM (e.g. via OpenAI API) with
-   retrieved context.
-4. Deploy the service using your preferred container platform, ensuring
-   environment variables and secrets are managed securely.
+python -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+pytest -q
+```
+
+## Example
+
+```python
+from src.rag_ingestion import chunk_text
+
+chunks = chunk_text(
+    "This is a sample enterprise policy document for secure RAG testing.",
+    source_id="policy-001",
+)
+
+for chunk in chunks:
+    print(chunk.chunk_id, chunk.index, chunk.text)
+```
+
+## Security-oriented development path
+
+The next layers should be implemented with explicit enterprise controls:
+
+1. retrieval restricted by user/role context
+2. source metadata validation
+3. prompt assembly that distinguishes trusted instructions from untrusted retrieved content
+4. auditability for ingestion and retrieval events
+5. rate limiting and abuse prevention at the API layer
 
 ## Roadmap
 
-1. Implement ingestion loaders and metadata schema.
-2. Add authentication, rate limiting and role‑based access control.
-3. Integrate secret management guidance and environment variable patterns.
-4. Develop audit logging to capture user actions and system events.
-5. Provide deployment examples using Docker Compose and Kubernetes with
-   hardened configurations.
+1. Add vector-store adapter interface
+2. Add retrieval helper with metadata filtering
+3. Add FastAPI query endpoint
+4. Add role-aware retrieval controls
+5. Add structured audit logging
+6. Add threat model and architecture diagrams
+7. Add safe prompt assembly patterns for retrieved content
 
-Refer to `CONTRIBUTING.md` for information on how to propose changes or
-add new features.
+## Limitations
 
-## Known Limitations
-
-This repository currently contains only documentation and an ingestion
-stub.  There is no running chatbot service or API.  Security features
-such as authentication, rate limiting, secret management and audit
-logging are not implemented.  Consider this project a conceptual
-starting point rather than a production‑ready system.
+- This is not yet a running chatbot service
+- There is no vector database integration yet
+- There is no authentication layer yet
+- The current value is a tested and documented ingestion baseline that can be expanded safely
