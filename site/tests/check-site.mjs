@@ -23,12 +23,16 @@ const homePages = new Set(['index.html', path.join('da','index.html'), path.join
 for (const file of htmlFiles) {
   const rel = path.relative(root, file);
   const html = await readFile(file, 'utf8');
-  const required = ['<meta name="viewport"', '<title>', 'lang="', 'href="/assets/styles.css"'];
+  const required = ['<meta name="viewport"', '<title>', 'lang="'];
   for (const token of required) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
+  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css')) errors.push(`${rel}: approved stylesheet missing`);
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
   if (homePages.has(rel) && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
   if (homePages.has(rel) && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
+  if (homePages.has(rel) && !html.includes('application/ld+json')) errors.push(`${rel}: structured data missing`);
+  if (homePages.has(rel) && !html.includes('sundai-logo-neon.svg')) errors.push(`${rel}: new SundAI logo missing`);
+  if (homePages.has(rel) && !html.includes('hero-ai-control-neon.svg')) errors.push(`${rel}: new hero visual missing`);
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
@@ -39,18 +43,22 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/responsive.css','assets/market-redesign.css','assets/growth.css','assets/eu-flag.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','assets/visual-network.svg','assets/visual-workshop.svg','functions/api/contact.js']) {
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/sundai-logo-neon.svg','assets/hero-ai-control-neon.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','functions/api/contact.js']) {
   try { await access(path.join(root, required)); }
   catch { errors.push(`Missing required deployment file: ${required}`); }
 }
 
-const siteJs = await readFile(path.join(root, 'assets/site.js'), 'utf8');
-for (const token of ['European service','AI Governance & EU AI Act Readiness','Secure AI Adoption & Automation','AI Security Assessment','AI Risk & Readiness Snapshot','Useful thinking for responsible AI decisions','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark','Europæisk service','Europeisk tjänst']) {
-  if (!siteJs.includes(token)) errors.push(`site.js: missing market, ecosystem or language token ${token}`);
+for (const [page, tokens] of Object.entries({
+  'index.html':['Secure AI adoption for','AI Governance','10-day AI Risk & Readiness Snapshot'],
+  'da/index.html':['Sikker AI-implementering for','AI-governance','10-dages AI Risk & Readiness Snapshot'],
+  'sv/index.html':['Säker AI-implementering för','AI-styrning','10-dagars AI Risk & Readiness Snapshot']
+})) {
+  const html = await readFile(path.join(root, page), 'utf8');
+  for (const token of tokens) if (!html.includes(token)) errors.push(`${page}: missing focused multilingual token ${token}`);
 }
 
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, market-led services, insights and deployment assets.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, compact multilingual content, neon brand assets, SEO and deployment files.`);
