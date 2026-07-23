@@ -39,13 +39,18 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','functions/api/contact.js']) {
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/eu-flag.svg','functions/api/contact.js']) {
   try { await access(path.join(root, required)); }
   catch { errors.push(`Missing required deployment file: ${required}`); }
+}
+
+const siteJs = await readFile(path.join(root, 'assets/site.js'), 'utf8');
+for (const token of ['European service','Official partnerships & collaboration','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark']) {
+  if (!siteJs.includes(token)) errors.push(`site.js: missing ecosystem token ${token}`);
 }
 
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages and deployment assets.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, ecosystem content, and deployment assets.`);
