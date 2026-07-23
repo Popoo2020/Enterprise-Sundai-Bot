@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-labelledby="t d">
+<title id="t">Secure AI control network</title><desc id="d">A glowing SundAI control hub connected to governance, security, people and business value.</desc>
+<defs>
+ <radialGradient id="bg" cx="50%" cy="45%" r="60%"><stop stop-color="#0b1f4c" stop-opacity=".9"/><stop offset=".55" stop-color="#07142e" stop-opacity=".45"/><stop offset="1" stop-color="#020817" stop-opacity="0"/></radialGradient>
+ <linearGradient id="ring" x1="170" y1="120" x2="720" y2="560" gradientUnits="userSpaceOnUse"><stop stop-color="#00e7d7"/><stop offset=".35" stop-color="#1689ff"/><stop offset=".7" stop-color="#7155ff"/><stop offset="1" stop-color="#b34dff"/></linearGradient>
+ <linearGradient id="hex" x1="340" y1="245" x2="570" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#00e7d7"/><stop offset=".45" stop-color="#1689ff"/><stop offset="1" stop-color="#7656ff"/></linearGradient>
+ <filter id="g"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="sg"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#2689ff" opacity=".27"/></pattern>
+</defs>
+<rect width="900" height="680" fill="url(#bg)"/><path d="M635 85c93 15 177 68 229 143-45-19-86-12-116 22-29 33-79 36-115 7-47-38-92-84-134-133 44-28 87-42 136-39Z" fill="url(#dots)" opacity=".9"/>
+<g fill="none" stroke="#1689ff" stroke-opacity=".23"><circle cx="450" cy="340" r="245"/><circle cx="450" cy="340" r="206" stroke-dasharray="4 10"/><circle cx="450" cy="340" r="162"/></g>
+<g stroke="url(#ring)" stroke-width="4" fill="none" filter="url(#sg)"><path d="M450 174V98"/><path d="m600 250 76-58"/><path d="m616 411 80 43"/><path d="M450 506v78"/><path d="m286 416-78 51"/><path d="m293 249-75-50"/></g>
+<g fill="#eaf6ff" stroke="#1689ff" stroke-width="3">
+ <g transform="translate(401 42)"><circle cx="49" cy="49" r="47" fill="#081733"/><path d="M32 50 44 61 67 36" fill="none" stroke="#bffef6" stroke-width="5"/><path d="M49 20 74 31v19c0 18-10 30-25 39-15-9-25-21-25-39V31Z" fill="none" stroke="#55b9ff" stroke-width="3"/></g>
+ <g transform="translate(659 137)"><circle cx="49" cy="49" r="47" fill="#081733"/><rect x="32" y="32" width="34" height="34" rx="5" fill="none" stroke="#b8f8ff"/><path d="M42 25v7m14-7v7m-14 34v7m14-7v7M25 42h7m-7 14h7m34-14h7m-7 14h7" stroke="#55b9ff"/></g>
+ <g transform="translate(681 412)"><circle cx="49" cy="49" r="47" fill="#081733"/><path d="M29 67h42M34 62V47m14 15V35m14 27V25" stroke="#bffef6" stroke-width="5"/><path d="m31 42 16-12 14 4 13-13" stroke="#55b9ff" fill="none"/></g>
+ <g transform="translate(401 536)"><circle cx="49" cy="49" r="47" fill="#081733" stroke="#8858ff"/><rect x="31" y="43" width="36" height="29" rx="5" fill="none" stroke="#d9c8ff"/><path d="M38 43v-9c0-15 22-15 22 0v9" fill="none" stroke="#9f75ff" stroke-width="4"/></g>
+ <g transform="translate(122 417)"><circle cx="49" cy="49" r="47" fill="#081733"/><circle cx="49" cy="37" r="10" fill="none" stroke="#bffef6"/><path d="M29 69c2-16 38-16 40 0" fill="none" stroke="#55b9ff" stroke-width="4"/></g>
+ <g transform="translate(122 138)"><circle cx="49" cy="49" r="47" fill="#081733"/><circle cx="39" cy="42" r="9" fill="none" stroke="#bffef6"/><circle cx="59" cy="42" r="9" fill="none" stroke="#9f75ff"/><path d="M22 68c4-14 25-14 29 0m-2 0c4-14 25-14 29 0" fill="none" stroke="#55b9ff" stroke-width="3"/></g>
+</g>
+<g filter="url(#g)"><circle cx="450" cy="340" r="128" fill="#071733" stroke="url(#ring)" stroke-width="7"/><circle cx="450" cy="340" r="104" fill="none" stroke="#1689ff" stroke-opacity=".55" stroke-width="3"/></g>
+<g transform="translate(357 247)" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M93 5 174 52v94l-81 47-81-47V52Z" stroke="url(#hex)" stroke-width="10"/><circle cx="93" cy="99" r="36" stroke="#1689ff" stroke-width="9"/><path d="M93 63V35M93 163v-28M57 99H28m130 0h-29" stroke="url(#hex)" stroke-width="9"/><circle cx="93" cy="34" r="8" fill="#00e7d7" stroke="none"/><circle cx="93" cy="164" r="8" fill="#1689ff" stroke="none"/><circle cx="27" cy="99" r="8" fill="#3580ff" stroke="none"/><circle cx="159" cy="99" r="8" fill="#9c5cff" stroke="none"/><circle cx="93" cy="99" r="13" fill="#ff9d19" stroke="#ffd166" stroke-width="3"/></g>
+<g fill="#36a7ff" filter="url(#sg)"><circle cx="450" cy="174" r="6"/><circle cx="600" cy="250" r="6"/><circle cx="616" cy="411" r="6"/><circle cx="450" cy="506" r="6"/><circle cx="286" cy="416" r="6"/><circle cx="293" cy="249" r="6"/></g>
+</svg>
