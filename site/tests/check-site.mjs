@@ -29,6 +29,8 @@ for (const file of htmlFiles) {
   if (rel.endsWith('index.html') && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
   if (rel.endsWith('index.html') && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
+  const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
+  if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
 
   const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1]);
   for (const asset of assetMatches) {
@@ -37,7 +39,7 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','functions/api/contact.js']) {
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','functions/api/contact.js']) {
   try { await access(path.join(root, required)); }
   catch { errors.push(`Missing required deployment file: ${required}`); }
 }
