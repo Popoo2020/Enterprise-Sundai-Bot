@@ -1,0 +1,102 @@
+/* Responsive and Nordic refinement layer */
+:root{--nordic-blue:#17324d;--nordic-ice:#eef4f5;--nordic-sand:#f6f3ed;--nordic-green:#3f7d6b}
+html{overflow-x:hidden}
+body{overflow-x:hidden;text-wrap:pretty}
+main,section,.container,.hero-copy,.hero-system,.service-card,.project-card,.partner-card,.tech-logo{min-width:0}
+h1,h2,h3,p,li,a,span,strong,label,blockquote{overflow-wrap:anywhere;word-break:normal;hyphens:auto}
+h1,h2,h3{text-wrap:balance}
+.hero-copy,.section-heading,.about-grid>*,.contact-grid>*{min-width:0}
+.site-header{isolation:isolate}
+.site-nav a,.language a{white-space:nowrap}
+.hero{min-height:min(900px,100svh)}
+.hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:clamp(44px,7vw,86px)}
+.hero-system{max-height:620px}
+.service-card,.project-card,.partner-card,.tech-logo{contain:layout paint}
+.project-copy,.service-card,.partner-card{overflow:hidden}
+.contact-form{width:100%;max-width:760px}
+.field input,.field textarea{min-width:0}
+.footer-grid{min-width:0}
+
+/* Cleaner Nordic rhythm */
+.section{padding-block:clamp(76px,9vw,112px)}
+.services,.about{background:#fbfcfb}
+.projects{background:var(--nordic-ice)}
+.contact{background:linear-gradient(145deg,#e5efee,#f7f5f0)}
+.service-card,.project-card,.contact-form{box-shadow:0 12px 36px rgba(7,19,31,.055)}
+.service-card:hover{box-shadow:0 18px 48px rgba(7,19,31,.10)}
+
+/* Improve long Nordic-language labels */
+.tech-logo span:last-child,.partner-card strong,.partner-card span,.github-proof span{min-width:0;overflow-wrap:anywhere}
+.partner-card{align-items:flex-start}
+.partner-logo{margin-top:2px}
+.github-proof div{min-width:0}
+
+@media(max-width:1100px){
+  .header-inner{gap:18px}
+  .site-nav{gap:17px}
+  .site-nav a{font-size:.86rem}
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(330px,.85fr);gap:44px}
+  h1{font-size:clamp(3.4rem,7vw,5.6rem)}
+}
+@media(max-width:980px){
+  .site-header{background:rgba(7,19,31,.96);backdrop-filter:blur(16px)}
+  .header-inner{min-height:74px}
+  .site-nav{max-height:calc(100svh - 100px);overflow:auto}
+  .site-nav a{white-space:normal;font-size:1rem}
+  .hero{padding-top:118px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-copy{max-width:760px}
+  .hero-system{justify-self:stretch;width:min(100%,620px);margin-inline:auto}
+  .services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .service-card,.service-card:nth-child(4),.service-card:nth-child(5){grid-column:auto}
+  .project-grid{grid-template-columns:1fr}
+  .project-card{grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)}
+  .about-grid,.contact-grid{gap:48px}
+}
+@media(max-width:760px){
+  .brand{font-size:1.08rem}
+  .brand-mark{width:31px;height:31px}
+  .language{margin-left:auto}
+  .nav-toggle{order:3;margin-left:0}
+  h1{font-size:clamp(2.75rem,13vw,4.2rem);line-height:1.01;letter-spacing:-.055em}
+  h2{font-size:clamp(2rem,9vw,3.25rem);letter-spacing:-.045em}
+  .hero-text,.section-heading>p:last-child,.large-copy{font-size:1rem}
+  .hero-system{aspect-ratio:auto;min-height:440px}
+  .system-core{width:min(72%,300px)}
+  .services-grid{grid-template-columns:1fr}
+  .project-card{display:block}
+  .project-visual{height:220px;min-height:220px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  blockquote{font-size:1.45rem}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-links{justify-content:flex-start}
+}
+@media(max-width:520px){
+  .container{width:min(calc(100% - 24px),var(--container))}
+  .header-inner{gap:7px}
+  .brand{gap:8px}
+  .language a{font-size:.66rem;padding:4px 5px}
+  .nav-toggle{width:40px;height:40px;padding:8px}
+  .hero{padding:110px 0 62px}
+  .hero-actions{display:grid;grid-template-columns:1fr}
+  .button{width:100%;padding-inline:18px}
+  .proof-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.68rem}
+  .hero-system{min-height:390px;padding:16px}
+  .system-top{font-size:.55rem}
+  .system-core{margin:34px auto 22px}
+  .system-metrics b{font-size:1rem}
+  .system-metrics span{font-size:.5rem}
+  .section{padding-block:68px}
+  .service-card,.project-copy{padding:24px}
+  .partner-card{padding:18px}
+  .partner-logo{width:50px;height:50px}
+  .contact-form{padding:22px 16px}
+  blockquote{padding:30px 24px}
+  .legal-page{padding-top:120px}
+}
+@media(max-width:370px){
+  .brand>span:last-child{display:none}
+  .proof-row{grid-template-columns:1fr}
+  .language a{padding-inline:4px}
+}
+@media(prefers-reduced-motion:reduce){.tech-logo:hover,.service-card:hover,.button:hover{transform:none}}
