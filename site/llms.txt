@@ -1,0 +1,15 @@
+# SundAI
+
+SundAI is an AI and cybersecurity advisory studio operated by Riimon Holdings LTD.
+
+Core services:
+- AI adoption and strategy
+- AI governance and compliance
+- AI security and organisational risk
+- Secure automation and AI assistants
+- Workshops and organisational enablement
+
+Official website: https://sundaibot.com/
+English: https://sundaibot.com/
+Danish: https://sundaibot.com/da/
+Swedish: https://sundaibot.com/sv/

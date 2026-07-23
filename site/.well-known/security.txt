@@ -1,0 +1,4 @@
+Contact: https://sundaibot.com/#contact
+Expires: 2027-07-23T23:59:59Z
+Preferred-Languages: en, da, sv
+Canonical: https://sundaibot.com/.well-known/security.txt
