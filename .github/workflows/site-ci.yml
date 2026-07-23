@@ -1,0 +1,32 @@
+name: SundAI website checks
+
+on:
+  pull_request:
+    paths:
+      - "site/**"
+      - "wrangler.toml"
+      - ".github/workflows/site-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "wrangler.toml"
+      - ".github/workflows/site-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: |
+          node --check site/assets/site.js
+          node --check site/functions/api/contact.js
+      - name: Validate pages and assets
+        run: node site/tests/check-site.mjs
