@@ -18,6 +18,7 @@ async function walk(dir) {
 
 const htmlFiles = await walk(root);
 if (htmlFiles.length < 10) errors.push(`Expected at least 10 HTML pages, found ${htmlFiles.length}`);
+const homePages = new Set(['index.html', path.join('da','index.html'), path.join('sv','index.html')]);
 
 for (const file of htmlFiles) {
   const rel = path.relative(root, file);
@@ -26,12 +27,11 @@ for (const file of htmlFiles) {
   for (const token of required) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
-  if (rel.endsWith('index.html') && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
-  if (rel.endsWith('index.html') && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
+  if (homePages.has(rel) && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
+  if (homePages.has(rel) && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
-
   const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1].split('?')[0]);
   for (const asset of assetMatches) {
     try { await access(path.join(root, asset.slice(1))); }
@@ -39,13 +39,13 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/responsive.css','assets/market-redesign.css','assets/eu-flag.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','functions/api/contact.js']) {
-  try { await access(path.join(root, required));
-  } catch { errors.push(`Missing required deployment file: ${required}`); }
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/responsive.css','assets/market-redesign.css','assets/growth.css','assets/eu-flag.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','assets/visual-network.svg','assets/visual-workshop.svg','functions/api/contact.js']) {
+  try { await access(path.join(root, required)); }
+  catch { errors.push(`Missing required deployment file: ${required}`); }
 }
 
 const siteJs = await readFile(path.join(root, 'assets/site.js'), 'utf8');
-for (const token of ['European service','AI Governance & EU AI Act Readiness','Secure AI Adoption & Automation','AI Security Assessment','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark','Europæisk service','Europeisk tjänst']) {
+for (const token of ['European service','AI Governance & EU AI Act Readiness','Secure AI Adoption & Automation','AI Security Assessment','AI Risk & Readiness Snapshot','Useful thinking for responsible AI decisions','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark','Europæisk service','Europeisk tjänst']) {
   if (!siteJs.includes(token)) errors.push(`site.js: missing market, ecosystem or language token ${token}`);
 }
 
@@ -53,4 +53,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, market-led services, multilingual content and deployment assets.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, market-led services, insights and deployment assets.`);
