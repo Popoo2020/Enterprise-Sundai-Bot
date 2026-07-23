@@ -6,6 +6,18 @@
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  Clear-Site-Data: "cache"
+
+/da/
+  Cache-Control: public, max-age=0, must-revalidate
+  Clear-Site-Data: "cache"
+
+/sv/
+  Cache-Control: public, max-age=0, must-revalidate
+  Clear-Site-Data: "cache"
+
 /assets/*.css
   Cache-Control: public, max-age=0, must-revalidate
 
