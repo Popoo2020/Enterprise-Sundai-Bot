@@ -32,25 +32,25 @@ for (const file of htmlFiles) {
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
 
-  const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1]);
+  const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1].split('?')[0]);
   for (const asset of assetMatches) {
     try { await access(path.join(root, asset.slice(1))); }
     catch { errors.push(`${rel}: missing local asset ${asset}`); }
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/eu-flag.svg','functions/api/contact.js']) {
-  try { await access(path.join(root, required)); }
-  catch { errors.push(`Missing required deployment file: ${required}`); }
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/ecosystem.css','assets/responsive.css','assets/market-redesign.css','assets/eu-flag.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','functions/api/contact.js']) {
+  try { await access(path.join(root, required));
+  } catch { errors.push(`Missing required deployment file: ${required}`); }
 }
 
 const siteJs = await readFile(path.join(root, 'assets/site.js'), 'utf8');
-for (const token of ['European service','Official partnerships & collaboration','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark']) {
-  if (!siteJs.includes(token)) errors.push(`site.js: missing ecosystem token ${token}`);
+for (const token of ['European service','AI Governance & EU AI Act Readiness','Secure AI Adoption & Automation','AI Security Assessment','OpenAI','Google Gemini','EC-Council','Ministry of Foreign Affairs of Denmark','Europæisk service','Europeisk tjänst']) {
+  if (!siteJs.includes(token)) errors.push(`site.js: missing market, ecosystem or language token ${token}`);
 }
 
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, ecosystem content, and deployment assets.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, market-led services, multilingual content and deployment assets.`);
