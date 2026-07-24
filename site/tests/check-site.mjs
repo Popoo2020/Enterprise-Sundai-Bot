@@ -26,15 +26,15 @@ for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const required = ['<meta name="viewport"', '<title>', 'lang="'];
   for (const token of required) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
-  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css')) errors.push(`${rel}: approved stylesheet missing`);
+  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css"')) errors.push(`${rel}: approved stylesheet missing`);
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
   if (homePages.has(rel) && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
   if (homePages.has(rel) && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
   if (homePages.has(rel) && !html.includes('application/ld+json')) errors.push(`${rel}: structured data missing`);
   if (homePages.has(rel) && !html.includes('eu-service-mark.svg')) errors.push(`${rel}: European service mark missing`);
-  if (homePages.has(rel) && !html.includes('technology-ecosystem.svg')) errors.push(`${rel}: technology ecosystem missing`);
-  if (homePages.has(rel) && !html.includes('verified-collaborations.svg')) errors.push(`${rel}: collaboration trust strip missing`);
+  if (homePages.has(rel) && !html.includes('technology-ecosystem.svg')) errors.push(`${rel}: technology ecosystem fallback missing`);
+  if (homePages.has(rel) && !html.includes('verified-collaborations.svg')) errors.push(`${rel}: collaboration fallback missing`);
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
@@ -88,6 +88,23 @@ for (const token of ['/services/','/methodology/','/resources/','/about/','/da/y
   if (!sitemap.includes(token)) errors.push(`sitemap.xml: missing URL ${token}`);
 }
 
+const ecosystemJs = await readFile(path.join(root, 'assets/neon-compact.js'), 'utf8');
+for (const token of [
+  'brand-link-card',
+  'target="_blank"',
+  'rel="noopener noreferrer external"',
+  'https://openai.com/',
+  'https://azure.microsoft.com/',
+  'https://gemini.google.com/',
+  'https://github.com/',
+  'https://www.shopify.com/',
+  'https://aws.amazon.com/',
+  'https://um.dk/en/',
+  'https://www.eccouncil.org/'
+]) {
+  if (!ecosystemJs.includes(token)) errors.push(`neon-compact.js: missing official linked-logo token ${token}`);
+}
+
 try { await access(path.join(repoRoot, '.github/workflows/indexnow.yml')); }
 catch { errors.push('Missing IndexNow workflow'); }
 
@@ -95,4 +112,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, multilingual AI discovery content, structured data, crawler access, IndexNow, trust assets and deployment files.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, multilingual AI discovery, official linked brand cards, crawler access, IndexNow, trust assets and deployment files.`);
