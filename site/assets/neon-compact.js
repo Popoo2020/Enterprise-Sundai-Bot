@@ -20,6 +20,10 @@
     sv: {resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt', europeanTitle:'100% europeisk service', europeanMeta:'Europeiska värderingar · Europeisk leverans', europeanText:'Integritetsmedveten AI-styrning, säkerhet, automatisering och utbildning för organisationer i EU och övriga Europa.'}
   }[lang] || null;
 
+  const euStarPath = 'M0-2.25.53-.73 2.14-.73.83.28 1.32 1.82 0 .89-1.32 1.82-.83.28-2.14-.73-.53-.73Z';
+  const euStarPositions = [[30,8],[36,9.61],[40.39,14],[42,20],[40.39,26],[36,30.39],[30,32],[24,30.39],[19.61,26],[18,20],[19.61,14],[24,9.61]];
+  const euStars = euStarPositions.map(([x,y]) => `<path d="${euStarPath}" transform="translate(${x} ${y})"/>`).join('');
+
   if (document.querySelector('.training-grid') || document.querySelector('.standards-strip')) {
     const css = document.createElement('link');
     css.rel = 'stylesheet';
@@ -50,7 +54,7 @@
   if (locale) {
     const euRow = document.querySelector('.eu-service-row');
     if (euRow) {
-      euRow.innerHTML = `<div class="eu-service-badge" role="img" aria-label="${locale.europeanTitle}"><svg class="eu-flag" viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" rx="5" fill="#003399"/><g fill="#ffcc00" transform="translate(30 20)">${Array.from({length:12},(_,i)=>`<circle r="1.7" transform="rotate(${i*30}) translate(0 -12)"/>`).join('')}</g></svg><span><strong>${locale.europeanTitle}</strong><small>${locale.europeanMeta}</small></span></div><p>${locale.europeanText}</p>`;
+      euRow.innerHTML = `<div class="eu-service-badge" role="img" aria-label="${locale.europeanTitle}"><svg class="eu-flag" viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" rx="5" fill="#003399"/><g fill="#ffcc00">${euStars}</g></svg><span><strong>${locale.europeanTitle}</strong><small>${locale.europeanMeta}</small></span></div><p>${locale.europeanText}</p>`;
     }
   }
 
