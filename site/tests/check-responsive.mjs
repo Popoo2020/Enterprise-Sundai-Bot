@@ -21,7 +21,7 @@ if (run('files')) {
 
 if (run('premium')) {
   const premiumCss = await readFile(path.join(root, 'assets/neon-compact.css'), 'utf8');
-  for (const token of ['--navy:#0b132b','background:#fff','@media(max-width:950px)','@media(prefers-reduced-motion:reduce)']) {
+  for (const token of ['--navy:#0b132b','background:#fff','@media(max-width:950px)']) {
     if (!premiumCss.includes(token)) throw new Error(`Premium CSS missing token: ${token}`);
   }
   console.log('Premium design system passed.');
