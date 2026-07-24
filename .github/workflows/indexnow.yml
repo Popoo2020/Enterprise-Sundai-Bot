@@ -1,0 +1,41 @@
+name: Submit updated pages to IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build IndexNow payload from sitemap
+        run: |
+          python - <<'PY'
+          import json
+          import xml.etree.ElementTree as ET
+          tree = ET.parse('site/sitemap.xml')
+          ns = {'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls = [n.text for n in tree.findall('.//s:loc', ns) if n.text]
+          payload = {
+            'host': 'sundaibot.com',
+            'key': '7f4e8d2c1b9a46f8a35d0c6e91b2f740',
+            'keyLocation': 'https://sundaibot.com/7f4e8d2c1b9a46f8a35d0c6e91b2f740.txt',
+            'urlList': urls
+          }
+          with open('/tmp/indexnow.json','w') as f:
+            json.dump(payload, f)
+          print(f'Prepared {len(urls)} URLs')
+          PY
+      - name: Notify IndexNow
+        run: |
+          curl --fail-with-body --retry 3 --retry-delay 5 \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data-binary @/tmp/indexnow.json \
+            https://api.indexnow.org/indexnow
