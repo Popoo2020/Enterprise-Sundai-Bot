@@ -21,12 +21,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          show-progress: false
+      - name: Validate pages and assets
+        run: node site/tests/check-site.mjs
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Check JavaScript syntax
         run: |
           node --check site/assets/site.js
+          node --check site/assets/neon-compact.js
           node --check site/functions/api/contact.js
-      - name: Validate pages and assets
-        run: node site/tests/check-site.mjs
