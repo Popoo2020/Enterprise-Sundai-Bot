@@ -15,10 +15,11 @@ if (run('files')) {
     'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
     'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html',
     'assets/neon-compact.css','assets/qa-polish.css','assets/final-polish.css','assets/neon-compact.js','assets/final-polish.js',
+    'assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg',
     'assets/styles.css','assets/growth.css','assets/site.js','_headers'
   ];
   for (const file of requiredFiles) await access(path.join(root, file));
-  console.log('Required multilingual files exist.');
+  console.log('Required multilingual and approved brand files exist.');
 }
 
 if (run('premium')) {
@@ -31,14 +32,14 @@ if (run('premium')) {
 
 if (run('polish')) {
   const polishCss = await readFile(path.join(root, 'assets/qa-polish.css'), 'utf8');
-  for (const token of ['.nav:not([data-nav])','overflow-x:auto','prefers-reduced-motion']) {
+  for (const token of ['.nav:not([data-nav])','overflow-x:auto','prefers-reduced-motion','sundai-wordmark-light.svg','sundai-wordmark-dark.svg']) {
     if (!polishCss.includes(token)) throw new Error(`QA polish missing protection: ${token}`);
   }
   const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
-  for (const token of ['.skip-link:not(:focus)', '.audience-grid', '.founder-card', '@media(max-width:680px)']) {
+  for (const token of ['.skip-link:not(:focus)', '.audience-grid', '.founder-card', 'grid-template-columns:minmax(112px,1fr) 44px auto', '@media(max-width:420px)', 'content:url(\'/assets/sundai-wordmark-dark.svg\')']) {
     if (!finalCss.includes(token)) throw new Error(`Final polish missing protection: ${token}`);
   }
-  console.log('Responsive QA polish passed.');
+  console.log('Responsive QA, approved branding and mobile layout passed.');
 }
 
 if (run('legacy')) {
@@ -62,30 +63,39 @@ if (run('secondary')) {
     'services/index.html','da/ydelser/index.html','sv/tjanster/index.html',
     'methodology/index.html','da/metode/index.html','sv/metod/index.html',
     'resources/index.html','da/ressourcer/index.html','sv/resurser/index.html',
-    'about/index.html','da/om/index.html','sv/om/index.html'
+    'about/index.html','da/om/index.html','sv/om/index.html',
+    'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
+    'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html'
   ];
   for (const page of secondaryPages) {
     const html = await readFile(path.join(root, page), 'utf8');
     if (!html.includes('/assets/neon-compact.css')) throw new Error(`${page}: premium stylesheet missing`);
-    if (!html.includes('/assets/qa-polish.css')) throw new Error(`${page}: responsive QA stylesheet missing`);
+    if (!html.includes('/assets/qa-polish.css') && !html.includes('/assets/final-polish.css')) throw new Error(`${page}: responsive QA stylesheet missing`);
   }
   console.log('Secondary-page responsive styles passed.');
 }
 
 if (run('home')) {
-  for (const [page, lang] of [['index.html','en'],['da/index.html','da'],['sv/index.html','sv']]) {
+  const expected = {
+    'index.html':['lang="en"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Who we help','/industries/','/use-cases/','Founder & Lead Advisor','5 min read'],
+    'da/index.html':['lang="da"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Hvem vi hjælper','/da/brancher/','/da/anvendelser/','Grundlægger & Lead Advisor','5 min. læsning'],
+    'sv/index.html':['lang="sv"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Vilka vi hjälper','/sv/branscher/','/sv/anvandningsfall/','Grundare & Lead Advisor','5 min läsning']
+  };
+  for (const [page,tokens] of Object.entries(expected)) {
     const html = await readFile(path.join(root, page), 'utf8');
-    if (!html.includes(`<html lang="${lang}"`)) throw new Error(`${page}: incorrect language`);
-    if (!html.includes('eu-service-mark.svg')) throw new Error(`${page}: European service mark missing`);
+    for (const token of tokens) if (!html.includes(token)) throw new Error(`${page}: final homepage token missing: ${token}`);
     if (!html.includes('data-nav-toggle')) throw new Error(`${page}: accessible mobile navigation missing`);
+    if (!html.includes('class="skip-link"')) throw new Error(`${page}: skip link missing`);
+    if ((html.match(/class="service-card/g) || []).length !== 4) throw new Error(`${page}: four static service cards required`);
+    if ((html.match(/class="insight-meta"/g) || []).length !== 3) throw new Error(`${page}: three insight metadata blocks required`);
   }
-  console.log('Multilingual homepages passed.');
+  console.log('Multilingual static homepages passed.');
 }
 
 if (run('security')) {
   const headers = await readFile(path.join(root, '_headers'), 'utf8');
   if (headers.includes('Clear-Site-Data')) throw new Error('_headers must not clear the browser cache on every homepage request');
-  for (const token of ['Content-Security-Policy','Strict-Transport-Security','X-Content-Type-Options']) {
+  for (const token of ['Content-Security-Policy','Strict-Transport-Security','X-Content-Type-Options','https://avatars.githubusercontent.com']) {
     if (!headers.includes(token)) throw new Error(`Security header missing: ${token}`);
   }
   const neonJs = await readFile(path.join(root, 'assets/neon-compact.js'), 'utf8');
