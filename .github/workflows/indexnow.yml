@@ -13,8 +13,9 @@ permissions:
 jobs:
   submit:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Build IndexNow payload from sitemap
         run: |
           python - <<'PY'
@@ -36,6 +37,7 @@ jobs:
       - name: Notify IndexNow
         run: |
           curl --fail-with-body --retry 3 --retry-delay 5 \
+            --connect-timeout 10 --max-time 30 \
             -H 'Content-Type: application/json; charset=utf-8' \
             --data-binary @/tmp/indexnow.json \
             https://api.indexnow.org/indexnow
