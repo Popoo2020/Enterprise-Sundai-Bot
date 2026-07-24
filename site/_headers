@@ -3,7 +3,7 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.ctfassets.net https://openai.com https://msftstories.thesourcemediaassets.com https://azure.microsoft.com https://www.gstatic.com https://gemini.google.com https://github.githubassets.com https://github.com https://cdn.shopify.com https://www.shopify.com https://a0.awsstatic.com https://aws.amazon.com https://um.dk https://egs.eccouncil.org https://www.eccouncil.org; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://avatars.githubusercontent.com https://images.ctfassets.net https://openai.com https://msftstories.thesourcemediaassets.com https://azure.microsoft.com https://www.gstatic.com https://gemini.google.com https://github.githubassets.com https://github.com https://cdn.shopify.com https://www.shopify.com https://a0.awsstatic.com https://aws.amazon.com https://um.dk https://egs.eccouncil.org https://www.eccouncil.org; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 /

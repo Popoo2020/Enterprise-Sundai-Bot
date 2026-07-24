@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 92" role="img" aria-labelledby="title desc">
-  <title id="title">SundAI</title>
-  <desc id="desc">Minimal SundAI wordmark in deep navy and European blue.</desc>
-  <text x="2" y="70" fill="#0B132B" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="72" font-weight="500" letter-spacing="-4.5">Sund</text>
-  <path d="M220 70 248 14h8l28 56h-13l-7-15h-25l-7 15Zm24-26h15l-7.5-16Z" fill="#2563EB"/>
-  <rect x="294" y="16" width="12" height="54" rx="2" fill="#2563EB"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 117" role="img" aria-labelledby="title desc"><title id="title">SundAI</title><desc id="desc">Approved SundAI wordmark in deep navy and European blue.</desc><image href="/assets/sundai-wordmark-light.svg" width="500" height="117"/></svg>
