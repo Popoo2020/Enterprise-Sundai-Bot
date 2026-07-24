@@ -36,8 +36,14 @@ jobs:
         run: node site/tests/check-site.mjs
       - name: Validate required multilingual files
         run: node site/tests/check-responsive.mjs files
-      - name: Validate premium assets and navigation
-        run: node site/tests/check-responsive.mjs assets
+      - name: Validate premium design system
+        run: node site/tests/check-responsive.mjs premium
+      - name: Validate responsive QA polish
+        run: node site/tests/check-responsive.mjs polish
+      - name: Validate legacy premium bridge
+        run: node site/tests/check-responsive.mjs legacy
+      - name: Validate legal navigation script
+        run: node site/tests/check-responsive.mjs legaljs
       - name: Validate secondary-page responsive styles
         run: node site/tests/check-responsive.mjs secondary
       - name: Validate multilingual homepages
