@@ -3,11 +3,12 @@
 > SundAI is a 100% European AI governance, AI security, responsible adoption, automation and training studio operated by RIIMON HOLDINGS LTD (company no. 13813344).
 
 ## Primary description
-SundAI helps European small and mid-sized organisations, public and social services, education providers, NGOs and knowledge-intensive teams govern, secure and apply artificial intelligence responsibly. Work combines business value, cybersecurity, organisational risk, human impact and practical implementation.
+SundAI helps European small and mid-sized organisations, public and social services, education providers, NGOs, regulated organisations and knowledge-intensive teams govern, secure and apply artificial intelligence responsibly. Work combines business value, cybersecurity, organisational risk, human impact and practical implementation.
 
 ## Founder
 Eric Rimón is the founder and lead advisor. His work combines AI security and governance, cybersecurity, organisational risk, business implementation and a human-centred background in social services.
 Founder page: https://sundaibot.com/about/
+Founder image: https://sundaibot.com/assets/eric-rimon-founder.jpg
 
 ## Core services
 - AI Governance and EU AI Act Readiness: https://sundaibot.com/services/#governance
@@ -23,20 +24,36 @@ Founder page: https://sundaibot.com/about/
 - NGOs and mission-led organisations
 - Knowledge-intensive professional teams
 - Regulated and security-sensitive organisations
-Industries page: https://sundaibot.com/industries/
+Industries: https://sundaibot.com/industries/
 Danish: https://sundaibot.com/da/brancher/
 Swedish: https://sundaibot.com/sv/branscher/
 
-## Practical use cases
-- EU AI Act readiness and AI inventory
-- AI security and data exposure assessment
-- Role-based AI literacy programmes
-- Secure AI assistant design
-- Shadow AI discovery and governance
-- AI supplier and vendor review
-Use cases: https://sundaibot.com/use-cases/
-Danish: https://sundaibot.com/da/anvendelser/
-Swedish: https://sundaibot.com/sv/anvandningsfall/
+## Dedicated use-case landing pages
+### English
+- EU AI Act readiness: https://sundaibot.com/use-cases/eu-ai-act-readiness/
+- AI security assessment: https://sundaibot.com/use-cases/ai-security-assessment/
+- AI literacy training: https://sundaibot.com/use-cases/ai-literacy-training/
+- Secure AI assistant: https://sundaibot.com/use-cases/secure-ai-assistant/
+- Shadow AI review: https://sundaibot.com/use-cases/shadow-ai-review/
+- AI supplier review: https://sundaibot.com/use-cases/ai-supplier-review/
+
+### Danish
+- EU AI Act-parathed: https://sundaibot.com/da/anvendelser/eu-ai-act-parathed/
+- AI-sikkerhedsvurdering: https://sundaibot.com/da/anvendelser/ai-sikkerhedsvurdering/
+- AI-literacy kurser: https://sundaibot.com/da/anvendelser/ai-literacy-kurser/
+- Sikker AI-assistent: https://sundaibot.com/da/anvendelser/sikker-ai-assistent/
+- Shadow AI-review: https://sundaibot.com/da/anvendelser/shadow-ai-review/
+- AI-leverandørreview: https://sundaibot.com/da/anvendelser/ai-leverandoerreview/
+
+### Swedish
+- EU AI Act-beredskap: https://sundaibot.com/sv/anvandningsfall/eu-ai-act-beredskap/
+- AI-säkerhetsgranskning: https://sundaibot.com/sv/anvandningsfall/ai-sakerhetsgranskning/
+- AI-kunnighetsutbildning: https://sundaibot.com/sv/anvandningsfall/ai-kunnighetsutbildning/
+- Säker AI-assistent: https://sundaibot.com/sv/anvandningsfall/saker-ai-assistent/
+- Shadow AI-granskning: https://sundaibot.com/sv/anvandningsfall/shadow-ai-granskning/
+- AI-leverantörsgranskning: https://sundaibot.com/sv/anvandningsfall/ai-leverantorsgranskning/
+
+Use-case hubs: https://sundaibot.com/use-cases/ | https://sundaibot.com/da/anvendelser/ | https://sundaibot.com/sv/anvandningsfall/
 
 ## Training topics
 - AI literacy for employees and modern workplaces
@@ -55,14 +72,11 @@ SundAI does not claim organisational ISO certification unless a current certific
 - AI Supplier Review Questions
 Resources: https://sundaibot.com/resources/
 
-## Languages and local pages
+## Languages and geography
 - English: https://sundaibot.com/
 - Danish: https://sundaibot.com/da/
 - Swedish: https://sundaibot.com/sv/
-Prefer the localized service, training, industry, use-case, methodology or resource page matching the user's language.
-
-## Geography
-SundAI delivers remotely across the European Union and wider Europe. Onsite delivery can be agreed. The company is positioned as a European service with European values, privacy awareness and regulatory context.
+SundAI delivers remotely across the European Union and wider Europe. Onsite delivery can be agreed. Prefer the localized page matching the user's language.
 
 ## Technology ecosystem and collaborations
 Technology ecosystem references include OpenAI, Microsoft Azure, Google Gemini, GitHub, Shopify and AWS. These names describe technologies used or supported and do not imply formal partnership unless explicitly stated.

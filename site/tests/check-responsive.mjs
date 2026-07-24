@@ -4,6 +4,11 @@ import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const mode = process.argv[2] || 'all';
 const run = name => mode === 'all' || mode === name;
+const useCasePages = [
+  'use-cases/eu-ai-act-readiness/index.html','use-cases/ai-security-assessment/index.html','use-cases/ai-literacy-training/index.html','use-cases/secure-ai-assistant/index.html','use-cases/shadow-ai-review/index.html','use-cases/ai-supplier-review/index.html',
+  'da/anvendelser/eu-ai-act-parathed/index.html','da/anvendelser/ai-sikkerhedsvurdering/index.html','da/anvendelser/ai-literacy-kurser/index.html','da/anvendelser/sikker-ai-assistent/index.html','da/anvendelser/shadow-ai-review/index.html','da/anvendelser/ai-leverandoerreview/index.html',
+  'sv/anvandningsfall/eu-ai-act-beredskap/index.html','sv/anvandningsfall/ai-sakerhetsgranskning/index.html','sv/anvandningsfall/ai-kunnighetsutbildning/index.html','sv/anvandningsfall/saker-ai-assistent/index.html','sv/anvandningsfall/shadow-ai-granskning/index.html','sv/anvandningsfall/ai-leverantorsgranskning/index.html'
+];
 
 if (run('files')) {
   const requiredFiles = [
@@ -14,12 +19,13 @@ if (run('files')) {
     'about/index.html','da/om/index.html','sv/om/index.html',
     'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
     'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html',
+    ...useCasePages,
     'assets/neon-compact.css','assets/qa-polish.css','assets/final-polish.css','assets/neon-compact.js','assets/final-polish.js',
     'assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg',
     'assets/styles.css','assets/growth.css','assets/site.js','_headers'
   ];
   for (const file of requiredFiles) await access(path.join(root, file));
-  console.log('Required multilingual and approved brand files exist.');
+  console.log('Required multilingual, use-case and approved brand files exist.');
 }
 
 if (run('premium')) {
@@ -65,14 +71,16 @@ if (run('secondary')) {
     'resources/index.html','da/ressourcer/index.html','sv/resurser/index.html',
     'about/index.html','da/om/index.html','sv/om/index.html',
     'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
-    'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html'
+    'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html',
+    ...useCasePages
   ];
   for (const page of secondaryPages) {
     const html = await readFile(path.join(root, page), 'utf8');
     if (!html.includes('/assets/neon-compact.css')) throw new Error(`${page}: premium stylesheet missing`);
     if (!html.includes('/assets/qa-polish.css') && !html.includes('/assets/final-polish.css')) throw new Error(`${page}: responsive QA stylesheet missing`);
+    if (!html.includes('data-nav')) throw new Error(`${page}: responsive navigation hook missing`);
   }
-  console.log('Secondary-page responsive styles passed.');
+  console.log('Secondary and dedicated use-case responsive styles passed.');
 }
 
 if (run('home')) {
