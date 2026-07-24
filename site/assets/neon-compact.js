@@ -1,8 +1,11 @@
 (() => {
   const polish = document.createElement('link');
   polish.rel = 'stylesheet';
-  polish.href = '/assets/qa-polish.css?v=20260724q1';
+  polish.href = '/assets/qa-polish.css?v=20260724p2';
   document.head.appendChild(polish);
+
+  const theme = document.querySelector('meta[name="theme-color"]');
+  if (theme) theme.setAttribute('content', '#ffffff');
 
   const nav = document.querySelector('[data-nav]') || document.querySelector('.nav');
   const toggle = document.querySelector('[data-nav-toggle]');
@@ -15,9 +18,9 @@
   }[lang] || null;
 
   const locale = {
-    en: {resourcesHref:'/resources/', resources:'Resources', snapshot:'Snapshot', europeanTitle:'100% European service', europeanMeta:'European values · European delivery', europeanText:'Privacy-aware AI governance, security, automation and training for organisations across the EU and wider Europe.'},
-    da: {resourcesHref:'/da/ressourcer/', resources:'Ressourcer', snapshot:'Overblik', europeanTitle:'100% europæisk service', europeanMeta:'Europæiske værdier · Europæisk levering', europeanText:'Privatlivsbevidst AI-governance, sikkerhed, automatisering og træning for organisationer i EU og resten af Europa.'},
-    sv: {resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt', europeanTitle:'100% europeisk service', europeanMeta:'Europeiska värderingar · Europeisk leverans', europeanText:'Integritetsmedveten AI-styrning, säkerhet, automatisering och utbildning för organisationer i EU och övriga Europa.'}
+    en: {resourcesHref:'/resources/', resources:'Resources', snapshot:'Snapshot', europeanTitle:'100% European service', europeanMeta:'European values · European delivery', europeanText:'Privacy-aware AI governance, security, automation and training for organisations across the EU and wider Europe.', servicesTitle:'Four ways to move AI forward safely', trainingCard:'AI Training & Talks', trainingText:'Role-based workshops and keynotes that build practical AI literacy, responsible use and security awareness.', trainingLink:'Explore training →', trust:[['Trust','Transparent, reliable delivery'],['Clarity','Clear strategies and outcomes'],['Security','Secure-by-design thinking'],['Quality','Tested and documented work'],['European','EU-focused and privacy-aware']]},
+    da: {resourcesHref:'/da/ressourcer/', resources:'Ressourcer', snapshot:'Overblik', europeanTitle:'100% europæisk service', europeanMeta:'Europæiske værdier · Europæisk levering', europeanText:'Privatlivsbevidst AI-governance, sikkerhed, automatisering og træning for organisationer i EU og resten af Europa.', servicesTitle:'Fire måder at flytte AI sikkert fremad', trainingCard:'AI-kurser & foredrag', trainingText:'Rollebaserede workshops og foredrag, der styrker praktisk AI-literacy, ansvarlig brug og sikkerhedsbevidsthed.', trainingLink:'Se kurser →', trust:[['Tillid','Transparent og pålidelig levering'],['Klarhed','Tydelige strategier og resultater'],['Sikkerhed','Secure-by-design tilgang'],['Kvalitet','Testet og dokumenteret arbejde'],['Europæisk','EU-fokuseret og privatlivsbevidst']]},
+    sv: {resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt', europeanTitle:'100% europeisk service', europeanMeta:'Europeiska värderingar · Europeisk leverans', europeanText:'Integritetsmedveten AI-styrning, säkerhet, automatisering och utbildning för organisationer i EU och övriga Europa.', servicesTitle:'Fyra sätt att föra AI framåt på ett säkert sätt', trainingCard:'AI-utbildning & föreläsningar', trainingText:'Rollbaserade workshops och föreläsningar som stärker praktisk AI-kunnighet, ansvarsfull användning och säkerhetsmedvetenhet.', trainingLink:'Se utbildning →', trust:[['Tillit','Transparent och tillförlitlig leverans'],['Tydlighet','Tydliga strategier och resultat'],['Säkerhet','Secure-by-design perspektiv'],['Kvalitet','Testat och dokumenterat arbete'],['Europeiskt','EU-fokuserat och integritetsmedvetet']]}
   }[lang] || null;
 
   const euStarPath = 'M0-2.25.53-.73 2.14-.73.83.28 1.32 1.82 0 .89-1.32 1.82-.83.28-2.14-.73-.53-.73Z';
@@ -27,7 +30,7 @@
   if (document.querySelector('.training-grid') || document.querySelector('.standards-strip')) {
     const css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.href = '/assets/training.css?v=20260724b';
+    css.href = '/assets/training.css?v=20260724p2';
     document.head.appendChild(css);
   }
 
@@ -56,6 +59,26 @@
     if (euRow) {
       euRow.innerHTML = `<div class="eu-service-badge" role="img" aria-label="${locale.europeanTitle}"><svg class="eu-flag" viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" rx="5" fill="#003399"/><g fill="#ffcc00">${euStars}</g></svg><span><strong>${locale.europeanTitle}</strong><small>${locale.europeanMeta}</small></span></div><p>${locale.europeanText}</p>`;
     }
+
+    const serviceGrid = document.querySelector('.services .service-grid');
+    if (serviceGrid && serviceGrid.children.length === 3 && training) {
+      const heading = document.querySelector('.services .section-title h2');
+      if (heading) heading.textContent = locale.servicesTitle;
+      const card = document.createElement('article');
+      card.className = 'service-card';
+      card.innerHTML = `<a href="${training.href}"><div class="service-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M6 6h15a5 5 0 0 1 5 5v15H11a5 5 0 0 1-5-5Z"/><path d="M11 11h10M11 16h10M11 21h6"/></svg></div><h3>${locale.trainingCard}</h3><p>${locale.trainingText}</p><span class="card-link">${locale.trainingLink}</span></a>`;
+      serviceGrid.appendChild(card);
+    }
+
+    const services = document.querySelector('.services');
+    if (services && !document.querySelector('.premium-trust-strip')) {
+      const icons = ['✓','◎','◇','◆','EU'];
+      const strip = document.createElement('section');
+      strip.className = 'premium-trust-strip';
+      strip.setAttribute('aria-label', 'SundAI delivery principles');
+      strip.innerHTML = `<div class="container">${locale.trust.map((item,index)=>`<div class="premium-trust-item"><span class="premium-trust-icon" aria-hidden="true">${icons[index]}</span><span><strong>${item[0]}</strong><small>${item[1]}</small></span></div>`).join('')}</div>`;
+      services.insertAdjacentElement('afterend', strip);
+    }
   }
 
   if (training && document.querySelector('#why') && !document.querySelector('.human-standard')) {
@@ -65,7 +88,7 @@
     document.querySelector('#why').insertAdjacentElement('afterend', section);
     const css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.href = '/assets/training.css?v=20260724b';
+    css.href = '/assets/training.css?v=20260724p2';
     document.head.appendChild(css);
   }
 
