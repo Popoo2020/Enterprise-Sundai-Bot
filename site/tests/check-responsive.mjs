@@ -36,10 +36,10 @@ if (run('polish')) {
     if (!polishCss.includes(token)) throw new Error(`QA polish missing protection: ${token}`);
   }
   const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
-  for (const token of ['.skip-link:not(:focus)', '.audience-grid', '.founder-card', 'grid-template-columns:minmax(112px,1fr) 44px auto', '@media(max-width:420px)', 'content:url(\'/assets/sundai-wordmark-dark.svg\')']) {
+  for (const token of ['.skip-link:not(:focus)', '.audience-grid', '.founder-card', '.brand-story-card', '.brand-story-word', 'grid-template-columns:minmax(112px,1fr) 44px auto', '@media(max-width:420px)', 'content:url(\'/assets/sundai-wordmark-dark.svg\')']) {
     if (!finalCss.includes(token)) throw new Error(`Final polish missing protection: ${token}`);
   }
-  console.log('Responsive QA, approved branding and mobile layout passed.');
+  console.log('Responsive QA, approved branding, Healthy AI story and mobile layout passed.');
 }
 
 if (run('legacy')) {
@@ -72,7 +72,16 @@ if (run('secondary')) {
     if (!html.includes('/assets/neon-compact.css')) throw new Error(`${page}: premium stylesheet missing`);
     if (!html.includes('/assets/qa-polish.css') && !html.includes('/assets/final-polish.css')) throw new Error(`${page}: responsive QA stylesheet missing`);
   }
-  console.log('Secondary-page responsive styles passed.');
+  const brandStories = {
+    'about/index.html':['class="brand-story"','Healthy AI, from name to practice.'],
+    'da/om/index.html':['class="brand-story"','Sund AI — fra navn til praksis.'],
+    'sv/om/index.html':['class="brand-story"','Sund AI — från namn till praktik.']
+  };
+  for (const [page,tokens] of Object.entries(brandStories)) {
+    const html = await readFile(path.join(root,page),'utf8');
+    for (const token of tokens) if (!html.includes(token)) throw new Error(`${page}: brand story missing: ${token}`);
+  }
+  console.log('Secondary-page responsive styles and multilingual brand stories passed.');
 }
 
 if (run('home')) {
@@ -89,7 +98,9 @@ if (run('home')) {
     if ((html.match(/class="service-card/g) || []).length !== 4) throw new Error(`${page}: four static service cards required`);
     if ((html.match(/class="insight-meta"/g) || []).length !== 3) throw new Error(`${page}: three insight metadata blocks required`);
   }
-  console.log('Multilingual static homepages passed.');
+  const finalJs = await readFile(path.join(root,'assets/final-polish.js'),'utf8');
+  for (const token of ['whySection','brand-story','brandSlogan','brandAlternate']) if (!finalJs.includes(token)) throw new Error(`Homepage brand story runtime missing: ${token}`);
+  console.log('Multilingual static homepages and Healthy AI runtime story passed.');
 }
 
 if (run('security')) {

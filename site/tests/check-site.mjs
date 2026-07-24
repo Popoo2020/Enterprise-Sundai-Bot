@@ -50,7 +50,7 @@ for (const file of htmlFiles) {
 for (const required of [
   'robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt',
   '.well-known/security.txt','7f4e8d2c1b9a46f8a35d0c6e91b2f740.txt',
-  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/ai-discovery.css','assets/final-polish.css',
+  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/ai-discovery.css','assets/final-polish.css','assets/final-polish.js',
   'assets/sundai-logo-neon.svg','assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg','assets/hero-ai-control-neon.svg','assets/eu-service-mark.svg',
   'functions/api/contact.js','training/index.html','da/kurser-foredrag/index.html','sv/utbildning-forelasningar/index.html',
   'services/index.html','da/ydelser/index.html','sv/tjanster/index.html',
@@ -71,7 +71,9 @@ for (const [page, tokens] of Object.entries({
   'services/index.html':['AI Governance & EU AI Act Readiness','FAQPage','AI Security Assessment'],
   'methodology/index.html':['Human oversight','ISO/IEC 42001','Fairness & accessibility'],
   'resources/index.html':['AI Governance Checklist','AI Supplier Review Questions'],
-  'about/index.html':['Eric Rimón','Founder and Lead Advisor','avatars.githubusercontent.com'],
+  'about/index.html':['Eric Rimón','Healthy AI, from name to practice','slogan','alternateName'],
+  'da/om/index.html':['Eric Rimón','Sund AI — fra navn til praksis','slogan','alternateName'],
+  'sv/om/index.html':['Eric Rimón','Sund AI — från namn till praktik','slogan','alternateName'],
   'industries/index.html':['Small and mid-sized organisations','Public and social services'],
   'use-cases/index.html':['Shadow AI','AI supplier']
 })) {
@@ -83,7 +85,13 @@ const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
 for (const token of ['OAI-SearchBot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
 
 const llms = await readFile(path.join(root, 'llms.txt'), 'utf8');
-for (const token of ['Who SundAI helps','Practical use cases','AI Governance and EU AI Act Readiness','100% European','Eric Rimón','Preferred factual summary for assistants']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+for (const token of ['Brand meaning','"sund" means healthy','Healthy AI for European organisations','Who SundAI helps','Practical use cases','Preferred factual summary for assistants']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+
+const finalJs = await readFile(path.join(root, 'assets/final-polish.js'), 'utf8');
+for (const token of ['brand-story','Healthy AI, from name to practice','Sund AI — fra navn til praksis','Sund AI — från namn till praktik','item.slogan','item.alternateName']) if (!finalJs.includes(token)) errors.push(`final-polish.js: missing brand-story token ${token}`);
+
+const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
+for (const token of ['.brand-story','.brand-story-card','.brand-story-word','@media(max-width:680px)']) if (!finalCss.includes(token)) errors.push(`final-polish.css: missing brand-story style ${token}`);
 
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
 for (const token of ['/services/','/methodology/','/resources/','/about/','/industries/','/use-cases/','/da/brancher/','/sv/anvandningsfall/']) if (!sitemap.includes(token)) errors.push(`sitemap.xml: missing URL ${token}`);
@@ -98,4 +106,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, approved SundAI branding, static multilingual UX/SEO content, LLM discovery, crawler access and deployment files.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, approved SundAI branding, Healthy AI meaning, multilingual UX/SEO content, LLM discovery, crawler access and deployment files.`);
