@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - "site/**"
-      - ".github/workflows/site-ci.yml"
+      - ".github/**"
+      - "SECURITY_DEPLOYMENT.md"
   push:
     branches: [main]
     paths:
       - "site/**"
-      - ".github/workflows/site-ci.yml"
+      - ".github/**"
+      - "SECURITY_DEPLOYMENT.md"
 
 permissions:
   contents: read
@@ -17,11 +19,12 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           show-progress: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "22"
       - name: Check JavaScript syntax
@@ -33,6 +36,7 @@ jobs:
           node --check site/tests/check-site.mjs
           node --check site/tests/check-responsive.mjs
           node --check site/tests/check-growth.mjs
+          node --check site/tests/check-security.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
       - name: Validate required multilingual files
@@ -53,3 +57,5 @@ jobs:
         run: node site/tests/check-responsive.mjs security
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
+      - name: Validate security and performance budgets
+        run: node site/tests/check-security.mjs
