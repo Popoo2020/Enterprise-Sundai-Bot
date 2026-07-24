@@ -12,7 +12,9 @@ if (run('files')) {
     'methodology/index.html','da/metode/index.html','sv/metod/index.html',
     'resources/index.html','da/ressourcer/index.html','sv/resurser/index.html',
     'about/index.html','da/om/index.html','sv/om/index.html',
-    'assets/neon-compact.css','assets/qa-polish.css','assets/neon-compact.js',
+    'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
+    'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html',
+    'assets/neon-compact.css','assets/qa-polish.css','assets/final-polish.css','assets/neon-compact.js','assets/final-polish.js',
     'assets/styles.css','assets/growth.css','assets/site.js','_headers'
   ];
   for (const file of requiredFiles) await access(path.join(root, file));
@@ -31,6 +33,10 @@ if (run('polish')) {
   const polishCss = await readFile(path.join(root, 'assets/qa-polish.css'), 'utf8');
   for (const token of ['.nav:not([data-nav])','overflow-x:auto','prefers-reduced-motion']) {
     if (!polishCss.includes(token)) throw new Error(`QA polish missing protection: ${token}`);
+  }
+  const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
+  for (const token of ['.skip-link:not(:focus)', '.audience-grid', '.founder-card', '@media(max-width:680px)']) {
+    if (!finalCss.includes(token)) throw new Error(`Final polish missing protection: ${token}`);
   }
   console.log('Responsive QA polish passed.');
 }
@@ -83,7 +89,7 @@ if (run('security')) {
     if (!headers.includes(token)) throw new Error(`Security header missing: ${token}`);
   }
   const neonJs = await readFile(path.join(root, 'assets/neon-compact.js'), 'utf8');
-  const starPositions = neonJs.match(/const euStarPositions = \[(.*?)\];/s)?.[1] || '';
+  const starPositions = neonJs.match(/const (?:euStarPositions|positions) = \[(.*?)\];/s)?.[1] || '';
   const starCount = (starPositions.match(/\[[0-9.]+,[0-9.]+\]/g) || []).length;
   if (starCount !== 12) throw new Error(`EU flag must contain 12 stars, found ${starCount}`);
   console.log('Security headers and European flag passed.');

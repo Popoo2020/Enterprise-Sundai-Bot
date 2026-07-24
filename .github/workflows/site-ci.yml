@@ -28,6 +28,7 @@ jobs:
         run: |
           node --check site/assets/site.js
           node --check site/assets/neon-compact.js
+          node --check site/assets/final-polish.js
           node --check site/functions/api/contact.js
           node --check site/tests/check-site.mjs
           node --check site/tests/check-responsive.mjs
