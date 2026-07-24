@@ -40,6 +40,126 @@
     document.head.appendChild(css);
   }
 
+  const ecosystemRoot = document.querySelector('.ecosystem-assets');
+  if (ecosystemRoot) {
+    const copy = {
+      en: {
+        platforms: 'Platforms we work with',
+        collaborations: 'Documented collaborations',
+        official: 'Open official website',
+        diplomacy: 'Digital diplomacy collaboration',
+        cyber: 'Cybersecurity education collaboration'
+      },
+      da: {
+        platforms: 'Platforme vi arbejder med',
+        collaborations: 'Dokumenterede samarbejder',
+        official: 'Åbn officiel hjemmeside',
+        diplomacy: 'Samarbejde om digitalt diplomati',
+        cyber: 'Samarbejde om cybersikkerhedsuddannelse'
+      },
+      sv: {
+        platforms: 'Plattformar vi arbetar med',
+        collaborations: 'Dokumenterade samarbeten',
+        official: 'Öppna officiell webbplats',
+        diplomacy: 'Samarbete inom digital diplomati',
+        cyber: 'Samarbete inom cybersäkerhetsutbildning'
+      }
+    }[lang] || {
+      platforms: 'Platforms we work with',
+      collaborations: 'Documented collaborations',
+      official: 'Open official website',
+      diplomacy: 'Digital diplomacy collaboration',
+      cyber: 'Cybersecurity education collaboration'
+    };
+
+    const platforms = [
+      {
+        id: 'openai',
+        name: 'OpenAI',
+        href: 'https://openai.com/',
+        logo: 'https://images.ctfassets.net/kftzwdyauwt9/2fkAIT3PbTRytKTBx9cx8o/229bc28cb338565fe735d8935abc801f/OpenAI_Wordmark_Gif.gif?fm=webp&q=90&w=3840',
+        fallback: 'https://openai.com/favicon.ico'
+      },
+      {
+        id: 'azure',
+        name: 'Microsoft Azure',
+        href: 'https://azure.microsoft.com/',
+        logo: 'https://msftstories.thesourcemediaassets.com/sites/113/2018/07/MS-Azure_logo_horiz_c-gray_rgb.png',
+        fallback: 'https://azure.microsoft.com/favicon.ico'
+      },
+      {
+        id: 'gemini',
+        name: 'Google Gemini',
+        href: 'https://gemini.google.com/',
+        logo: 'https://www.gstatic.com/marketing-cms/assets/images/a4/97/92c1ec494d129f3fb8d7caa91584/gemini-update.png=s48-fcrop64=1,00000000ffffffff-rw',
+        fallback: 'https://gemini.google.com/favicon.ico'
+      },
+      {
+        id: 'github',
+        name: 'GitHub',
+        href: 'https://github.com/',
+        logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png',
+        fallback: 'https://github.com/favicon.ico'
+      },
+      {
+        id: 'shopify',
+        name: 'Shopify',
+        href: 'https://www.shopify.com/',
+        logo: 'https://cdn.shopify.com/shopifycloud/brochure/assets/brand-assets/shopify-logo-inverted-primary-logo-bdc6ddd67862d9bb1f8c559e1bb50dd233112ac57b29cac2edcf17ed2e1fe6fa.svg',
+        fallback: 'https://www.shopify.com/favicon.ico',
+        dark: true
+      },
+      {
+        id: 'aws',
+        name: 'Amazon Web Services (AWS)',
+        href: 'https://aws.amazon.com/',
+        logo: 'https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png',
+        fallback: 'https://aws.amazon.com/favicon.ico'
+      }
+    ];
+
+    const collaborations = [
+      {
+        id: 'mfa',
+        name: 'Ministry of Foreign Affairs of Denmark',
+        href: 'https://um.dk/en/',
+        logo: 'https://um.dk/favicon.ico',
+        subtitle: copy.diplomacy
+      },
+      {
+        id: 'eccouncil',
+        name: 'EC-Council',
+        href: 'https://www.eccouncil.org/',
+        logo: 'https://egs.eccouncil.org/wp-content/uploads/2016/02/EC-Council-200px.png',
+        fallback: 'https://www.eccouncil.org/favicon.ico',
+        subtitle: copy.cyber
+      }
+    ];
+
+    const renderCard = (item, type) => {
+      const dark = item.dark ? ' brand-dark' : '';
+      const subtitle = item.subtitle ? `<small>${item.subtitle}</small>` : '';
+      const fallback = item.fallback ? ` data-fallback="${item.fallback}"` : '';
+      return `<a class="brand-link-card ${type}-card brand-${item.id}${dark}" href="${item.href}" target="_blank" rel="noopener noreferrer external" aria-label="${item.name} — ${copy.official}" title="${copy.official}"><span class="brand-logo-surface"><img src="${item.logo}"${fallback} alt="${item.name} logo" loading="lazy" decoding="async"></span><span class="brand-link-copy"><strong>${item.name}</strong>${subtitle}</span><span class="external-mark" aria-hidden="true">↗</span></a>`;
+    };
+
+    ecosystemRoot.className = 'ecosystem-groups';
+    ecosystemRoot.innerHTML = `<section class="ecosystem-group" aria-labelledby="platform-group-title"><h3 id="platform-group-title" class="ecosystem-group-title">${copy.platforms}</h3><div class="brand-link-grid platform-grid">${platforms.map(item => renderCard(item, 'platform')).join('')}</div></section><section class="ecosystem-group" aria-labelledby="collaboration-group-title"><h3 id="collaboration-group-title" class="ecosystem-group-title">${copy.collaborations}</h3><div class="brand-link-grid collaboration-grid">${collaborations.map(item => renderCard(item, 'collaboration')).join('')}</div></section>`;
+
+    ecosystemRoot.querySelectorAll('.brand-link-card img').forEach((image) => {
+      image.addEventListener('error', () => {
+        const fallback = image.dataset.fallback;
+        if (fallback && image.dataset.fallbackUsed !== 'true') {
+          image.dataset.fallbackUsed = 'true';
+          image.src = fallback;
+          return;
+        }
+        image.hidden = true;
+        image.closest('.brand-link-card')?.classList.add('logo-failed');
+      });
+    });
+  }
+
   toggle?.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', String(!open));

@@ -33,8 +33,8 @@ for (const file of htmlFiles) {
   if (homePages.has(rel) && !html.includes('data-contact-form')) errors.push(`${rel}: contact form missing`);
   if (homePages.has(rel) && !html.includes('application/ld+json')) errors.push(`${rel}: structured data missing`);
   if (homePages.has(rel) && !html.includes('eu-service-mark.svg')) errors.push(`${rel}: European service mark missing`);
-  if (homePages.has(rel) && !html.includes('technology-ecosystem.svg')) errors.push(`${rel}: technology ecosystem missing`);
-  if (homePages.has(rel) && !html.includes('verified-collaborations.svg')) errors.push(`${rel}: collaboration trust strip missing`);
+  if (homePages.has(rel) && !html.includes('technology-ecosystem.svg')) errors.push(`${rel}: technology ecosystem fallback missing`);
+  if (homePages.has(rel) && !html.includes('verified-collaborations.svg')) errors.push(`${rel}: collaboration fallback missing`);
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
