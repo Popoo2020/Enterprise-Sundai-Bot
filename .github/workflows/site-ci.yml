@@ -34,7 +34,15 @@ jobs:
           node --check site/tests/check-growth.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
-      - name: Validate premium responsive design
-        run: node site/tests/check-responsive.mjs
+      - name: Validate required multilingual files
+        run: node site/tests/check-responsive.mjs files
+      - name: Validate premium assets and navigation
+        run: node site/tests/check-responsive.mjs assets
+      - name: Validate secondary-page responsive styles
+        run: node site/tests/check-responsive.mjs secondary
+      - name: Validate multilingual homepages
+        run: node site/tests/check-responsive.mjs home
+      - name: Validate security headers and EU flag
+        run: node site/tests/check-responsive.mjs security
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
