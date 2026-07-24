@@ -105,6 +105,20 @@ for (const token of [
   if (!ecosystemJs.includes(token)) errors.push(`neon-compact.js: missing official linked-logo token ${token}`);
 }
 
+const headers = await readFile(path.join(root, '_headers'), 'utf8');
+for (const token of [
+  'https://images.ctfassets.net',
+  'https://msftstories.thesourcemediaassets.com',
+  'https://www.gstatic.com',
+  'https://github.githubassets.com',
+  'https://cdn.shopify.com',
+  'https://a0.awsstatic.com',
+  'https://um.dk',
+  'https://egs.eccouncil.org'
+]) {
+  if (!headers.includes(token)) errors.push(`_headers: official logo host missing from image CSP ${token}`);
+}
+
 try { await access(path.join(repoRoot, '.github/workflows/indexnow.yml')); }
 catch { errors.push('Missing IndexNow workflow'); }
 
@@ -112,4 +126,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, multilingual AI discovery, official linked brand cards, crawler access, IndexNow, trust assets and deployment files.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, multilingual AI discovery, official linked brand cards, restricted logo CSP, crawler access, IndexNow and deployment files.`);
