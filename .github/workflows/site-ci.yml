@@ -4,13 +4,11 @@ on:
   pull_request:
     paths:
       - "site/**"
-      - "site/wrangler.toml"
       - ".github/workflows/site-ci.yml"
   push:
     branches: [main]
     paths:
       - "site/**"
-      - "site/wrangler.toml"
       - ".github/workflows/site-ci.yml"
 
 permissions:
@@ -31,5 +29,12 @@ jobs:
           node --check site/assets/site.js
           node --check site/assets/neon-compact.js
           node --check site/functions/api/contact.js
+          node --check site/tests/check-site.mjs
+          node --check site/tests/check-responsive.mjs
+          node --check site/tests/check-growth.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
+      - name: Validate premium responsive design
+        run: node site/tests/check-responsive.mjs
+      - name: Validate insights and multilingual content
+        run: node site/tests/check-growth.mjs
