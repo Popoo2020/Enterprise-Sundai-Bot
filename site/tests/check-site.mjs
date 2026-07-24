@@ -26,7 +26,7 @@ for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const required = ['<meta name="viewport"', '<title>', 'lang="'];
   for (const token of required) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
-  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css"')) errors.push(`${rel}: approved stylesheet missing`);
+  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css')) errors.push(`${rel}: approved stylesheet missing`);
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
   if (homePages.has(rel) && !html.includes('hreflang=')) errors.push(`${rel}: language alternates missing`);
