@@ -16,8 +16,8 @@ for (const token of ['.article-hero','.article-body','.insights-grid','backgroun
 
 const languageIndexes = [
   ['insights/index.html','Practical thinking for responsible AI decisions.'],
-  ['da/insights/index.html','ansvarlige AI'],
-  ['sv/insights/index.html','ansvarsfulla AI']
+  ['da/insights/index.html','AI-beslutninger'],
+  ['sv/insights/index.html','AI-beslut']
 ];
 for (const [page, token] of languageIndexes) {
   const html = await readFile(path.join(root, page), 'utf8');
