@@ -4,13 +4,11 @@ on:
   pull_request:
     paths:
       - "site/**"
-      - "site/wrangler.toml"
       - ".github/workflows/site-ci.yml"
   push:
     branches: [main]
     paths:
       - "site/**"
-      - "site/wrangler.toml"
       - ".github/workflows/site-ci.yml"
 
 permissions:
@@ -31,5 +29,26 @@ jobs:
           node --check site/assets/site.js
           node --check site/assets/neon-compact.js
           node --check site/functions/api/contact.js
+          node --check site/tests/check-site.mjs
+          node --check site/tests/check-responsive.mjs
+          node --check site/tests/check-growth.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
+      - name: Validate required multilingual files
+        run: node site/tests/check-responsive.mjs files
+      - name: Validate premium design system
+        run: node site/tests/check-responsive.mjs premium
+      - name: Validate responsive QA polish
+        run: node site/tests/check-responsive.mjs polish
+      - name: Validate legacy premium bridge
+        run: node site/tests/check-responsive.mjs legacy
+      - name: Validate legal navigation script
+        run: node site/tests/check-responsive.mjs legaljs
+      - name: Validate secondary-page responsive styles
+        run: node site/tests/check-responsive.mjs secondary
+      - name: Validate multilingual homepages
+        run: node site/tests/check-responsive.mjs home
+      - name: Validate security headers and EU flag
+        run: node site/tests/check-responsive.mjs security
+      - name: Validate insights and multilingual content
+        run: node site/tests/check-growth.mjs

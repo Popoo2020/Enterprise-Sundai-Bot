@@ -8,15 +8,12 @@
 
 /
   Cache-Control: public, max-age=0, must-revalidate
-  Clear-Site-Data: "cache"
 
 /da/
   Cache-Control: public, max-age=0, must-revalidate
-  Clear-Site-Data: "cache"
 
 /sv/
   Cache-Control: public, max-age=0, must-revalidate
-  Clear-Site-Data: "cache"
 
 /assets/*.css
   Cache-Control: public, max-age=0, must-revalidate
