@@ -1,4 +1,9 @@
 (() => {
+  const polish = document.createElement('link');
+  polish.rel = 'stylesheet';
+  polish.href = '/assets/qa-polish.css?v=20260724q1';
+  document.head.appendChild(polish);
+
   const nav = document.querySelector('[data-nav]') || document.querySelector('.nav');
   const toggle = document.querySelector('[data-nav-toggle]');
   const dialog = document.querySelector('[data-contact-dialog]');
