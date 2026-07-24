@@ -6,8 +6,9 @@
     link.href = href;
     document.head.appendChild(link);
   };
-  addStylesheet('/assets/qa-polish.css?v=20260724p3');
-  addStylesheet('/assets/training.css?v=20260724p3');
+  addStylesheet('/assets/qa-polish.css?v=20260724g');
+  addStylesheet('/assets/training.css?v=20260724g');
+  addStylesheet('/assets/final-polish.css?v=20260724g');
 
   const theme = document.querySelector('meta[name="theme-color"]');
   if (theme) theme.content = '#ffffff';
@@ -20,7 +21,7 @@
   const config = {
     en: {
       trainingHref:'/training/', trainingLabel:'Training & Talks', resourcesHref:'/resources/', resources:'Resources', snapshot:'Snapshot',
-      responsible:'Responsible AI', responsibleTitle:'Human-centred, ethical and standards-aligned.', responsibleText:'We connect AI security and governance with fairness, accessibility, transparency and human oversight — informed by the EU AI Act, ISO/IEC 42001 and ISO/IEC 27001 principles.', responsibleCta:'Explore training & talks →',
+      responsible:'Responsible AI', responsibleTitle:'Human-centred, ethical and standards-aligned.', responsibleText:'We connect AI security and governance with fairness, accessibility, transparency and human oversight — informed by the EU AI Act, ISO/IEC 42001 and ISO/IEC 27001 principles.', responsibleCta:'Explore our methodology →', responsibleHref:'/methodology/',
       euTitle:'100% European service', euMeta:'European values · European delivery', euText:'Privacy-aware AI governance, security, automation and training for organisations across the EU and wider Europe.',
       servicesTitle:'Four ways to move AI forward safely', trainingCard:'AI Training & Talks', trainingText:'Role-based workshops and keynotes that build practical AI literacy, responsible use and security awareness.', trainingLink:'Explore training →',
       trust:[['Trust','Transparent, reliable delivery'],['Clarity','Clear strategies and outcomes'],['Security','Secure-by-design thinking'],['Quality','Tested and documented work'],['European','EU-focused and privacy-aware']],
@@ -28,7 +29,7 @@
     },
     da: {
       trainingHref:'/da/kurser-foredrag/', trainingLabel:'Kurser & foredrag', resourcesHref:'/da/ressourcer/', resources:'Ressourcer', snapshot:'Overblik',
-      responsible:'Ansvarlig AI', responsibleTitle:'Menneskecentreret, etisk og standardsorienteret.', responsibleText:'Vi forbinder AI-sikkerhed og governance med fairness, tilgængelighed, transparens og menneskeligt tilsyn — inspireret af EU AI Act samt principperne i ISO/IEC 42001 og ISO/IEC 27001.', responsibleCta:'Se kurser & foredrag →',
+      responsible:'Ansvarlig AI', responsibleTitle:'Menneskecentreret, etisk og standardsorienteret.', responsibleText:'Vi forbinder AI-sikkerhed og governance med fairness, tilgængelighed, transparens og menneskeligt tilsyn — inspireret af EU AI Act samt principperne i ISO/IEC 42001 og ISO/IEC 27001.', responsibleCta:'Se vores metode →', responsibleHref:'/da/metode/',
       euTitle:'100% europæisk service', euMeta:'Europæiske værdier · Europæisk levering', euText:'Privatlivsbevidst AI-governance, sikkerhed, automatisering og træning for organisationer i EU og resten af Europa.',
       servicesTitle:'Fire måder at flytte AI sikkert fremad', trainingCard:'AI-kurser & foredrag', trainingText:'Rollebaserede workshops og foredrag, der styrker praktisk AI-literacy, ansvarlig brug og sikkerhedsbevidsthed.', trainingLink:'Se kurser →',
       trust:[['Tillid','Transparent og pålidelig levering'],['Klarhed','Tydelige strategier og resultater'],['Sikkerhed','Secure-by-design tilgang'],['Kvalitet','Testet og dokumenteret arbejde'],['Europæisk','EU-fokuseret og privatlivsbevidst']],
@@ -36,7 +37,7 @@
     },
     sv: {
       trainingHref:'/sv/utbildning-forelasningar/', trainingLabel:'Utbildning & föreläsningar', resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt',
-      responsible:'Ansvarsfull AI', responsibleTitle:'Människocentrerat, etiskt och standardbaserat.', responsibleText:'Vi förenar AI-säkerhet och styrning med rättvisa, tillgänglighet, transparens och mänsklig tillsyn — med stöd i EU AI Act samt principerna i ISO/IEC 42001 och ISO/IEC 27001.', responsibleCta:'Se utbildning & föreläsningar →',
+      responsible:'Ansvarsfull AI', responsibleTitle:'Människocentrerat, etiskt och standardbaserat.', responsibleText:'Vi förenar AI-säkerhet och styrning med rättvisa, tillgänglighet, transparens och mänsklig tillsyn — med stöd i EU AI Act samt principerna i ISO/IEC 42001 och ISO/IEC 27001.', responsibleCta:'Se vår metod →', responsibleHref:'/sv/metod/',
       euTitle:'100% europeisk service', euMeta:'Europeiska värderingar · Europeisk leverans', euText:'Integritetsmedveten AI-styrning, säkerhet, automatisering och utbildning för organisationer i EU och övriga Europa.',
       servicesTitle:'Fyra sätt att föra AI framåt på ett säkert sätt', trainingCard:'AI-utbildning & föreläsningar', trainingText:'Rollbaserade workshops och föreläsningar som stärker praktisk AI-kunnighet, ansvarsfull användning och säkerhetsmedvetenhet.', trainingLink:'Se utbildning →',
       trust:[['Tillit','Transparent och tillförlitlig leverans'],['Tydlighet','Tydliga strategier och resultat'],['Säkerhet','Secure-by-design perspektiv'],['Kvalitet','Testat och dokumenterat arbete'],['Europeiskt','EU-fokuserat och integritetsmedvetet']],
@@ -71,13 +72,13 @@
       if (heading) heading.textContent = config.servicesTitle;
       const card = document.createElement('article');
       card.className = 'service-card training-service';
-      card.innerHTML = `<a href="${config.trainingHref}"><div class="service-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M6 6h15a5 5 0 0 1 5 5v15H11a5 5 0 0 1-5-5Z"/><path d="M11 11h10M11 16h10M11 21h6"/></svg></div><h3>${config.trainingCard}</h3><p>${config.trainingText}</p><span class="card-link">${config.trainingLink}</span></a>`;
+      card.innerHTML = `<a href="${config.trainingHref}"><div class="service-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M7 5h18v22H7z"/><path d="M11 10h10M11 15h10M11 20h7"/></svg></div><h3>${config.trainingCard}</h3><p>${config.trainingText}</p><span class="card-link">${config.trainingLink}</span></a>`;
       const automation = [...grid.children].find(x => /automation|automatisering/i.test(x.textContent));
       grid.insertBefore(card, automation || null);
     }
 
     const services = document.querySelector('.services');
-    if (services && !document.querySelector('.premium-trust-strip')) {
+    if (services && !document.querySelector('.premium-trust-strip') && !document.querySelector('.proof-strip')) {
       const icons = ['✓','◎','◇','◆','EU'];
       const strip = document.createElement('section');
       strip.className = 'premium-trust-strip';
@@ -89,12 +90,12 @@
     if (document.querySelector('#why') && !document.querySelector('.human-standard')) {
       const section = document.createElement('section');
       section.className = 'human-standard';
-      section.innerHTML = `<div class="container"><div><p class="eyebrow">${config.responsible}</p><h2>${config.responsibleTitle}</h2><p>${config.responsibleText}</p></div><a href="${config.trainingHref}">${config.responsibleCta}</a></div>`;
+      section.innerHTML = `<div class="container"><div><p class="eyebrow">${config.responsible}</p><h2>${config.responsibleTitle}</h2><p>${config.responsibleText}</p></div><a href="${config.responsibleHref}">${config.responsibleCta}</a></div>`;
       document.querySelector('#why').insertAdjacentElement('afterend',section);
     }
   }
 
-  const ecosystemRoot = document.querySelector('.ecosystem-assets');
+  const ecosystemRoot = document.querySelector('.ecosystem-assets, .ecosystem-groups');
   if (ecosystemRoot && config) {
     const c = config.ecosystem;
     const platforms = [
@@ -140,12 +141,5 @@
       catch { status.textContent=form.dataset.error||'The message could not be sent. Please try again later.';status.classList.add('error'); }
       finally { button.disabled=false;button.removeAttribute('aria-busy'); }
     });
-  }
-
-  if (document.querySelector('.hero')) {
-    const script = document.createElement('script');
-    script.src = '/assets/final-polish.js?v=20260724f';
-    script.defer = true;
-    document.body.appendChild(script);
   }
 })();
