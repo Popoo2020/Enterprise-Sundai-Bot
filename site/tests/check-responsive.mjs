@@ -19,24 +19,36 @@ if (run('files')) {
   console.log('Required multilingual files exist.');
 }
 
-if (run('assets')) {
+if (run('premium')) {
   const premiumCss = await readFile(path.join(root, 'assets/neon-compact.css'), 'utf8');
   for (const token of ['--navy:#0b132b','background:#fff','@media(max-width:950px)','@media(prefers-reduced-motion:reduce)']) {
     if (!premiumCss.includes(token)) throw new Error(`Premium CSS missing token: ${token}`);
   }
+  console.log('Premium design system passed.');
+}
+
+if (run('polish')) {
   const polishCss = await readFile(path.join(root, 'assets/qa-polish.css'), 'utf8');
   for (const token of ['.nav:not([data-nav])','overflow-x:auto','prefers-reduced-motion']) {
     if (!polishCss.includes(token)) throw new Error(`QA polish missing protection: ${token}`);
   }
+  console.log('Responsive QA polish passed.');
+}
+
+if (run('legacy')) {
   const legacyCss = await readFile(path.join(root, 'assets/styles.css'), 'utf8');
   for (const token of ['.brand-mark{display:none!important}', '.legal-page', '.nav-toggle+.site-nav.open']) {
     if (!legacyCss.includes(token)) throw new Error(`Legacy premium bridge missing token: ${token}`);
   }
+  console.log('Legacy premium bridge passed.');
+}
+
+if (run('legaljs')) {
   const legalJs = await readFile(path.join(root, 'assets/site.js'), 'utf8');
   for (const token of ["event.key !== 'Escape'", "classList.toggle('open'", 'data-year']) {
     if (!legalJs.includes(token)) throw new Error(`Legal navigation script missing token: ${token}`);
   }
-  console.log('Premium assets and navigation protections passed.');
+  console.log('Legal navigation script passed.');
 }
 
 if (run('secondary')) {
