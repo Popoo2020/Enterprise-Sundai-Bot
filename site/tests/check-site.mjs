@@ -17,7 +17,7 @@ async function walk(dir) {
 }
 
 const htmlFiles = await walk(root);
-if (htmlFiles.length < 10) errors.push(`Expected at least 10 HTML pages, found ${htmlFiles.length}`);
+if (htmlFiles.length < 16) errors.push(`Expected at least 16 HTML pages, found ${htmlFiles.length}`);
 const homePages = new Set(['index.html', path.join('da','index.html'), path.join('sv','index.html')]);
 
 for (const file of htmlFiles) {
@@ -43,7 +43,7 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/sundai-logo-neon.svg','assets/hero-ai-control-neon.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','functions/api/contact.js']) {
+for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt','.well-known/security.txt','assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/sundai-logo-neon.svg','assets/hero-ai-control-neon.svg','assets/visual-governance.svg','assets/visual-adoption.svg','assets/visual-security.svg','functions/api/contact.js','training/index.html','da/kurser-foredrag/index.html','sv/utbildning-forelasningar/index.html']) {
   try { await access(path.join(root, required)); }
   catch { errors.push(`Missing required deployment file: ${required}`); }
 }
@@ -51,14 +51,22 @@ for (const required of ['robots.txt','sitemap.xml','_headers','_routes.json','_r
 for (const [page, tokens] of Object.entries({
   'index.html':['Secure AI adoption for','AI Governance','10-day AI Risk & Readiness Snapshot'],
   'da/index.html':['Sikker AI-implementering for','AI-governance','10-dages AI Risk & Readiness Snapshot'],
-  'sv/index.html':['Säker AI-implementering för','AI-styrning','10-dagars AI Risk & Readiness Snapshot']
+  'sv/index.html':['Säker AI-implementering för','AI-styrning','10-dagars AI Risk & Readiness Snapshot'],
+  'training/index.html':['AI Literacy for the Modern Workplace','ISO/IEC 42001','Human-centred by design'],
+  'da/kurser-foredrag/index.html':['AI-literacy på arbejdspladsen','ISO/IEC 42001','Menneskecentreret fra starten'],
+  'sv/utbildning-forelasningar/index.html':['AI-kunnighet i arbetslivet','ISO/IEC 42001','Människocentrerat från början']
 })) {
   const html = await readFile(path.join(root, page), 'utf8');
   for (const token of tokens) if (!html.includes(token)) errors.push(`${page}: missing focused multilingual token ${token}`);
+}
+
+const siteJs = await readFile(path.join(root, 'assets/neon-compact.js'), 'utf8');
+for (const token of ['Training & Talks','Kurser & foredrag','Utbildning & föreläsningar','Human-centred, ethical and standards-aligned.']) {
+  if (!siteJs.includes(token)) errors.push(`neon-compact.js: missing navigation or trust token ${token}`);
 }
 
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, compact multilingual content, neon brand assets, SEO and deployment files.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, compact multilingual content, training, responsible AI, neon assets, SEO and deployment files.`);
