@@ -1,5 +1,28 @@
 {
   "version": 1,
-  "include": ["/api/*"],
-  "exclude": []
+  "include": [
+    "/api/*",
+    "/services/*",
+    "/training/*",
+    "/use-cases/*",
+    "/industries/*",
+    "/resources/*",
+    "/case-studies/*",
+    "/trust/*",
+    "/da/ydelser/*",
+    "/da/kurser-foredrag/*",
+    "/da/anvendelser/*",
+    "/da/brancher/*",
+    "/da/ressourcer/*",
+    "/da/cases/*",
+    "/da/tillid/*",
+    "/sv/tjanster/*",
+    "/sv/utbildning-forelasningar/*",
+    "/sv/anvandningsfall/*",
+    "/sv/branscher/*",
+    "/sv/resurser/*",
+    "/sv/fallstudier/*",
+    "/sv/tillit/*"
+  ],
+  "exclude": ["/assets/*"]
 }
