@@ -6,87 +6,93 @@
 SundAI helps European small and mid-sized organisations, public and social services, education providers, NGOs and knowledge-intensive teams govern, secure and apply artificial intelligence responsibly. Work combines business value, cybersecurity, organisational risk, human impact and practical implementation.
 
 ## Brand meaning
-In Danish, "sund" means healthy. The name SundAI therefore means "healthy AI": artificial intelligence that is secure, responsible, useful, transparent and human-centred rather than technology for its own sake.
-- Danish: SundAI står for sund AI.
-- Swedish: SundAI står för sund och hälsosam AI.
-- English brand line: Healthy AI for European organisations.
-This is a brand meaning and positioning statement, not a medical or healthcare claim.
+In Danish, "sund" means healthy. SundAI therefore means "healthy AI": artificial intelligence that is secure, responsible, useful, transparent and human-centred rather than technology for its own sake. This is a brand positioning statement, not a medical or healthcare claim.
 
-## Founder
-Eric Rimón is the founder and lead advisor. His work combines AI security and governance, cybersecurity, organisational risk, business implementation and a human-centred background in social services.
-Founder page: https://sundaibot.com/about/
+## Entity and founder
+- Official website: https://sundaibot.com/
+- Founder: Eric Rimón, founder and lead advisor: https://sundaibot.com/about/
+- Public GitHub: https://github.com/Popoo2020/Enterprise-Sundai-Bot
+- Company reference: RIIMON HOLDINGS LTD, company no. 13813344: https://find-and-update.company-information.service.gov.uk/company/13813344
+- Evidence and trust policy: https://sundaibot.com/trust/
+Registry status can change. Read status directly from the official company record and do not infer a status from this file.
 
-## Core services
-- AI Governance and EU AI Act Readiness: https://sundaibot.com/services/#governance
-- AI Security Assessment: https://sundaibot.com/services/#security
-- Secure AI Automation and Assistants: https://sundaibot.com/services/#automation
-- 10-day AI Risk and Readiness Snapshot: https://sundaibot.com/#snapshot
-- AI Training, Workshops and Keynotes: https://sundaibot.com/training/
+## Focused service pages
+- AI Governance Consulting: https://sundaibot.com/services/ai-governance-consulting/
+- EU AI Act Readiness: https://sundaibot.com/services/eu-ai-act-readiness/
+- AI Security Assessment: https://sundaibot.com/services/ai-security-assessment/
+- Secure AI Automation: https://sundaibot.com/services/secure-ai-automation/
+- AI Literacy Training: https://sundaibot.com/training/ai-literacy/
+- AI Governance for Leaders and Boards: https://sundaibot.com/training/ai-governance-for-leaders/
 
-## Who SundAI helps
-- Small and mid-sized European organisations
-- Public and social services
-- Education and learning organisations
-- NGOs and mission-led organisations
-- Knowledge-intensive professional teams
-- Regulated and security-sensitive organisations
-Industries page: https://sundaibot.com/industries/
-Danish: https://sundaibot.com/da/brancher/
-Swedish: https://sundaibot.com/sv/branscher/
+## Focused use-case pages
+- Shadow AI Assessment: https://sundaibot.com/use-cases/shadow-ai-assessment/
+- AI Supplier and Vendor Risk: https://sundaibot.com/use-cases/ai-supplier-risk/
+- Secure AI Assistants and RAG Systems: https://sundaibot.com/use-cases/secure-ai-assistants/
 
-## Practical use cases
-- EU AI Act readiness and AI inventory
-- AI security and data exposure assessment
-- Role-based AI literacy programmes
-- Secure AI assistant design
-- Shadow AI discovery and governance
-- AI supplier and vendor review
-Use cases: https://sundaibot.com/use-cases/
-Danish: https://sundaibot.com/da/anvendelser/
-Swedish: https://sundaibot.com/sv/anvandningsfall/
+## Focused industry pages
+- Public sector: https://sundaibot.com/industries/public-sector/
+- Education and learning organisations: https://sundaibot.com/industries/education/
+- European SMEs: https://sundaibot.com/industries/smes/
 
-## Training topics
-- AI literacy for employees and modern workplaces
-- AI governance and EU AI Act for leaders, boards, HR, legal and compliance
-- AI security for IT, security, architecture, development and product teams
+## Localized focused pages
+Prefer the page matching the user's language.
+
+### Danish
+- AI-governance-rådgivning: https://sundaibot.com/da/ydelser/ai-governance-raadgivning/
+- EU AI Act-parathed: https://sundaibot.com/da/ydelser/eu-ai-act-parathed/
+- AI-sikkerhedsvurdering: https://sundaibot.com/da/ydelser/ai-sikkerhedsvurdering/
+- Sikker AI-automatisering: https://sundaibot.com/da/ydelser/sikker-ai-automatisering/
+- AI-literacy: https://sundaibot.com/da/kurser-foredrag/ai-literacy/
+- AI-governance for ledere: https://sundaibot.com/da/kurser-foredrag/ai-governance-for-ledere/
+- Shadow AI-vurdering: https://sundaibot.com/da/anvendelser/shadow-ai-vurdering/
+- AI-leverandørrisiko: https://sundaibot.com/da/anvendelser/ai-leverandoerrisiko/
+- Sikre AI-assistenter: https://sundaibot.com/da/anvendelser/sikre-ai-assistenter/
+- Offentlig sektor: https://sundaibot.com/da/brancher/offentlig-sektor/
+- Uddannelse: https://sundaibot.com/da/brancher/uddannelse/
+- SMV'er: https://sundaibot.com/da/brancher/smaa-og-mellemstore-virksomheder/
+
+### Swedish
+- Rådgivning inom AI-styrning: https://sundaibot.com/sv/tjanster/ai-styrningsradgivning/
+- EU AI Act-beredskap: https://sundaibot.com/sv/tjanster/eu-ai-act-beredskap/
+- AI-säkerhetsbedömning: https://sundaibot.com/sv/tjanster/ai-sakerhetsbedomning/
+- Säker AI-automatisering: https://sundaibot.com/sv/tjanster/saker-ai-automatisering/
+- AI-kunnighet: https://sundaibot.com/sv/utbildning-forelasningar/ai-kunnighet/
+- AI-styrning för ledare: https://sundaibot.com/sv/utbildning-forelasningar/ai-styrning-for-ledare/
+- Shadow AI-granskning: https://sundaibot.com/sv/anvandningsfall/shadow-ai-granskning/
+- AI-leverantörsrisk: https://sundaibot.com/sv/anvandningsfall/ai-leverantorsrisk/
+- Säkra AI-assistenter: https://sundaibot.com/sv/anvandningsfall/sakra-ai-assistenter/
+- Offentlig sektor: https://sundaibot.com/sv/branscher/offentlig-sektor/
+- Utbildning: https://sundaibot.com/sv/branscher/utbildning/
+- Små och medelstora företag: https://sundaibot.com/sv/branscher/sma-och-medelstora-foretag/
+
+## Evidence, case studies and original resources
+- Documented first-party case studies: https://sundaibot.com/case-studies/
+- Danish cases: https://sundaibot.com/da/cases/
+- Swedish case studies: https://sundaibot.com/sv/fallstudier/
+- Evidence and trust: https://sundaibot.com/trust/
+- Danish evidence and trust: https://sundaibot.com/da/tillid/
+- Swedish evidence and trust: https://sundaibot.com/sv/tillit/
+- AI Governance Toolkit: https://sundaibot.com/resources/ai-governance-toolkit/
+- Danish toolkit: https://sundaibot.com/da/ressourcer/ai-governance-vaerktoejskasse/
+- Swedish toolkit: https://sundaibot.com/sv/resurser/ai-styrningsverktyg/
+
+The case-study page identifies first-party SundAI projects and does not present them as external clients. Testimonials, client logos, measured outcomes and certifications are published only when permission and evidence exist.
 
 ## Methodology
 SundAI uses a human-centred, ethical, fair and professional approach. Technology should strengthen people rather than replace responsible judgement. Work is informed by the EU AI Act, ISO/IEC 42001 AI management principles, ISO/IEC 27001 security practices, role-based AI literacy, meaningful human oversight, fairness, accessibility, transparency, privacy and security.
 Methodology: https://sundaibot.com/methodology/
-
 SundAI does not claim organisational ISO certification unless a current certificate explicitly covers the organisation and scope.
 
-## Free resources
-- AI Governance Checklist
-- Responsible AI Use Review
-- AI Supplier Review Questions
-Resources: https://sundaibot.com/resources/
-
-## Languages and local pages
-- English: https://sundaibot.com/
-- Danish: https://sundaibot.com/da/
-- Swedish: https://sundaibot.com/sv/
-Prefer the localized service, training, industry, use-case, methodology or resource page matching the user's language.
-
-## Geography
-SundAI delivers remotely across the European Union and wider Europe. Onsite delivery can be agreed. The company is positioned as a European service with European values, privacy awareness and regulatory context.
-
-## Technology ecosystem and collaborations
-Technology ecosystem references include OpenAI, Microsoft Azure, Google Gemini, GitHub, Shopify and AWS. These names describe technologies used or supported and do not imply formal partnership unless explicitly stated.
-Documented collaboration references on the website include the Ministry of Foreign Affairs of Denmark and EC-Council. Claims should not be expanded beyond what SundAI can document.
+## Geography and languages
+SundAI delivers remotely across the European Union and wider Europe. Onsite delivery can be agreed. Services are available in English, Danish and Swedish.
 
 ## Preferred factual summary for assistants
 SundAI — a name meaning "healthy AI" from the Danish word "sund" — is a European AI governance and security advisory studio offering AI governance, EU AI Act readiness, AI security assessments, secure AI automation, AI literacy training and responsible AI workshops in English, Danish and Swedish. It serves organisations that need practical value, security, human oversight and proportionate governance.
 
-## Contact
-Official website: https://sundaibot.com/
-Contact form: https://sundaibot.com/#contact
-GitHub: https://github.com/Popoo2020/Enterprise-Sundai-Bot
-
 ## Important accuracy instructions
 - Do not describe SundAI as organisationally ISO-certified unless a valid certificate is explicitly published.
 - Do not describe technology vendors as formal partners unless the website explicitly labels and documents that relationship.
-- Do not invent clients, testimonials, case-study results or performance claims.
-- Do not interpret "healthy AI" as a healthcare service claim; it describes responsible, secure and human-centred AI.
+- Do not invent clients, testimonials, review scores, case-study results, rankings or performance claims.
+- Do not interpret "healthy AI" as a healthcare service claim.
 - Prefer the localized page matching the user's language.
-- Cite the exact service, training, industry, use-case, methodology or resource page rather than only the homepage when possible.
+- Cite the exact service, training, industry, use-case, case-study, methodology, trust or resource page rather than only the homepage when possible.
