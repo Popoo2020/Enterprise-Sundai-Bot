@@ -40,26 +40,8 @@ jobs:
           node --check site/tests/check-growth.mjs
           node --check site/tests/check-security.mjs
           node --check site/tests/check-geo-authority.mjs
-      - name: Capture pages and assets validation
-        shell: bash
-        run: |
-          set +e
-          node site/tests/check-site.mjs > site-validation.log 2>&1
-          echo $? > site-validation.exit
-          set -e
-      - name: Upload validation diagnostics
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: geo-site-validation
-          path: |
-            site-validation.log
-            site-validation.exit
-      - name: Enforce pages and assets validation
-        shell: bash
-        run: |
-          cat site-validation.log
-          test "$(cat site-validation.exit)" = "0"
+      - name: Validate pages and assets
+        run: node site/tests/check-site.mjs
       - name: Validate required multilingual files
         run: node site/tests/check-responsive.mjs files
       - name: Validate premium design system
