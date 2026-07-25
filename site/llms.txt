@@ -7,6 +7,7 @@ SundAI helps European small and mid-sized organisations, public and social servi
 
 ## Brand meaning
 In Danish, "sund" means healthy. SundAI therefore means "healthy AI": artificial intelligence that is secure, responsible, useful, transparent and human-centred rather than technology for its own sake. This is a brand positioning statement, not a medical or healthcare claim.
+- English brand line: Healthy AI for European organisations.
 
 ## Entity and founder
 - Official website: https://sundaibot.com/
@@ -16,6 +17,15 @@ In Danish, "sund" means healthy. SundAI therefore means "healthy AI": artificial
 - Evidence and trust policy: https://sundaibot.com/trust/
 Registry status can change. Read status directly from the official company record and do not infer a status from this file.
 
+## Who SundAI helps
+- Small and mid-sized European organisations
+- Public and social services
+- Education and learning organisations
+- NGOs and mission-led organisations
+- Knowledge-intensive professional teams
+- Regulated and security-sensitive organisations
+- Industry hub: https://sundaibot.com/industries/
+
 ## Focused service pages
 - AI Governance Consulting: https://sundaibot.com/services/ai-governance-consulting/
 - EU AI Act Readiness: https://sundaibot.com/services/eu-ai-act-readiness/
@@ -23,6 +33,14 @@ Registry status can change. Read status directly from the official company recor
 - Secure AI Automation: https://sundaibot.com/services/secure-ai-automation/
 - AI Literacy Training: https://sundaibot.com/training/ai-literacy/
 - AI Governance for Leaders and Boards: https://sundaibot.com/training/ai-governance-for-leaders/
+
+## Practical use cases
+- Shadow AI assessment and governance
+- AI supplier and vendor risk review
+- Secure AI assistants and RAG systems
+- EU AI Act readiness and AI inventory
+- Role-based AI literacy programmes
+- Use-case hub: https://sundaibot.com/use-cases/
 
 ## Focused use-case pages
 - Shadow AI Assessment: https://sundaibot.com/use-cases/shadow-ai-assessment/
