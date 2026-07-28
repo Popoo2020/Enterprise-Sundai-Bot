@@ -4,6 +4,7 @@ import process from 'node:process';
 
 const root = path.resolve(import.meta.dirname, '..');
 const svg = await readFile(path.join(root, 'assets/hero-ai-control-neon.svg'), 'utf8');
+const layoutCss = await readFile(path.join(root, 'assets/training.css'), 'utf8');
 const errors = [];
 
 for (const token of [
@@ -28,9 +29,33 @@ for (const forbidden of ['feGaussianBlur', 'feDropShadow', '<filter', 'stdDeviat
 const visibleBounds = [...svg.matchAll(/(?:cx|x|x1|x2)="(-?\d+(?:\.\d+)?)"/g)].map(match => Number(match[1]));
 if (visibleBounds.length && Math.max(...visibleBounds) < 590) errors.push('Hero SVG does not use enough of the horizontal canvas.');
 
+for (const token of [
+  'grid-template-columns:minmax(0,1.08fr) minmax(400px,.92fr)',
+  'width:min(100%,610px)',
+  'aspect-ratio:690/520',
+  'width:min(100%,450px)',
+  '@media(max-width:680px){.hero-art{display:none!important}}',
+  'object-fit:contain',
+  'filter:none'
+]) {
+  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required sizing token: ${token}`);
+}
+
+const pages = [
+  ['index.html', 'en'],
+  ['da/index.html', 'da'],
+  ['sv/index.html', 'sv']
+];
+for (const [page, language] of pages) {
+  const html = await readFile(path.join(root, page), 'utf8');
+  const heroMatches = html.match(/<div class="hero-art"><img src="\/assets\/hero-ai-control-neon\.svg"[^>]*width="690" height="520"[^>]*><\/div>/g) || [];
+  if (heroMatches.length !== 1) errors.push(`${page}: expected exactly one shared 690×520 hero image, found ${heroMatches.length}`);
+  if (!html.includes(`<html lang="${language}"`)) errors.push(`${page}: expected language ${language}`);
+}
+
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
 
-console.log('Hero artwork passed brand palette, exact-dimension and no-blur checks.');
+console.log('Hero artwork passed palette, resolution and multilingual desktop/tablet/mobile sizing checks.');
