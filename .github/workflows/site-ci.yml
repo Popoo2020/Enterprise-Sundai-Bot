@@ -40,6 +40,7 @@ jobs:
           node --check site/tests/check-growth.mjs
           node --check site/tests/check-security.mjs
           node --check site/tests/check-geo-authority.mjs
+          node --check site/tests/check-hero-visual.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
       - name: Validate required multilingual files
@@ -64,3 +65,5 @@ jobs:
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness
         run: node site/tests/check-geo-authority.mjs
+      - name: Validate hero artwork quality
+        run: node site/tests/check-hero-visual.mjs
