@@ -1,66 +1,71 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="690" height="520" viewBox="0 0 690 520" preserveAspectRatio="xMidYMid meet" shape-rendering="geometricPrecision" role="img" aria-labelledby="title desc">
-  <title id="title">SundAI governance control stack</title>
-  <desc id="desc">A calm, minimal illustration of an AI system moving through governance controls, security checks and human oversight.</desc>
+  <title id="title">SundAI refined governance control stack</title>
+  <desc id="desc">A clean and calm illustration of an AI system flowing through governance and security controls into human oversight.</desc>
   <defs>
-    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#F3F8FF"/>
-    </linearGradient>
     <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#2563EB"/>
-      <stop offset=".55" stop-color="#06B6D4"/>
+      <stop offset=".58" stop-color="#06B6D4"/>
       <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F9FF"/>
     </linearGradient>
   </defs>
 
-  <rect x="88" y="64" width="514" height="382" rx="42" fill="url(#panel)" stroke="#D9E7FF" stroke-width="2"/>
-  <path d="M116 126V384" stroke="#E7EFFB" stroke-width="2" stroke-dasharray="5 11"/>
-  <path d="M574 122V388" stroke="#E7EFFB" stroke-width="2" stroke-dasharray="5 11"/>
-  <circle cx="104" cy="106" r="6" fill="#F97316"/>
-  <circle cx="586" cy="410" r="6" fill="#7C3AED"/>
-  <circle cx="590" cy="104" r="4" fill="#06B6D4"/>
-  <circle cx="100" cy="412" r="4" fill="#2563EB"/>
-
-  <path d="M345 168V352" stroke="#BFD5FF" stroke-width="3"/>
-  <circle cx="345" cy="202" r="6" fill="#2563EB" stroke="#FFFFFF" stroke-width="3"/>
-  <circle cx="345" cy="322" r="6" fill="#06B6D4" stroke="#FFFFFF" stroke-width="3"/>
-
-  <rect x="166" y="96" width="358" height="104" rx="24" fill="#FFFFFF" stroke="#CFE0FB" stroke-width="2"/>
-  <rect x="184" y="114" width="68" height="68" rx="18" fill="#EEF5FF" stroke="#D6E5FF" stroke-width="2"/>
-  <path d="M218 123 244 138v30l-26 15-26-15v-30Z" fill="url(#core)"/>
-  <path d="M218 135v36M202 144l32 18M234 144l-32 18" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".95"/>
-  <circle cx="218" cy="153" r="6" fill="#FFFFFF"/>
-  <rect x="276" y="120" width="146" height="10" rx="5" fill="#0B132B" opacity=".9"/>
-  <rect x="276" y="143" width="192" height="8" rx="4" fill="#DCE8F8"/>
-  <rect x="276" y="162" width="130" height="8" rx="4" fill="#E7EFFB"/>
-  <g fill="#2563EB">
-    <circle cx="474" cy="128" r="3"/><circle cx="484" cy="114" r="3"/><circle cx="498" cy="110" r="3"/><circle cx="510" cy="118" r="3"/>
-    <circle cx="514" cy="132" r="3"/><circle cx="508" cy="145" r="3"/><circle cx="496" cy="153" r="3"/><circle cx="482" cy="150" r="3"/>
-    <circle cx="474" cy="138" r="3"/><circle cx="478" cy="124" r="3"/><circle cx="490" cy="116" r="3"/><circle cx="504" cy="122" r="3"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M345 122V396" stroke="#D6E5FF" stroke-width="4"/>
+    <path d="M345 168l-10-10m10 10 10-10" stroke="#9BC4FF" stroke-width="3"/>
+    <path d="M345 292l-10-10m10 10 10-10" stroke="#9BC4FF" stroke-width="3"/>
   </g>
 
-  <rect x="126" y="218" width="438" height="102" rx="24" fill="#F7FAFF" stroke="#BFD5FF" stroke-width="2"/>
-  <rect x="146" y="238" width="64" height="64" rx="18" fill="#FFFFFF" stroke="#CFE0FB" stroke-width="2"/>
-  <path d="M178 245 199 254v17c0 16-8 27-21 35-13-8-21-19-21-35v-17Z" fill="#2563EB"/>
-  <path d="m168 271 7 7 14-17" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="232" y="240" width="122" height="9" rx="4.5" fill="#0B132B" opacity=".9"/>
-  <rect x="232" y="262" width="262" height="8" rx="4" fill="#DCE8F8"/>
-  <rect x="232" y="282" width="188" height="8" rx="4" fill="#E7EFFB"/>
-  <rect x="442" y="280" width="32" height="14" rx="7" fill="#2563EB" opacity=".16"/>
-  <rect x="480" y="280" width="32" height="14" rx="7" fill="#06B6D4" opacity=".2"/>
-  <rect x="518" y="280" width="24" height="14" rx="7" fill="#7C3AED" opacity=".18"/>
+  <g opacity=".32">
+    <circle cx="142" cy="122" r="4" fill="#06B6D4"/>
+    <circle cx="550" cy="124" r="4" fill="#2563EB"/>
+    <circle cx="169" cy="389" r="5" fill="#F97316"/>
+    <circle cx="531" cy="390" r="5" fill="#7C3AED"/>
+  </g>
 
-  <rect x="174" y="338" width="342" height="82" rx="22" fill="#FFFFFF" stroke="#CFE0FB" stroke-width="2"/>
-  <circle cx="220" cy="379" r="25" fill="#EEF5FF" stroke="#D6E5FF" stroke-width="2"/>
-  <circle cx="220" cy="371" r="7" fill="#0F766E"/>
-  <path d="M207 390c3-9 8-13 13-13s10 4 13 13" fill="none" stroke="#0F766E" stroke-width="4" stroke-linecap="round"/>
-  <rect x="260" y="359" width="110" height="9" rx="4.5" fill="#0B132B" opacity=".9"/>
-  <rect x="260" y="381" width="154" height="8" rx="4" fill="#DCE8F8"/>
-  <rect x="436" y="356" width="56" height="46" rx="14" fill="#E8F8F5" stroke="#BFE7DE" stroke-width="2"/>
-  <path d="m451 379 8 8 18-21" fill="none" stroke="#0F766E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(345 138)">
+    <ellipse cy="54" rx="130" ry="14" fill="#EAF2FF"/>
+    <rect x="-126" y="-4" width="252" height="104" rx="24" fill="url(#surface)" stroke="#D6E5FF" stroke-width="2"/>
+    <rect x="-104" y="18" width="72" height="72" rx="20" fill="#EFF6FF" stroke="#D6E5FF" stroke-width="2"/>
+    <path d="M-68 28-42 43v30L-68 88-94 73V43Z" fill="url(#core)"/>
+    <path d="M-68 41v34M-84 49l32 18M-52 49l-32 18" stroke="#FFFFFF" stroke-width="3"/>
+    <circle cx="-68" cy="58" r="5.5" fill="#FFFFFF"/>
+    <rect x="-8" y="22" width="102" height="10" rx="5" fill="#0B132B" opacity=".92"/>
+    <rect x="-8" y="45" width="154" height="8" rx="4" fill="#DCE8F8"/>
+    <rect x="-8" y="64" width="114" height="8" rx="4" fill="#E7EFFB"/>
+    <g fill="#2563EB" opacity=".95">
+      <circle cx="118" cy="27" r="3.5"/><circle cx="131" cy="18" r="3.5"/><circle cx="147" cy="19" r="3.5"/>
+      <circle cx="157" cy="31" r="3.5"/><circle cx="155" cy="47" r="3.5"/><circle cx="143" cy="57" r="3.5"/>
+      <circle cx="127" cy="58" r="3.5"/><circle cx="116" cy="46" r="3.5"/>
+    </g>
+  </g>
 
-  <path d="M118 250c-14 0-24 10-24 24v28c0 14 10 24 24 24" fill="none" stroke="#D6E5FF" stroke-width="2"/>
-  <path d="M572 250c14 0 24 10 24 24v28c0 14-10 24-24 24" fill="none" stroke="#D6E5FF" stroke-width="2"/>
-  <circle cx="94" cy="288" r="5" fill="#06B6D4"/>
-  <circle cx="596" cy="288" r="5" fill="#F97316"/>
+  <g transform="translate(345 261)">
+    <ellipse cy="60" rx="160" ry="15" fill="#EAF2FF"/>
+    <rect x="-158" y="0" width="316" height="118" rx="28" fill="#F8FBFF" stroke="#BFD5FF" stroke-width="2.2"/>
+    <rect x="-130" y="23" width="70" height="70" rx="20" fill="#FFFFFF" stroke="#D7E6FF" stroke-width="2"/>
+    <path d="M-95 31-73 41v18c0 17-8 29-22 38-14-9-22-21-22-38V41Z" fill="#2563EB"/>
+    <path d="m-106 60 8 8 16-19" fill="none" stroke="#FFFFFF" stroke-width="4.5"/>
+    <rect x="-38" y="24" width="122" height="10" rx="5" fill="#0B132B" opacity=".92"/>
+    <rect x="-38" y="47" width="222" height="8" rx="4" fill="#DCE8F8"/>
+    <rect x="-38" y="67" width="182" height="8" rx="4" fill="#E7EFFB"/>
+    <rect x="-38" y="87" width="74" height="14" rx="7" fill="#2563EB" opacity=".14"/>
+    <rect x="48" y="87" width="74" height="14" rx="7" fill="#06B6D4" opacity=".16"/>
+    <rect x="134" y="87" width="44" height="14" rx="7" fill="#F97316" opacity=".2"/>
+  </g>
+
+  <g transform="translate(345 392)">
+    <ellipse cy="34" rx="120" ry="13" fill="#EAF2FF"/>
+    <rect x="-116" y="-28" width="232" height="92" rx="24" fill="#FFFFFF" stroke="#D6E5FF" stroke-width="2"/>
+    <circle cx="-72" cy="18" r="26" fill="#F2FBF8" stroke="#C8EBDD" stroke-width="2"/>
+    <circle cx="-72" cy="8" r="7" fill="#0F766E"/>
+    <path d="M-85 28c3-10 8-14 13-14s10 4 13 14" fill="none" stroke="#0F766E" stroke-width="4"/>
+    <rect x="-28" y="-1" width="90" height="10" rx="5" fill="#0B132B" opacity=".92"/>
+    <rect x="-28" y="22" width="132" height="8" rx="4" fill="#DCE8F8"/>
+    <rect x="78" y="-13" width="28" height="28" rx="14" fill="#FFF3E9" stroke="#FFD6B6" stroke-width="1.5"/>
+    <path d="m86 1 6 6 12-14" fill="none" stroke="#F97316" stroke-width="4.5"/>
+  </g>
 </svg>
