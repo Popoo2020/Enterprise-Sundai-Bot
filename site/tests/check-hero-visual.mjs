@@ -13,27 +13,31 @@ for (const token of [
   'viewBox="0 0 690 520"',
   'preserveAspectRatio="xMidYMid meet"',
   'shape-rendering="geometricPrecision"',
+  'SundAI governance control stack',
+  'human oversight',
   '#0B132B',
   '#2563EB',
   '#06B6D4',
   '#7C3AED',
-  '#F97316'
+  '#F97316',
+  '#0F766E'
 ]) {
   if (!svg.includes(token)) errors.push(`Hero SVG missing required token: ${token}`);
 }
 
-for (const forbidden of ['feGaussianBlur', 'feDropShadow', '<filter', 'stdDeviation=']) {
-  if (svg.includes(forbidden)) errors.push(`Hero SVG contains a resolution-softening construct: ${forbidden}`);
+for (const forbidden of ['feGaussianBlur', 'feDropShadow', '<filter', 'stdDeviation=', '<image', '<text']) {
+  if (svg.includes(forbidden)) errors.push(`Hero SVG contains a forbidden or unsuitable construct: ${forbidden}`);
 }
 
 const visibleBounds = [...svg.matchAll(/(?:cx|x|x1|x2)="(-?\d+(?:\.\d+)?)"/g)].map(match => Number(match[1]));
 if (visibleBounds.length && Math.max(...visibleBounds) < 590) errors.push('Hero SVG does not use enough of the horizontal canvas.');
 
 for (const token of [
-  'grid-template-columns:minmax(0,1.08fr) minmax(400px,.92fr)',
-  'width:min(100%,610px)',
+  'grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr)',
+  'width:min(100%,470px)',
+  'width:min(100%,410px)',
   'aspect-ratio:690/520',
-  'width:min(100%,450px)',
+  'width:min(100%,360px)',
   '@media(max-width:680px){.hero-art{display:none!important}}',
   'object-fit:contain',
   'filter:none'
@@ -58,4 +62,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hero artwork passed palette, resolution and multilingual desktop/tablet/mobile sizing checks.');
+console.log('Hero artwork passed minimal governance-stack, palette, resolution and multilingual responsive sizing checks.');
