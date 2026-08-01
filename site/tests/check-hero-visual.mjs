@@ -13,8 +13,11 @@ for (const token of [
   'viewBox="0 0 690 520"',
   'preserveAspectRatio="xMidYMid meet"',
   'shape-rendering="geometricPrecision"',
-  'SundAI governance control stack',
+  'SundAI refined governance control stack',
   'human oversight',
+  'translate(345 138)',
+  'translate(345 261)',
+  'translate(345 392)',
   '#0B132B',
   '#2563EB',
   '#06B6D4',
@@ -25,19 +28,29 @@ for (const token of [
   if (!svg.includes(token)) errors.push(`Hero SVG missing required token: ${token}`);
 }
 
-for (const forbidden of ['feGaussianBlur', 'feDropShadow', '<filter', 'stdDeviation=', '<image', '<text']) {
+for (const forbidden of [
+  'feGaussianBlur',
+  'feDropShadow',
+  '<filter',
+  'stdDeviation=',
+  '<image',
+  '<text',
+  'stroke-dasharray',
+  'width="514" height="382"'
+]) {
   if (svg.includes(forbidden)) errors.push(`Hero SVG contains a forbidden or unsuitable construct: ${forbidden}`);
 }
 
-const visibleBounds = [...svg.matchAll(/(?:cx|x|x1|x2)="(-?\d+(?:\.\d+)?)"/g)].map(match => Number(match[1]));
-if (visibleBounds.length && Math.max(...visibleBounds) < 590) errors.push('Hero SVG does not use enough of the horizontal canvas.');
+const circles = (svg.match(/<circle\b/g) || []).length;
+if (circles > 18) errors.push(`Hero SVG is too decorative: expected no more than 18 circles, found ${circles}.`);
 
 for (const token of [
-  'grid-template-columns:minmax(0,1.18fr) minmax(340px,.82fr)',
-  'width:min(100%,470px)',
-  'width:min(100%,410px)',
+  'grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr)',
+  'width:min(100%,445px)',
+  'width:min(100%,390px)',
   'aspect-ratio:690/520',
-  'width:min(100%,360px)',
+  'width:min(100%,335px)',
+  'margin:14px auto 0',
   '@media(max-width:680px){.hero-art{display:none!important}}',
   'object-fit:contain',
   'filter:none'
@@ -62,4 +75,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hero artwork passed minimal governance-stack, palette, resolution and multilingual responsive sizing checks.');
+console.log('Hero artwork passed refined governance-flow, low-clutter, palette and multilingual responsive sizing checks.');
