@@ -18,7 +18,7 @@ async function walk(dir) {
 }
 
 const htmlFiles = await walk(root);
-if (htmlFiles.length < 31) errors.push(`Expected at least 31 HTML pages, found ${htmlFiles.length}`);
+if (htmlFiles.length < 34) errors.push(`Expected at least 34 HTML pages, found ${htmlFiles.length}`);
 const homePages = new Set(['index.html', path.join('da','index.html'), path.join('sv','index.html')]);
 
 for (const file of htmlFiles) {
@@ -50,12 +50,16 @@ for (const file of htmlFiles) {
 for (const required of [
   'robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt',
   '.well-known/security.txt','7f4e8d2c1b9a46f8a35d0c6e91b2f740.txt',
-  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/ai-discovery.css','assets/final-polish.css','assets/final-polish.js',
+  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/ai-discovery.css','assets/final-polish.css','assets/final-polish.js','assets/governance-offers.css',
   'assets/sundai-logo-neon.svg','assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg','assets/hero-ai-control-neon.svg','assets/eu-service-mark.svg',
   'functions/api/contact.js','training/index.html','da/kurser-foredrag/index.html','sv/utbildning-forelasningar/index.html',
   'services/index.html','da/ydelser/index.html','sv/tjanster/index.html',
   'methodology/index.html','da/metode/index.html','sv/metod/index.html',
   'resources/index.html','da/ressourcer/index.html','sv/resurser/index.html',
+  'case-studies/index.html','da/cases/index.html','sv/fallstudier/index.html',
+  'resources/downloads/ai-system-inventory-template.csv','resources/downloads/ai-vendor-assessment-checklist.md','resources/downloads/ai-impact-assessment-starter.md',
+  'da/ressourcer/downloads/ai-systemregister-skabelon.csv','da/ressourcer/downloads/ai-leverandoervurdering.md','da/ressourcer/downloads/ai-konsekvensvurdering-start.md',
+  'sv/resurser/downloads/ai-systemregister-mall.csv','sv/resurser/downloads/ai-leverantorsbedomning.md','sv/resurser/downloads/ai-konsekvensbedomning-start.md',
   'about/index.html','da/om/index.html','sv/om/index.html',
   'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
   'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html'
@@ -68,9 +72,18 @@ for (const [page, tokens] of Object.entries({
   'index.html':['Who we help','Industries','Use cases','Founder & Lead Advisor','5 min read','AI Governance'],
   'da/index.html':['Hvem vi hjælper','Brancher','Anvendelser','Grundlægger & Lead Advisor','5 min. læsning','AI-governance'],
   'sv/index.html':['Vilka vi hjälper','Branscher','Användningsfall','Grundare & Lead Advisor','5 min läsning','AI-styrning'],
-  'services/index.html':['AI Governance & EU AI Act Readiness','FAQPage','AI Security Assessment'],
-  'methodology/index.html':['Human oversight','ISO/IEC 42001','Fairness & accessibility'],
-  'resources/index.html':['AI Governance Checklist','AI Supplier Review Questions'],
+  'services/index.html':['AI Governance Starter','FAQPage','AI Vendor & System Review','Governance, Adoption & Control'],
+  'da/ydelser/index.html':['AI Governance Starter','Review af AI-leverandør og system','Governance, ibrugtagning og kontrol'],
+  'sv/tjanster/index.html':['AI Governance Starter','Granskning av AI-leverantör och system','Styrning, införande och kontroll'],
+  'methodology/index.html':['Human oversight','ISO/IEC 42001','Fairness & accessibility','NIST AI RMF'],
+  'da/metode/index.html':['Menneskeligt tilsyn','ISO/IEC 42001','NIST AI RMF'],
+  'sv/metod/index.html':['Mänsklig tillsyn','ISO/IEC 42001','NIST AI RMF'],
+  'resources/index.html':['AI System Inventory','AI Vendor Assessment','AI Impact Assessment Starter'],
+  'da/ressourcer/index.html':['AI-systemregister','AI-leverandørvurdering','AI-konsekvensvurdering'],
+  'sv/resurser/index.html':['AI-systemregister','AI-leverantörsbedömning','AI-konsekvensbedömning'],
+  'case-studies/index.html':['Illustrative delivery scenarios','Municipal AI inventory','Copilot risk','Secure generative AI adoption'],
+  'da/cases/index.html':['Illustrative leveringsscenarier','Kommunalt AI-register','Review af copilot','Sikker ibrugtagning'],
+  'sv/fallstudier/index.html':['Illustrativa leveransscenarier','Kommunalt AI-register','Granskning av copilot','Säkert införande'],
   'about/index.html':['Eric Rimón','Healthy AI, from name to practice','slogan','alternateName'],
   'da/om/index.html':['Eric Rimón','Sund AI — fra navn til praksis','slogan','alternateName'],
   'sv/om/index.html':['Eric Rimón','Sund AI — från namn till praktik','slogan','alternateName'],
@@ -79,6 +92,16 @@ for (const [page, tokens] of Object.entries({
 })) {
   const html = await readFile(path.join(root, page), 'utf8');
   for (const token of tokens) if (!html.toLowerCase().includes(token.toLowerCase())) errors.push(`${page}: missing discovery token ${token}`);
+}
+
+const downloadLinks = {
+  'resources/index.html':['/resources/downloads/ai-system-inventory-template.csv','/resources/downloads/ai-vendor-assessment-checklist.md','/resources/downloads/ai-impact-assessment-starter.md'],
+  'da/ressourcer/index.html':['/da/ressourcer/downloads/ai-systemregister-skabelon.csv','/da/ressourcer/downloads/ai-leverandoervurdering.md','/da/ressourcer/downloads/ai-konsekvensvurdering-start.md'],
+  'sv/resurser/index.html':['/sv/resurser/downloads/ai-systemregister-mall.csv','/sv/resurser/downloads/ai-leverantorsbedomning.md','/sv/resurser/downloads/ai-konsekvensbedomning-start.md']
+};
+for (const [page, links] of Object.entries(downloadLinks)) {
+  const html = await readFile(path.join(root, page), 'utf8');
+  for (const link of links) if (!html.includes(link)) errors.push(`${page}: missing download link ${link}`);
 }
 
 const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
@@ -93,8 +116,11 @@ for (const token of ['brand-story','Healthy AI, from name to practice','Sund AI 
 const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
 for (const token of ['.brand-story','.brand-story-card','.brand-story-word','@media(max-width:680px)']) if (!finalCss.includes(token)) errors.push(`final-polish.css: missing brand-story style ${token}`);
 
+const governanceCss = await readFile(path.join(root, 'assets/governance-offers.css'), 'utf8');
+for (const token of ['.offer-grid','.deliverable-grid','.resource-grid','.mapping-grid','.process-steps','.case-grid','@media(max-width:560px)']) if (!governanceCss.includes(token)) errors.push(`governance-offers.css: missing implementation style ${token}`);
+
 const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
-for (const token of ['/services/','/methodology/','/resources/','/about/','/industries/','/use-cases/','/da/brancher/','/sv/anvandningsfall/']) if (!sitemap.includes(token)) errors.push(`sitemap.xml: missing URL ${token}`);
+for (const token of ['/services/','/methodology/','/resources/','/case-studies/','/da/cases/','/sv/fallstudier/','/about/','/industries/','/use-cases/','/da/brancher/','/sv/anvandningsfall/']) if (!sitemap.includes(token)) errors.push(`sitemap.xml: missing URL ${token}`);
 
 const headers = await readFile(path.join(root, '_headers'), 'utf8');
 for (const token of ['Content-Security-Policy','Strict-Transport-Security','https://avatars.githubusercontent.com']) if (!headers.includes(token)) errors.push(`_headers: missing security or image token ${token}`);
@@ -106,4 +132,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, approved SundAI branding, Healthy AI meaning, multilingual UX/SEO content, LLM discovery, crawler access and deployment files.`);
+console.log(`Validated ${htmlFiles.length} HTML pages, multilingual AI governance offers, downloadable artifacts, accurate illustrative cases, approved SundAI branding, LLM discovery and deployment files.`);
