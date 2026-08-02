@@ -13,14 +13,17 @@ for (const token of [
   'viewBox="0 0 690 520"',
   'preserveAspectRatio="xMidYMid meet"',
   'shape-rendering="geometricPrecision"',
-  'SundAI secure AI adoption mark',
-  'governance and security controls',
-  'r="148"',
-  'r="116"',
-  'translate(431 345)',
+  'SundAI secure adoption pathway',
+  'business workflow moving through an AI system',
+  'x="34" y="66" width="622" height="388"',
+  'translate(142 260)',
+  'translate(345 260)',
+  'translate(548 260)',
+  'translate(45 48)',
   '#2563EB',
   '#06B6D4',
   '#7C3AED',
+  '#F97316',
   '#0F766E'
 ]) {
   if (!svg.includes(token)) errors.push(`Hero SVG missing required token: ${token}`);
@@ -33,33 +36,34 @@ for (const forbidden of [
   'stdDeviation=',
   '<image',
   '<text',
-  '<rect',
   'stroke-dasharray',
   'translate(345 138)',
-  'translate(345 261)',
   'translate(345 392)'
 ]) {
   if (svg.includes(forbidden)) errors.push(`Hero SVG contains a forbidden or unsuitable construct: ${forbidden}`);
 }
 
 const circles = (svg.match(/<circle\b/g) || []).length;
-if (circles > 9) errors.push(`Hero SVG is too decorative: expected no more than 9 circles, found ${circles}.`);
+if (circles > 14) errors.push(`Hero SVG is too decorative: expected no more than 14 circles, found ${circles}.`);
 const groups = (svg.match(/<g\b/g) || []).length;
-if (groups > 1) errors.push(`Hero SVG is too structurally complex: expected no more than one group, found ${groups}.`);
+if (groups > 4) errors.push(`Hero SVG is too structurally complex: expected no more than four groups, found ${groups}.`);
 
 for (const token of [
-  'grid-template-columns:minmax(0,1.38fr) minmax(205px,.62fr)',
-  'width:min(100%,320px)',
+  'grid-template-columns:minmax(0,1.25fr) minmax(360px,.75fr)',
+  'width:min(100%,430px)',
   'justify-self:start',
-  'grid-template-columns:minmax(0,1.44fr) minmax(180px,.56fr)',
-  'width:min(100%,265px)',
-  '@media(max-width:950px)',
-  '.hero-art{display:none!important}',
+  'margin-left:-8px',
+  'grid-template-columns:minmax(0,1.32fr) minmax(295px,.68fr)',
+  'width:min(100%,350px)',
+  '@media(max-width:950px) and (min-width:681px)',
+  'width:min(100%,310px)',
+  'margin:18px auto 0',
+  '@media(max-width:680px){.hero-art{display:none!important}}',
   'aspect-ratio:690/520',
   'object-fit:contain',
   'filter:none'
 ]) {
-  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required compact-sizing token: ${token}`);
+  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required integrated-sizing token: ${token}`);
 }
 
 const pages = [
@@ -79,4 +83,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hero artwork passed compact secure-AI mark, low-clutter and multilingual desktop-only sizing checks.');
+console.log('Hero artwork passed integrated workflow-to-AI-to-governance, balanced sizing and multilingual responsive checks.');
