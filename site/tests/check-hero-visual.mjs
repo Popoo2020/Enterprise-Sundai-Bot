@@ -13,16 +13,14 @@ for (const token of [
   'viewBox="0 0 690 520"',
   'preserveAspectRatio="xMidYMid meet"',
   'shape-rendering="geometricPrecision"',
-  'SundAI refined governance control stack',
-  'human oversight',
-  'translate(345 138)',
-  'translate(345 261)',
-  'translate(345 392)',
-  '#0B132B',
+  'SundAI secure AI adoption mark',
+  'governance and security controls',
+  'r="148"',
+  'r="116"',
+  'translate(431 345)',
   '#2563EB',
   '#06B6D4',
   '#7C3AED',
-  '#F97316',
   '#0F766E'
 ]) {
   if (!svg.includes(token)) errors.push(`Hero SVG missing required token: ${token}`);
@@ -35,27 +33,33 @@ for (const forbidden of [
   'stdDeviation=',
   '<image',
   '<text',
+  '<rect',
   'stroke-dasharray',
-  'width="514" height="382"'
+  'translate(345 138)',
+  'translate(345 261)',
+  'translate(345 392)'
 ]) {
   if (svg.includes(forbidden)) errors.push(`Hero SVG contains a forbidden or unsuitable construct: ${forbidden}`);
 }
 
 const circles = (svg.match(/<circle\b/g) || []).length;
-if (circles > 18) errors.push(`Hero SVG is too decorative: expected no more than 18 circles, found ${circles}.`);
+if (circles > 9) errors.push(`Hero SVG is too decorative: expected no more than 9 circles, found ${circles}.`);
+const groups = (svg.match(/<g\b/g) || []).length;
+if (groups > 1) errors.push(`Hero SVG is too structurally complex: expected no more than one group, found ${groups}.`);
 
 for (const token of [
-  'grid-template-columns:minmax(0,1.22fr) minmax(310px,.78fr)',
-  'width:min(100%,445px)',
-  'width:min(100%,390px)',
+  'grid-template-columns:minmax(0,1.38fr) minmax(205px,.62fr)',
+  'width:min(100%,320px)',
+  'justify-self:start',
+  'grid-template-columns:minmax(0,1.44fr) minmax(180px,.56fr)',
+  'width:min(100%,265px)',
+  '@media(max-width:950px)',
+  '.hero-art{display:none!important}',
   'aspect-ratio:690/520',
-  'width:min(100%,335px)',
-  'margin:14px auto 0',
-  '@media(max-width:680px){.hero-art{display:none!important}}',
   'object-fit:contain',
   'filter:none'
 ]) {
-  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required sizing token: ${token}`);
+  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required compact-sizing token: ${token}`);
 }
 
 const pages = [
@@ -75,4 +79,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hero artwork passed refined governance-flow, low-clutter, palette and multilingual responsive sizing checks.');
+console.log('Hero artwork passed compact secure-AI mark, low-clutter and multilingual desktop-only sizing checks.');

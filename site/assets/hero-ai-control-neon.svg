@@ -1,71 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="690" height="520" viewBox="0 0 690 520" preserveAspectRatio="xMidYMid meet" shape-rendering="geometricPrecision" role="img" aria-labelledby="title desc">
-  <title id="title">SundAI refined governance control stack</title>
-  <desc id="desc">A clean and calm illustration of an AI system flowing through governance and security controls into human oversight.</desc>
+  <title id="title">SundAI secure AI adoption mark</title>
+  <desc id="desc">A compact symbol showing an AI core protected by governance and security controls with accountable approval.</desc>
   <defs>
     <linearGradient id="core" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#2563EB"/>
       <stop offset=".58" stop-color="#06B6D4"/>
       <stop offset="1" stop-color="#7C3AED"/>
     </linearGradient>
-    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#F5F9FF"/>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#2563EB" stop-opacity=".32"/>
+      <stop offset="1" stop-color="#06B6D4" stop-opacity=".1"/>
     </linearGradient>
   </defs>
 
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M345 122V396" stroke="#D6E5FF" stroke-width="4"/>
-    <path d="M345 168l-10-10m10 10 10-10" stroke="#9BC4FF" stroke-width="3"/>
-    <path d="M345 292l-10-10m10 10 10-10" stroke="#9BC4FF" stroke-width="3"/>
-  </g>
+  <circle cx="345" cy="260" r="148" fill="#F8FBFF"/>
+  <circle cx="345" cy="260" r="148" fill="none" stroke="url(#ring)" stroke-width="2"/>
+  <circle cx="345" cy="260" r="116" fill="#FFFFFF" stroke="#D7E6FF" stroke-width="2"/>
 
-  <g opacity=".32">
-    <circle cx="142" cy="122" r="4" fill="#06B6D4"/>
-    <circle cx="550" cy="124" r="4" fill="#2563EB"/>
-    <circle cx="169" cy="389" r="5" fill="#F97316"/>
-    <circle cx="531" cy="390" r="5" fill="#7C3AED"/>
-  </g>
+  <path d="M345 144 444 184v73c0 76-39 130-99 166-60-36-99-90-99-166v-73Z"
+        fill="#F7FAFF" stroke="#AFCBFF" stroke-width="3.2" stroke-linejoin="round"/>
 
-  <g transform="translate(345 138)">
-    <ellipse cy="54" rx="130" ry="14" fill="#EAF2FF"/>
-    <rect x="-126" y="-4" width="252" height="104" rx="24" fill="url(#surface)" stroke="#D6E5FF" stroke-width="2"/>
-    <rect x="-104" y="18" width="72" height="72" rx="20" fill="#EFF6FF" stroke="#D6E5FF" stroke-width="2"/>
-    <path d="M-68 28-42 43v30L-68 88-94 73V43Z" fill="url(#core)"/>
-    <path d="M-68 41v34M-84 49l32 18M-52 49l-32 18" stroke="#FFFFFF" stroke-width="3"/>
-    <circle cx="-68" cy="58" r="5.5" fill="#FFFFFF"/>
-    <rect x="-8" y="22" width="102" height="10" rx="5" fill="#0B132B" opacity=".92"/>
-    <rect x="-8" y="45" width="154" height="8" rx="4" fill="#DCE8F8"/>
-    <rect x="-8" y="64" width="114" height="8" rx="4" fill="#E7EFFB"/>
-    <g fill="#2563EB" opacity=".95">
-      <circle cx="118" cy="27" r="3.5"/><circle cx="131" cy="18" r="3.5"/><circle cx="147" cy="19" r="3.5"/>
-      <circle cx="157" cy="31" r="3.5"/><circle cx="155" cy="47" r="3.5"/><circle cx="143" cy="57" r="3.5"/>
-      <circle cx="127" cy="58" r="3.5"/><circle cx="116" cy="46" r="3.5"/>
-    </g>
-  </g>
+  <path d="M345 194 397 224v60l-52 30-52-30v-60Z" fill="url(#core)"/>
+  <path d="M345 214v82M310 235l70 41M380 235l-70 41"
+        fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="345" cy="255" r="9" fill="#FFFFFF"/>
 
-  <g transform="translate(345 261)">
-    <ellipse cy="60" rx="160" ry="15" fill="#EAF2FF"/>
-    <rect x="-158" y="0" width="316" height="118" rx="28" fill="#F8FBFF" stroke="#BFD5FF" stroke-width="2.2"/>
-    <rect x="-130" y="23" width="70" height="70" rx="20" fill="#FFFFFF" stroke="#D7E6FF" stroke-width="2"/>
-    <path d="M-95 31-73 41v18c0 17-8 29-22 38-14-9-22-21-22-38V41Z" fill="#2563EB"/>
-    <path d="m-106 60 8 8 16-19" fill="none" stroke="#FFFFFF" stroke-width="4.5"/>
-    <rect x="-38" y="24" width="122" height="10" rx="5" fill="#0B132B" opacity=".92"/>
-    <rect x="-38" y="47" width="222" height="8" rx="4" fill="#DCE8F8"/>
-    <rect x="-38" y="67" width="182" height="8" rx="4" fill="#E7EFFB"/>
-    <rect x="-38" y="87" width="74" height="14" rx="7" fill="#2563EB" opacity=".14"/>
-    <rect x="48" y="87" width="74" height="14" rx="7" fill="#06B6D4" opacity=".16"/>
-    <rect x="134" y="87" width="44" height="14" rx="7" fill="#F97316" opacity=".2"/>
-  </g>
+  <circle cx="238" cy="186" r="8" fill="#2563EB" opacity=".9"/>
+  <circle cx="452" cy="186" r="8" fill="#06B6D4" opacity=".9"/>
 
-  <g transform="translate(345 392)">
-    <ellipse cy="34" rx="120" ry="13" fill="#EAF2FF"/>
-    <rect x="-116" y="-28" width="232" height="92" rx="24" fill="#FFFFFF" stroke="#D6E5FF" stroke-width="2"/>
-    <circle cx="-72" cy="18" r="26" fill="#F2FBF8" stroke="#C8EBDD" stroke-width="2"/>
-    <circle cx="-72" cy="8" r="7" fill="#0F766E"/>
-    <path d="M-85 28c3-10 8-14 13-14s10 4 13 14" fill="none" stroke="#0F766E" stroke-width="4"/>
-    <rect x="-28" y="-1" width="90" height="10" rx="5" fill="#0B132B" opacity=".92"/>
-    <rect x="-28" y="22" width="132" height="8" rx="4" fill="#DCE8F8"/>
-    <rect x="78" y="-13" width="28" height="28" rx="14" fill="#FFF3E9" stroke="#FFD6B6" stroke-width="1.5"/>
-    <path d="m86 1 6 6 12-14" fill="none" stroke="#F97316" stroke-width="4.5"/>
+  <g transform="translate(431 345)">
+    <circle cx="0" cy="0" r="34" fill="#FFFFFF" stroke="#C8EBDD" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="25" fill="#F2FBF8"/>
+    <path d="m-12 1 9 9 19-22" fill="none" stroke="#0F766E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 </svg>
