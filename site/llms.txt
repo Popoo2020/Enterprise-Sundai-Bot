@@ -39,7 +39,7 @@ SundAI can identify, design, pilot and support the adoption of focused AI soluti
 Typical scope includes:
 - Finding repetitive, slow or information-heavy workflows and establishing a current-state baseline
 - Prioritising use cases according to value, feasibility, data readiness and risk
-- Designing purpose-built AI assistants, secure RAG systems, workflow automations and decision-support tools
+- Purpose-built AI assistants, secure RAG systems, workflow automations and decision-support tools
 - Defining approved data sources, identity and access boundaries, integrations, logging, monitoring, human review, fallback and escalation
 - Building and testing a bounded pilot before wider rollout
 - Supporting training, ownership, change and responsible adoption
