@@ -3,67 +3,34 @@ import path from 'node:path';
 import process from 'node:process';
 
 const root = path.resolve(import.meta.dirname, '..');
-const svg = await readFile(path.join(root, 'assets/hero-ai-control-neon.svg'), 'utf8');
 const layoutCss = await readFile(path.join(root, 'assets/training.css'), 'utf8');
 const errors = [];
 
 for (const token of [
-  'width="690"',
-  'height="520"',
-  'viewBox="0 0 690 520"',
-  'preserveAspectRatio="xMidYMid meet"',
-  'shape-rendering="geometricPrecision"',
-  'SundAI secure adoption pathway',
-  'business workflow moving through an AI system',
-  'x="34" y="66" width="622" height="388"',
-  'translate(142 260)',
-  'translate(345 260)',
-  'translate(548 260)',
-  'translate(45 48)',
-  '#2563EB',
-  '#06B6D4',
-  '#7C3AED',
-  '#F97316',
-  '#0F766E'
+  'Homepage hero: text-only composition with no reserved artwork column.',
+  '.hero-grid{grid-template-columns:minmax(0,1fr)!important;gap:0!important}',
+  '.hero-copy{max-width:980px}',
+  '.hero-art{display:none!important}',
+  '@media(min-width:951px)',
+  '.hero-copy h1{max-width:940px}',
+  '@media(min-width:951px) and (max-width:1180px)',
+  '.hero-copy{max-width:900px}',
+  '@media(max-width:950px)',
+  '.hero-copy{max-width:760px;margin-inline:auto}'
 ]) {
-  if (!svg.includes(token)) errors.push(`Hero SVG missing required token: ${token}`);
+  if (!layoutCss.includes(token)) errors.push(`Text-only hero CSS missing required token: ${token}`);
 }
 
 for (const forbidden of [
-  'feGaussianBlur',
-  'feDropShadow',
-  '<filter',
-  'stdDeviation=',
-  '<image',
-  '<text',
-  'stroke-dasharray',
-  'translate(345 138)',
-  'translate(345 392)'
-]) {
-  if (svg.includes(forbidden)) errors.push(`Hero SVG contains a forbidden or unsuitable construct: ${forbidden}`);
-}
-
-const circles = (svg.match(/<circle\b/g) || []).length;
-if (circles > 14) errors.push(`Hero SVG is too decorative: expected no more than 14 circles, found ${circles}.`);
-const groups = (svg.match(/<g\b/g) || []).length;
-if (groups > 4) errors.push(`Hero SVG is too structurally complex: expected no more than four groups, found ${groups}.`);
-
-for (const token of [
-  'grid-template-columns:minmax(0,1.25fr) minmax(360px,.75fr)',
+  'minmax(360px,.75fr)',
   'width:min(100%,430px)',
-  'justify-self:start',
-  'margin-left:-8px',
-  'grid-template-columns:minmax(0,1.32fr) minmax(295px,.68fr)',
   'width:min(100%,350px)',
-  '@media(max-width:950px) and (min-width:681px)',
   'width:min(100%,310px)',
-  'margin:18px auto 0',
-  '@media(max-width:680px){.hero-art{display:none!important}}',
   'aspect-ratio:690/520',
-  'object-fit:contain',
-  'filter:none'
+  'margin-left:-8px',
+  '.hero-art{display:flex!important'
 ]) {
-  if (!layoutCss.includes(token)) errors.push(`Hero layout CSS missing required integrated-sizing token: ${token}`);
+  if (layoutCss.includes(forbidden)) errors.push(`Text-only hero CSS still contains artwork layout token: ${forbidden}`);
 }
 
 const pages = [
@@ -71,11 +38,13 @@ const pages = [
   ['da/index.html', 'da'],
   ['sv/index.html', 'sv']
 ];
+
 for (const [page, language] of pages) {
   const html = await readFile(path.join(root, page), 'utf8');
-  const heroMatches = html.match(/<div class="hero-art"><img src="\/assets\/hero-ai-control-neon\.svg"[^>]*width="690" height="520"[^>]*><\/div>/g) || [];
-  if (heroMatches.length !== 1) errors.push(`${page}: expected exactly one shared 690×520 hero image, found ${heroMatches.length}`);
   if (!html.includes(`<html lang="${language}"`)) errors.push(`${page}: expected language ${language}`);
+  if (!html.includes('class="container hero-grid"')) errors.push(`${page}: missing shared hero-grid structure`);
+  if (!html.includes('class="hero-copy"')) errors.push(`${page}: missing hero copy`);
+  if (!html.includes('/assets/training.css?')) errors.push(`${page}: does not load the shared text-only hero stylesheet`);
 }
 
 if (errors.length) {
@@ -83,4 +52,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hero artwork passed integrated workflow-to-AI-to-governance, balanced sizing and multilingual responsive checks.');
+console.log('Homepage hero passed text-only, no-reserved-column and multilingual layout checks.');
