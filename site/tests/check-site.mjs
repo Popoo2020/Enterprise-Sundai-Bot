@@ -70,9 +70,9 @@ for (const required of [
 }
 
 for (const [page, tokens] of Object.entries({
-  'index.html':['Who we help','Industries','Use cases','Founder & Lead Advisor','5 min read','AI Governance'],
-  'da/index.html':['Hvem vi hjælper','Brancher','Anvendelser','Grundlægger & Lead Advisor','5 min. læsning','AI-governance'],
-  'sv/index.html':['Vilka vi hjälper','Branscher','Användningsfall','Grundare & Lead Advisor','5 min läsning','AI-styrning'],
+  'index.html':['Who we help','Industries','Use cases','Founded by Eric Rimón','5 min read','AI Governance'],
+  'da/index.html':['Hvem vi hjælper','Brancher','Anvendelser','Grundlagt af Eric Rimón','5 min. læsning','AI-governance'],
+  'sv/index.html':['Vilka vi hjälper','Branscher','Användningsfall','Grundat av Eric Rimón','5 min läsning','AI-styrning'],
   'services/index.html':['AI Governance Starter','AI Vendor & System Review','Governance, Adoption & Control','Secure AI Adoption & Solution Delivery','Purpose-built AI solutions','id="automation"'],
   'da/ydelser/index.html':['AI Governance Starter','Review af AI-leverandør og system','Governance, ibrugtagning og kontrol','Sikker AI-ibrugtagning og løsningsudvikling','Målrettede AI-løsninger','id="automation"'],
   'sv/tjanster/index.html':['AI Governance Starter','Granskning av AI-leverantör och system','Styrning, införande och kontroll','Säker AI-implementering och lösningsutveckling','Ändamålsbyggda AI-lösningar','id="automation"'],
@@ -137,7 +137,7 @@ const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
 for (const token of ['OAI-SearchBot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
 
 const llms = await readFile(path.join(root, 'llms.txt'), 'utf8');
-for (const token of ['Brand meaning','"sund" means healthy','Healthy AI for European organisations','Who SundAI helps','Practical use cases','Preferred factual summary for assistants','Secure AI adoption and solution delivery','Purpose-built AI assistants','measurable operational value']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+for (const token of ['Brand meaning','"sund" means healthy','Healthy AI for European organisations','Who SundAI is designed to support','Practical use cases','Preferred factual summary for assistants','Secure AI adoption and solution delivery','Purpose-built AI assistants','measurable operational value']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
 
 const finalJs = await readFile(path.join(root, 'assets/final-polish.js'), 'utf8');
 for (const token of ['brand-story','Healthy AI, from name to practice','Sund AI — fra navn til praksis','Sund AI — från namn till praktik','item.slogan','item.alternateName']) if (!finalJs.includes(token)) errors.push(`final-polish.js: missing brand-story token ${token}`);
