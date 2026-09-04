@@ -1,1 +1,0 @@
-Bing Webmaster Tools XML verification is served from /BingSiteAuth.xml. This note exists only to document the verification setup.
