@@ -1,3 +1,11 @@
 /en / 301
 /en/ / 301
 /home / 301
+
+# Canonical migrations for refreshed authority content
+/insights/eu-ai-act-readiness.html /insights/eu-ai-act-2026-what-applies-now.html 301
+/da/insights/eu-ai-act-parathed.html /da/insights/eu-ai-act-2026-hvad-gaelder-nu.html 301
+/sv/insights/eu-ai-act-beredskap.html /sv/insights/eu-ai-act-2026-vad-galler-nu.html 301
+/insights/ai-assistant-security-baseline.html /insights/secure-rag-ai-assistants-security-baseline.html 301
+/da/insights/sikkerhedsbaseline-ai-assistenter.html /da/insights/sikker-rag-ai-assistenter-sikkerhedsbaseline.html 301
+/sv/insights/sakerhetsbaslinje-ai-assistenter.html /sv/insights/saker-rag-ai-assistenter-sakerhetsbaslinje.html 301
