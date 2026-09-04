@@ -18,7 +18,7 @@ async function walk(dir) {
 }
 
 const htmlFiles = await walk(root);
-if (htmlFiles.length < 37) errors.push(`Expected at least 37 HTML pages, found ${htmlFiles.length}`);
+if (htmlFiles.length < 55) errors.push(`Expected at least 55 HTML pages, found ${htmlFiles.length}`);
 const homePages = new Set(['index.html', path.join('da','index.html'), path.join('sv','index.html')]);
 
 for (const file of htmlFiles) {
@@ -29,13 +29,11 @@ for (const file of htmlFiles) {
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
   if (homePages.has(rel)) {
-    for (const token of ['hreflang=','data-contact-form','application/ld+json','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','eu-service-mark.svg','class="audience"','class="founder-strip"','class="insight-meta"']) {
+    for (const token of ['hreflang=','data-contact-form','application/ld+json','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','class="audience"','class="founder-strip"','class="insight-meta"']) {
       if (!html.includes(token)) errors.push(`${rel}: missing homepage production token ${token}`);
     }
-    const serviceCards = (html.match(/class="service-card/g) || []).length;
-    if (serviceCards !== 4) errors.push(`${rel}: expected 4 static service cards, found ${serviceCards}`);
-    const insightMeta = (html.match(/class="insight-meta"/g) || []).length;
-    if (insightMeta !== 3) errors.push(`${rel}: expected 3 static insight metadata blocks, found ${insightMeta}`);
+    if ((html.match(/class="service-card/g) || []).length !== 4) errors.push(`${rel}: expected 4 static service cards`);
+    if ((html.match(/class="insight-meta"/g) || []).length !== 3) errors.push(`${rel}: expected 3 static insight metadata blocks`);
   }
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
@@ -47,118 +45,93 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of [
+const required = [
   'robots.txt','sitemap.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt',
   '.well-known/security.txt','7f4e8d2c1b9a46f8a35d0c6e91b2f740.txt',
-  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/training.css','assets/ai-discovery.css','assets/final-polish.css','assets/final-polish.js','assets/governance-offers.css',
-  'assets/sundai-logo-neon.svg','assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg','assets/hero-ai-control-neon.svg','assets/eu-service-mark.svg',
-  'functions/api/contact.js','training/index.html','da/kurser-foredrag/index.html','sv/utbildning-forelasningar/index.html',
+  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/growth.css','assets/authority-content.css','assets/geo-authority.css','assets/governance-offers.css',
+  'assets/sundai-logo-neon.svg','assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg','assets/hero-ai-control-neon.svg',
+  'functions/api/contact.js','functions/_middleware.js','functions/_shared/authority-data.js',
   'services/index.html','da/ydelser/index.html','sv/tjanster/index.html',
-  'services/secure-ai-automation/index.html','da/ydelser/sikker-ai-automatisering/index.html','sv/tjanster/saker-ai-automatisering/index.html',
   'methodology/index.html','da/metode/index.html','sv/metod/index.html',
   'resources/index.html','da/ressourcer/index.html','sv/resurser/index.html',
+  'resources/ai-control-matrix/index.html','da/ressourcer/ai-kontrolmatrix/index.html','sv/resurser/ai-kontrollmatris/index.html',
+  'resources/downloads/sundai-ai-control-matrix-2026.csv',
   'case-studies/index.html','da/cases/index.html','sv/fallstudier/index.html',
-  'resources/downloads/ai-system-inventory-template.csv','resources/downloads/ai-vendor-assessment-checklist.md','resources/downloads/ai-impact-assessment-starter.md',
-  'da/ressourcer/downloads/ai-systemregister-skabelon.csv','da/ressourcer/downloads/ai-leverandoervurdering.md','da/ressourcer/downloads/ai-konsekvensvurdering-start.md',
-  'sv/resurser/downloads/ai-systemregister-mall.csv','sv/resurser/downloads/ai-leverantorsbedomning.md','sv/resurser/downloads/ai-konsekvensbedomning-start.md',
   'about/index.html','da/om/index.html','sv/om/index.html',
   'industries/index.html','da/brancher/index.html','sv/branscher/index.html',
-  'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html'
-]) {
-  try { await access(path.join(root, required)); }
-  catch { errors.push(`Missing required deployment file: ${required}`); }
+  'use-cases/index.html','da/anvendelser/index.html','sv/anvandningsfall/index.html',
+  'insights/index.html','da/insights/index.html','sv/insights/index.html',
+  'insights/eu-ai-act-2026-what-applies-now.html','da/insights/eu-ai-act-2026-hvad-gaelder-nu.html','sv/insights/eu-ai-act-2026-vad-galler-nu.html',
+  'insights/article-50-transparency-checklist.html','da/insights/artikel-50-transparens-tjekliste.html','sv/insights/artikel-50-transparens-checklista.html',
+  'insights/ai-framework-comparison.html','da/insights/ai-framework-sammenligning.html','sv/insights/ai-ramverk-jamforelse.html',
+  'insights/ai-vendor-security-review.html','da/insights/ai-leverandoer-sikkerhedsreview.html','sv/insights/ai-leverantor-sakerhetsgranskning.html',
+  'insights/secure-rag-ai-assistants.html','da/insights/sikre-rag-ai-assistenter.html','sv/insights/saker-rag-ai-assistenter.html',
+  'insights/shadow-ai-governance.html','da/insights/shadow-ai-governance.html','sv/insights/shadow-ai-styrning.html'
+];
+for (const file of required) {
+  try { await access(path.join(root, file)); }
+  catch { errors.push(`Missing required deployment file: ${file}`); }
 }
 
-for (const [page, tokens] of Object.entries({
-  'index.html':['Who we help','Industries','Use cases','Founded by Eric Rimón','5 min read','AI Governance'],
-  'da/index.html':['Hvem vi hjælper','Brancher','Anvendelser','Grundlagt af Eric Rimón','5 min. læsning','AI-governance'],
-  'sv/index.html':['Vilka vi hjälper','Branscher','Användningsfall','Grundat av Eric Rimón','5 min läsning','AI-styrning'],
-  'services/index.html':['AI Governance Starter','AI Vendor & System Review','Governance, Adoption & Control','Secure AI Adoption & Solution Delivery','Purpose-built AI solutions','id="automation"'],
-  'da/ydelser/index.html':['AI Governance Starter','Review af AI-leverandør og system','Governance, ibrugtagning og kontrol','Sikker AI-ibrugtagning og løsningsudvikling','Målrettede AI-løsninger','id="automation"'],
-  'sv/tjanster/index.html':['AI Governance Starter','Granskning av AI-leverantör och system','Styrning, införande och kontroll','Säker AI-implementering och lösningsutveckling','Ändamålsbyggda AI-lösningar','id="automation"'],
-  'services/secure-ai-automation/index.html':['Secure AI Adoption & Solution Delivery','Turn a costly workflow','measurable business value','Solution architecture','controlled pilot','Does the service guarantee cost savings?','ISO/IEC 42001','NIST AI RMF'],
-  'da/ydelser/sikker-ai-automatisering/index.html':['Sikker AI-ibrugtagning og løsningsudvikling','målbar forretningsværdi','Løsningsarkitektur','kontrolleret pilot','Garanterer ydelsen besparelser?','ISO/IEC 42001','NIST AI RMF'],
-  'sv/tjanster/saker-ai-automatisering/index.html':['Säker AI-implementering och lösningsutveckling','mätbart verksamhetsvärde','Lösningsarkitektur','kontrollerad pilot','Garanterar tjänsten kostnadsbesparingar?','ISO/IEC 42001','NIST AI RMF'],
-  'methodology/index.html':['Human oversight','ISO/IEC 42001','Fairness & accessibility','NIST AI RMF'],
-  'da/metode/index.html':['Menneskeligt tilsyn','ISO/IEC 42001','NIST AI RMF'],
-  'sv/metod/index.html':['Mänsklig tillsyn','ISO/IEC 42001','NIST AI RMF'],
-  'resources/index.html':['AI System Inventory','AI Vendor Assessment','AI Impact Assessment Starter'],
-  'da/ressourcer/index.html':['AI-systemregister','AI-leverandørvurdering','AI-konsekvensvurdering'],
-  'sv/resurser/index.html':['AI-systemregister','AI-leverantörsbedömning','AI-konsekvensbedömning'],
-  'case-studies/index.html':['Illustrative delivery scenarios','Municipal AI inventory','Copilot risk','Secure generative AI adoption'],
-  'da/cases/index.html':['Illustrative leveringsscenarier','Kommunalt AI-register','Review af copilot','Sikker ibrugtagning'],
-  'sv/fallstudier/index.html':['Illustrativa leveransscenarier','Kommunalt AI-register','Granskning av copilot','Säkert införande'],
-  'about/index.html':['Eric Rimón','Healthy AI, from name to practice','slogan','alternateName'],
-  'da/om/index.html':['Eric Rimón','Sund AI — fra navn til praksis','slogan','alternateName'],
-  'sv/om/index.html':['Eric Rimón','Sund AI — från namn till praktik','slogan','alternateName'],
-  'industries/index.html':['Small and mid-sized organisations','Public and social services'],
-  'use-cases/index.html':['Shadow AI','AI supplier','Secure AI adoption & workflow efficiency','/services/secure-ai-automation/'],
-  'da/anvendelser/index.html':['Shadow AI','AI-leverandørreview','Sikker AI-ibrugtagning og arbejdsgangseffektivitet','/da/ydelser/sikker-ai-automatisering/'],
-  'sv/anvandningsfall/index.html':['Shadow AI','AI-leverantörsgranskning','Säker AI-implementering och arbetsflödeseffektivitet','/sv/tjanster/saker-ai-automatisering/']
-})) {
-  const html = await readFile(path.join(root, page), 'utf8');
-  for (const token of tokens) if (!html.toLowerCase().includes(token.toLowerCase())) errors.push(`${page}: missing discovery token ${token}`);
-}
-
-const localizedServicePages = {
-  'services/secure-ai-automation/index.html':[
-    'https://sundaibot.com/services/secure-ai-automation/',
-    'https://sundaibot.com/da/ydelser/sikker-ai-automatisering/',
-    'https://sundaibot.com/sv/tjanster/saker-ai-automatisering/'
-  ],
-  'da/ydelser/sikker-ai-automatisering/index.html':[
-    'https://sundaibot.com/services/secure-ai-automation/',
-    'https://sundaibot.com/da/ydelser/sikker-ai-automatisering/',
-    'https://sundaibot.com/sv/tjanster/saker-ai-automatisering/'
-  ],
-  'sv/tjanster/saker-ai-automatisering/index.html':[
-    'https://sundaibot.com/services/secure-ai-automation/',
-    'https://sundaibot.com/da/ydelser/sikker-ai-automatisering/',
-    'https://sundaibot.com/sv/tjanster/saker-ai-automatisering/'
-  ]
+const hubs = {
+  'services/index.html':['AI Governance Consulting','EU AI Act Readiness','AI Security Assessment','Secure AI Adoption'],
+  'da/ydelser/index.html':['AI-governance-rådgivning','EU AI Act-parathed','AI-sikkerhedsvurdering','Sikker AI-ibrugtagning'],
+  'sv/tjanster/index.html':['Rådgivning inom AI-styrning','EU AI Act-beredskap','AI-säkerhetsbedömning','Säker AI-implementering'],
+  'insights/index.html':['EU AI Act 2026','Article 50 transparency','AI vendor security review','Shadow AI governance','AI Control Matrix'],
+  'da/insights/index.html':['EU AI Act 2026','Artikel 50','AI-leverandør','Shadow AI','AI-kontrolmatrix'],
+  'sv/insights/index.html':['EU AI Act 2026','Artikel 50','AI-leverantör','Shadow AI','AI-kontrollmatris'],
+  'resources/index.html':['AI System Inventory','AI Vendor Assessment','AI Impact Assessment','AI Control Matrix'],
+  'da/ressourcer/index.html':['AI-systemregister','AI-leverandørvurdering','AI-konsekvensvurdering','AI-kontrolmatrix'],
+  'sv/resurser/index.html':['AI-systemregister','AI-leverantörsbedömning','AI-konsekvensbedömning','AI-kontrollmatris']
 };
-for (const [page, urls] of Object.entries(localizedServicePages)) {
-  const html = await readFile(path.join(root, page), 'utf8');
-  for (const url of urls) if (!html.includes(url)) errors.push(`${page}: missing localized service URL ${url}`);
-  if (!html.includes('FAQPage') || !html.includes('"@type":"Service"')) errors.push(`${page}: missing Service or FAQ structured data`);
+for (const [page,tokens] of Object.entries(hubs)) {
+  const html = await readFile(path.join(root,page),'utf8');
+  for (const token of tokens) if (!html.toLowerCase().includes(token.toLowerCase())) errors.push(`${page}: missing authority token ${token}`);
 }
 
-const downloadLinks = {
-  'resources/index.html':['/resources/downloads/ai-system-inventory-template.csv','/resources/downloads/ai-vendor-assessment-checklist.md','/resources/downloads/ai-impact-assessment-starter.md'],
-  'da/ressourcer/index.html':['/da/ressourcer/downloads/ai-systemregister-skabelon.csv','/da/ressourcer/downloads/ai-leverandoervurdering.md','/da/ressourcer/downloads/ai-konsekvensvurdering-start.md'],
-  'sv/resurser/index.html':['/sv/resurser/downloads/ai-systemregister-mall.csv','/sv/resurser/downloads/ai-leverantorsbedomning.md','/sv/resurser/downloads/ai-konsekvensbedomning-start.md']
-};
-for (const [page, links] of Object.entries(downloadLinks)) {
-  const html = await readFile(path.join(root, page), 'utf8');
-  for (const link of links) if (!html.includes(link)) errors.push(`${page}: missing download link ${link}`);
+const authorityArticles = [
+  'insights/eu-ai-act-2026-what-applies-now.html','insights/article-50-transparency-checklist.html','insights/ai-framework-comparison.html','insights/ai-vendor-security-review.html','insights/secure-rag-ai-assistants.html','insights/shadow-ai-governance.html',
+  'da/insights/eu-ai-act-2026-hvad-gaelder-nu.html','da/insights/artikel-50-transparens-tjekliste.html','da/insights/ai-framework-sammenligning.html','da/insights/ai-leverandoer-sikkerhedsreview.html','da/insights/sikre-rag-ai-assistenter.html','da/insights/shadow-ai-governance.html',
+  'sv/insights/eu-ai-act-2026-vad-galler-nu.html','sv/insights/artikel-50-transparens-checklista.html','sv/insights/ai-ramverk-jamforelse.html','sv/insights/ai-leverantor-sakerhetsgranskning.html','sv/insights/saker-rag-ai-assistenter.html','sv/insights/shadow-ai-styrning.html'
+];
+for (const page of authorityArticles) {
+  const html = await readFile(path.join(root,page),'utf8');
+  for (const token of ['rel="canonical"','hreflang=','application/ld+json','datePublished','dateModified','SundAI']) if (!html.includes(token)) errors.push(`${page}: missing SEO/authority token ${token}`);
+  if (!html.includes('Article') && !html.includes('TechArticle')) errors.push(`${page}: missing Article structured data`);
 }
 
-const robots = await readFile(path.join(root, 'robots.txt'), 'utf8');
-for (const token of ['OAI-SearchBot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
-
-const llms = await readFile(path.join(root, 'llms.txt'), 'utf8');
-for (const token of ['Brand meaning','"sund" means healthy','Healthy AI for European organisations','Who SundAI is designed to support','Practical use cases','Preferred factual summary for assistants','Secure AI adoption and solution delivery','Purpose-built AI assistants','measurable operational value']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
-
-const finalJs = await readFile(path.join(root, 'assets/final-polish.js'), 'utf8');
-for (const token of ['brand-story','Healthy AI, from name to practice','Sund AI — fra navn til praksis','Sund AI — från namn till praktik','item.slogan','item.alternateName']) if (!finalJs.includes(token)) errors.push(`final-polish.js: missing brand-story token ${token}`);
-
-const finalCss = await readFile(path.join(root, 'assets/final-polish.css'), 'utf8');
-for (const token of ['.brand-story','.brand-story-card','.brand-story-word','@media(max-width:680px)']) if (!finalCss.includes(token)) errors.push(`final-polish.css: missing brand-story style ${token}`);
-
-const governanceCss = await readFile(path.join(root, 'assets/governance-offers.css'), 'utf8');
-for (const token of ['.offer-grid','.deliverable-grid','.resource-grid','.mapping-grid','.process-steps','.case-grid','@media(max-width:560px)']) if (!governanceCss.includes(token)) errors.push(`governance-offers.css: missing implementation style ${token}`);
-
-const sitemap = await readFile(path.join(root, 'sitemap.xml'), 'utf8');
-for (const token of ['/services/','/methodology/','/resources/','/case-studies/','/da/cases/','/sv/fallstudier/','/about/','/industries/','/use-cases/','/da/brancher/','/sv/anvandningsfall/','/services/secure-ai-automation/','/da/ydelser/sikker-ai-automatisering/','/sv/tjanster/saker-ai-automatisering/']) if (!sitemap.includes(token)) errors.push(`sitemap.xml: missing URL ${token}`);
-
-const headers = await readFile(path.join(root, '_headers'), 'utf8');
-for (const token of ['Content-Security-Policy','Strict-Transport-Security','https://avatars.githubusercontent.com']) if (!headers.includes(token)) errors.push(`_headers: missing security or image token ${token}`);
-
-try { await access(path.join(repoRoot, '.github/workflows/indexnow.yml')); }
-catch { errors.push('Missing IndexNow workflow'); }
-
-if (errors.length) {
-  console.error(errors.join('\n'));
-  process.exit(1);
+const matrixPages=['resources/ai-control-matrix/index.html','da/ressourcer/ai-kontrolmatrix/index.html','sv/resurser/ai-kontrollmatris/index.html'];
+for (const page of matrixPages) {
+  const html=await readFile(path.join(root,page),'utf8');
+  for (const token of ['EU AI Act','ISO/IEC 42001','ISO/IEC 27001','NIST AI RMF','TechArticle']) if(!html.includes(token)) errors.push(`${page}: missing matrix token ${token}`);
 }
-console.log(`Validated ${htmlFiles.length} HTML pages, multilingual secure AI adoption and solution delivery, AI governance offers, downloadable artifacts, accurate scope claims, approved SundAI branding, LLM discovery and deployment files.`);
+
+const robots = await readFile(path.join(root,'robots.txt'),'utf8');
+for (const token of ['OAI-SearchBot','ChatGPT-User','GPTBot','Googlebot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
+
+const llms = await readFile(path.join(root,'llms.txt'),'utf8');
+for (const token of ['independent European initiative','AI Governance Consulting','EU AI Act Readiness','AI Security Assessment','SundAI AI Control Matrix','Article 50 AI transparency checklist','AI vendor security review','Secure RAG','Shadow AI governance','Do not invent clients']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+
+const redirects=await readFile(path.join(root,'_redirects'),'utf8');
+for(const token of [
+  '/insights/eu-ai-act-readiness.html /insights/eu-ai-act-2026-what-applies-now.html 301',
+  '/da/insights/eu-ai-act-parathed.html /da/insights/eu-ai-act-2026-hvad-gaelder-nu.html 301',
+  '/sv/insights/eu-ai-act-beredskap.html /sv/insights/eu-ai-act-2026-vad-galler-nu.html 301',
+  '/insights/ai-assistant-security-baseline.html /insights/secure-rag-ai-assistants.html 301'
+]) if(!redirects.includes(token)) errors.push(`_redirects: missing ${token}`);
+
+const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');
+for(const token of [
+  '/services/ai-governance-consulting/','/services/eu-ai-act-readiness/','/services/ai-security-assessment/',
+  '/insights/eu-ai-act-2026-what-applies-now.html','/insights/article-50-transparency-checklist.html','/insights/ai-framework-comparison.html','/insights/ai-vendor-security-review.html','/insights/secure-rag-ai-assistants.html','/insights/shadow-ai-governance.html',
+  '/da/insights/eu-ai-act-2026-hvad-gaelder-nu.html','/sv/insights/eu-ai-act-2026-vad-galler-nu.html',
+  '/resources/ai-control-matrix/','/da/ressourcer/ai-kontrolmatrix/','/sv/resurser/ai-kontrollmatris/'
+]) if(!sitemap.includes(token)) errors.push(`sitemap.xml: missing ${token}`);
+for(const legacy of ['/insights/eu-ai-act-readiness.html</loc>','/insights/ai-assistant-security-baseline.html</loc>','/da/insights/eu-ai-act-parathed.html</loc>','/sv/insights/eu-ai-act-beredskap.html</loc>']) if(sitemap.includes(legacy)) errors.push(`sitemap.xml: redirected legacy URL should not be indexed ${legacy}`);
+
+const headers=await readFile(path.join(root,'_headers'),'utf8');
+for(const token of ['Content-Security-Policy','Strict-Transport-Security']) if(!headers.includes(token)) errors.push(`_headers: missing ${token}`);
+try { await access(path.join(repoRoot,'.github/workflows/indexnow.yml')); } catch { errors.push('Missing IndexNow workflow'); }
+
+if(errors.length){console.error(errors.join('\n'));process.exit(1)}
+console.log(`Validated ${htmlFiles.length} HTML pages, multilingual authority content, service hubs, structured data, AI discovery, redirects, sitemap and deployment files.`);
