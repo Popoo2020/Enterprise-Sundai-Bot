@@ -3,3 +3,81 @@ html{overflow-x:hidden}body{overflow-x:hidden}.sr-only{position:absolute!importa
 @media(max-width:950px){.header-inner:has(.nav:not([data-nav])){display:grid!important;grid-template-columns:minmax(120px,1fr) auto;height:auto!important;min-height:72px;gap:10px!important}.header-inner:has(.nav:not([data-nav])) .brand{grid-column:1;max-width:150px}.nav:not([data-nav]){grid-column:1/-1;position:static!important;display:flex!important;flex:1 1 100%;order:10;margin-left:0!important;padding:2px 0 8px!important;gap:18px!important;overflow-x:auto;overflow-y:hidden;white-space:nowrap;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;scrollbar-width:thin}.nav:not([data-nav]) a{flex:0 0 auto;padding:8px 0!important;text-align:left!important}}
 @media(max-width:520px){.nav:not([data-nav]){gap:15px!important}.nav:not([data-nav]) a{font-size:.76rem!important}.header-inner:has(.nav:not([data-nav])) .brand img{width:128px}.footer-logo img[src$="sundai-logo-neon.svg"]{width:150px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* 2026-09-05 visual design audit: clearer hierarchy, denser mobile rhythm and stronger contrast */
+.section-title{max-width:760px}.section-title h2{max-width:760px;margin-inline:auto}.audience-head h2{max-width:760px;text-wrap:pretty}.service-card{min-height:218px}.audience-card{min-height:142px}.insight-card{min-height:156px}.insight-thumb{min-height:116px}.founder-card{grid-template-columns:92px minmax(0,1fr) auto;gap:24px;padding:26px 30px}.founder-avatar{width:82px;height:82px;border-radius:19px;padding:5px;background:linear-gradient(145deg,#0b132b,#164ea7);box-shadow:0 12px 30px rgba(37,99,235,.16)}.founder-avatar img{object-fit:contain;border-radius:14px}.site-footer .footer-logo img{content:url('/assets/sundai-wordmark-light.svg')!important;filter:none!important}.site-footer .footer-logo p{color:#b6c4d8}.site-footer .footer-col a,.site-footer .footer-col button,.site-footer .footer-col span{color:#b2c0d3}.site-footer .legal-line{color:#91a2ba}.site-footer .footer-col h3{color:#eef4ff}
+
+@media(max-width:680px){
+  .container{width:min(100% - 32px,620px)!important}
+  .section{padding-block:56px!important}
+  .services{padding-top:46px!important}
+  .section-title{margin-bottom:28px!important;text-align:left!important;max-width:none!important}
+  .section-title h2{margin-inline:0!important;font-size:clamp(1.85rem,8vw,2.35rem)!important;line-height:1.08!important;text-wrap:pretty!important}
+  .section-title .eyebrow{margin-bottom:8px!important}
+  .service-grid{gap:12px!important}
+  .service-card{min-height:0!important;padding:21px!important;border-radius:16px!important}
+  .service-icon{width:46px!important;height:46px!important;margin-bottom:15px!important;border-radius:12px!important}
+  .service-icon svg{width:24px!important;height:24px!important}
+  .service-card h3{font-size:1.02rem!important;margin-bottom:7px!important}
+  .service-card p{font-size:.84rem!important;line-height:1.55!important}
+  .service-card .card-link{padding-top:14px!important}
+  .proof-strip{padding:4px 0 44px!important}
+  .proof-item{padding:16px 18px!important}
+  .snapshot{padding:8px 0 48px!important}
+  .snapshot-panel{padding:22px 18px!important;gap:18px!important;border-radius:16px!important}
+  .snapshot-visual{height:96px!important;justify-content:start!important}
+  .calendar{width:78px!important;height:82px!important;border-radius:16px!important}
+  .training-teaser{padding:8px 0 48px!important}
+  .training-teaser-panel{padding:24px 20px!important;gap:20px!important;border-radius:16px!important}
+  .training-teaser-panel h2{font-size:clamp(1.65rem,7.5vw,2.1rem)!important;line-height:1.1!important}
+  .audience{padding:8px 0 50px!important}
+  .audience-panel{padding:22px 18px!important;border-radius:16px!important;background:linear-gradient(145deg,#fff,#f8fbff)!important;box-shadow:0 8px 22px rgba(15,23,42,.055)!important}
+  .audience-head{gap:18px!important;margin-bottom:18px!important}
+  .audience-head h2{font-size:clamp(1.75rem,7.8vw,2.12rem)!important;line-height:1.09!important;letter-spacing:-.035em!important;text-wrap:pretty!important}
+  .audience-head p{font-size:.96rem!important;line-height:1.58!important;margin-top:10px!important}
+  .audience-links{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;width:100%!important}
+  .audience-links .button{width:100%!important;min-height:46px!important;padding-inline:12px!important;font-size:.78rem!important}
+  .audience-grid{gap:10px!important}
+  .audience-card{min-height:0!important;padding:18px!important;border-radius:13px!important}
+  .audience-card strong{font-size:.98rem!important}
+  .audience-card span{font-size:.81rem!important;line-height:1.5!important}
+  .why{padding:8px 0 50px!important}
+  .why-grid{gap:10px!important}
+  .why-item{padding:18px!important;grid-template-columns:44px minmax(0,1fr)!important;gap:13px!important}
+  .why-icon{width:42px!important;height:42px!important;border-radius:12px!important}
+  .insights{padding:52px 0!important}
+  .insight-grid{gap:12px!important}
+  .insight-card{grid-template-columns:88px minmax(0,1fr)!important;gap:14px!important;min-height:0!important;padding:12px!important;align-items:center!important;border-radius:15px!important}
+  .insight-thumb{height:88px!important;min-height:88px!important;border-radius:11px!important}
+  .insight-thumb img{height:88px!important;object-fit:cover!important}
+  .insight-card h3{font-size:.96rem!important;margin:4px 0 5px!important}
+  .insight-card p{font-size:.75rem!important;line-height:1.45!important;margin-bottom:6px!important}
+  .insight-meta{font-size:.56rem!important;gap:5px!important;margin-bottom:2px!important}
+  .founder-strip{padding:8px 0 50px!important}
+  .founder-card{grid-template-columns:64px minmax(0,1fr)!important;gap:14px!important;padding:20px 18px!important;align-items:start!important;border-radius:16px!important;text-align:left!important}
+  .founder-avatar{width:58px!important;height:58px!important;border-radius:15px!important;padding:4px!important}
+  .founder-avatar img{border-radius:11px!important}
+  .founder-copy .eyebrow{text-align:left!important;margin-bottom:5px!important}
+  .founder-copy h2{font-size:1.16rem!important;line-height:1.18!important;text-align:left!important}
+  .founder-copy h3,.founder-copy p{text-align:left!important}
+  .founder-card>.button{grid-column:1/-1!important;width:100%!important;margin-top:4px!important}
+  .cta{padding:48px 0!important}
+  .cta-panel{padding:26px 20px!important;min-height:0!important;align-items:flex-start!important;text-align:left!important;border-radius:16px!important}
+  .cta-panel h2{font-size:clamp(1.75rem,8vw,2.25rem)!important;text-align:left!important}
+  .cta-panel .button{width:100%!important;min-width:0!important}
+  .site-footer{padding:38px 0 20px!important}
+  .footer-grid{grid-template-columns:1fr 1fr!important;gap:28px 20px!important}
+  .footer-logo{grid-column:1/-1!important}
+  .footer-logo img{width:150px!important}
+  .legal-line{grid-column:1/-1!important;line-height:1.55!important}
+  .content-page{padding:56px 0!important}
+  .content-hero{text-align:left!important;margin-bottom:30px!important}
+  .content-hero h1{font-size:clamp(2rem,9vw,2.8rem)!important;line-height:1.03!important;letter-spacing:-.045em!important;text-wrap:pretty!important}
+  .content-hero p{margin-inline:0!important;line-height:1.6!important}
+  .content-card{padding:21px!important;border-radius:16px!important}
+}
+
+@media(max-width:380px){.audience-links{grid-template-columns:1fr!important}.footer-grid{grid-template-columns:1fr!important}.footer-logo,.legal-line{grid-column:1!important}.insight-card{grid-template-columns:74px minmax(0,1fr)!important}.insight-thumb,.insight-thumb img{height:74px!important;min-height:74px!important}}
+
+@media print{
+  body::before{display:none!important}.site-header{position:static!important;box-shadow:none!important}.nav-toggle,.nav-contact,.contact-dialog{display:none!important}.hero{padding:34px 0!important}.hero-art{display:none!important}.hero-grid{display:block!important}.service-card,.audience-panel,.audience-card,.snapshot-panel,.training-teaser-panel,.why-item,.insight-card,.founder-card,.cta-panel{box-shadow:none!important;break-inside:avoid}.insight-card{grid-template-columns:1fr!important;min-height:0!important}.insight-thumb{display:none!important}.site-footer{background:#fff!important;color:#111827!important;border-top:1px solid #dbe4f0!important}.site-footer .footer-logo img{content:url('/assets/sundai-wordmark-dark.svg')!important}.site-footer .footer-logo p,.site-footer .footer-col a,.site-footer .footer-col button,.site-footer .footer-col span,.site-footer .legal-line{color:#475569!important}.site-footer .footer-col h3{color:#0b132b!important}.button.primary{background:#fff!important;color:#1d4ed8!important;border-color:#1d4ed8!important;box-shadow:none!important}.cta-panel{background:#eef5ff!important;color:#0b132b!important}.cta-panel h2,.cta-panel h2 span{color:#0b132b!important}}
