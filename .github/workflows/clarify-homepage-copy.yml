@@ -1,0 +1,75 @@
+name: Clarify homepage availability copy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/clarify-homepage-copy.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Clarify fixed-timeline and availability wording
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const files = {
+            'site/index.html': [
+              ['Contact SundAI <b aria-hidden="true">→</b>', 'Explore availability <b aria-hidden="true">→</b>'],
+              ['<div class="proof-item"><strong>European delivery</strong><span>Remote and on-site support across Europe</span></div>', '<div class="proof-item"><strong>European scope</strong><span>Remote or on-site formats can be agreed case by case</span></div>'],
+              ['<div class="calendar"><div><b>10</b><br><small>DAYS</small></div></div>', '<div class="calendar"><div><b>AI</b><br><small>SCOPE</small></div></div>'],
+              ['<p class="eyebrow">A clear first step</p><h2>10-day AI Risk & Readiness Snapshot</h2><p>See how AI is used, where the priority risks are and what your organisation should do in the next 90 days.</p>', '<p class="eyebrow">A possible scoped review</p><h2>AI Risk & Readiness Snapshot</h2><p>A scoped review can help clarify AI use, priority risks and possible next actions. Timing and included outputs are agreed before any engagement is accepted.</p>'],
+              ['See what’s included →', 'Explore possible scope →']
+            ],
+            'site/da/index.html': [
+              ['Kontakt SundAI <b aria-hidden="true">→</b>', 'Spørg om tilgængelighed <b aria-hidden="true">→</b>'],
+              ['<div class="proof-item"><strong>Europæisk levering</strong><span>Online og fysisk støtte i Europa</span></div>', '<div class="proof-item"><strong>Europæiske muligheder</strong><span>Online eller fysisk format aftales konkret</span></div>'],
+              ['<div class="calendar"><div><b>10</b><br><small>DAGE</small></div></div>', '<div class="calendar"><div><b>AI</b><br><small>SCOPE</small></div></div>'],
+              ['<p class="eyebrow">Et tydeligt første skridt</p><h2>10-dages AI Risk & Readiness Snapshot</h2><p>Få overblik over AI-brug, prioriterede risici og hvad organisationen bør gøre de næste 90 dage.</p>', '<p class="eyebrow">Et muligt afgrænset review</p><h2>AI Risk & Readiness Snapshot</h2><p>Et afgrænset review kan hjælpe med at skabe overblik over AI-brug, prioriterede risici og mulige næste handlinger. Tidsplan og leverancer aftales, før et forløb accepteres.</p>'],
+              ['Se hvad der er inkluderet →', 'Udforsk muligt scope →']
+            ],
+            'site/sv/index.html': [
+              ['Kontakta SundAI <b aria-hidden="true">→</b>', 'Fråga om tillgänglighet <b aria-hidden="true">→</b>'],
+              ['<div class="proof-item"><strong>Europeisk leverans</strong><span>Digitalt och på plats i Europa</span></div>', '<div class="proof-item"><strong>Europeiska möjligheter</strong><span>Digitalt eller på plats avtalas från fall till fall</span></div>'],
+              ['<div class="calendar"><div><b>10</b><br><small>DAGAR</small></div></div>', '<div class="calendar"><div><b>AI</b><br><small>SCOPE</small></div></div>'],
+              ['<p class="eyebrow">Ett tydligt första steg</p><h2>10-dagars AI Risk & Readiness Snapshot</h2><p>Få överblick över AI-användning, prioriterade risker och vad organisationen bör göra under de kommande 90 dagarna.</p>', '<p class="eyebrow">Ett möjligt avgränsat review</p><h2>AI Risk & Readiness Snapshot</h2><p>En avgränsad granskning kan hjälpa till att tydliggöra AI-användning, prioriterade risker och möjliga nästa åtgärder. Tidsplan och leveranser avtalas innan ett uppdrag accepteras.</p>'],
+              ['Se vad som ingår →', 'Utforska möjlig omfattning →']
+            ]
+          };
+
+          for (const [file, replacements] of Object.entries(files)) {
+            let text = fs.readFileSync(file, 'utf8');
+            for (const [from, to] of replacements) {
+              if (!text.includes(from)) throw new Error(`${file}: expected copy not found: ${from.slice(0, 80)}`);
+              text = text.replace(from, to);
+            }
+            fs.writeFileSync(file, text);
+          }
+          NODE
+      - name: Validate changed HTML
+        run: |
+          git diff --check
+          grep -q "AI Risk & Readiness Snapshot" site/index.html
+          grep -q "AI Risk & Readiness Snapshot" site/da/index.html
+          grep -q "AI Risk & Readiness Snapshot" site/sv/index.html
+          ! grep -q "10-day AI Risk" site/index.html
+          ! grep -q "10-dages AI Risk" site/da/index.html
+          ! grep -q "10-dagars AI Risk" site/sv/index.html
+      - name: Commit clarified copy
+        run: |
+          git config user.name "SundAI site automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add site/index.html site/da/index.html site/sv/index.html
+          if git diff --cached --quiet; then
+            echo "No changes required"
+          else
+            git commit -m "Clarify homepage service availability wording"
+            git push origin HEAD:main
+          fi
