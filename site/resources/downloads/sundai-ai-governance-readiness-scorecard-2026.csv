@@ -1,0 +1,13 @@
+Domain,Control question,0 - Not started,1 - Partial or inconsistent,2 - Evidence in place and owned,Owner,Evidence or link,Review date
+Inventory & ownership,Current inventory of material AI systems and use cases exists,No inventory,Partial or outdated inventory,Current inventory with defined scope,,,
+Inventory & ownership,Every material use case has a named business owner and technical or security contact,No named owners,Ownership exists for some use cases,Named accountable owners for material use cases,,,
+Role & risk classification,AI Act role and prohibited or high-risk relevance are documented,Not assessed,Assessed informally or inconsistently,Documented role and screening rationale,,,
+Transparency,Applicable transparency duties are identified for each relevant system,Not identified,Some duties identified,Documented applicability and controls,,,
+Transparency,Users are informed when they interact with AI where required,No defined disclosure,Disclosure inconsistent,Disclosure implemented and evidenced,,,
+Transparency,AI-generated or manipulated content controls are documented where Article 50 is relevant,No controls,Partial policy or manual practice,Documented marking or disclosure process with ownership,,,
+Security & suppliers,Material AI suppliers are reviewed for data use security access retention incidents and exit,No supplier review,Review covers some topics or suppliers,Repeatable supplier review with evidence and decisions,,,
+Security & suppliers,Identity permissions logging and monitoring match use-case sensitivity,Controls unclear or absent,Baseline controls exist but gaps remain,Documented proportionate controls and monitoring,,,
+Human oversight & literacy,Human review and escalation responsibility are explicit for material decisions or outputs,No defined oversight,Informal or role-dependent oversight,Documented oversight triggers roles and escalation,,,
+Human oversight & literacy,Role-based AI literacy training is documented for relevant staff,No training,Generic or incomplete training,Role-based training with attendance or completion evidence,,,
+Evidence & lifecycle,Approvals tests exceptions incidents and corrective actions are retained,No evidence model,Some artifacts retained inconsistently,Defined evidence model with retrievable records,,,
+Evidence & lifecycle,Model supplier data or purpose changes trigger reassessment,No trigger,Manual or inconsistent reassessment,Defined change triggers owner and review process,,,
