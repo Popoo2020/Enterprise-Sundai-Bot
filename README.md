@@ -8,6 +8,17 @@ The repository is intentionally developed in transparent stages: implemented mod
 
 > **Status:** working RAG-ingestion baseline / active expansion.
 
+## SundAI public governance resources
+
+This repository also contains the source for selected public materials from [SundAI](https://sundaibot.com/), an independent European initiative focused on practical AI governance, AI security, responsible adoption and training.
+
+- [European AI Governance Readiness Brief 2026](https://sundaibot.com/resources/european-ai-governance-readiness-2026/) — a dated, source-backed synthesis and 12-question evidence-readiness rubric. It is not a market survey, legal opinion or compliance score.
+- [SundAI AI Control Matrix](https://sundaibot.com/resources/ai-control-matrix/) — a practical thematic mapping aid across the EU AI Act, ISO/IEC 42001, ISO/IEC 27001 and NIST AI RMF. It is not an official legal or standards crosswalk.
+- [AI governance resources](https://sundaibot.com/resources/) — editable inventory, supplier-review, impact-assessment and readiness artifacts.
+- [Evidence & trust policy](https://sundaibot.com/trust/) — how SundAI separates verified facts, source-backed guidance, illustrative scenarios and measured outcomes.
+
+Localised versions are published in [Danish](https://sundaibot.com/da/ressourcer/) and [Swedish](https://sundaibot.com/sv/resurser/).
+
 ## What is implemented
 
 | Capability | Status |
