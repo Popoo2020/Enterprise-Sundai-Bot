@@ -45,3 +45,4 @@ Allow: /
 
 Sitemap: https://sundaibot.com/sitemap.xml
 Sitemap: https://sundaibot.com/sitemap-research.xml
+Sitemap: https://sundaibot.com/sitemap-commercial.xml
