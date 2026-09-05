@@ -109,14 +109,14 @@ for (const page of matrixPages) {
   for (const token of ['EU AI Act','ISO/IEC 42001','ISO/IEC 27001','NIST AI RMF','TechArticle','dateModified','citation']) if(!html.includes(token)) errors.push(`${page}: missing matrix token ${token}`);
 }
 
-const readinessPages=[
-  'resources/european-ai-governance-readiness-2026/index.html',
-  'da/ressourcer/europaeisk-ai-governance-readiness-2026/index.html',
-  'sv/resurser/europeisk-ai-styrning-readiness-2026/index.html'
-];
-for (const page of readinessPages) {
+const readinessPages={
+  'resources/european-ai-governance-readiness-2026/index.html':'Article 50',
+  'da/ressourcer/europaeisk-ai-governance-readiness-2026/index.html':'Artikel 50',
+  'sv/resurser/europeisk-ai-styrning-readiness-2026/index.html':'Artikel 50'
+};
+for (const [page,transparencyToken] of Object.entries(readinessPages)) {
   const html=await readFile(path.join(root,page),'utf8');
-  for (const token of ['rel="canonical"','hreflang=','application/ld+json','Report','datePublished','dateModified','isBasedOn','DataDownload','ISO/IEC 42001','NIST AI RMF','Article 50']) if(!html.includes(token)) errors.push(`${page}: missing readiness research token ${token}`);
+  for (const token of ['rel="canonical"','hreflang=','application/ld+json','Report','datePublished','dateModified','isBasedOn','DataDownload','ISO/IEC 42001','NIST AI RMF',transparencyToken]) if(!html.includes(token)) errors.push(`${page}: missing readiness research token ${token}`);
 }
 
 const trustPages=['trust/index.html','da/tillid/index.html','sv/tillit/index.html'];
