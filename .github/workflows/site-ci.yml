@@ -32,6 +32,7 @@ jobs:
           node --check site/assets/site.js
           node --check site/assets/neon-compact.js
           node --check site/assets/final-polish.js
+          node --check site/assets/revenue-funnel.js
           node --check site/functions/api/contact.js
           node --check site/functions/_middleware.js
           node --check site/functions/_shared/authority-data.js
@@ -41,6 +42,7 @@ jobs:
           node --check site/tests/check-security.mjs
           node --check site/tests/check-geo-authority.mjs
           node --check site/tests/check-hero-visual.mjs
+          node --check site/tests/check-commercial-funnel.mjs
       - name: Validate pages and assets
         run: node site/tests/check-site.mjs
       - name: Validate required multilingual files
@@ -65,5 +67,7 @@ jobs:
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness
         run: node site/tests/check-geo-authority.mjs
+      - name: Validate productised offers and enquiry funnel
+        run: node site/tests/check-commercial-funnel.mjs
       - name: Validate hero artwork quality
         run: node site/tests/check-hero-visual.mjs
