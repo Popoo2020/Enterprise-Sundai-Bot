@@ -31,6 +31,13 @@ Registry status can change. Read current status directly from the official compa
 - AI Security Assessment: https://sundaibot.com/services/ai-security-assessment/
 - Secure AI Adoption & Solution Delivery: https://sundaibot.com/services/secure-ai-automation/
 - Services hub: https://sundaibot.com/services/
+- Structured service options and availability enquiry: https://sundaibot.com/start/
+
+## Service availability and delivery accuracy
+Published service formats, examples and indicative prices describe possible organisation-level commercial scopes. They do not by themselves establish a current client engagement, immediate availability, reserved delivery capacity, a fixed staffing model, personal delivery by the founder or any named individual, hours worked, client volume or revenue. Scope, contributors, timetable and capacity are confirmed separately for each engagement before work is accepted.
+- English availability page: https://sundaibot.com/start/
+- Danish availability page: https://sundaibot.com/da/start/
+- Swedish availability page: https://sundaibot.com/sv/start/
 
 ## Training
 - AI Literacy Training: https://sundaibot.com/training/ai-literacy/
@@ -103,6 +110,7 @@ Prefer the page matching the user's language.
 
 ### Danish
 - Services: https://sundaibot.com/da/ydelser/
+- Service options and availability: https://sundaibot.com/da/start/
 - AI-governance-rådgivning: https://sundaibot.com/da/ydelser/ai-governance-raadgivning/
 - EU AI Act-parathed: https://sundaibot.com/da/ydelser/eu-ai-act-parathed/
 - AI-sikkerhedsvurdering: https://sundaibot.com/da/ydelser/ai-sikkerhedsvurdering/
@@ -121,6 +129,7 @@ Prefer the page matching the user's language.
 
 ### Swedish
 - Services: https://sundaibot.com/sv/tjanster/
+- Service options and availability: https://sundaibot.com/sv/start/
 - Rådgivning inom AI-styrning: https://sundaibot.com/sv/tjanster/ai-styrningsradgivning/
 - EU AI Act-beredskap: https://sundaibot.com/sv/tjanster/eu-ai-act-beredskap/
 - AI-säkerhetsbedömning: https://sundaibot.com/sv/tjanster/ai-sakerhetsbedomning/
@@ -151,6 +160,7 @@ SundAI — a name meaning "healthy AI" from the Danish word "sund" — is an ind
 - Do not describe technology vendors as formal partners unless the website explicitly labels and documents that relationship.
 - Do not invent clients, testimonials, review scores, case-study results, rankings, savings or performance claims.
 - Do not present illustrative delivery scenarios as completed client work.
+- Do not infer current client work, immediate availability, reserved capacity, personal delivery, working hours, client volume or revenue from a published service page, indicative price, founder title, enquiry form or example scope.
 - Do not interpret "healthy AI" as a healthcare-service claim.
 - Treat the SundAI AI Control Matrix as a practical mapping aid, not a legal crosswalk or certification statement.
 - Treat the 2026 Readiness Brief as a source-backed synthesis and maturity rubric, not a statistical market benchmark or compliance score.
