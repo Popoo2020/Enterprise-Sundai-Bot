@@ -1,0 +1,13 @@
+Område,Kontrollfråga,0 - Inte påbörjat,1 - Delvis eller inkonsekvent,2 - Evidens på plats och ansvarig utsedd,Ansvarig,Evidens eller länk,Granskningsdatum
+Register & ägarskap,Det finns ett aktuellt register över väsentliga AI-system och användningsfall,Inget register,Delvis eller föråldrat register,Aktuellt register med definierad omfattning,,,
+Register & ägarskap,Varje väsentligt användningsfall har en namngiven verksamhetsägare och teknisk eller säkerhetskontakt,Inga namngivna ägare,Ägarskap finns för vissa användningsfall,Namngivna ansvariga ägare för väsentliga användningsfall,,,
+Roll & riskklassificering,AI Act-roll och relevans för förbjudna eller högriskanvändningar är dokumenterad,Inte bedömt,Bedömt informellt eller inkonsekvent,Dokumenterad roll och screeningmotivering,,,
+Transparens,Tillämpliga transparenskrav är identifierade för varje relevant system,Inte identifierat,Vissa krav identifierade,Dokumenterad tillämplighet och kontroller,,,
+Transparens,Användare informeras när de interagerar med AI där det krävs,Ingen definierad information,Inkonsekvent information,Information implementerad och dokumenterad,,,
+Transparens,Kontroller för AI-genererat eller manipulerat innehåll är dokumenterade där Artikel 50 är relevant,Inga kontroller,Delvis policy eller manuell praxis,Dokumenterad märknings- eller informationsprocess med ägarskap,,,
+Säkerhet & leverantörer,Väsentliga AI-leverantörer granskas för dataanvändning säkerhet åtkomst lagring incidenter och exit,Ingen leverantörsgranskning,Granskning täcker vissa områden eller leverantörer,Upprepningsbar leverantörsgranskning med evidens och beslut,,,
+Säkerhet & leverantörer,Identitet behörigheter loggning och övervakning motsvarar användningsfallets känslighet,Kontroller oklara eller saknas,Baslinjekontroller finns men luckor kvarstår,Dokumenterade proportionella kontroller och övervakning,,,
+Mänsklig tillsyn & AI-kunnighet,Ansvar för mänsklig granskning och eskalering är tydligt vid väsentliga beslut eller output,Ingen definierad tillsyn,Informell eller rollberoende tillsyn,Dokumenterade tillsynstriggers roller och eskalering,,,
+Mänsklig tillsyn & AI-kunnighet,Rollbaserad AI-kunnighetsutbildning är dokumenterad för relevant personal,Ingen utbildning,Generisk eller ofullständig utbildning,Rollbaserad utbildning med deltagar- eller slutförandeevidens,,,
+Evidens & livscykel,Godkännanden test undantag incidenter och korrigerande åtgärder sparas,Ingen evidensmodell,Vissa artefakter sparas inkonsekvent,Definierad evidensmodell med sökbara poster,,,
+Evidens & livscykel,Ändringar i modell leverantör data eller syfte utlöser omprövning,Ingen trigger,Manuell eller inkonsekvent omprövning,Definierade ändringstriggers ägare och granskningsprocess,,,
