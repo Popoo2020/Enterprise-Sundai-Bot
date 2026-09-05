@@ -6,35 +6,35 @@
   const copy = {
     en: {
       packages: {
-        call: 'AI Governance Decision Call — €490',
-        sprint: 'AI Governance Readiness Sprint — €1,950',
-        implementation: 'Governance Implementation — from €4,500',
-        desk: 'SundAI Governance Desk — from €995/month',
-        training: 'AI Literacy / Leadership Training — from €1,500'
+        call: 'AI Governance Decision Review — indicative from €490',
+        sprint: 'AI Governance Readiness Review — indicative from €1,950',
+        implementation: 'Governance Implementation Support — indicative from €4,500',
+        desk: 'SundAI Governance Desk — indicative from €995/month',
+        training: 'AI Literacy / Leadership Training — indicative from €1,500'
       },
-      fallback: 'Please contact me about the most suitable next step.'
+      fallback: 'Please contact me about fit, scope and current availability.'
     },
     da: {
       packages: {
-        call: 'AI-governance beslutningssamtale — €490',
-        sprint: 'AI Governance Readiness Sprint — €1.950',
-        implementation: 'Governance-implementering — fra €4.500',
-        desk: 'SundAI Governance Desk — fra €995/måned',
-        training: 'AI-literacy / ledelsestræning — fra €1.500'
+        call: 'AI-governance beslutningsreview — vejledende fra €490',
+        sprint: 'AI-governance readiness-review — vejledende fra €1.950',
+        implementation: 'Governance-implementeringsstøtte — vejledende fra €4.500',
+        desk: 'SundAI Governance Desk — vejledende fra €995/måned',
+        training: 'AI-literacy / ledelsestræning — vejledende fra €1.500'
       },
-      fallback: 'Kontakt mig gerne om det mest relevante næste skridt.'
+      fallback: 'Kontakt mig gerne om fit, scope og aktuel tilgængelighed.'
     },
     sv: {
       packages: {
-        call: 'Beslutningssamtal om AI-styrning — €490',
-        sprint: 'AI Governance Readiness Sprint — €1 950',
-        implementation: 'Implementering av AI-styrning — från €4 500',
-        desk: 'SundAI Governance Desk — från €995/månad',
-        training: 'AI-kunnighet / ledningsutbildning — från €1 500'
+        call: 'Beslutsgranskning inom AI-styrning — vägledande från €490',
+        sprint: 'Readiness-granskning inom AI-styrning — vägledande från €1 950',
+        implementation: 'Implementeringsstöd för AI-styrning — vägledande från €4 500',
+        desk: 'SundAI Governance Desk — vägledande från €995/månad',
+        training: 'AI-kunnighet / ledningsutbildning — vägledande från €1 500'
       },
-      fallback: 'Kontakta mig gärna om det mest lämpliga nästa steget.'
+      fallback: 'Kontakta mig gärna om passform, omfattning och aktuell tillgänglighet.'
     }
-  }[lang] || null;
+  }[lang];
   if (!copy) return;
 
   const interest = form.querySelector('[data-interest-select]');
@@ -62,7 +62,7 @@
     const packageLabel = copy.packages[key] || copy.packages.call;
     const detailText = String(details?.value || '').trim() || copy.fallback;
     const source = sourceParts.length ? `\nSource: ${sourceParts.join(' | ')}` : '';
-    message.value = `Interest: ${packageLabel}${source}\nPage: ${window.location.pathname}\n\nDetails:\n${detailText}`;
+    message.value = `Availability enquiry: ${packageLabel}${source}\nPage: ${window.location.pathname}\n\nDetails:\n${detailText}`;
   };
 
   if (started && !started.value) started.value = String(Date.now());
