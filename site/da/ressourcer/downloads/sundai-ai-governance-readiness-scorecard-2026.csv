@@ -1,0 +1,13 @@
+Område,Kontrolspørgsmål,0 - Ikke påbegyndt,1 - Delvist eller uensartet,2 - Evidens på plads og ejet,Ansvarlig,Evidens eller link,Reviewdato
+Register & ejerskab,Der findes et aktuelt register over væsentlige AI-systemer og anvendelser,Intet register,Delvist eller forældet register,Aktuelt register med defineret scope,,,
+Register & ejerskab,Hver væsentlig anvendelse har en navngiven forretningsejer og teknisk eller sikkerhedsmæssig kontakt,Ingen navngivne ejere,Ejerskab findes for nogle anvendelser,Navngivne ansvarlige ejere for væsentlige anvendelser,,,
+Rolle & risikoklassifikation,AI Act-rolle og relevans for forbudte eller højrisikoanvendelser er dokumenteret,Ikke vurderet,Vurderet uformelt eller uensartet,Dokumenteret rolle og screeningsbegrundelse,,,
+Transparens,Gældende transparenskrav er identificeret for hvert relevant system,Ikke identificeret,Nogle krav identificeret,Dokumenteret anvendelighed og kontroller,,,
+Transparens,Brugere informeres når de interagerer med AI hvor det kræves,Ingen defineret information,Uensartet information,Information implementeret og dokumenteret,,,
+Transparens,Kontroller for AI-genereret eller manipuleret indhold er dokumenteret hvor Artikel 50 er relevant,Ingen kontroller,Delvis politik eller manuel praksis,Dokumenteret mærknings- eller informationsproces med ejerskab,,,
+Sikkerhed & leverandører,Væsentlige AI-leverandører gennemgås for databrug sikkerhed adgang opbevaring hændelser og exit,Ingen leverandørreview,Review dækker nogle emner eller leverandører,Gentagelig leverandørreview med evidens og beslutninger,,,
+Sikkerhed & leverandører,Identitet rettigheder logging og monitorering matcher anvendelsens følsomhed,Kontroller uklare eller mangler,Baseline-kontroller findes men med huller,Dokumenterede proportionale kontroller og monitorering,,,
+Menneskeligt tilsyn & AI-literacy,Ansvar for menneskeligt review og eskalation er tydeligt ved væsentlige beslutninger eller outputs,Intet defineret tilsyn,Uformelt eller rolleafhængigt tilsyn,Dokumenterede tilsynstriggere roller og eskalation,,,
+Menneskeligt tilsyn & AI-literacy,Rollebaseret AI-literacy-træning er dokumenteret for relevante medarbejdere,Ingen træning,Generisk eller ufuldstændig træning,Rollebaseret træning med deltagelses- eller gennemførelsesevidens,,,
+Evidens & lifecycle,Godkendelser test undtagelser hændelser og korrigerende handlinger opbevares,Ingen evidensmodel,Nogle artefakter opbevares uensartet,Defineret evidensmodel med genfindelige records,,,
+Evidens & lifecycle,Ændringer i model leverandør data eller formål udløser reassessment,Ingen trigger,Manuel eller uensartet reassessment,Definerede ændringstriggere ejer og reviewproces,,,
