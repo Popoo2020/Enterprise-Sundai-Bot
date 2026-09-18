@@ -10,7 +10,7 @@ for (const [page, language, start] of [
 ]) {
   const html = await readFile(path.join(root, page), 'utf8');
   if (!html.includes(`<html lang="${language}"`)) errors.push(`${page}: incorrect language`);
-  if (!html.includes('class="growth-home"')) errors.push(`${page}: missing current homepage layout`);
+  if (!/<body[^>]*class="[^"]*\bgrowth-home\b[^"]*"/.test(html)) errors.push(`${page}: missing current homepage layout`);
   if (!/<h1>[^<]+<span>[^<]+<\/span><\/h1>/.test(html)) errors.push(`${page}: missing two-part value proposition`);
   if (!html.includes('class="outcome-panel"')) errors.push(`${page}: missing outcome explanation`);
   if (!html.includes(`href="${start}#enquiry"`)) errors.push(`${page}: no direct enquiry link`);

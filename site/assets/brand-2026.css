@@ -51,3 +51,198 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 @media(max-width:850px){.growth-home .hero{padding:44px 0}.growth-home .hero-grid{grid-template-columns:1fr!important;gap:30px!important}.growth-home .hero-copy h1{font-size:clamp(2.4rem,6.6vw,3.75rem)!important;max-width:730px}.growth-home .hero-copy>p{max-width:680px}.outcome-panel{max-width:none}.outcome-panel h2{max-width:600px}.outcome-row{grid-template-columns:30px 1fr;padding:16px 0}.growth-offers{grid-template-columns:1fr}.growth-offer{padding:25px}.growth-start-heading{display:block}.growth-start-heading p{max-width:none;margin-top:16px}.growth-home .insight-grid,.editorial-new .insight-grid{grid-template-columns:1fr}.growth-home .insight-card{min-height:0}.growth-home .insight-card h3{margin-top:10px}.guide-layout{grid-template-columns:1fr;gap:25px}.guide-aside{position:static}.growth-process{grid-template-columns:1fr;gap:22px}}
 @media(max-width:520px){.sundai-header-inner,.guide-shell{width:calc(100% - 32px)}.sundai-header-inner{gap:8px}.sundai-brand img{width:118px}.sundai-languages a{font-size:12px;padding:6px}.sundai-languages{margin:0;gap:0}.sundai-mobile-menu{margin-left:4px}.sundai-mobile-menu summary{font-size:13px;padding:8px;min-width:44px}.growth-home .container{width:calc(100% - 32px)}.growth-home .hero-copy h1{font-size:2.45rem!important;letter-spacing:-.04em!important;line-height:1.12!important}.growth-home .hero-copy .eyebrow{font-size:.8125rem;letter-spacing:.045em}.growth-home .hero-copy>p:not(.eyebrow){font-size:1rem}.growth-home .hero-actions{display:grid;grid-template-columns:1fr}.growth-home .hero-actions .button{width:100%}.outcome-panel{padding:25px 22px;border-radius:16px}.growth-home .service-grid{grid-template-columns:1fr}.growth-start{padding:46px 0}.guide-hero{padding:32px 0}.guide-hero h1{font-size:2.15rem}.guide-layout{padding-top:30px}.guide-body{font-size:1rem}.guide-body h2{font-size:1.45rem}.guide-meta{gap:8px 14px}.growth-home .cta-panel{padding:28px 22px}.growth-home .founder-card{grid-template-columns:1fr}.growth-home .founder-avatar{width:80px;height:80px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Editorial design system: clear type, restrained surfaces and a complete page frame. */
+:root{--navy:var(--brand-ink);--muted:var(--brand-muted);--line:var(--brand-line);--brand-radius:14px}
+html{overflow-x:clip!important}
+body.sundai-site{margin:0;overflow-x:clip!important;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.sundai-site *,.sundai-site *::before,.sundai-site *::after{box-sizing:border-box}
+.sundai-site::before{display:none!important}
+.sundai-site :is(.container,.sundai-header-inner,.sundai-footer-inner){width:min(1200px,calc(100% - 64px));margin-inline:auto}
+.sundai-site :is(.guide-shell,.geo-shell){width:min(1160px,calc(100% - 64px))}
+.sundai-header{box-shadow:0 1px 0 #0b173805}
+.sundai-site .sundai-header-inner{gap:22px}
+.sundai-site .sundai-brand img{width:156px}
+.sundai-site .sundai-nav{gap:22px}
+.sundai-site .sundai-nav a{font-weight:600}
+.sundai-site .sundai-enquire{font-weight:650}
+.sundai-skip{position:fixed;z-index:200;top:10px;left:20px;transform:translateY(-180%);padding:12px 18px;background:var(--brand-ink);color:#fff;border-radius:8px;text-decoration:none}
+.sundai-skip:focus{transform:translateY(0)}
+.sundai-site :is(.page-hero,.training-hero,.authority-hero,.geo-hero,.guide-hero,.revenue-hero){padding:72px 0 58px;background:linear-gradient(125deg,#fff 25%,#f3f7ff);text-align:left}
+.sundai-site .training-hero .container{max-width:1200px}
+.sundai-site :is(.page-intro,.content-hero){text-align:left}
+.sundai-site .page-intro:not(.container){margin-inline:0}
+.sundai-site :is(.page-hero,.training-hero,.authority-hero,.geo-hero,.guide-hero,.revenue-hero,.content-hero) h1{font-size:clamp(2.3rem,4.6vw,3.8rem)!important;line-height:1.13!important;letter-spacing:-.037em!important;font-weight:700;max-width:960px;margin:0 0 22px;text-wrap:balance}
+.sundai-site :is(.page-hero,.training-hero,.content-hero) p:not(.eyebrow){margin-inline:0;max-width:780px;font-size:1.0625rem;line-height:1.75;color:var(--brand-muted)}
+.sundai-site :is(.section-heading,.section-title){max-width:860px;text-align:left;margin:0 0 32px}
+.sundai-site :is(.section-heading,.section-title,.audience-head,.standards-strip,.evidence-strip,.geo-section-head) h2{font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.2;letter-spacing:-.03em;font-weight:700;margin:0 0 16px;text-align:left}
+.sundai-site .section-title h2{max-width:none;margin-inline:0}
+.sundai-site .section-heading p{max-width:760px;line-height:1.75}
+.sundai-site :is(.inline-actions,.hero-actions){justify-content:flex-start}
+.sundai-site .button{font-size:.9375rem!important;font-weight:650;line-height:1.5;min-height:48px;height:auto;padding:12px 18px;border-radius:8px;box-shadow:none;white-space:normal}
+.sundai-site .button.secondary{background:#fff;color:var(--brand-ink);border-color:#cad6e8}
+.sundai-site .button.primary{box-shadow:0 3px 8px #2563eb12}
+.sundai-site .button:hover{transform:translateY(-1px)}
+.sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.revenue-card,.training-grid article,.deliverable-card,.related-card,.insight-card){border-radius:var(--brand-radius);border-color:var(--brand-line);box-shadow:none}
+.sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.training-grid article){padding:28px}
+.sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.training-grid article) :is(h2,h3){font-size:1.35rem!important;line-height:1.32!important;letter-spacing:-.02em;margin:12px 0}
+.sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.training-grid article,.deliverable-card,.sector-card,.revenue-card) :is(p,li){font-size:1rem;line-height:1.7;color:var(--brand-muted)}
+.sundai-site :is(.offer-card,.resource-card) .button{margin-top:auto}
+.sundai-site :is(.offer-card,.resource-card) p{margin-bottom:24px}
+.sundai-site .revenue-card{padding:26px;gap:0}
+.sundai-site .revenue-card h2{font-size:1.2rem;line-height:1.35;min-height:3.3em;margin:12px 0 16px;letter-spacing:-.015em}
+.sundai-site .revenue-card .price{font-size:1rem;font-weight:500;letter-spacing:0;line-height:1.6;color:var(--brand-muted);margin-bottom:12px}
+.sundai-site .price-qualifier{display:block;font-size:.875rem}
+.sundai-site .price-value{display:block;font-size:2rem;line-height:1.3;letter-spacing:-.035em;font-weight:700;color:var(--brand-ink);white-space:nowrap}
+.sundai-site .revenue-card .price small{display:block;font-size:.8125rem;line-height:1.6;font-weight:400;margin-top:4px}
+.sundai-site .revenue-card .stage{font-size:.8125rem;font-weight:650;letter-spacing:.055em}
+.sundai-site .revenue-card.featured{box-shadow:none;background:#f3f7ff;border-color:#abc4f4}
+.sundai-site .revenue-note{font-size:.875rem;line-height:1.75;margin-top:24px;max-width:1060px}
+.sundai-site .training-grid article{display:flex;flex-direction:column;align-items:flex-start}
+.sundai-site .training-grid article::after{background:var(--brand-blue);height:2px;opacity:.22}
+.sundai-site .training-grid ul{min-height:0;margin:6px 0 20px}
+.sundai-site .training-grid article>strong{margin-top:auto;font-size:.875rem;line-height:1.6;padding-top:12px}
+.sundai-site .training-format-link{margin-top:16px;color:var(--brand-hover);font-size:.9375rem;font-weight:650;text-underline-offset:4px}
+.sundai-site .training-scope-note{font-size:.875rem;max-width:920px;margin:24px 0 0;color:var(--brand-muted)}
+.sundai-site .standards-strip{padding:56px 0;background:#f5f8fd}
+.sundai-site .standards-tags span{font-size:.875rem;font-weight:600;border-radius:8px}
+.sundai-site .lead-magnet-panel{margin-bottom:24px;border-radius:14px;box-shadow:none}
+.sundai-site .notice{font-size:.9375rem;line-height:1.75}
+.sundai-site .cta-panel{background:linear-gradient(125deg,#12356f,#0b1738);border-radius:18px;box-shadow:none;padding:42px;gap:32px}
+.sundai-site .cta-panel::before,.sundai-site .cta-panel::after{display:none}
+.sundai-site .cta-panel h2{font-size:clamp(1.75rem,3vw,2.5rem);line-height:1.22;letter-spacing:-.025em}
+.sundai-site .cta-panel .button{background:#fff!important;color:var(--brand-ink)!important;flex-shrink:0;border:1px solid #fff}
+.sundai-site .cta-panel .button:hover{background:#eaf1ff!important}
+.growth-home .hero{padding:64px 0}
+.growth-home .outcome-panel{box-shadow:0 20px 44px #14336915;border-radius:18px}
+.growth-home .section-title{max-width:none}
+.growth-home .service-card{display:flex;border-radius:14px;transition:border-color .18s ease,transform .18s ease}
+.growth-home .service-card>a{flex:1;width:100%;height:auto;align-items:flex-start}
+.growth-home .service-card .card-link{margin-top:auto;padding-top:24px}
+.growth-home .service-card::after{height:2px;opacity:.25}
+.growth-home .service-card:hover{transform:translateY(-2px);box-shadow:none;border-color:#91b4f7}
+.growth-home .growth-start-heading{display:block;max-width:900px;margin-bottom:32px}
+.growth-home .growth-start-heading p{max-width:720px;margin-top:18px}
+.growth-home .growth-offer{padding:28px;border-radius:14px}
+.growth-home .growth-offer>a{padding-top:16px}
+.growth-home .growth-process{gap:32px;padding-top:30px;margin-top:32px}
+.growth-home .proof-strip{padding:28px 0;background:#f7f9fc}
+.growth-home .proof-grid{border-radius:12px;box-shadow:none}
+.growth-home .training-teaser-panel,.growth-home .audience-panel,.growth-home .human-standard .container,.growth-home .founder-card{box-shadow:none;background:#fff;border-color:var(--brand-line)}
+.growth-home .training-teaser-panel{padding:30px}
+.growth-home .audience-panel{padding:32px}
+.growth-home .audience-head{gap:28px;align-items:flex-end}
+.growth-home .audience-head h2{max-width:710px}
+.growth-home .audience-card{display:flex;flex-direction:column;gap:12px;padding:22px;min-height:0}
+.growth-home .audience-card strong{font-size:1.05rem;line-height:1.4}
+.growth-home .audience-card span{font-size:.9375rem;line-height:1.65}
+.growth-home .audience-card em{margin-top:auto;font-size:.875rem;padding-top:8px;font-style:normal}
+.growth-home .human-standard p{font-size:.9375rem;line-height:1.7}
+.growth-home .human-standard h2{font-size:1.2rem;line-height:1.4}
+.growth-home .human-standard a{font-size:.9375rem;white-space:normal;flex-shrink:0}
+.growth-home .trust-ecosystem{background:#f7f9fc;border-block:1px solid var(--brand-line);padding:56px 0}
+.growth-home .ecosystem-group{box-shadow:none;border-radius:14px}
+.growth-home .brand-link-card{box-shadow:none;border-radius:10px}
+.growth-home .brand-link-card:hover{box-shadow:none;border-color:#a6bfe8}
+.growth-home .brand-logo-surface{background:#fff}
+.growth-home .brand-link-copy strong{font-size:.8125rem}
+.growth-home .brand-link-copy small{font-size:.8125rem;line-height:1.6}
+.growth-home .ecosystem-note{text-align:left;font-size:.875rem;max-width:980px;line-height:1.75}
+.growth-home .insight-card{padding:26px;min-height:0}
+.growth-home .insight-card>div{display:flex;flex:1;flex-direction:column;align-items:flex-start}
+.growth-home .insight-card .card-link{padding-top:20px;margin-top:auto}
+.growth-home .founder-card{padding:28px;grid-template-columns:88px minmax(0,1fr) auto}
+.growth-home .founder-avatar{width:80px;height:80px;background:#f1f6ff;border:1px solid var(--brand-line);box-shadow:none;padding:8px;border-radius:14px}
+.growth-home .founder-avatar img{width:100%;height:100%;object-fit:contain}
+.growth-home .founder-copy h2{font-size:1.3rem;line-height:1.35;letter-spacing:-.015em}
+.growth-home .founder-copy h3{font-size:.875rem;line-height:1.6}
+.growth-home .founder-copy p{font-size:.9375rem;line-height:1.75}
+.sundai-insights .authority-hero .container{max-width:1200px}
+.sundai-insights .editorial-new{padding:56px 0;margin-bottom:0}
+.sundai-insights .editorial-new h2{font-size:1.8rem;line-height:1.3;margin:12px 0 28px}
+.sundai-insights :is(.insight-grid,.insights-grid){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.sundai-insights .insight-card{min-width:0;display:flex;flex-direction:column;align-items:stretch;border:1px solid var(--brand-line);background:#fff}
+.sundai-insights .insight-copy{display:flex;flex-direction:column;flex:1;padding:26px}
+.sundai-insights .insight-copy>span{font-size:.8125rem;letter-spacing:.04em;line-height:1.6;color:var(--brand-hover);font-weight:650}
+.sundai-insights .insight-card h3{font-size:1.25rem!important;line-height:1.4!important;margin:18px 0 14px;letter-spacing:-.015em}
+.sundai-insights .insight-card h3 a{color:var(--brand-ink);text-decoration:none}
+.sundai-insights .insight-card p{font-size:1rem;line-height:1.7;margin:0 0 22px;color:var(--brand-muted)}
+.sundai-insights .insight-link,.sundai-insights .insight-card>.card-link{margin-top:auto;font-size:.9375rem;font-weight:650;text-decoration:none;color:var(--brand-hover)}
+.sundai-insights .insight-card:hover{box-shadow:none;border-color:#9bbafa}
+.sundai-insights .article-library-title{font-size:1.8rem;line-height:1.3;margin:0 0 28px}
+.sundai-site .guide-aside{border-radius:12px;box-shadow:none}
+.sundai-site .authority-body{max-width:820px}
+.sundai-site .authority-body :is(p,li){font-size:1.0625rem}
+.sundai-site .authority-meta{font-size:.875rem;line-height:1.7}
+.sundai-site .commercial-cta{background:var(--brand-ink);border-radius:14px}
+.sundai-enquiry-page .revenue-hero{padding-bottom:38px;border-bottom:0}
+.sundai-enquiry-page #enquiry{padding-top:28px;padding-bottom:72px;background:linear-gradient(#f5f8fe,#fff)}
+.sundai-enquiry-page .enquiry-wrap{grid-template-columns:minmax(250px,.8fr) minmax(0,1.2fr);gap:48px}
+.sundai-enquiry-page .enquiry-copy{position:static;padding-top:24px}
+.sundai-enquiry-page .enquiry-copy h2{font-size:2rem;line-height:1.25;letter-spacing:-.025em}
+.sundai-enquiry-page .enquiry-copy li{font-size:.9375rem;line-height:1.7;margin:12px 0}
+.sundai-site .revenue-form{padding:30px;border-radius:16px;box-shadow:0 10px 28px #0b173808}
+.sundai-site .revenue-form label{font-size:.875rem;font-weight:650}
+.sundai-site .revenue-form :is(input,select,textarea){border-radius:8px;border-color:#cad6e8;font-size:16px;line-height:1.5}
+.sundai-site .revenue-form .privacy-note{font-size:.8125rem;line-height:1.7}
+.sundai-site .funnel-strip{background:var(--brand-ink);padding:56px 0}
+.sundai-site .funnel-step p{font-size:.9375rem;line-height:1.7}
+.sundai-site .revenue-faq p{font-size:.9375rem;line-height:1.7}
+.sundai-site .sundai-footer{background:#0b1738;color:#d2def2;border-top:1px solid #203053;padding:54px 0 24px;font-size:.9375rem;line-height:1.7}
+.sundai-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:70px;align-items:start}
+.sundai-footer-brand img{display:block;width:164px;height:auto;content:normal!important;filter:none!important}
+.sundai-footer-brand p{max-width:340px;color:#bdcce4;font-size:.9375rem;margin:22px 0}
+.sundai-footer nav{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.sundai-footer nav h2{font-size:.8125rem;line-height:1.6;font-weight:650;letter-spacing:.07em;text-transform:uppercase;color:#fff;margin:0 0 10px}
+.sundai-footer a{color:#c6d5ef;text-decoration:none;font-size:.9375rem;line-height:1.65}
+.sundai-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.sundai-footer a:focus-visible{outline-color:#a3c2ff}
+.sundai-footer a.sundai-footer-contact{color:#fff;font-weight:650;display:inline-flex;align-items:center;gap:18px;padding-bottom:7px;border-bottom:1px solid #7598d6}
+.sundai-footer-bottom{border-top:1px solid #ffffff20;margin-top:42px;padding-top:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px}
+.sundai-footer-bottom p,.sundai-footer-bottom a{font-size:.8125rem;color:#a9bbd8;margin:0;line-height:1.8}
+@media(max-width:1160px){.sundai-site .sundai-brand img{width:148px}.sundai-site .sundai-header-inner{gap:16px}}
+@media(max-width:980px){.sundai-footer-grid{gap:38px;grid-template-columns:1.2fr 1fr 1fr}.sundai-enquiry-page .enquiry-wrap{grid-template-columns:1fr;gap:18px}.sundai-enquiry-page .enquiry-copy{padding-top:0}.sundai-site .revenue-card h2{min-height:0}}
+@media(max-width:850px){.sundai-insights :is(.insight-grid,.insights-grid){grid-template-columns:1fr 1fr}.sundai-site .training-grid article{padding:26px}.sundai-site .training-grid article>strong{margin-top:8px}.growth-home .founder-card{grid-template-columns:80px minmax(0,1fr)}.growth-home .founder-card>.button{grid-column:2}.sundai-site .cta-panel{padding:30px;flex-direction:column;align-items:flex-start}}
+@media(max-width:680px){
+  .sundai-site :is(.container,.sundai-header-inner,.sundai-footer-inner,.guide-shell,.geo-shell){width:calc(100% - 32px)!important}
+  .sundai-site :is(.page-hero,.training-hero,.authority-hero,.geo-hero,.guide-hero,.revenue-hero){padding:42px 0 36px}
+  .sundai-site :is(.page-hero,.training-hero,.authority-hero,.geo-hero,.guide-hero,.revenue-hero,.content-hero) h1{font-size:clamp(2rem,7.6vw,2.85rem)!important;line-height:1.16!important;letter-spacing:-.03em!important}
+  .sundai-site :is(.section-heading,.section-title,.audience-head,.standards-strip,.evidence-strip) h2{font-size:clamp(1.65rem,6.6vw,2.2rem)!important;line-height:1.22!important}
+  .sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.revenue-card,.training-grid article){padding:22px!important}
+  .sundai-site :is(.offer-card,.resource-card,.case-card,.content-card,.training-grid article) :is(h2,h3){font-size:1.25rem!important}
+  .sundai-site .button{min-height:48px;font-size:.9375rem!important}
+  .sundai-site .sundai-header-inner{gap:8px}
+  .sundai-site .sundai-brand img{width:118px}
+  .sundai-site .sundai-languages a{min-width:32px;min-height:44px;padding:6px}
+  .sundai-site .sundai-mobile-menu{margin-left:4px}
+  .growth-home .hero-copy h1{font-size:clamp(2.15rem,8.6vw,2.8rem)!important;line-height:1.16!important}
+  .growth-home .service-card p,.growth-home .audience-card span,.growth-home .insight-card p{font-size:.9375rem!important;line-height:1.7!important}
+  .growth-home .service-card h3{font-size:1.125rem!important;line-height:1.4!important}
+  .growth-home .service-card .card-link{font-size:.9375rem!important;padding-top:20px!important}
+  .growth-home .service-card,.growth-home .insight-card{padding:22px!important}
+  .growth-home .insight-card h3{font-size:1.25rem!important;line-height:1.4!important}
+  .growth-home .insight-meta{font-size:.8125rem!important;line-height:1.7!important}
+  .growth-home .growth-offer{padding:24px}
+  .growth-home .audience-panel{padding:22px!important}
+  .growth-home .audience-card em{font-size:.875rem!important}
+  .growth-home .human-standard .container{padding:24px}
+  .growth-home .ecosystem-note{font-size:.8125rem}
+  .growth-home .founder-card{grid-template-columns:64px minmax(0,1fr);padding:22px;gap:18px}
+  .growth-home .founder-avatar{width:64px!important;height:64px!important;padding:7px!important;background:#f1f6ff!important;box-shadow:none!important}
+  .growth-home .founder-card>.button{grid-column:1/-1}
+  .sundai-site .cta-panel{padding:28px 24px!important}
+  .sundai-insights :is(.insight-grid,.insights-grid){grid-template-columns:1fr}
+  .sundai-insights .insight-card{padding:0}
+  .sundai-insights .editorial-new .insight-card{padding:24px}
+  .sundai-insights .insight-copy{padding:24px}
+  .sundai-insights .editorial-new{padding:40px 0}
+  .sundai-site .authority-body :is(p,li){font-size:1rem}
+  .sundai-site .revenue-form{padding:22px}
+  .sundai-site .sundai-footer{padding:40px 0 24px}
+  .sundai-footer-grid{grid-template-columns:1fr 1fr;gap:34px 24px}
+  .sundai-footer-brand{grid-column:1/-1}
+  .sundai-footer-brand img{width:148px}
+  .sundai-footer-bottom{margin-top:30px}
+}
+@media(max-width:360px){.sundai-site .sundai-brand img{width:102px}.sundai-site .sundai-languages a{min-width:29px;font-size:11px}.sundai-footer-grid{grid-template-columns:1fr}.sundai-footer-brand{grid-column:1}}
+@media print{.sundai-header,.sundai-footer,.sundai-skip{display:none!important}.sundai-site .guide-aside{position:static}.sundai-site .guide-body{color:#111}}
