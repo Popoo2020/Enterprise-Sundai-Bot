@@ -3,7 +3,7 @@ import {renderBrandHeader,brandRoutes} from '../site/functions/_shared/brand-hea
 import {renderBrandFooter} from '../site/functions/_shared/brand-footer.js';
 import path from 'node:path';
 const site=path.resolve(import.meta.dirname,'../site');
-const css='<link rel="stylesheet" href="/assets/brand-2026.css?v=20260918c">';
+const css='<link rel="stylesheet" href="/assets/brand-2026.css?v=20260918d">';
 const script='<script defer src="/assets/brand-navigation.js?v=20260918"></script>';
 async function walk(folder) {
   for(const entry of await readdir(folder,{withFileTypes:true})) {

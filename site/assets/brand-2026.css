@@ -136,7 +136,7 @@ body.sundai-site{margin:0;overflow-x:clip!important;font-family:Inter,-apple-sys
 .growth-home .audience-card{display:flex;flex-direction:column;gap:12px;padding:22px;min-height:0}
 .growth-home .audience-card strong{font-size:1.05rem;line-height:1.4}
 .growth-home .audience-card span{font-size:.9375rem;line-height:1.65}
-.growth-home .audience-card em{margin-top:auto;font-size:.875rem;padding-top:8px;font-style:normal}
+.growth-home .audience-card b{margin-top:auto;font-size:.875rem!important;line-height:1.6;padding-top:8px;font-style:normal}
 .growth-home .human-standard p{font-size:.9375rem;line-height:1.7}
 .growth-home .human-standard h2{font-size:1.2rem;line-height:1.4}
 .growth-home .human-standard a{font-size:.9375rem;white-space:normal;flex-shrink:0}
@@ -224,7 +224,7 @@ body.sundai-site{margin:0;overflow-x:clip!important;font-family:Inter,-apple-sys
   .growth-home .insight-meta{font-size:.8125rem!important;line-height:1.7!important}
   .growth-home .growth-offer{padding:24px}
   .growth-home .audience-panel{padding:22px!important}
-  .growth-home .audience-card em{font-size:.875rem!important}
+  .growth-home .audience-card b{font-size:.875rem!important}
   .growth-home .human-standard .container{padding:24px}
   .growth-home .ecosystem-note{font-size:.8125rem}
   .growth-home .founder-card{grid-template-columns:64px minmax(0,1fr);padding:22px;gap:18px}
