@@ -86,14 +86,14 @@ if (run('secondary')) {
 
 if (run('home')) {
   const expected = {
-    'index.html':['lang="en"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Who we help','/industries/','/use-cases/','Founded by Eric Rimón','5 min read'],
-    'da/index.html':['lang="da"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Hvem vi hjælper','/da/brancher/','/da/anvendelser/','Grundlagt af Eric Rimón','5 min. læsning'],
-    'sv/index.html':['lang="sv"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Vilka vi hjälper','/sv/branscher/','/sv/anvandningsfall/','Grundat av Eric Rimón','5 min läsning']
+    'index.html':['lang="en"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Who we help','/industries/','/use-cases/','Founded by Eric Rimón','min read'],
+    'da/index.html':['lang="da"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Hvem vi hjælper','/da/brancher/','/da/anvendelser/','Grundlagt af Eric Rimón','min. læsning'],
+    'sv/index.html':['lang="sv"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Vilka vi hjälper','/sv/branscher/','/sv/anvandningsfall/','Grundat av Eric Rimón','min läsning']
   };
   for (const [page,tokens] of Object.entries(expected)) {
     const html = await readFile(path.join(root, page), 'utf8');
     for (const token of tokens) if (!html.includes(token)) throw new Error(`${page}: final homepage token missing: ${token}`);
-    if (!html.includes('data-nav-toggle')) throw new Error(`${page}: accessible mobile navigation missing`);
+    if (!html.includes('<details class="sundai-mobile-menu">')) throw new Error(`${page}: accessible mobile navigation missing`);
     if (!html.includes('class="skip-link"')) throw new Error(`${page}: skip link missing`);
     if ((html.match(/class="service-card/g) || []).length !== 4) throw new Error(`${page}: four static service cards required`);
     if ((html.match(/class="insight-meta"/g) || []).length !== 3) throw new Error(`${page}: three insight metadata blocks required`);
