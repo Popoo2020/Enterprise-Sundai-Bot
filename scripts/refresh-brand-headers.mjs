@@ -1,8 +1,9 @@
 import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {renderBrandHeader,brandRoutes} from '../site/functions/_shared/brand-header.js';
+import {renderBrandFooter} from '../site/functions/_shared/brand-footer.js';
 import path from 'node:path';
 const site=path.resolve(import.meta.dirname,'../site');
-const css='<link rel="stylesheet" href="/assets/brand-2026.css?v=20260918">';
+const css='<link rel="stylesheet" href="/assets/brand-2026.css?v=20260918c">';
 const script='<script defer src="/assets/brand-navigation.js?v=20260918"></script>';
 async function walk(folder) {
   for(const entry of await readdir(folder,{withFileTypes:true})) {
@@ -20,6 +21,18 @@ async function walk(folder) {
     const header=renderBrandHeader(lang,alternates,rel);
     text=/<header\b/.test(text)?text.replace(/<header\b[^>]*>[\s\S]*?<\/header>/,header):text.replace(/<body\b[^>]*>/,m=>m+header);
     if(!text.includes('href="/assets/brand-2026.css')) text=text.replace('</head>',css+script+'\n</head>');
+    text=text.replace(/<link\b[^>]*href="\/assets\/brand-2026\.css[^\"]*"[^>]*>/g,css);
+    const classes=new Set((text.match(/<body[^>]*class="([^"]*)"/)?.[1]||'').split(/\s+/).filter(Boolean));
+    classes.add('sundai-site');
+    if(rel===brandRoutes[lang].insights)classes.add('sundai-insights');
+    if(rel===brandRoutes[lang].start)classes.add('sundai-enquiry-page');
+    text=text.replace(/<body\b[^>]*>/,`<body class="${[...classes].join(' ')}">`);
+    const footer=renderBrandFooter(lang);
+    text=/<footer\b/.test(text)?text.replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/,footer):text.replace('</main>','</main>'+footer);
+    if(!/<a\b[^>]*href="#main"/.test(text)) {
+      const skip={en:'Skip to content',da:'Gå til indhold',sv:'Hoppa till innehåll'}[lang];
+      text=text.replace(/<body\b[^>]*>/,m=>m+`<a class="sundai-skip" href="#main">${skip}</a>`);
+    }
     if(!/<main[^>]+id="main"/.test(text))text=text.replace(/<main\b/, '<main id="main"');
     // Keep historic contact links usable on every page, including without JS.
     text=text.replace(/href="(?:\/|\/da\/|\/sv\/)?#contact"/g,`href="${brandRoutes[lang].start}#enquiry"`);
@@ -27,4 +40,4 @@ async function walk(folder) {
   }
 }
 await walk(site);
-console.log('Updated shared navigation and brand stylesheet on static pages.');
+console.log('Updated shared navigation, footer, accessibility link and brand stylesheet on static pages.');

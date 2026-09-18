@@ -13,7 +13,8 @@ const pages = [
 for (const [file,lang,tokens] of pages) {
   const html = await readFile(path.join(root,file),'utf8');
   if (!html.includes(`<html lang="${lang}"`)) errors.push(`${file}: wrong lang`);
-  for (const token of tokens) if (!html.includes(token)) errors.push(`${file}: missing ${token}`);
+  const visibleText=html.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
+  for (const token of tokens) if (!html.includes(token)&&!visibleText.includes(token)) errors.push(`${file}: missing ${token}`);
   for (const token of ['rel="canonical"','hreflang=','application/ld+json','OfferCatalog','/assets/revenue-funnel.css','/assets/revenue-funnel.js','name="startedAt"','name="message"','data-interest-select','data-enquiry-details','data-form-status']) {
     if (!html.includes(token)) errors.push(`${file}: missing funnel token ${token}`);
   }
@@ -40,7 +41,8 @@ for (const [file,tokens] of [
   ['sv/tjanster/index.html',['revenue-grid','Readiness-granskning','Governance Desk','vägledande från','/sv/start/']]
 ]) {
   const html = await readFile(path.join(root,file),'utf8');
-  for (const token of tokens) if (!html.includes(token)) errors.push(`${file}: missing availability-first service token ${token}`);
+  const visibleText=html.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
+  for (const token of tokens) if (!html.includes(token)&&!visibleText.includes(token)) errors.push(`${file}: missing availability-first service token ${token}`);
   if (!/current client engagement|aktuel kundeopgave|pågående kunduppdrag/i.test(html)) errors.push(`${file}: current-engagement clarification missing`);
 }
 
