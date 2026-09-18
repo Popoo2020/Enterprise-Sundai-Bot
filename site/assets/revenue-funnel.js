@@ -6,6 +6,9 @@
   const copy = {
     en: {
       packages: {
+        unsure: 'Help me choose the right first step',
+        security: 'AI Security Assessment — scope and quote agreed first',
+        automation: 'Secure AI Automation — scope and quote agreed first',
         call: 'AI Governance Decision Review — indicative from €490',
         sprint: 'AI Governance Readiness Review — indicative from €1,950',
         implementation: 'Governance Implementation Support — indicative from €4,500',
@@ -16,6 +19,9 @@
     },
     da: {
       packages: {
+        unsure: 'Hjælp os med at vælge det rette første skridt',
+        security: 'AI-sikkerhedsvurdering — omfang og pris aftales først',
+        automation: 'Sikker AI-automatisering — omfang og pris aftales først',
         call: 'AI-governance beslutningsreview — vejledende fra €490',
         sprint: 'AI-governance readiness-review — vejledende fra €1.950',
         implementation: 'Governance-implementeringsstøtte — vejledende fra €4.500',
@@ -26,6 +32,9 @@
     },
     sv: {
       packages: {
+        unsure: 'Hjälp oss välja rätt första steg',
+        security: 'AI-säkerhetsbedömning — omfattning och pris avtalas först',
+        automation: 'Säker AI-automatisering — omfattning och pris avtalas först',
         call: 'Beslutsgranskning inom AI-styrning — vägledande från €490',
         sprint: 'Readiness-granskning inom AI-styrning — vägledande från €1 950',
         implementation: 'Implementeringsstöd för AI-styrning — vägledande från €4 500',
@@ -45,6 +54,10 @@
   const requested = params.get('package');
 
   const sourceParts = [];
+  const sourcePage = params.get('source_page');
+  if (sourcePage && /^\/[a-zA-Z0-9/_-]*\.?[a-zA-Z0-9_-]*$/.test(sourcePage)) {
+    sourceParts.push(`source_page=${sourcePage.slice(0,200)}`);
+  }
   for (const key of ['utm_source','utm_medium','utm_campaign','utm_content']) {
     const value = params.get(key);
     if (value) sourceParts.push(`${key}=${value.slice(0,120)}`);
@@ -58,8 +71,8 @@
 
   const compose = () => {
     if (!message) return;
-    const key = interest?.value || 'call';
-    const packageLabel = copy.packages[key] || copy.packages.call;
+    const key = interest?.value || 'unsure';
+    const packageLabel = copy.packages[key] || copy.packages.unsure;
     const detailText = String(details?.value || '').trim() || copy.fallback;
     const source = sourceParts.length ? `\nSource: ${sourceParts.join(' | ')}` : '';
     message.value = `Availability enquiry: ${packageLabel}${source}\nPage: ${window.location.pathname}\n\nDetails:\n${detailText}`;
