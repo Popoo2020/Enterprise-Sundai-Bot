@@ -198,6 +198,8 @@ body.sundai-site{margin:0;overflow-x:clip!important;font-family:Inter,-apple-sys
 .sundai-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
 .sundai-footer a:focus-visible{outline-color:#a3c2ff}
 .sundai-footer a.sundai-footer-contact{color:#fff;font-weight:650;display:inline-flex;align-items:center;gap:18px;padding-bottom:7px;border-bottom:1px solid #7598d6}
+.sundai-site a.sundai-phone{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;font-weight:650;color:var(--brand-blue);text-underline-offset:4px}
+.sundai-phone span{white-space:nowrap}.sundai-phone-contact{margin-top:24px}.sundai-footer-brand p.sundai-footer-phone{margin:12px 0 0}.sundai-footer a.sundai-phone{color:#fff}
 .sundai-footer-bottom{border-top:1px solid #ffffff20;margin-top:42px;padding-top:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px}
 .sundai-footer-bottom p,.sundai-footer-bottom a{font-size:.8125rem;color:#a9bbd8;margin:0;line-height:1.8}
 @media(max-width:1160px){.sundai-site .sundai-brand img{width:148px}.sundai-site .sundai-header-inner{gap:16px}}
