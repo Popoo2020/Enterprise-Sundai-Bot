@@ -86,9 +86,9 @@ if (run('secondary')) {
 
 if (run('home')) {
   const expected = {
-    'index.html':['lang="en"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Who we help','/industries/','/use-cases/','Founded by Eric Rimón','min read'],
-    'da/index.html':['lang="da"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Hvem vi hjælper','/da/brancher/','/da/anvendelser/','Grundlagt af Eric Rimón','min. læsning'],
-    'sv/index.html':['lang="sv"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Vilka vi hjälper','/sv/branscher/','/sv/anvandningsfall/','Grundat av Eric Rimón','min läsning']
+    'index.html':['lang="en"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Who we help','/industries/','/use-cases/','About SundAI','min read'],
+    'da/index.html':['lang="da"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Hvem vi hjælper','/da/brancher/','/da/anvendelser/','Om SundAI','min. læsning'],
+    'sv/index.html':['lang="sv"','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','Vilka vi hjälper','/sv/branscher/','/sv/anvandningsfall/','Om SundAI','min läsning']
   };
   for (const [page,tokens] of Object.entries(expected)) {
     const html = await readFile(path.join(root, page), 'utf8');

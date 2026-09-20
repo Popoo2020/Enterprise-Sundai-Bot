@@ -122,7 +122,7 @@ for (const [page,transparencyToken] of Object.entries(readinessPages)) {
 const trustPages=['trust/index.html','da/tillid/index.html','sv/tillit/index.html'];
 for (const page of trustPages) {
   const html=await readFile(path.join(root,page),'utf8');
-  for (const token of ['rel="canonical"','hreflang=','application/ld+json','WebPage','dateModified','RIIMON HOLDINGS LTD']) if(!html.includes(token)) errors.push(`${page}: missing trust/evidence token ${token}`);
+  for (const token of ['rel="canonical"','hreflang=','application/ld+json','WebPage','dateModified','#operator']) if(!html.includes(token)) errors.push(`${page}: missing trust/evidence token ${token}`);
 }
 
 const robots = await readFile(path.join(root,'robots.txt'),'utf8');
