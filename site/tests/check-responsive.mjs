@@ -106,7 +106,7 @@ if (run('home')) {
 if (run('security')) {
   const headers = await readFile(path.join(root, '_headers'), 'utf8');
   if (headers.includes('Clear-Site-Data')) throw new Error('_headers must not clear the browser cache on every homepage request');
-  for (const token of ['Content-Security-Policy','Strict-Transport-Security','X-Content-Type-Options','https://avatars.githubusercontent.com']) {
+  for (const token of ['Content-Security-Policy','Strict-Transport-Security','X-Content-Type-Options']) {
     if (!headers.includes(token)) throw new Error(`Security header missing: ${token}`);
   }
   const neonJs = await readFile(path.join(root, 'assets/neon-compact.js'), 'utf8');

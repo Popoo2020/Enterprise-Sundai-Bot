@@ -1,6 +1,23 @@
 # SundAI website deployment
 
-The production website is in `site/` and is prepared for Cloudflare Pages.
+The production assets are in `site/`. The observed production integration is **Cloudflare Workers Builds: sundai01**.
+
+## Production Workers configuration
+
+- Repository root: `.`
+- Configuration: `wrangler.jsonc`
+- Entry point: `worker.js`
+- Worker name: `sundai01`
+- Build command: none required
+- Production deploy command: `npx wrangler deploy`
+- Preview deploy command: `npx wrangler versions upload` (never `deploy` for preview branches)
+- Assets: `site/`, binding `ASSETS`
+
+The Worker explicitly handles `/api/contact`; Workers does not automatically execute a Pages `functions/` directory. Static pages and assets continue to use the asset binding. Existing dashboard variables are preserved with `keep_vars`; secrets belong in the runtime environment, never the repository.
+
+Both Turnstile keys and the three email-provider settings described in `SECURITY_DEPLOYMENT.md` are required. Until these are configured, the endpoint returns a controlled HTTP 503 and the form offers telephone contact. Verify `/api/contact` returns JSON after deploying and that `/functions/api/contact.js` no longer serves source code.
+
+The Pages configuration below is retained for a separately configured legacy Pages deployment; it is not the active Workers entry point.
 
 ## Cloudflare Pages settings
 

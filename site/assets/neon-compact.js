@@ -26,7 +26,7 @@
       servicesTitle:'Four ways to move AI forward safely', trainingCard:'AI Training & Talks', trainingText:'Role-based workshops and keynotes that build practical AI literacy, responsible use and security awareness.', trainingLink:'Explore training →',
       trust:[['Trust','Transparent, reliable delivery'],['Clarity','Clear strategies and outcomes'],['Security','Secure-by-design thinking'],['Quality','Tested and documented work'],['European','EU-focused and privacy-aware']],
       ecosystem:{platforms:'Platforms we work with',collaborations:'Documented collaborations',official:'Open official website',diplomacy:'Digital diplomacy collaboration',cyber:'Cybersecurity education collaboration'},
-      security:{loading:'Preparing the secure contact form…',required:'Please complete the security check before sending.',unavailable:'The security check is temporarily unavailable. Please try again shortly.',rateLimited:'Too many attempts. Please wait a few minutes and try again.',generic:'The message could not be sent. Please try again later.'}
+      security:{loading:'Preparing the secure contact form…',required:'Please complete the security check before sending.',unavailable:'The contact form is temporarily unavailable. Please call +45 81 90 74 80 or try again later.',rateLimited:'Too many attempts. Please wait a few minutes and try again.',generic:'The message could not be sent. Please try again later.'}
     },
     da: {
       trainingHref:'/da/kurser-foredrag/', trainingLabel:'Kurser & foredrag', resourcesHref:'/da/ressourcer/', resources:'Ressourcer', snapshot:'Overblik',
@@ -35,7 +35,7 @@
       servicesTitle:'Fire måder at flytte AI sikkert fremad', trainingCard:'AI-kurser & foredrag', trainingText:'Rollebaserede workshops og foredrag, der styrker praktisk AI-literacy, ansvarlig brug og sikkerhedsbevidsthed.', trainingLink:'Se kurser →',
       trust:[['Tillid','Transparent og pålidelig levering'],['Klarhed','Tydelige strategier og resultater'],['Sikkerhed','Secure-by-design tilgang'],['Kvalitet','Testet og dokumenteret arbejde'],['Europæisk','EU-fokuseret og privatlivsbevidst']],
       ecosystem:{platforms:'Platforme vi arbejder med',collaborations:'Dokumenterede samarbejder',official:'Åbn officiel hjemmeside',diplomacy:'Samarbejde om digitalt diplomati',cyber:'Samarbejde om cybersikkerhedsuddannelse'},
-      security:{loading:'Forbereder den sikre kontaktformular…',required:'Gennemfør sikkerhedskontrollen, før du sender.',unavailable:'Sikkerhedskontrollen er midlertidigt utilgængelig. Prøv igen om lidt.',rateLimited:'For mange forsøg. Vent nogle minutter og prøv igen.',generic:'Beskeden kunne ikke sendes. Prøv igen senere.'}
+      security:{loading:'Forbereder den sikre kontaktformular…',required:'Gennemfør sikkerhedskontrollen, før du sender.',unavailable:'Kontaktformularen er midlertidigt utilgængelig. Ring på +45 81 90 74 80, eller prøv igen senere.',rateLimited:'For mange forsøg. Vent nogle minutter og prøv igen.',generic:'Beskeden kunne ikke sendes. Prøv igen senere.'}
     },
     sv: {
       trainingHref:'/sv/utbildning-forelasningar/', trainingLabel:'Utbildning & föreläsningar', resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt',
@@ -44,7 +44,7 @@
       servicesTitle:'Fyra sätt att föra AI framåt på ett säkert sätt', trainingCard:'AI-utbildning & föreläsningar', trainingText:'Rollbaserade workshops och föreläsningar som stärker praktisk AI-kunnighet, ansvarsfull användning och säkerhetsmedvetenhet.', trainingLink:'Se utbildning →',
       trust:[['Tillit','Transparent och tillförlitlig leverans'],['Tydlighet','Tydliga strategier och resultat'],['Säkerhet','Secure-by-design perspektiv'],['Kvalitet','Testat och dokumenterat arbete'],['Europeiskt','EU-fokuserat och integritetsmedvetet']],
       ecosystem:{platforms:'Plattformar vi arbetar med',collaborations:'Dokumenterade samarbeten',official:'Öppna officiell webbplats',diplomacy:'Samarbete inom digital diplomati',cyber:'Samarbete inom cybersäkerhetsutbildning'},
-      security:{loading:'Förbereder det säkra kontaktformuläret…',required:'Slutför säkerhetskontrollen innan du skickar.',unavailable:'Säkerhetskontrollen är tillfälligt otillgänglig. Försök igen om en stund.',rateLimited:'För många försök. Vänta några minuter och försök igen.',generic:'Meddelandet kunde inte skickas. Försök igen senare.'}
+      security:{loading:'Förbereder det säkra kontaktformuläret…',required:'Slutför säkerhetskontrollen innan du skickar.',unavailable:'Kontaktformuläret är tillfälligt otillgängligt. Ring +45 81 90 74 80 eller försök igen senare.',rateLimited:'För många försök. Vänta några minuter och försök igen.',generic:'Meddelandet kunde inte skickas. Försök igen senare.'}
     }
   }[lang];
 
@@ -134,6 +134,7 @@
   let turnstileToken = '';
   let turnstileScriptPromise = null;
   let turnstileConfigPromise = null;
+  let turnstilePreparePromise = null;
 
   const setStatus = (message, kind = '') => {
     if (!status) return;
@@ -167,19 +168,30 @@
 
   const getTurnstileConfig = () => {
     if (turnstileConfigPromise) return turnstileConfigPromise;
-    turnstileConfigPromise = fetch('/api/contact', { headers:{ accept:'application/json' }, cache:'no-store' })
-      .then(response => response.ok ? response.json() : { enabled:false })
-      .catch(() => ({ enabled:false }));
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8_000);
+    turnstileConfigPromise = fetch('/api/contact', { headers:{ accept:'application/json' }, cache:'no-store', signal:controller.signal })
+      .then(async response => {
+        if (!response.ok) throw new Error('contact_unavailable');
+        const data = await response.json();
+        if (data.available !== true || data.enabled !== true || !data.siteKey) throw new Error('contact_unavailable');
+        return data;
+      })
+      .catch(error => { turnstileConfigPromise = null; throw error; })
+      .finally(() => clearTimeout(timer));
     return turnstileConfigPromise;
   };
 
-  const prepareTurnstile = async () => {
+  const renderTurnstile = async () => {
     if (!form || form.dataset.turnstilePrepared === 'true') return;
     form.dataset.turnstilePrepared = 'pending';
-    const turnstileConfig = await getTurnstileConfig();
-    if (!turnstileConfig.enabled || !turnstileConfig.siteKey) {
-      form.dataset.turnstilePrepared = 'true';
-      form.dataset.turnstileEnabled = 'false';
+    let turnstileConfig;
+    try {
+      turnstileConfig = await getTurnstileConfig();
+    } catch {
+      form.dataset.turnstilePrepared = 'false';
+      form.dataset.turnstileEnabled = 'error';
+      setStatus(config?.security.unavailable || 'Contact form unavailable. Please call +45 81 90 74 80.', 'error');
       return;
     }
 
@@ -204,6 +216,7 @@
       turnstileWidgetId = window.turnstile.render(slot, {
         sitekey: turnstileConfig.siteKey,
         action: 'contact',
+        'response-field': false,
         theme: 'light',
         language: lang === 'da' ? 'da' : lang === 'sv' ? 'sv-SE' : 'en',
         appearance: 'interaction-only',
@@ -219,6 +232,13 @@
       form.dataset.turnstileEnabled = 'error';
       setStatus(config?.security.unavailable || 'Security check unavailable.', 'error');
     }
+  };
+
+  const prepareTurnstile = () => {
+    if (!turnstilePreparePromise) {
+      turnstilePreparePromise = renderTurnstile().finally(() => { turnstilePreparePromise = null; });
+    }
+    return turnstilePreparePromise;
   };
 
   const openContact = () => {
@@ -238,8 +258,16 @@
     form.addEventListener('focusin', prepareTurnstile, { once:true });
     form.addEventListener('submit',async e=>{
       e.preventDefault();
-      if(!form.reportValidity()) return;
-      if (form.dataset.turnstileEnabled === 'true' && !turnstileToken) {
+      if(!form.reportValidity() || submitButton.disabled) return;
+      submitButton.disabled = true;
+      await prepareTurnstile();
+      if (form.dataset.turnstileEnabled !== 'true') {
+        submitButton.disabled = false;
+        setStatus(config?.security.unavailable || 'Contact form unavailable. Please call +45 81 90 74 80.', 'error');
+        return;
+      }
+      if (!turnstileToken) {
+        submitButton.disabled = false;
         setStatus(config?.security.required || 'Complete the security check before sending.', 'error');
         await prepareTurnstile();
         return;
@@ -263,12 +291,17 @@
           if (String(result.code || '').startsWith('turnstile_')) throw new Error('turnstile');
           throw new Error('generic');
         }
+        if (result.ok !== true) throw new Error('generic');
         setStatus(form.dataset.success||'Thank you — your enquiry has been sent.','success');
         form.reset();
         turnstileToken='';
         if(started) started.value=String(Date.now());
         if(window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
       } catch (error) {
+        turnstileToken = '';
+        const tokenField = form.querySelector('[name="turnstileToken"]');
+        if (tokenField) tokenField.value = '';
+        if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
         if(error.message === 'rate_limited') setStatus(config?.security.rateLimited || 'Too many attempts. Please try again later.','error');
         else if(error.message === 'turnstile') setStatus(config?.security.required || 'Complete the security check before sending.','error');
         else setStatus(config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.','error');

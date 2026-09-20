@@ -1,0 +1,5 @@
+functions/**
+tests/**
+wrangler.toml
+_routes.json
+**/*.map

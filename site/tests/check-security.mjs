@@ -31,7 +31,7 @@ for (const token of [
   'TURNSTILE_ALLOWED_HOSTNAMES',
   'CONTACT_RATE_LIMITER',
   'caches.default',
-  'request.arrayBuffer()',
+  'request.body.getReader()',
   'MAX_BODY_BYTES',
   "unsupported_media_type",
   'withTimeout',
@@ -45,6 +45,7 @@ if (contact.includes('await resendResponse.text()')) errors.push('Contact functi
 const client = await read('site/assets/neon-compact.js');
 for (const token of [
   'data-sundai-turnstile',
+  "'response-field': false",
   'turnstile/v0/api.js?render=explicit',
   "fetch('/api/contact'",
   "'/assets/brands/openai.svg'",

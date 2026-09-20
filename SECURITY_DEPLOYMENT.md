@@ -2,6 +2,16 @@
 
 This repository contains the code-side security controls. The Cloudflare, GitHub and Resend account controls below must also be enabled in their respective dashboards before the deployment can be considered fully hardened.
 
+## Security review: 20 September 2026
+
+Verified on the live site before this change: HTTPS, CSP, HSTS, nosniff and framing restrictions were present. The contact API returned HTTP 404: the production check identifies a Workers deployment (`sundai01`), while the repository only contained a Pages Functions layout. Function source files were also being served as static assets. A tracked-file scan found no matches for common private-key and API-token patterns; that is not a comprehensive secrets audit or a review of Git history.
+
+The repository now includes a root Workers entry point and `wrangler.jsonc`. `/api/*` runs through the Worker; public assets retain static delivery. `site/.assetsignore` excludes server source, tests, configuration and source maps from asset uploads. Verify the actual deployment uses this configuration, rather than an overriding dashboard command or generated configuration.
+
+Code fixes include bounded streaming request reads (12 KB, 5 seconds), bounded and expiring local rate state, working edge-cache markers, trusted edge IP handling, exact origin checks, field-type validation, strict Turnstile hostname/action verification, and controlled verification/provider failure responses. API responses include their own security headers. Automated behavior tests run with mocked providers and send no email.
+
+Unverified account controls: WAF rules, account-level rate limits, administrator MFA, DNSSEC, registrar security, runtime secrets, email-domain authentication and alert review. Passing source checks does not establish that these controls are enabled or that the site is immune to compromise or DDoS.
+
 ## Performance design
 
 - The public website remains static and cacheable.
@@ -20,7 +30,7 @@ Create a Turnstile widget for:
 
 Use Managed mode unless a specific accessibility or threat-model requirement calls for another mode.
 
-Configure these Cloudflare Pages variables for Production and Preview separately:
+Configure these runtime variables under **Workers & Pages → sundai01 → Settings → Variables and Secrets**, separately for each environment. Build-time variables alone are insufficient:
 
 | Variable | Type | Value |
 | --- | --- | --- |
@@ -28,7 +38,7 @@ Configure these Cloudflare Pages variables for Production and Preview separately
 | `TURNSTILE_SECRET_KEY` | Encrypted secret | Secret key from the widget |
 | `TURNSTILE_ALLOWED_HOSTNAMES` | Plaintext variable | `sundaibot.com,www.sundaibot.com` |
 
-The backend enables Turnstile only when both the site key and secret are present. This prevents an incomplete dashboard setup from taking the contact form offline, but production should not be considered complete until both values are configured and tested.
+Both Turnstile keys and the email-provider configuration are required. The API returns HTTP 503 and the form offers the published telephone number when setup is incomplete. Missing keys never silently disable server-side bot verification. Preview hostnames must be explicitly included in the widget and `TURNSTILE_ALLOWED_HOSTNAMES`; the request hostname is not automatically trusted.
 
 Verification:
 
@@ -40,7 +50,7 @@ Verification:
 
 ## 2. Contact endpoint rate limiting
 
-The function contains defense-in-depth limits per IP. Add an account-level Cloudflare Rate Limiting rule because dashboard enforcement is global and durable across isolates.
+The function contains defense-in-depth limits per IP. Add an account-level Cloudflare Rate Limiting rule. In-memory state is isolate-local and the Cache API is best-effort, location-local and non-atomic; neither is a global DDoS defense.
 
 Recommended starting rule:
 
@@ -145,13 +155,13 @@ Review weekly:
 
 Do not log contact-message content, Turnstile tokens, API keys or full provider error bodies.
 
-## Rollback
+## Safe fallback
 
-If Turnstile causes an unexpected production issue:
+If Turnstile or the email provider is unavailable, keep verification enabled and use the published click-to-call contact number while investigating. Restore the last known good deployment for a code regression. Do not remove verification secrets to bypass the security check: incomplete configuration intentionally returns HTTP 503.
 
-1. remove `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` together from the affected environment
-2. redeploy the current commit
-3. keep Cloudflare rate limiting active
-4. investigate using a preview deployment
+Primary implementation references:
 
-Removing only one key is not recommended. The public configuration endpoint intentionally enables Turnstile only when both values are present.
+- https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
+- https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/
+- https://developers.cloudflare.com/workers/static-assets/headers/
+- https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html

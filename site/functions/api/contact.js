@@ -1,15 +1,22 @@
 const MAX_BODY_BYTES = 12_000;
+const BODY_READ_TIMEOUT_MS = 5_000;
+const MAX_RATE_KEYS = 10_000;
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 10 * 60;
 const ALLOWED_FIELDS = new Set(['name', 'email', 'organisation', 'message', 'website', 'startedAt', 'turnstileToken']);
 const localRateState = new Map();
+let nextRateCleanup = 0;
 
 const responseHeaders = {
   'cache-control': 'no-store, max-age=0',
   'content-type': 'application/json; charset=utf-8',
   'referrer-policy': 'no-referrer',
   'x-content-type-options': 'nosniff',
-  'x-robots-tag': 'noindex, nofollow'
+  'x-robots-tag': 'noindex, nofollow',
+  'content-security-policy': "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+  'strict-transport-security': 'max-age=31536000; includeSubDomains; preload',
+  'x-frame-options': 'DENY',
+  'cross-origin-resource-policy': 'same-origin'
 };
 
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
@@ -28,11 +35,11 @@ const stripControlCharacters = (value = '') => String(value).replace(/[\u0000-\u
 const singleLine = (value = '') => stripControlCharacters(value).replace(/[\r\n]+/g, ' ').trim();
 const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const withTimeout = async (url, options, timeoutMs) => {
+const withTimeout = async (url, options, timeoutMs, readResponse = response => response) => {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort('timeout'), timeoutMs);
   try {
-    return await fetch(url, { ...options, signal: controller.signal });
+    return await readResponse(await fetch(url, { ...options, redirect: 'error', signal: controller.signal }));
   } finally {
     clearTimeout(timer);
   }
@@ -47,7 +54,16 @@ const hashValue = async (value) => {
 const checkLocalRateLimit = (key) => {
   const now = Date.now();
   const windowMs = RATE_LIMIT_WINDOW_SECONDS * 1000;
+  if (now >= nextRateCleanup) {
+    for (const [storedKey, value] of localRateState) {
+      if (value.resetAt <= now) localRateState.delete(storedKey);
+    }
+    nextRateCleanup = now + 60_000;
+  }
   const current = localRateState.get(key);
+  if (!current && localRateState.size >= MAX_RATE_KEYS) {
+    return { allowed: false, retryAfter: 60 };
+  }
   if (!current || current.resetAt <= now) {
     localRateState.set(key, { count: 1, resetAt: now + windowMs });
     return { allowed: true, retryAfter: RATE_LIMIT_WINDOW_SECONDS };
@@ -68,7 +84,7 @@ const checkEdgeCacheRateLimit = async (request, key) => {
     const cached = await caches.default.match(cacheKey);
     const count = Number(cached?.headers.get('x-sundai-rate-count') || 0);
     if (count >= RATE_LIMIT_MAX) return { allowed: false, retryAfter: RATE_LIMIT_WINDOW_SECONDS };
-    const marker = new Response('', {
+    const marker = new Response(null, {
       status: 204,
       headers: {
         'cache-control': `max-age=${RATE_LIMIT_WINDOW_SECONDS}`,
@@ -83,12 +99,17 @@ const checkEdgeCacheRateLimit = async (request, key) => {
 };
 
 const enforceRateLimit = async (request, env) => {
-  const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  // Trust only Cloudflare's edge-provided address, never client-supplied forwarding headers.
+  const ip = request.headers.get('cf-connecting-ip') || 'unknown';
   const key = `contact:${ip}`;
 
   if (env.CONTACT_RATE_LIMITER && typeof env.CONTACT_RATE_LIMITER.limit === 'function') {
-    const result = await env.CONTACT_RATE_LIMITER.limit({ key });
-    if (!result.success) return { allowed: false, retryAfter: RATE_LIMIT_WINDOW_SECONDS };
+    try {
+      const result = await env.CONTACT_RATE_LIMITER.limit({ key });
+      if (!result.success) return { allowed: false, retryAfter: RATE_LIMIT_WINDOW_SECONDS };
+    } catch {
+      return { allowed: false, unavailable: true };
+    }
   }
 
   const local = checkLocalRateLimit(key);
@@ -99,7 +120,9 @@ const enforceRateLimit = async (request, env) => {
 
 const verifyTurnstile = async ({ request, env, token }) => {
   const secret = String(env.TURNSTILE_SECRET_KEY || '').trim();
-  if (!secret) return { enabled: false, success: true };
+  if (!secret || !String(env.TURNSTILE_SITE_KEY || '').trim()) {
+    return { enabled: false, success: false, code: 'turnstile_unavailable' };
+  }
   if (!token || token.length > 2048) return { enabled: true, success: false, code: 'turnstile_required' };
 
   const remoteIp = request.headers.get('cf-connecting-ip') || '';
@@ -109,30 +132,31 @@ const verifyTurnstile = async ({ request, env, token }) => {
   if (remoteIp) form.set('remoteip', remoteIp);
   form.set('idempotency_key', crypto.randomUUID());
 
-  let verificationResponse;
+  let result;
   try {
-    verificationResponse = await withTimeout('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    result = await withTimeout('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       body: form
-    }, 5_000);
+    }, 5_000, async response => {
+      if (!response.ok) throw new Error('verification_unavailable');
+      return response.json();
+    });
+    if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error('invalid_verification');
   } catch {
     return { enabled: true, success: false, code: 'turnstile_unavailable' };
   }
 
-  if (!verificationResponse.ok) return { enabled: true, success: false, code: 'turnstile_unavailable' };
-  const result = await verificationResponse.json();
-  const requestHost = new URL(request.url).hostname;
-  const allowedHostnames = String(env.TURNSTILE_ALLOWED_HOSTNAMES || `${requestHost},sundaibot.com,www.sundaibot.com`)
+  const allowedHostnames = String(env.TURNSTILE_ALLOWED_HOSTNAMES || 'sundaibot.com,www.sundaibot.com')
     .split(',')
     .map(value => value.trim().toLowerCase())
     .filter(Boolean);
-  const hostnameAllowed = !result.hostname || allowedHostnames.includes(String(result.hostname).toLowerCase());
-  const actionAllowed = !result.action || result.action === 'contact';
+  const hostnameAllowed = typeof result.hostname === 'string' && allowedHostnames.includes(result.hostname.toLowerCase());
+  const actionAllowed = result.action === 'contact';
 
   return {
     enabled: true,
-    success: Boolean(result.success && hostnameAllowed && actionAllowed),
-    code: result.success ? 'turnstile_context_invalid' : 'turnstile_invalid'
+    success: result.success === true && hostnameAllowed && actionAllowed,
+    code: result.success === true ? 'turnstile_context_invalid' : 'turnstile_invalid'
   };
 };
 
@@ -145,13 +169,38 @@ const parseJsonBody = async (request) => {
   const advertisedLength = Number(request.headers.get('content-length') || 0);
   if (advertisedLength > MAX_BODY_BYTES) return { error: json({ ok: false, code: 'payload_too_large' }, 413) };
 
+  // Enforce the limit while streaming, including requests with no Content-Length.
+  if (!request.body) return { error: json({ ok: false, code: 'invalid_body' }, 400) };
+  const reader = request.body.getReader();
+  const chunks = [];
+  let bytes = 0;
+  let timer;
+  const deadline = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error('body_timeout')), BODY_READ_TIMEOUT_MS);
+  });
   let buffer;
   try {
-    buffer = await request.arrayBuffer();
-  } catch {
-    return { error: json({ ok: false, code: 'invalid_body' }, 400) };
+    while (true) {
+      const { done, value } = await Promise.race([reader.read(), deadline]);
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > MAX_BODY_BYTES) {
+        void reader.cancel().catch(() => {});
+        return { error: json({ ok: false, code: 'payload_too_large' }, 413) };
+      }
+      chunks.push(value);
+    }
+    buffer = new Uint8Array(bytes);
+    let offset = 0;
+    for (const chunk of chunks) { buffer.set(chunk, offset); offset += chunk.byteLength; }
+  } catch (error) {
+    void reader.cancel().catch(() => {});
+    const timedOut = error.message === 'body_timeout';
+    return { error: json({ ok: false, code: timedOut ? 'body_timeout' : 'invalid_body' }, timedOut ? 408 : 400) };
+  } finally {
+    clearTimeout(timer);
+    reader.releaseLock();
   }
-  if (buffer.byteLength > MAX_BODY_BYTES) return { error: json({ ok: false, code: 'payload_too_large' }, 413) };
 
   let body;
   try {
@@ -165,6 +214,11 @@ const parseJsonBody = async (request) => {
   if (keys.length > ALLOWED_FIELDS.size || keys.some(key => !ALLOWED_FIELDS.has(key))) {
     return { error: json({ ok: false, code: 'unexpected_fields' }, 400) };
   }
+  if (keys.some(key => key === 'startedAt'
+    ? !['string', 'number'].includes(typeof body[key])
+    : typeof body[key] !== 'string')) {
+    return { error: json({ ok: false, code: 'invalid_field_type' }, 400) };
+  }
   return { body };
 };
 
@@ -173,19 +227,21 @@ const validateSameOrigin = (request) => {
   const origin = request.headers.get('origin');
   if (origin) {
     try {
-      if (new URL(origin).host !== requestUrl.host) return false;
+      if (origin !== requestUrl.origin) return false;
     } catch {
       return false;
     }
   }
   const fetchSite = request.headers.get('sec-fetch-site');
-  return !fetchSite || fetchSite === 'same-origin' || fetchSite === 'same-site' || fetchSite === 'none';
+  return !fetchSite || fetchSite === 'same-origin' || fetchSite === 'none';
 };
 
 export async function onRequestGet({ env }) {
   const siteKey = String(env.TURNSTILE_SITE_KEY || '').trim();
   const secretConfigured = Boolean(String(env.TURNSTILE_SECRET_KEY || '').trim());
-  return json({ enabled: Boolean(siteKey && secretConfigured), siteKey: siteKey && secretConfigured ? siteKey : '', action: 'contact' });
+  const enabled = Boolean(siteKey && secretConfigured);
+  const available = Boolean(enabled && env.RESEND_API_KEY && env.CONTACT_TO_EMAIL && env.CONTACT_FROM_EMAIL);
+  return json({ available, enabled, siteKey: enabled ? siteKey : '', action: 'contact' }, available ? 200 : 503);
 }
 
 export async function onRequestPost(context) {
@@ -193,6 +249,7 @@ export async function onRequestPost(context) {
   if (!validateSameOrigin(request)) return json({ ok: false, code: 'origin_not_allowed' }, 403);
 
   const limited = await enforceRateLimit(request, env);
+  if (limited.unavailable) return json({ ok: false, code: 'contact_unavailable' }, 503);
   if (!limited.allowed) {
     return json({ ok: false, code: 'rate_limited' }, 429, { 'retry-after': String(limited.retryAfter || RATE_LIMIT_WINDOW_SECONDS) });
   }
@@ -210,7 +267,7 @@ export async function onRequestPost(context) {
   const turnstileToken = singleLine(body.turnstileToken || '');
 
   if (honeypot) return json({ ok: true }, 202);
-  if (!startedAt || Date.now() - startedAt < 1500 || Date.now() - startedAt > 24 * 60 * 60 * 1000) return json({ ok: false, code: 'invalid_form_timing' }, 400);
+  if (!Number.isFinite(startedAt) || !startedAt || Date.now() - startedAt < 1500 || Date.now() - startedAt > 24 * 60 * 60 * 1000) return json({ ok: false, code: 'invalid_form_timing' }, 400);
   if (name.length < 2 || name.length > 100) return json({ ok: false, code: 'invalid_name' }, 400);
   if (!validEmail(email) || email.length > 200) return json({ ok: false, code: 'invalid_email' }, 400);
   if (organisation.length > 150) return json({ ok: false, code: 'invalid_organisation' }, 400);
@@ -268,10 +325,10 @@ export async function onRequestPost(context) {
 export function onRequestOptions() {
   return new Response(null, {
     status: 204,
-    headers: {
-      allow: 'GET, POST, OPTIONS',
-      'cache-control': 'no-store, max-age=0',
-      'x-content-type-options': 'nosniff'
-    }
+    headers: { ...responseHeaders, allow: 'GET, HEAD, POST, OPTIONS' }
   });
+}
+
+export function onRequest() {
+  return json({ ok: false, code: 'method_not_allowed' }, 405, { allow: 'GET, HEAD, POST, OPTIONS' });
 }
