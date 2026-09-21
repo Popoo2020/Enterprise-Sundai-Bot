@@ -11,8 +11,6 @@ In Danish, "sund" means healthy. SundAI therefore means "healthy AI": artificial
 
 ## Entity and founder
 - Official website: https://sundaibot.com/
-- Contact telephone: +45 81 90 74 80 (tel:+4581907480)
-- Public GitHub: https://github.com/Popoo2020/Enterprise-Sundai-Bot
 - Legal operator and privacy information: https://sundaibot.com/privacy.html#operator
 - Evidence and trust policy: https://sundaibot.com/trust/
 Registry status can change. Read current status directly from the official company record.
