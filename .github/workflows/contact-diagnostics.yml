@@ -1,0 +1,53 @@
+name: Contact delivery diagnostics
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/contact-delivery-20260926]
+    paths:
+      - '.github/workflows/contact-diagnostics.yml'
+      - 'site/assets/brand-navigation.js'
+      - 'wrangler.jsonc'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-live-contact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check live configuration and public sending DNS without sending email
+        shell: python
+        run: |
+          import json, urllib.request, urllib.error, time
+          base = 'https://sundaibot.com'
+          def get(url, headers=None):
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url, headers=headers or {}), timeout=20) as r:
+                      return r.status, r.read(30000).decode('utf-8', errors='replace')
+              except urllib.error.HTTPError as e:
+                  return e.code, e.read(30000).decode('utf-8', errors='replace')
+              except Exception as e:
+                  return None, type(e).__name__
+          checks = []
+          for path in ['/', '/start/', '/da/start/', '/sv/start/']:
+              status, text = get(base + path)
+              checks.append({'path': path, 'status': status, 'contact_form': 'data-contact-form' in text, 'shared_navigation': 'brand-navigation.js' in text})
+          print('PAGE_CHECKS ' + json.dumps(checks))
+          status, body = get(base + '/api/contact', {'Accept': 'application/json', 'Cache-Control': 'no-cache'})
+          try:
+              data = json.loads(body)
+          except Exception:
+              data = {}
+          print('CONTACT_CONFIGURATION ' + json.dumps({'status': status, 'available': data.get('available'), 'enabled': data.get('enabled'), 'site_key_present': bool(data.get('siteKey')), 'json_response': isinstance(data, dict) and bool(data)}))
+          for name, record_type in [('resend._domainkey.sundaibot.com', 'TXT'), ('send.sundaibot.com', 'TXT'), ('send.sundaibot.com', 'MX'), ('rsend.sundaibot.com', 'CNAME')]:
+              url = 'https://cloudflare-dns.com/dns-query?name=' + name + '&type=' + record_type
+              status, body = get(url, {'Accept': 'application/dns-json'})
+              try:
+                  answer = json.loads(body)
+              except Exception:
+                  answer = {}
+              records = [x for x in answer.get('Answer', []) if x.get('type') == {'TXT':16, 'MX':15, 'CNAME':5}[record_type]]
+              print('DNS_CHECK ' + json.dumps({'name': name, 'type': record_type, 'http_status': status, 'dns_status': answer.get('Status'), 'record_present': bool(records)}))
+          print('NO_EMAIL_SENT: these diagnostics do not submit a contact form, access runtime secrets, or prove inbox delivery.')
