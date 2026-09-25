@@ -35,6 +35,7 @@ jobs:
         run: |
           node --check site/assets/site.js
           node --check site/assets/neon-compact.js
+          node --check site/assets/brand-navigation.js
           node --check site/assets/final-polish.js
           node --check site/assets/revenue-funnel.js
           node --check site/functions/api/contact.js
@@ -68,8 +69,8 @@ jobs:
         run: node site/tests/check-responsive.mjs security
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
-      - name: Exercise contact API security controls
-        run: node --test site/tests/contact-security.test.mjs
+      - name: Exercise contact API security controls and delivery routing
+        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs
       - name: Validate security and performance budgets
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness
