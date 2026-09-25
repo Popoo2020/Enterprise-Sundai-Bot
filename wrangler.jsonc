@@ -3,6 +3,10 @@
   "main": "worker.js",
   "compatibility_date": "2026-07-23",
   "keep_vars": true,
+  "vars": {
+    "CONTACT_TO_EMAIL": "eririmo@protonmail.com",
+    "CONTACT_FROM_EMAIL": "SundAI Website <website@sundaibot.com>"
+  },
   "assets": {
     "directory": "./site",
     "binding": "ASSETS",
