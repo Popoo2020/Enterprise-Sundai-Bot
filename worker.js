@@ -32,6 +32,53 @@ const contactDiagnostics = (env) => {
 export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
+    if (path === '/api/resend-diagnostics' || path === '/api/resend-diagnostics/') {
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        return new Response(JSON.stringify({ ok: false, code: 'method_not_allowed' }), {
+          status: 405,
+          headers: { ...diagnosticHeaders, allow: 'GET, HEAD' }
+        });
+      }
+      const controller = new AbortController();
+      const startedAt = Date.now();
+      const timer = setTimeout(() => controller.abort('timeout'), 15000);
+      let probe;
+      try {
+        const response = await fetch('https://api.resend.com/emails?limit=1', {
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${String(env.RESEND_API_KEY || '').trim()}`,
+            accept: 'application/json',
+            'user-agent': 'SundAI-Worker-Diagnostics/1.0'
+          },
+          signal: controller.signal
+        });
+        probe = {
+          reachable: true,
+          status: response.status,
+          ok: response.ok,
+          elapsedMs: Date.now() - startedAt,
+          contentType: response.headers.get('content-type') || '',
+          requestIdPresent: Boolean(response.headers.get('x-request-id'))
+        };
+      } catch (error) {
+        probe = {
+          reachable: false,
+          elapsedMs: Date.now() - startedAt,
+          errorName: String(error?.name || ''),
+          errorMessage: String(error?.message || '').slice(0, 160)
+        };
+      } finally {
+        clearTimeout(timer);
+      }
+      const response = new Response(JSON.stringify({ ok: probe.reachable && probe.status === 200, probe }), {
+        status: probe.reachable && probe.status === 200 ? 200 : 503,
+        headers: diagnosticHeaders
+      });
+      if (request.method === 'HEAD') return new Response(null, { status: response.status, headers: response.headers });
+      return response;
+    }
+
     if (path === '/api/contact-diagnostics' || path === '/api/contact-diagnostics/') {
       if (request.method !== 'GET' && request.method !== 'HEAD') {
         return new Response(JSON.stringify({ ok: false, code: 'method_not_allowed' }), {
