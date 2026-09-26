@@ -294,7 +294,7 @@
       submitButton.setAttribute('aria-busy','true');
       setStatus('');
       const controller = new AbortController();
-      const timer = setTimeout(()=>controller.abort(),12_000);
+      const timer = setTimeout(()=>controller.abort(),35_000);
       try {
         const response=await fetch('/api/contact',{
           method:'POST',
@@ -308,7 +308,7 @@
           if (String(result.code || '').startsWith('turnstile_')) throw new Error(String(result.code));
           const safeCodes = new Set([
             'invalid_form_timing','invalid_name','invalid_email','invalid_organisation','invalid_message',
-            'contact_unavailable','email_provider_timeout','email_delivery_failed'
+            'contact_unavailable','email_provider_timeout','email_provider_unavailable','email_delivery_failed'
           ]);
           throw new Error(safeCodes.has(String(result.code || '')) ? String(result.code) : 'generic');
         }
