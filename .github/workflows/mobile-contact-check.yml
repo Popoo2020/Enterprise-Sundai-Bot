@@ -1,0 +1,141 @@
+name: Mobile contact widget diagnostics
+on:
+  push:
+    branches: [fix/mobile-turnstile-20260926]
+    paths:
+      - '.github/workflows/mobile-contact-check.yml'
+      - 'site/assets/neon-compact.js'
+      - 'site/tests/check-mobile-contact.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-widget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Install isolated browser diagnostics
+        run: |
+          mkdir -p /tmp/sundai-browser
+          cd /tmp/sundai-browser
+          npm install --no-save --package-lock=false playwright@1.55.1
+          npx playwright install --with-deps chromium webkit
+      - name: Exercise Turnstile token handoff on mobile engines
+        run: |
+          python3 -m http.server 4173 --directory site >/tmp/sundai-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 1
+          cat > /tmp/sundai-browser/handoff.cjs <<'NODE'
+          const { chromium, webkit, devices } = require('playwright');
+          (async () => {
+            const token = 'synthetic-mobile-turnstile-token';
+            for (const engine of [chromium, webkit]) {
+              let posted = null;
+              const browser = await engine.launch();
+              const context = await browser.newContext({ ...devices['iPhone 13'], browserName: undefined });
+              const page = await context.newPage();
+
+              await page.route('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', route => route.fulfill({
+                status: 200,
+                contentType: 'application/javascript',
+                body:
+                  "window.turnstile={" +
+                  "render:function(slot,options){" +
+                  "var input=document.createElement('input');" +
+                  "input.type='hidden';" +
+                  "input.name=options['response-field-name']||'cf-turnstile-response';" +
+                  "slot.appendChild(input);" +
+                  "setTimeout(function(){input.value='synthetic-mobile-turnstile-token';},20);" +
+                  "return 'synthetic-widget';" +
+                  "}," +
+                  "getResponse:function(){return '';}," +
+                  "reset:function(){}" +
+                  "};"
+              }));
+
+              await page.route('http://127.0.0.1:4173/api/contact', async route => {
+                const request = route.request();
+                if (request.method() === 'GET') {
+                  return route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ available: true, enabled: true, siteKey: '1x00000000000000000000AA', action: 'contact' })
+                  });
+                }
+                if (request.method() === 'POST') {
+                  posted = JSON.parse(request.postData() || '{}');
+                  return route.fulfill({
+                    status: 202,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ ok: true })
+                  });
+                }
+                return route.fulfill({ status: 405, body: '' });
+              });
+
+              await page.goto('http://127.0.0.1:4173/start/', { waitUntil: 'domcontentloaded' });
+              await page.locator('[name="name"]').fill('Mobile Test');
+              await page.locator('[name="email"]').fill('mobile.test@example.com');
+              await page.locator('[name="organisation"]').fill('SundAI QA');
+              await page.locator('[data-enquiry-details]').fill('Verify that a completed mobile security check reaches the contact endpoint.');
+              await page.locator('[name="name"]').focus();
+              await page.waitForFunction(expected => document.querySelector('[name="turnstileToken"]')?.value === expected, token);
+              await page.locator('button[type="submit"]').click();
+              await page.waitForFunction(() => document.querySelector('[data-form-status]')?.classList.contains('success'));
+
+              if (!posted) throw new Error(engine.name() + ': contact POST was not captured');
+              if (posted.turnstileToken !== token) throw new Error(engine.name() + ': Turnstile token was not forwarded');
+              const statusText = await page.locator('[data-form-status]').textContent();
+              if (/security check before sending/i.test(statusText || '')) throw new Error(engine.name() + ': security loop message remained');
+              console.log('HANDOFF_OK', engine.name(), JSON.stringify({ tokenForwarded: true, responseStatus: 'success' }));
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+          node /tmp/sundai-browser/handoff.cjs
+
+      - name: Inspect production without submitting or solving a challenge
+        run: |
+          cat > /tmp/sundai-browser/inspect.cjs <<'NODE'
+          const { chromium, webkit, devices } = require('playwright');
+          (async () => {
+            const origin = 'https://sundaibot.com';
+            for (const engine of [chromium, webkit]) {
+              const browser = await engine.launch();
+              const context = await browser.newContext({ ...devices['iPhone 13'], browserName: undefined });
+              const page = await context.newPage();
+              const errors = [];
+              page.on('pageerror', e => errors.push(e.message.slice(0,300)));
+              page.on('console', e => { if(e.type() === 'error') errors.push(e.text().slice(0,300)); });
+              await page.goto(origin + '/start/', {waitUntil:'domcontentloaded'});
+              await page.locator('[name="name"]').focus();
+              await page.waitForTimeout(12000);
+              console.log('MOBILE_STATE', engine.name(), JSON.stringify(await page.evaluate(() => {
+                const form = document.querySelector('[data-contact-form]');
+                const slot = form.querySelector('.turnstile-slot');
+                const rect = slot?.getBoundingClientRect();
+                const css = slot ? getComputedStyle(slot) : null;
+                const scripts = [...document.scripts].map(s => s.src).filter(s => /neon-compact|turnstile/.test(s));
+                return { forms:document.querySelectorAll('[data-contact-form]').length, state:{...form.dataset}, status:form.querySelector('[data-form-status]')?.textContent,
+                  slot: slot ? { width:rect.width,height:rect.height,display:css.display,visibility:css.visibility,children:slot.childElementCount,html:slot.innerHTML.slice(0,600) } : null,
+                  tokenPresent:!!form.querySelector('[name="turnstileToken"]')?.value, turnstileApi:!!window.turnstile, scripts,
+                  viewport:innerWidth, documentWidth:document.documentElement.scrollWidth };
+              })));
+              console.log('BROWSER_ERRORS', engine.name(), JSON.stringify(errors.slice(0,12)));
+              const response = await context.request.get(origin + '/assets/neon-compact.js?v=20260920');
+              const js = await response.text();
+              console.log('LIVE_SCRIPT', JSON.stringify({engine:engine.name(),status:response.status(),cache:response.headers()['cache-control'],currentTokenFix:js.includes('getResponse(turnstileWidgetId)'),alwaysVisible:js.includes("appearance: 'always'"),automaticExecution:js.includes("execution: 'render'")}));
+              const configResponse = await context.request.get(origin + '/api/contact');
+              const config = await configResponse.json().catch(()=>({}));
+              console.log('CONFIG', JSON.stringify({status:configResponse.status(),available:config.available,enabled:config.enabled,siteKeyPresent:!!config.siteKey}));
+              await browser.close();
+            }
+            console.log('NO_SUBMISSION: No email was sent and no challenge was clicked, solved or bypassed. Headless browsers may receive different challenges from a physical iPhone.');
+          })().catch(e=>{console.error(e);process.exit(1);});
+          NODE
+          node /tmp/sundai-browser/inspect.cjs
