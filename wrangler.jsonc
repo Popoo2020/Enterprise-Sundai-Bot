@@ -5,7 +5,8 @@
   "keep_vars": true,
   "vars": {
     "CONTACT_TO_EMAIL": "eririmo@protonmail.com",
-    "CONTACT_FROM_EMAIL": "SundAI Website <website@sundaibot.com>"
+    "CONTACT_FROM_EMAIL": "SundAI Website <website@sundaibot.com>",
+    "TURNSTILE_ALLOWED_HOSTNAMES": "sundaibot.com,www.sundaibot.com"
   },
   "assets": {
     "directory": "./site",
