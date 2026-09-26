@@ -288,8 +288,12 @@
         const result = await response.json().catch(()=>({}));
         if(!response.ok) {
           if (response.status === 429 || result.code === 'rate_limited') throw new Error('rate_limited');
-          if (String(result.code || '').startsWith('turnstile_')) throw new Error('turnstile');
-          throw new Error('generic');
+          if (String(result.code || '').startsWith('turnstile_')) throw new Error(String(result.code));
+          const safeCodes = new Set([
+            'invalid_form_timing','invalid_name','invalid_email','invalid_organisation','invalid_message',
+            'contact_unavailable','email_provider_timeout','email_delivery_failed'
+          ]);
+          throw new Error(safeCodes.has(String(result.code || '')) ? String(result.code) : 'generic');
         }
         if (result.ok !== true) throw new Error('generic');
         setStatus(form.dataset.success||'Thank you — your enquiry has been sent.','success');
@@ -303,7 +307,8 @@
         if (tokenField) tokenField.value = '';
         if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
         if(error.message === 'rate_limited') setStatus(config?.security.rateLimited || 'Too many attempts. Please try again later.','error');
-        else if(error.message === 'turnstile') setStatus(config?.security.required || 'Complete the security check before sending.','error');
+        else if(String(error.message || '').startsWith('turnstile_')) setStatus(`${config?.security.required || 'Complete the security check before sending.'} [${error.message}]`,'error');
+        else if(error.message && error.message !== 'generic') setStatus(`${config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.'} [${error.message}]`,'error');
         else setStatus(config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.','error');
       } finally {
         clearTimeout(timer);
