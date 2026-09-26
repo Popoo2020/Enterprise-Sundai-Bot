@@ -11,7 +11,13 @@ jobs:
     steps:
       - name: Wait briefly for Worker deployment
         run: sleep 35
+      - name: Inspect public Resend API redirect behavior
+        run: |
+          set -euo pipefail
+          curl --silent --show-error --max-time 15 --output /dev/null --write-out 'GET status=%{http_code} redirect=%{redirect_url}\n' https://api.resend.com/emails
+          curl --silent --show-error --max-time 15 --head --output /dev/null --write-out 'HEAD status=%{http_code} redirect=%{redirect_url}\n' https://api.resend.com/emails
       - name: Query read-only Resend diagnostic endpoint
+        continue-on-error: true
         run: |
           set -euo pipefail
           curl --fail-with-body --silent --show-error --max-time 25 https://sundaibot.com/api/resend-diagnostics
