@@ -45,7 +45,8 @@ if (contact.includes('await resendResponse.text()')) errors.push('Contact functi
 const client = await read('site/assets/neon-compact.js');
 for (const token of [
   'data-sundai-turnstile',
-  "'response-field': false",
+  "'response-field': true",
+  "'response-field-name': 'turnstileToken'",
   'turnstile/v0/api.js?render=explicit',
   "fetch('/api/contact'",
   'window.turnstile.getResponse(turnstileWidgetId)',
