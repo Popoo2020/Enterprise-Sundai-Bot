@@ -262,11 +262,9 @@ export async function onRequestPost(context) {
   const email = singleLine(body.email || '').toLowerCase();
   const organisation = singleLine(body.organisation || '');
   const message = stripControlCharacters(body.message || '').trim();
-  const honeypot = singleLine(body.website || '');
   const startedAt = Number(body.startedAt || 0);
   const turnstileToken = singleLine(body.turnstileToken || '');
 
-  if (honeypot) return json({ ok: true }, 202);
   if (!Number.isFinite(startedAt) || !startedAt || Date.now() - startedAt < 1500 || Date.now() - startedAt > 24 * 60 * 60 * 1000) return json({ ok: false, code: 'invalid_form_timing' }, 400);
   if (name.length < 2 || name.length > 100) return json({ ok: false, code: 'invalid_name' }, 400);
   if (!validEmail(email) || email.length > 200) return json({ ok: false, code: 'invalid_email' }, 400);

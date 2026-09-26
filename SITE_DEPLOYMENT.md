@@ -36,7 +36,7 @@ Add these encrypted variables in **Cloudflare Pages → Settings → Variables a
 - `CONTACT_TO_EMAIL`
 - `CONTACT_FROM_EMAIL` (for example `SundAI Website <website@sundaibot.com>` after the domain is verified in Resend)
 
-The form endpoint is `/api/contact`. It validates origin, payload size, field lengths, a honeypot field and minimum completion time before sending through Resend.
+The form endpoint is `/api/contact`. It validates origin, payload size, field lengths, minimum completion time, Cloudflare Turnstile and rate limits before sending through Resend. The legacy hidden `website` field is accepted for backwards compatibility but is not used to silently discard enquiries, because browser/password-manager autofill can populate hidden fields.
 
 ## Custom domain
 
