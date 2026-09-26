@@ -48,6 +48,8 @@ for (const token of [
   "'response-field': false",
   'turnstile/v0/api.js?render=explicit',
   "fetch('/api/contact'",
+  'window.turnstile.getResponse(turnstileWidgetId)',
+  'turnstileToken: activeTurnstileToken',
   "'/assets/brands/openai.svg'",
   "'/assets/brands/ec-council.svg'"
 ]) {
