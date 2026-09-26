@@ -1,0 +1,66 @@
+name: Mobile contact widget diagnostics
+on:
+  push:
+    branches: [fix/mobile-turnstile-20260926]
+    paths:
+      - '.github/workflows/mobile-contact-check.yml'
+      - 'site/assets/neon-compact.js'
+      - 'site/tests/check-mobile-contact.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-widget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser diagnostics
+        run: |
+          mkdir -p /tmp/sundai-browser
+          cd /tmp/sundai-browser
+          npm install --no-save --package-lock=false playwright@1.55.1
+          npx playwright install --with-deps chromium webkit
+      - name: Inspect production without submitting or solving a challenge
+        run: |
+          cat > /tmp/sundai-browser/inspect.cjs <<'NODE'
+          const { chromium, webkit, devices } = require('playwright');
+          (async () => {
+            const origin = 'https://sundaibot.com';
+            for (const engine of [chromium, webkit]) {
+              const browser = await engine.launch();
+              const context = await browser.newContext({ ...devices['iPhone 13'], browserName: undefined });
+              const page = await context.newPage();
+              const errors = [];
+              page.on('pageerror', e => errors.push(e.message.slice(0,300)));
+              page.on('console', e => { if(e.type() === 'error') errors.push(e.text().slice(0,300)); });
+              await page.goto(origin + '/start/', {waitUntil:'domcontentloaded'});
+              await page.locator('[name="name"]').focus();
+              await page.waitForTimeout(12000);
+              console.log('MOBILE_STATE', engine.name(), JSON.stringify(await page.evaluate(() => {
+                const form = document.querySelector('[data-contact-form]');
+                const slot = form.querySelector('.turnstile-slot');
+                const rect = slot?.getBoundingClientRect();
+                const css = slot ? getComputedStyle(slot) : null;
+                const scripts = [...document.scripts].map(s => s.src).filter(s => /neon-compact|turnstile/.test(s));
+                return { forms:document.querySelectorAll('[data-contact-form]').length, state:{...form.dataset}, status:form.querySelector('[data-form-status]')?.textContent,
+                  slot: slot ? { width:rect.width,height:rect.height,display:css.display,visibility:css.visibility,children:slot.childElementCount,html:slot.innerHTML.slice(0,600) } : null,
+                  tokenPresent:!!form.querySelector('[name="turnstileToken"]')?.value, turnstileApi:!!window.turnstile, scripts,
+                  viewport:innerWidth, documentWidth:document.documentElement.scrollWidth };
+              })));
+              console.log('BROWSER_ERRORS', engine.name(), JSON.stringify(errors.slice(0,12)));
+              const response = await context.request.get(origin + '/assets/neon-compact.js?v=20260920');
+              const js = await response.text();
+              console.log('LIVE_SCRIPT', JSON.stringify({engine:engine.name(),status:response.status(),cache:response.headers()['cache-control'],currentTokenFix:js.includes('getResponse(turnstileWidgetId)'),alwaysVisible:js.includes("appearance: 'always'"),automaticExecution:js.includes("execution: 'render'")}));
+              const configResponse = await context.request.get(origin + '/api/contact');
+              const config = await configResponse.json().catch(()=>({}));
+              console.log('CONFIG', JSON.stringify({status:configResponse.status(),available:config.available,enabled:config.enabled,siteKeyPresent:!!config.siteKey}));
+              await browser.close();
+            }
+            console.log('NO_SUBMISSION: No email was sent and no challenge was clicked, solved or bypassed. Headless browsers may receive different challenges from a physical iPhone.');
+          })().catch(e=>{console.error(e);process.exit(1);});
+          NODE
+          node /tmp/sundai-browser/inspect.cjs
