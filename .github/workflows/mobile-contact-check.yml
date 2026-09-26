@@ -24,6 +24,81 @@ jobs:
           cd /tmp/sundai-browser
           npm install --no-save --package-lock=false playwright@1.55.1
           npx playwright install --with-deps chromium webkit
+      - name: Exercise Turnstile token handoff on mobile engines
+        run: |
+          python3 -m http.server 4173 --directory site >/tmp/sundai-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 1
+          cat > /tmp/sundai-browser/handoff.cjs <<'NODE'
+          const { chromium, webkit, devices } = require('playwright');
+          (async () => {
+            const token = 'synthetic-mobile-turnstile-token';
+            for (const engine of [chromium, webkit]) {
+              let posted = null;
+              const browser = await engine.launch();
+              const context = await browser.newContext({ ...devices['iPhone 13'], browserName: undefined });
+              const page = await context.newPage();
+
+              await page.route('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit', route => route.fulfill({
+                status: 200,
+                contentType: 'application/javascript',
+                body:
+                  "window.turnstile={" +
+                  "render:function(slot,options){" +
+                  "var input=document.createElement('input');" +
+                  "input.type='hidden';" +
+                  "input.name=options['response-field-name']||'cf-turnstile-response';" +
+                  "slot.appendChild(input);" +
+                  "setTimeout(function(){input.value='synthetic-mobile-turnstile-token';},20);" +
+                  "return 'synthetic-widget';" +
+                  "}," +
+                  "getResponse:function(){return '';}," +
+                  "reset:function(){}" +
+                  "};"
+              }));
+
+              await page.route('http://127.0.0.1:4173/api/contact', async route => {
+                const request = route.request();
+                if (request.method() === 'GET') {
+                  return route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ available: true, enabled: true, siteKey: '1x00000000000000000000AA', action: 'contact' })
+                  });
+                }
+                if (request.method() === 'POST') {
+                  posted = JSON.parse(request.postData() || '{}');
+                  return route.fulfill({
+                    status: 202,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ ok: true })
+                  });
+                }
+                return route.fulfill({ status: 405, body: '' });
+              });
+
+              await page.goto('http://127.0.0.1:4173/start/', { waitUntil: 'domcontentloaded' });
+              await page.locator('[name="name"]').fill('Mobile Test');
+              await page.locator('[name="email"]').fill('mobile.test@example.com');
+              await page.locator('[name="organisation"]').fill('SundAI QA');
+              await page.locator('[data-enquiry-details]').fill('Verify that a completed mobile security check reaches the contact endpoint.');
+              await page.locator('[name="name"]').focus();
+              await page.waitForFunction(expected => document.querySelector('[name="turnstileToken"]')?.value === expected, token);
+              await page.locator('button[type="submit"]').click();
+              await page.waitForFunction(() => document.querySelector('[data-form-status]')?.classList.contains('success'));
+
+              if (!posted) throw new Error(engine.name() + ': contact POST was not captured');
+              if (posted.turnstileToken !== token) throw new Error(engine.name() + ': Turnstile token was not forwarded');
+              const statusText = await page.locator('[data-form-status]').textContent();
+              if (/security check before sending/i.test(statusText || '')) throw new Error(engine.name() + ': security loop message remained');
+              console.log('HANDOFF_OK', engine.name(), JSON.stringify({ tokenForwarded: true, responseStatus: 'success' }));
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+          node /tmp/sundai-browser/handoff.cjs
+
       - name: Inspect production without submitting or solving a challenge
         run: |
           cat > /tmp/sundai-browser/inspect.cjs <<'NODE'
