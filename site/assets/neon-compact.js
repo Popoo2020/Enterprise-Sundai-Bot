@@ -196,13 +196,6 @@
     }
 
     setStatus(config?.security.loading || 'Preparing the secure contact form…');
-    let hidden = form.querySelector('input[name="turnstileToken"]');
-    if (!hidden) {
-      hidden = document.createElement('input');
-      hidden.type = 'hidden';
-      hidden.name = 'turnstileToken';
-      form.appendChild(hidden);
-    }
     let slot = form.querySelector('.turnstile-slot');
     if (!slot) {
       slot = document.createElement('div');
@@ -216,7 +209,8 @@
       turnstileWidgetId = window.turnstile.render(slot, {
         sitekey: turnstileConfig.siteKey,
         action: 'contact',
-        'response-field': false,
+        'response-field': true,
+        'response-field-name': 'turnstileToken',
         theme: 'light',
         language: lang === 'da' ? 'da' : lang === 'sv' ? 'sv-SE' : 'en',
         appearance: 'always',
@@ -224,9 +218,23 @@
         retry: 'auto',
         'refresh-expired': 'auto',
         size: 'flexible',
-        callback: (token) => { turnstileToken = token; hidden.value = token; setStatus(''); },
-        'expired-callback': () => { turnstileToken = ''; hidden.value = ''; },
-        'error-callback': () => { turnstileToken = ''; hidden.value = ''; setStatus(config?.security.unavailable || 'Security check unavailable.', 'error'); }
+        callback: (token) => {
+          turnstileToken = String(token || '').trim();
+          const tokenField = form.querySelector('[name="turnstileToken"]');
+          if (tokenField && turnstileToken) tokenField.value = turnstileToken;
+          setStatus('');
+        },
+        'expired-callback': () => {
+          turnstileToken = '';
+          const tokenField = form.querySelector('[name="turnstileToken"]');
+          if (tokenField) tokenField.value = '';
+        },
+        'error-callback': () => {
+          turnstileToken = '';
+          const tokenField = form.querySelector('[name="turnstileToken"]');
+          if (tokenField) tokenField.value = '';
+          setStatus(config?.security.unavailable || 'Security check unavailable.', 'error');
+        }
       });
       form.dataset.turnstilePrepared = 'true';
       form.dataset.turnstileEnabled = 'true';
@@ -277,7 +285,6 @@
       if (!activeTurnstileToken) {
         submitButton.disabled = false;
         setStatus(config?.security.required || 'Complete the security check before sending.', 'error');
-        await prepareTurnstile();
         return;
       }
       turnstileToken = activeTurnstileToken;
@@ -312,12 +319,15 @@
         if(started) started.value=String(Date.now());
         if(window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
       } catch (error) {
-        turnstileToken = '';
-        const tokenField = form.querySelector('[name="turnstileToken"]');
-        if (tokenField) tokenField.value = '';
-        if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+        const turnstileFailure = String(error.message || '').startsWith('turnstile_');
+        if (turnstileFailure) {
+          turnstileToken = '';
+          const tokenField = form.querySelector('[name="turnstileToken"]');
+          if (tokenField) tokenField.value = '';
+          if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+        }
         if(error.message === 'rate_limited') setStatus(config?.security.rateLimited || 'Too many attempts. Please try again later.','error');
-        else if(String(error.message || '').startsWith('turnstile_')) setStatus(`${config?.security.required || 'Complete the security check before sending.'} [${error.message}]`,'error');
+        else if(turnstileFailure) setStatus(`${config?.security.required || 'Complete the security check before sending.'} [${error.message}]`,'error');
         else if(error.message && error.message !== 'generic') setStatus(`${config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.'} [${error.message}]`,'error');
         else setStatus(config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.','error');
       } finally {
