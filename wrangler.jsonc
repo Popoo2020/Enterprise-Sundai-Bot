@@ -2,6 +2,7 @@
   "name": "sundai01",
   "main": "worker.js",
   "compatibility_date": "2026-07-23",
+  "compatibility_flags": ["global_fetch_strictly_public"],
   "keep_vars": true,
   "vars": {
     "CONTACT_TO_EMAIL": "eririmo@protonmail.com",
