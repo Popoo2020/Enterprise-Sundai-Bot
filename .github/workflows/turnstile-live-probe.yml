@@ -1,0 +1,53 @@
+name: Temporary live Turnstile Siteverify probe
+on:
+  push:
+    branches: [fix/turnstile-siteverify-20260926]
+    paths:
+      - '.github/workflows/turnstile-live-probe.yml'
+permissions:
+  contents: read
+jobs:
+  no-send-siteverify-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Verify production Worker can reach Siteverify without sending email
+        shell: python
+        run: |
+          import json, time, urllib.request, urllib.error
+          payload = {
+              "name": "Turnstile Probe",
+              "email": "probe@example.invalid",
+              "organisation": "SundAI QA",
+              "message": "Synthetic Siteverify reachability probe. This must never send email.",
+              "website": "",
+              "startedAt": str(int(time.time() * 1000) - 5000),
+              "turnstileToken": "XXXX.DUMMY.TOKEN.XXXX"
+          }
+          request = urllib.request.Request(
+              "https://sundaibot.com/api/contact",
+              data=json.dumps(payload).encode(),
+              method="POST",
+              headers={
+                  "Content-Type": "application/json",
+                  "Accept": "application/json",
+                  "Origin": "https://sundaibot.com",
+                  "User-Agent": "SundAI-QA-Siteverify-Probe/1.0"
+              }
+          )
+          try:
+              with urllib.request.urlopen(request, timeout=25) as response:
+                  status = response.status
+                  body = response.read().decode()
+          except urllib.error.HTTPError as error:
+              status = error.code
+              body = error.read().decode()
+          print("STATUS", status)
+          print("BODY", body[:1000])
+          try:
+              data = json.loads(body)
+          except Exception as exc:
+              raise SystemExit(f"Expected JSON Worker response, got non-JSON: {exc}")
+          if status != 403 or data.get("code") != "turnstile_invalid":
+              raise SystemExit(f"Expected 403 turnstile_invalid; got {status} {data}")
+          print("SITEVERIFY_REACHABLE_NO_EMAIL_SENT")
