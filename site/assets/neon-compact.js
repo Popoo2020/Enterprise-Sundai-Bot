@@ -269,12 +269,19 @@
         setStatus(config?.security.unavailable || 'Contact form unavailable. Please try again later.', 'error');
         return;
       }
-      if (!turnstileToken) {
+      const tokenField = form.querySelector('[name="turnstileToken"]');
+      let activeTurnstileToken = turnstileToken || String(tokenField?.value || '').trim();
+      if (!activeTurnstileToken && window.turnstile && turnstileWidgetId !== null) {
+        try { activeTurnstileToken = String(window.turnstile.getResponse(turnstileWidgetId) || '').trim(); } catch {}
+      }
+      if (!activeTurnstileToken) {
         submitButton.disabled = false;
         setStatus(config?.security.required || 'Complete the security check before sending.', 'error');
         await prepareTurnstile();
         return;
       }
+      turnstileToken = activeTurnstileToken;
+      if (tokenField) tokenField.value = activeTurnstileToken;
 
       submitButton.disabled=true;
       submitButton.setAttribute('aria-busy','true');
@@ -285,7 +292,7 @@
         const response=await fetch('/api/contact',{
           method:'POST',
           headers:{'content-type':'application/json',accept:'application/json'},
-          body:JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+          body:JSON.stringify({ ...Object.fromEntries(new FormData(form).entries()), turnstileToken: activeTurnstileToken }),
           signal:controller.signal
         });
         const result = await response.json().catch(()=>({}));
