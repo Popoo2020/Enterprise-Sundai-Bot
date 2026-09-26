@@ -140,6 +140,50 @@ test('invalid verification JSON and provider failures return controlled errors',
   assert.equal((await contact.onRequestPost({ request: request(), env })).status, 503);
 });
 
+test('Turnstile Siteverify uses form encoding and retries one transient failure safely', async t => {
+  const calls = [];
+  let verifyAttempts = 0;
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    calls.push({ url, options });
+    if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+      verifyAttempts += 1;
+      assert.equal(options.headers['content-type'], 'application/x-www-form-urlencoded');
+      const payload = new URLSearchParams(options.body);
+      assert.equal(payload.get('secret'), env.TURNSTILE_SECRET_KEY);
+      assert.equal(payload.get('response'), 'test-token');
+      assert.equal(payload.get('remoteip'), '192.0.2.1');
+      assert.match(payload.get('idempotency_key') || '', /^[0-9a-f-]{36}$/i);
+      if (verifyAttempts === 1) throw new Error('Transient Siteverify network failure');
+      return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    }
+    assert.equal(url, 'https://api.resend.com/emails');
+    return Response.json({ id: 'test' });
+  });
+  const contact = await fresh();
+  const response = await contact.onRequestPost({ request: request(), env });
+  assert.equal(response.status, 202);
+  assert.equal(verifyAttempts, 2);
+  assert.equal(calls.filter(call => call.url.includes('siteverify')).length, 2);
+  assert.equal(calls.filter(call => call.url.includes('api.resend.com')).length, 1);
+  const first = new URLSearchParams(calls[0].options.body);
+  const second = new URLSearchParams(calls[1].options.body);
+  assert.equal(first.get('idempotency_key'), second.get('idempotency_key'));
+});
+
+test('Turnstile internal-error is retried once before returning unavailable', async t => {
+  let attempts = 0;
+  t.mock.method(globalThis, 'fetch', async url => {
+    assert.equal(url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
+    attempts += 1;
+    return Response.json({ success: false, 'error-codes': ['internal-error'] });
+  });
+  const contact = await fresh();
+  const response = await contact.onRequestPost({ request: request(), env });
+  assert.equal(response.status, 503);
+  assert.deepEqual(await response.json(), { ok: false, code: 'turnstile_unavailable' });
+  assert.equal(attempts, 2);
+});
+
 test('local rate limiting cannot be bypassed with X-Forwarded-For', async t => {
   rejectNetwork(t);
   const contact = await fresh();

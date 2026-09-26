@@ -121,29 +121,63 @@ const enforceRateLimit = async (request, env) => {
 const verifyTurnstile = async ({ request, env, token }) => {
   const secret = String(env.TURNSTILE_SECRET_KEY || '').trim();
   if (!secret || !String(env.TURNSTILE_SITE_KEY || '').trim()) {
+    console.error('Turnstile configuration is incomplete');
     return { enabled: false, success: false, code: 'turnstile_unavailable' };
   }
   if (!token || token.length > 2048) return { enabled: true, success: false, code: 'turnstile_required' };
 
   const remoteIp = request.headers.get('cf-connecting-ip') || '';
-  const form = new FormData();
-  form.set('secret', secret);
-  form.set('response', token);
-  if (remoteIp) form.set('remoteip', remoteIp);
-  form.set('idempotency_key', crypto.randomUUID());
+  const idempotencyKey = crypto.randomUUID();
+  const payload = new URLSearchParams({
+    secret,
+    response: token,
+    idempotency_key: idempotencyKey
+  });
+  if (remoteIp) payload.set('remoteip', remoteIp);
+
+  const verifyOnce = async () => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort('timeout'), 10_000);
+    try {
+      const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: payload.toString(),
+        signal: controller.signal
+      });
+      if (!response.ok) {
+        const error = new Error('siteverify_http_error');
+        error.status = response.status;
+        throw error;
+      }
+      const result = await response.json();
+      if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error('invalid_verification');
+      return result;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
 
   let result;
-  try {
-    result = await withTimeout('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      body: form
-    }, 5_000, async response => {
-      if (!response.ok) throw new Error('verification_unavailable');
-      return response.json();
-    });
-    if (!result || typeof result !== 'object' || Array.isArray(result)) throw new Error('invalid_verification');
-  } catch {
-    return { enabled: true, success: false, code: 'turnstile_unavailable' };
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      result = await verifyOnce();
+    } catch (error) {
+      const numericStatus = Number(error?.status || 0);
+      console.error('Turnstile Siteverify request failed', {
+        attempt,
+        status: Number.isInteger(numericStatus) && numericStatus >= 400 && numericStatus <= 599 ? numericStatus : undefined
+      });
+      if (attempt < 2) continue;
+      return { enabled: true, success: false, code: 'turnstile_unavailable' };
+    }
+
+    const errorCodes = Array.isArray(result['error-codes'])
+      ? result['error-codes'].map(value => String(value))
+      : [];
+    if (result.success === true || !errorCodes.includes('internal-error')) break;
+    console.error('Turnstile Siteverify returned internal-error', { attempt });
+    if (attempt === 2) return { enabled: true, success: false, code: 'turnstile_unavailable' };
   }
 
   const allowedHostnames = String(env.TURNSTILE_ALLOWED_HOSTNAMES || 'sundaibot.com,www.sundaibot.com')
@@ -152,11 +186,25 @@ const verifyTurnstile = async ({ request, env, token }) => {
     .filter(Boolean);
   const hostnameAllowed = typeof result.hostname === 'string' && allowedHostnames.includes(result.hostname.toLowerCase());
   const actionAllowed = result.action === 'contact';
+  const errorCodes = Array.isArray(result['error-codes'])
+    ? result['error-codes'].map(value => String(value))
+    : [];
+
+  if (result.success !== true) {
+    if (errorCodes.includes('invalid-input-secret') || errorCodes.includes('missing-input-secret') || errorCodes.includes('internal-error')) {
+      console.error('Turnstile Siteverify rejected server configuration or was unavailable', {
+        invalidSecret: errorCodes.includes('invalid-input-secret') || errorCodes.includes('missing-input-secret'),
+        internalError: errorCodes.includes('internal-error')
+      });
+      return { enabled: true, success: false, code: 'turnstile_unavailable' };
+    }
+    return { enabled: true, success: false, code: 'turnstile_invalid' };
+  }
 
   return {
     enabled: true,
-    success: result.success === true && hostnameAllowed && actionAllowed,
-    code: result.success === true ? 'turnstile_context_invalid' : 'turnstile_invalid'
+    success: hostnameAllowed && actionAllowed,
+    code: hostnameAllowed && actionAllowed ? 'ok' : 'turnstile_context_invalid'
   };
 };
 
