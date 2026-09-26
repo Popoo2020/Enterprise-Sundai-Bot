@@ -25,6 +25,7 @@ test('deployment config fixes the intended recipient without embedding credentia
   assert.equal(config.vars.CONTACT_TO_EMAIL, 'eririmo@protonmail.com');
   assert.equal(config.vars.CONTACT_FROM_EMAIL, 'SundAI Website <website@sundaibot.com>');
   assert.equal(config.keep_vars, true);
+  assert.ok(config.compatibility_flags?.includes('global_fetch_strictly_public'));
   assert.equal(config.vars.RESEND_API_KEY, undefined);
   assert.equal(config.vars.TURNSTILE_SECRET_KEY, undefined);
 });
@@ -73,6 +74,46 @@ test('browser autofill in the legacy honeypot cannot silently discard a verified
   assert.deepEqual(await response.json(), { ok: true });
   assert.equal(calls.length, 2);
   assert.equal(calls[1].url, 'https://api.resend.com/emails');
+});
+
+test('transient provider transport failure retries once with the same idempotency key', async t => {
+  let resendAttempts = 0;
+  const idempotencyKeys = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+      return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    }
+    assert.equal(url, 'https://api.resend.com/emails');
+    resendAttempts += 1;
+    idempotencyKeys.push(options.headers['idempotency-key']);
+    if (resendAttempts === 1) throw new TypeError('Synthetic transport failure');
+    return Response.json({ id: 'synthetic-provider-id' });
+  });
+  const contact = await fresh();
+  const response = await contact.onRequestPost({ request: enquiry(), env });
+  assert.equal(response.status, 202);
+  assert.equal(resendAttempts, 2);
+  assert.equal(idempotencyKeys[0], idempotencyKeys[1]);
+  assert.match(idempotencyKeys[0], /^sundai-contact-[0-9a-f-]{36}$/i);
+});
+
+test('provider 5xx is retried once and can recover without duplicate logical sends', async t => {
+  let resendAttempts = 0;
+  const idempotencyKeys = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+      return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    }
+    resendAttempts += 1;
+    idempotencyKeys.push(options.headers['idempotency-key']);
+    if (resendAttempts === 1) return Response.json({ message: 'Synthetic upstream failure' }, { status: 503 });
+    return Response.json({ id: 'synthetic-provider-id' });
+  });
+  const contact = await fresh();
+  const response = await contact.onRequestPost({ request: enquiry(), env });
+  assert.equal(response.status, 202);
+  assert.equal(resendAttempts, 2);
+  assert.equal(idempotencyKeys[0], idempotencyKeys[1]);
 });
 
 test('provider rejection never reports successful form delivery', async t => {
