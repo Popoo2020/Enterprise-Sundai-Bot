@@ -338,31 +338,60 @@ export async function onRequestPost(context) {
   const safeOrganisation = escapeHtml(organisation || 'Not provided');
   const safeMessage = escapeHtml(message).replaceAll('\n', '<br>');
 
-  let resendResponse;
-  try {
-    resendResponse = await withTimeout('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${apiKey}`,
-        'content-type': 'application/json',
-        'idempotency-key': `sundai-contact-${crypto.randomUUID()}`
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: email,
-        subject: `SundAI website enquiry — ${name}`,
-        html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto"><h1>New SundAI enquiry</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Organisation:</strong> ${safeOrganisation}</p><hr><p>${safeMessage}</p></div>`,
-        text: `New SundAI enquiry\n\nName: ${name}\nEmail: ${email}\nOrganisation: ${organisation || 'Not provided'}\n\n${message}`
-      })
-    }, 8_000);
-  } catch {
-    console.error('Contact email provider timed out');
-    return json({ ok: false, code: 'email_provider_timeout' }, 504);
+  const resendPayload = {
+    from,
+    to: [to],
+    reply_to: email,
+    subject: `SundAI website enquiry — ${name}`,
+    html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto"><h1>New SundAI enquiry</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Organisation:</strong> ${safeOrganisation}</p><hr><p>${safeMessage}</p></div>`,
+    text: `New SundAI enquiry\n\nName: ${name}\nEmail: ${email}\nOrganisation: ${organisation || 'Not provided'}\n\n${message}`
+  };
+  const resendIdempotencyKey = `sundai-contact-${crypto.randomUUID()}`;
+  let resendResponse = null;
+  let providerFailure = '';
+
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort('timeout'), 12_000);
+    try {
+      resendResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${apiKey}`,
+          'content-type': 'application/json',
+          accept: 'application/json',
+          'idempotency-key': resendIdempotencyKey
+        },
+        body: JSON.stringify(resendPayload),
+        signal: controller.signal
+      });
+      if (resendResponse.ok) break;
+      if (attempt < 2 && resendResponse.status >= 500) {
+        console.error('Contact email provider returned a retryable server error', { attempt, status: resendResponse.status });
+        continue;
+      }
+      break;
+    } catch (error) {
+      const timedOut = controller.signal.aborted || error?.name === 'AbortError';
+      providerFailure = timedOut ? 'timeout' : 'unavailable';
+      console.error('Contact email provider request failed', { attempt, timedOut });
+      resendResponse = null;
+      if (attempt < 2) continue;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  if (!resendResponse) {
+    const code = providerFailure === 'timeout' ? 'email_provider_timeout' : 'email_provider_unavailable';
+    return json({ ok: false, code }, providerFailure === 'timeout' ? 504 : 503);
   }
 
   if (!resendResponse.ok) {
-    console.error('Contact email delivery failed', { status: resendResponse.status, requestId: resendResponse.headers.get('x-request-id') || undefined });
+    console.error('Contact email delivery failed', {
+      status: resendResponse.status,
+      requestId: resendResponse.headers.get('x-request-id') || undefined
+    });
     return json({ ok: false, code: 'email_delivery_failed' }, 502);
   }
   return json({ ok: true }, 202);
