@@ -163,10 +163,10 @@ const verifyTurnstile = async ({ request, env, token }) => {
     try {
       result = await verifyOnce();
     } catch (error) {
+      const numericStatus = Number(error?.status || 0);
       console.error('Turnstile Siteverify request failed', {
         attempt,
-        status: Number(error?.status || 0) || undefined,
-        reason: String(error?.name || error?.message || 'unknown').slice(0, 80)
+        status: Number.isInteger(numericStatus) && numericStatus >= 400 && numericStatus <= 599 ? numericStatus : undefined
       });
       if (attempt < 2) continue;
       return { enabled: true, success: false, code: 'turnstile_unavailable' };
@@ -192,7 +192,10 @@ const verifyTurnstile = async ({ request, env, token }) => {
 
   if (result.success !== true) {
     if (errorCodes.includes('invalid-input-secret') || errorCodes.includes('missing-input-secret') || errorCodes.includes('internal-error')) {
-      console.error('Turnstile Siteverify rejected server configuration or was unavailable', { errorCodes });
+      console.error('Turnstile Siteverify rejected server configuration or was unavailable', {
+        invalidSecret: errorCodes.includes('invalid-input-secret') || errorCodes.includes('missing-input-secret'),
+        internalError: errorCodes.includes('internal-error')
+      });
       return { enabled: true, success: false, code: 'turnstile_unavailable' };
     }
     return { enabled: true, success: false, code: 'turnstile_invalid' };
