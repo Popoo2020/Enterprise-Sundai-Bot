@@ -1,0 +1,17 @@
+name: Temporary Resend Worker probe
+on:
+  push:
+    branches: [diag/resend-worker-probe-20260927]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Wait briefly for Worker deployment
+        run: sleep 35
+      - name: Query read-only Resend diagnostic endpoint
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error --max-time 25 https://sundaibot.com/api/resend-diagnostics
