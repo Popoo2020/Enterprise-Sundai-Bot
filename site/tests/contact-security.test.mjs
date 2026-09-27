@@ -4,7 +4,7 @@ import worker from '../../worker.js';
 
 const env = {
   TURNSTILE_SITE_KEY: 'test-public-key', TURNSTILE_SECRET_KEY: 'test-secret',
-  RESEND_API_KEY: 'test-email-key', CONTACT_TO_EMAIL: 'owner@example.invalid',
+  RESEND_API_KEY: 're_test_email_key', CONTACT_TO_EMAIL: 'owner@example.invalid',
   CONTACT_FROM_EMAIL: 'website@example.invalid'
 };
 const valid = () => ({ name: 'Test User', email: 'reader@example.invalid', organisation: '',
