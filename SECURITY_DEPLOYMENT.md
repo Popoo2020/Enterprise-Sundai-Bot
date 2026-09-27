@@ -111,6 +111,24 @@ Also:
 
 ## 6. Resend and email authentication
 
+`GET /api/contact-diagnostics` and `GET /api/contact` share the same configuration
+validation. Diagnostics report `scope: configuration_only`: even an HTTP 200 is
+not a delivery test. `invalid: ["resendApiKey"]` means the configured value fails
+the Resend key format check; a non-empty field alone is insufficient.
+
+For that failure, replace the runtime **Secret** `RESEND_API_KEY` on `sundai01`
+with the actual dedicated sending key value beginning with `re_`, not the key's
+ID, name, example placeholder or a command. Keep the key restricted to sending
+from `sundaibot.com`. Do not paste the secret into chat, source code or logs.
+Deploy the secret update and confirm both configuration endpoints return 200.
+
+Then submit a uniquely labelled test through the production form and confirm
+the matching message is marked delivered in Resend. A direct provider test does
+not exercise the form. The endpoint only acknowledges an email after receiving
+a provider message ID, which is recorded in the private Worker logs without
+the visitor's message or credentials. Browser retries refresh the single-use
+challenge and reuse the logical enquiry's idempotency key.
+
 Confirm the sending domain has valid:
 
 - SPF

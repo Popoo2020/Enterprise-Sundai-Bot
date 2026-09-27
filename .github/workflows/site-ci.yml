@@ -70,7 +70,7 @@ jobs:
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
       - name: Exercise contact API security controls and delivery routing
-        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs
+        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs site/tests/contact-client.test.mjs
       - name: Validate security and performance budgets
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness

@@ -294,7 +294,8 @@
       submitButton.setAttribute('aria-busy','true');
       setStatus('');
       const controller = new AbortController();
-      const timer = setTimeout(()=>controller.abort(),35_000);
+      // Allow both server-side verification attempts and both provider attempts.
+      const timer = setTimeout(()=>controller.abort(),55_000);
       try {
         const response=await fetch('/api/contact',{
           method:'POST',
@@ -316,23 +317,21 @@
         if (result.ok !== true) throw new Error('generic');
         setStatus(form.dataset.success||'Thank you — your enquiry has been sent.','success');
         form.reset();
-        turnstileToken='';
         if(started) started.value=String(Date.now());
-        if(window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
       } catch (error) {
         const turnstileFailure = String(error.message || '').startsWith('turnstile_');
-        if (turnstileFailure) {
-          turnstileToken = '';
-          const tokenField = form.querySelector('[name="turnstileToken"]');
-          if (tokenField) tokenField.value = '';
-          if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
-        }
         if(error.message === 'rate_limited') setStatus(config?.security.rateLimited || 'Too many attempts. Please try again later.','error');
         else if(turnstileFailure) setStatus(`${config?.security.required || 'Complete the security check before sending.'} [${error.message}]`,'error');
         else if(error.message && error.message !== 'generic') setStatus(`${config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.'} [${error.message}]`,'error');
         else setStatus(config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.','error');
       } finally {
         clearTimeout(timer);
+        // A server attempt may have consumed this single-use token even when
+        // email delivery failed. Never require a doomed duplicate-token retry.
+        turnstileToken = '';
+        const tokenField = form.querySelector('[name="turnstileToken"]');
+        if (tokenField) tokenField.value = '';
+        if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
         submitButton.disabled=false;
         submitButton.removeAttribute('aria-busy');
       }

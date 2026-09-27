@@ -43,6 +43,22 @@ const normalizeApiKey = (value) => {
 };
 const validResendApiKey = (value) => /^re_[A-Za-z0-9_-]+$/.test(normalizeApiKey(value));
 
+// Readiness and diagnostics must use the same validation. A non-empty value
+// (for example an API key ID instead of its secret) is not a usable credential.
+export const contactConfiguration = (env) => {
+  const values = {
+    turnstileSiteKey: String(env.TURNSTILE_SITE_KEY || '').trim(),
+    turnstileSecret: String(env.TURNSTILE_SECRET_KEY || '').trim(),
+    resendApiKey: normalizeApiKey(env.RESEND_API_KEY),
+    contactRecipient: String(env.CONTACT_TO_EMAIL || '').trim(),
+    contactSender: String(env.CONTACT_FROM_EMAIL || '').trim()
+  };
+  const checks = Object.fromEntries(Object.entries(values).map(([name, value]) => [name, Boolean(value)]));
+  checks.resendApiKey = validResendApiKey(values.resendApiKey);
+  const missing = Object.keys(values).filter(name => !values[name]);
+  const invalid = Object.keys(values).filter(name => values[name] && !checks[name]);
+  return { ok: missing.length === 0 && invalid.length === 0, checks, missing, invalid };
+};
 
 const withTimeout = async (url, options, timeoutMs, readResponse = response => response) => {
   const controller = new AbortController();
@@ -295,15 +311,16 @@ const validateSameOrigin = (request) => {
 
 export async function onRequestGet({ env }) {
   const siteKey = String(env.TURNSTILE_SITE_KEY || '').trim();
-  const secretConfigured = Boolean(String(env.TURNSTILE_SECRET_KEY || '').trim());
-  const enabled = Boolean(siteKey && secretConfigured);
-  const available = Boolean(enabled && validResendApiKey(env.RESEND_API_KEY) && String(env.CONTACT_TO_EMAIL || '').trim() && String(env.CONTACT_FROM_EMAIL || '').trim());
+  const configuration = contactConfiguration(env);
+  const enabled = configuration.checks.turnstileSiteKey && configuration.checks.turnstileSecret;
+  const available = configuration.ok;
   return json({ available, enabled, siteKey: enabled ? siteKey : '', action: 'contact' }, available ? 200 : 503);
 }
 
 export async function onRequestPost(context) {
   const { request, env } = context;
   if (!validateSameOrigin(request)) return json({ ok: false, code: 'origin_not_allowed' }, 403);
+  if (!contactConfiguration(env).ok) return json({ ok: false, code: 'contact_unavailable' }, 503);
 
   const limited = await enforceRateLimit(request, env);
   if (limited.unavailable) return json({ ok: false, code: 'contact_unavailable' }, 503);
@@ -355,8 +372,11 @@ export async function onRequestPost(context) {
     html: `<div style="font-family:Arial,sans-serif;max-width:680px;margin:auto"><h1>New SundAI enquiry</h1><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Organisation:</strong> ${safeOrganisation}</p><hr><p>${safeMessage}</p></div>`,
     text: `New SundAI enquiry\n\nName: ${name}\nEmail: ${email}\nOrganisation: ${organisation || 'Not provided'}\n\n${message}`
   };
-  const resendIdempotencyKey = `sundai-contact-${crypto.randomUUID()}`;
+  // Keep retries of the same form submission safe even after a browser timeout.
+  // The challenge token changes on retry; the logical enquiry does not.
+  const resendIdempotencyKey = `sundai-contact-${await hashValue(JSON.stringify([startedAt, resendPayload]))}`;
   let resendResponse = null;
+  let providerMessageId = '';
   let providerFailure = '';
 
   for (let attempt = 1; attempt <= 2; attempt++) {
@@ -373,11 +393,20 @@ export async function onRequestPost(context) {
           'idempotency-key': resendIdempotencyKey
         },
         body: JSON.stringify(resendPayload),
+        redirect: 'error',
         signal: controller.signal
       });
-      if (resendResponse.ok) break;
+      if (resendResponse.ok) {
+        const receipt = await resendResponse.json();
+        if (typeof receipt?.id !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(receipt.id)) {
+          throw new Error('invalid_provider_receipt');
+        }
+        providerMessageId = receipt.id;
+        break;
+      }
       if (attempt < 2 && resendResponse.status >= 500) {
         console.error('Contact email provider returned a retryable server error', { attempt, status: resendResponse.status });
+        await resendResponse.body?.cancel();
         continue;
       }
       break;
@@ -409,6 +438,7 @@ export async function onRequestPost(context) {
     if (providerStatus === 400 || providerStatus === 422) return json({ ok: false, code: 'email_provider_rejected' }, 502);
     return json({ ok: false, code: 'email_delivery_failed' }, 502);
   }
+  console.info('Contact email accepted by provider', { emailId: providerMessageId });
   return json({ ok: true }, 202);
 }
 

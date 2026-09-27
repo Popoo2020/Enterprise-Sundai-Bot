@@ -1,4 +1,5 @@
 import {
+  contactConfiguration,
   onRequestGet,
   onRequestPost,
   onRequestOptions,
@@ -14,16 +15,9 @@ const diagnosticHeaders = {
 };
 
 const contactDiagnostics = (env) => {
-  const checks = {
-    turnstileSiteKey: Boolean(String(env.TURNSTILE_SITE_KEY || '').trim()),
-    turnstileSecret: Boolean(String(env.TURNSTILE_SECRET_KEY || '').trim()),
-    resendApiKey: Boolean(String(env.RESEND_API_KEY || '').trim()),
-    contactRecipient: Boolean(String(env.CONTACT_TO_EMAIL || '').trim()),
-    contactSender: Boolean(String(env.CONTACT_FROM_EMAIL || '').trim())
-  };
-  const missing = Object.entries(checks).filter(([, configured]) => !configured).map(([name]) => name);
-  return new Response(JSON.stringify({ ok: missing.length === 0, checks, missing }), {
-    status: missing.length === 0 ? 200 : 503,
+  const configuration = contactConfiguration(env);
+  return new Response(JSON.stringify({ ...configuration, scope: 'configuration_only' }), {
+    status: configuration.ok ? 200 : 503,
     headers: diagnosticHeaders
   });
 };
@@ -55,6 +49,7 @@ export default {
         if (request.method === 'OPTIONS') return onRequestOptions();
         return methodNotAllowed();
       } catch {
+        console.error('Contact handler failed unexpectedly');
         return new Response(JSON.stringify({ ok: false, code: 'contact_unavailable' }), {
           status: 503,
           headers: methodNotAllowed().headers

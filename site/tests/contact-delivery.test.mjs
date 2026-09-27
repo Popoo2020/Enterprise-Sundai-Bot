@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import worker from '../../worker.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const config = JSON.parse(await readFile(path.join(root, 'wrangler.jsonc'), 'utf8'));
@@ -96,7 +97,7 @@ test('transient provider transport failure retries once with the same idempotenc
   assert.equal(response.status, 202);
   assert.equal(resendAttempts, 2);
   assert.equal(idempotencyKeys[0], idempotencyKeys[1]);
-  assert.match(idempotencyKeys[0], /^sundai-contact-[0-9a-f-]{36}$/i);
+  assert.match(idempotencyKeys[0], /^sundai-contact-[0-9a-f]{64}$/i);
 });
 
 test('provider 5xx is retried once and can recover without duplicate logical sends', async t => {
@@ -173,6 +174,70 @@ test('missing provider key keeps public readiness unavailable without leaking se
   assert.equal(data.available, false);
   assert.equal(data.CONTACT_TO_EMAIL, undefined);
   assert.equal(data.TURNSTILE_SECRET_KEY, undefined);
+});
+
+test('diagnostics and readiness both reject a non-empty malformed credential without exposing it', async t => {
+  t.mock.method(globalThis, 'fetch', () => { throw new Error('Configuration failures must not call providers'); });
+  for (const key of ['0ec58ced-example-key-id', 'Bearer not-an-api-key', 're_test\r\nInjected: value', '']) {
+    const configured = { ...env, RESEND_API_KEY: key };
+    const contact = await fresh();
+    const readiness = await contact.onRequestGet({ env: configured });
+    const diagnostics = await worker.fetch(new Request('https://sundaibot.com/api/contact-diagnostics'), configured);
+    assert.equal(readiness.status, 503);
+    assert.equal(diagnostics.status, 503);
+    const data = await diagnostics.json();
+    assert.equal(data.ok, false);
+    assert.equal(data.checks.resendApiKey, false);
+    assert.deepEqual(key ? data.invalid : data.missing, ['resendApiKey']);
+    assert.equal(data.scope, 'configuration_only');
+    assert.doesNotMatch(JSON.stringify(data), /not-an-api-key|Injected|test-secret|0ec58ced/);
+    assert.equal((await contact.onRequestPost({ request: enquiry(), env: configured })).status, 503);
+  }
+});
+
+test('diagnostics consistently accept the normalized key but do not claim delivery', async () => {
+  const configured = { ...env, RESEND_API_KEY: '  "re_test_only_never_send"  ' };
+  const contact = await fresh();
+  assert.equal((await contact.onRequestGet({ env: configured })).status, 200);
+  const response = await worker.fetch(new Request('https://sundaibot.com/api/contact-diagnostics'), configured);
+  const data = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(data.ok, true);
+  assert.deepEqual(data.invalid, []);
+  assert.equal(data.scope, 'configuration_only');
+});
+
+test('a successful HTTP response without an email receipt never produces false success', async t => {
+  let providerBody = '{}';
+  const mock = t.mock.method(globalThis, 'fetch', async url => url.includes('siteverify')
+    ? Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' })
+    : new Response(providerBody, { status: 200 }));
+  for (const body of ['{}', '{"id":null}', '<html>Unexpected response</html>', '{"id":""}']) {
+    providerBody = body;
+    const contact = await fresh();
+    const response = await contact.onRequestPost({ request: enquiry(), env });
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).ok, false);
+  }
+  assert.equal(mock.mock.callCount(), 12);
+});
+
+test('retrying a form with a new challenge reuses its send key; changed enquiry gets a new key', async t => {
+  const keys = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url.includes('siteverify')) return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    keys.push(options.headers['idempotency-key']);
+    assert.equal(options.redirect, 'error');
+    return Response.json({ id: 'synthetic-provider-id' });
+  });
+  const body = await enquiry().json();
+  for (const update of [{}, { turnstileToken: 'fresh-token' }, { message: 'A different enquiry with a different business question.' }]) {
+    const contact = await fresh();
+    const req = new Request(enquiry(), { body: JSON.stringify({ ...body, ...update }) });
+    assert.equal((await contact.onRequestPost({ request: req, env })).status, 202);
+  }
+  assert.equal(keys[0], keys[1]);
+  assert.notEqual(keys[1], keys[2]);
 });
 
 test('every shipped contact-form page loads the shared direct-email fallback script', async () => {
