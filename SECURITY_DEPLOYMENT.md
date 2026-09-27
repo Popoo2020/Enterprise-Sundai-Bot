@@ -1,6 +1,23 @@
 # SundAI production security deployment
 
-This repository contains the code-side security controls. The Cloudflare, GitHub and Resend account controls below must also be enabled in their respective dashboards before the deployment can be considered fully hardened.
+This repository contains the code-side security controls. Account settings must be checked separately; source tests cannot confirm them.
+
+## Active contact forms: Formspree migration, 27 September 2026
+
+All nine public contact forms now make a native HTML POST to `https://formspree.io/f/mqpagzed`. Formspree hosts the security check and confirmation page. The browser does not call `/api/contact`, load Turnstile or depend on Resend credentials. The CSP allows form navigation to Formspree without adding third-party scripts to the website. The three privacy notices disclose Formspree processing and international transfers.
+
+Before calling the migration complete, verify in the Formspree dashboard:
+
+1. The form is active and its notification target is the verified `eririmo@protonmail.com` address.
+2. CAPTCHA is enabled under Settings → Spam protection. Do not disable CAPTCHA or add a client-side bypass to get a test through.
+3. A uniquely labelled test submitted from `https://sundaibot.com/start/` reaches the hosted confirmation page and appears in Submissions with the expected fields.
+4. The corresponding notification arrives in the target inbox. Provider acceptance and inbox delivery are separate checks.
+
+The endpoint is a public form identifier, not a secret. The code cannot establish the account's CAPTCHA setting, notification target or quota. Retain the direct-email and copy-enquiry fallback.
+
+The Worker `/api/contact` and its configuration-only diagnostics are retained as a legacy path, with their security controls unchanged. They are no longer a readiness check for the public form. Turnstile and Resend instructions below apply only to that legacy path.
+
+Deployment caution: this project's Cloudflare integration has previously deployed a feature branch to production. Treat a branch push as a potential production deployment until the Cloudflare build configuration is corrected. Use a reviewed, explicitly authorised publication and verify the served HTML, JavaScript and CSP together.
 
 ## Security review: 20 September 2026
 
@@ -15,7 +32,7 @@ Unverified account controls: WAF rules, account-level rate limits, administrator
 ## Performance design
 
 - The public website remains static and cacheable.
-- Cloudflare Turnstile is not included in the initial HTML and is loaded only after the contact form is opened or focused.
+- Contact forms submit natively to Formspree; no CAPTCHA JavaScript is loaded on the SundAI page.
 - Brand images are hosted locally under `site/assets/brands/`, removing third-party image requests from normal browsing.
 - CodeQL, Dependabot and OWASP ZAP run in GitHub Actions and add no JavaScript or latency for website visitors.
 - CI enforces an 85 KB budget for the main website JavaScript and a 250 KB combined CSS budget.

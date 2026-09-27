@@ -25,8 +25,7 @@
       euTitle:'100% European service', euMeta:'European values · European delivery', euText:'Privacy-aware AI governance, security, automation and training for organisations across the EU and wider Europe.',
       servicesTitle:'Four ways to move AI forward safely', trainingCard:'AI Training & Talks', trainingText:'Role-based workshops and keynotes that build practical AI literacy, responsible use and security awareness.', trainingLink:'Explore training →',
       trust:[['Trust','Transparent, reliable delivery'],['Clarity','Clear strategies and outcomes'],['Security','Secure-by-design thinking'],['Quality','Tested and documented work'],['European','EU-focused and privacy-aware']],
-      ecosystem:{platforms:'Platforms we work with',collaborations:'Documented collaborations',official:'Open official website',diplomacy:'Digital diplomacy collaboration',cyber:'Cybersecurity education collaboration'},
-      security:{loading:'Preparing the secure contact form…',required:'Please complete the security check before sending.',unavailable:'The contact form is temporarily unavailable. Please try again later.',rateLimited:'Too many attempts. Please wait a few minutes and try again.',generic:'The message could not be sent. Please try again later.'}
+      ecosystem:{platforms:'Platforms we work with',collaborations:'Documented collaborations',official:'Open official website',diplomacy:'Digital diplomacy collaboration',cyber:'Cybersecurity education collaboration'}
     },
     da: {
       trainingHref:'/da/kurser-foredrag/', trainingLabel:'Kurser & foredrag', resourcesHref:'/da/ressourcer/', resources:'Ressourcer', snapshot:'Overblik',
@@ -34,8 +33,7 @@
       euTitle:'100% europæisk service', euMeta:'Europæiske værdier · Europæisk levering', euText:'Privatlivsbevidst AI-governance, sikkerhed, automatisering og træning for organisationer i EU og resten af Europa.',
       servicesTitle:'Fire måder at flytte AI sikkert fremad', trainingCard:'AI-kurser & foredrag', trainingText:'Rollebaserede workshops og foredrag, der styrker praktisk AI-literacy, ansvarlig brug og sikkerhedsbevidsthed.', trainingLink:'Se kurser →',
       trust:[['Tillid','Transparent og pålidelig levering'],['Klarhed','Tydelige strategier og resultater'],['Sikkerhed','Secure-by-design tilgang'],['Kvalitet','Testet og dokumenteret arbejde'],['Europæisk','EU-fokuseret og privatlivsbevidst']],
-      ecosystem:{platforms:'Platforme vi arbejder med',collaborations:'Dokumenterede samarbejder',official:'Åbn officiel hjemmeside',diplomacy:'Samarbejde om digitalt diplomati',cyber:'Samarbejde om cybersikkerhedsuddannelse'},
-      security:{loading:'Forbereder den sikre kontaktformular…',required:'Gennemfør sikkerhedskontrollen, før du sender.',unavailable:'Kontaktformularen er midlertidigt utilgængelig. Prøv igen senere.',rateLimited:'For mange forsøg. Vent nogle minutter og prøv igen.',generic:'Beskeden kunne ikke sendes. Prøv igen senere.'}
+      ecosystem:{platforms:'Platforme vi arbejder med',collaborations:'Dokumenterede samarbejder',official:'Åbn officiel hjemmeside',diplomacy:'Samarbejde om digitalt diplomati',cyber:'Samarbejde om cybersikkerhedsuddannelse'}
     },
     sv: {
       trainingHref:'/sv/utbildning-forelasningar/', trainingLabel:'Utbildning & föreläsningar', resourcesHref:'/sv/resurser/', resources:'Resurser', snapshot:'Översikt',
@@ -43,8 +41,7 @@
       euTitle:'100% europeisk service', euMeta:'Europeiska värderingar · Europeisk leverans', euText:'Integritetsmedveten AI-styrning, säkerhet, automatisering och utbildning för organisationer i EU och övriga Europa.',
       servicesTitle:'Fyra sätt att föra AI framåt på ett säkert sätt', trainingCard:'AI-utbildning & föreläsningar', trainingText:'Rollbaserade workshops och föreläsningar som stärker praktisk AI-kunnighet, ansvarsfull användning och säkerhetsmedvetenhet.', trainingLink:'Se utbildning →',
       trust:[['Tillit','Transparent och tillförlitlig leverans'],['Tydlighet','Tydliga strategier och resultat'],['Säkerhet','Secure-by-design perspektiv'],['Kvalitet','Testat och dokumenterat arbete'],['Europeiskt','EU-fokuserat och integritetsmedvetet']],
-      ecosystem:{platforms:'Plattformar vi arbetar med',collaborations:'Dokumenterade samarbeten',official:'Öppna officiell webbplats',diplomacy:'Samarbete inom digital diplomati',cyber:'Samarbete inom cybersäkerhetsutbildning'},
-      security:{loading:'Förbereder det säkra kontaktformuläret…',required:'Slutför säkerhetskontrollen innan du skickar.',unavailable:'Kontaktformuläret är tillfälligt otillgängligt. Försök igen senare.',rateLimited:'För många försök. Vänta några minuter och försök igen.',generic:'Meddelandet kunde inte skickas. Försök igen senare.'}
+      ecosystem:{platforms:'Plattformar vi arbetar med',collaborations:'Dokumenterade samarbeten',official:'Öppna officiell webbplats',diplomacy:'Samarbete inom digital diplomati',cyber:'Samarbete inom cybersäkerhetsutbildning'}
     }
   }[lang];
 
@@ -126,215 +123,17 @@
   });
   nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle?.setAttribute('aria-expanded','false');}));
 
-  const form = document.querySelector('[data-contact-form]');
-  const status = form?.querySelector('[data-form-status]');
-  const submitButton = form?.querySelector('[type="submit"]');
-  const started = form?.querySelector('[name="startedAt"]');
-  let turnstileWidgetId = null;
-  let turnstileToken = '';
-  let turnstileScriptPromise = null;
-  let turnstileConfigPromise = null;
-  let turnstilePreparePromise = null;
-
-  const setStatus = (message, kind = '') => {
-    if (!status) return;
-    status.textContent = message;
-    status.className = `form-status${kind ? ` ${kind}` : ''}`;
-  };
-
-  const loadTurnstileScript = () => {
-    if (window.turnstile) return Promise.resolve();
-    if (turnstileScriptPromise) return turnstileScriptPromise;
-    turnstileScriptPromise = new Promise((resolve, reject) => {
-      const existing = document.querySelector('script[data-sundai-turnstile]');
-      if (existing) {
-        existing.addEventListener('load', resolve, { once:true });
-        existing.addEventListener('error', reject, { once:true });
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-      script.async = true;
-      script.defer = true;
-      script.crossOrigin = 'anonymous';
-      script.referrerPolicy = 'no-referrer';
-      script.dataset.sundaiTurnstile = 'true';
-      script.addEventListener('load', resolve, { once:true });
-      script.addEventListener('error', reject, { once:true });
-      document.head.appendChild(script);
-    });
-    return turnstileScriptPromise;
-  };
-
-  const getTurnstileConfig = () => {
-    if (turnstileConfigPromise) return turnstileConfigPromise;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8_000);
-    turnstileConfigPromise = fetch('/api/contact', { headers:{ accept:'application/json' }, cache:'no-store', signal:controller.signal })
-      .then(async response => {
-        if (!response.ok) throw new Error('contact_unavailable');
-        const data = await response.json();
-        if (data.available !== true || data.enabled !== true || !data.siteKey) throw new Error('contact_unavailable');
-        return data;
-      })
-      .catch(error => { turnstileConfigPromise = null; throw error; })
-      .finally(() => clearTimeout(timer));
-    return turnstileConfigPromise;
-  };
-
-  const renderTurnstile = async () => {
-    if (!form || form.dataset.turnstilePrepared === 'true') return;
-    form.dataset.turnstilePrepared = 'pending';
-    let turnstileConfig;
-    try {
-      turnstileConfig = await getTurnstileConfig();
-    } catch {
-      form.dataset.turnstilePrepared = 'false';
-      form.dataset.turnstileEnabled = 'error';
-      setStatus(config?.security.unavailable || 'Contact form unavailable. Please try again later.', 'error');
-      return;
-    }
-
-    setStatus(config?.security.loading || 'Preparing the secure contact form…');
-    let slot = form.querySelector('.turnstile-slot');
-    if (!slot) {
-      slot = document.createElement('div');
-      slot.className = 'turnstile-slot full';
-      slot.setAttribute('aria-label','Security verification');
-      submitButton?.insertAdjacentElement('beforebegin', slot);
-    }
-
-    try {
-      await loadTurnstileScript();
-      turnstileWidgetId = window.turnstile.render(slot, {
-        sitekey: turnstileConfig.siteKey,
-        action: 'contact',
-        'response-field': true,
-        'response-field-name': 'turnstileToken',
-        theme: 'light',
-        language: lang === 'da' ? 'da' : lang === 'sv' ? 'sv-SE' : 'en',
-        appearance: 'always',
-        execution: 'render',
-        retry: 'auto',
-        'refresh-expired': 'auto',
-        size: 'flexible',
-        callback: (token) => {
-          turnstileToken = String(token || '').trim();
-          const tokenField = form.querySelector('[name="turnstileToken"]');
-          if (tokenField && turnstileToken) tokenField.value = turnstileToken;
-          setStatus('');
-        },
-        'expired-callback': () => {
-          turnstileToken = '';
-          const tokenField = form.querySelector('[name="turnstileToken"]');
-          if (tokenField) tokenField.value = '';
-        },
-        'error-callback': () => {
-          turnstileToken = '';
-          const tokenField = form.querySelector('[name="turnstileToken"]');
-          if (tokenField) tokenField.value = '';
-          setStatus(config?.security.unavailable || 'Security check unavailable.', 'error');
-        }
-      });
-      form.dataset.turnstilePrepared = 'true';
-      form.dataset.turnstileEnabled = 'true';
-    } catch {
-      form.dataset.turnstilePrepared = 'false';
-      form.dataset.turnstileEnabled = 'error';
-      setStatus(config?.security.unavailable || 'Security check unavailable.', 'error');
-    }
-  };
-
-  const prepareTurnstile = () => {
-    if (!turnstilePreparePromise) {
-      turnstilePreparePromise = renderTurnstile().finally(() => { turnstilePreparePromise = null; });
-    }
-    return turnstilePreparePromise;
-  };
-
+  // Contact forms use a native POST to Formspree. Its hosted page handles
+  // security verification and acceptance; do not intercept submission or
+  // report a successful send before the provider confirms it.
   const openContact = () => {
     nav?.classList.remove('open');
     toggle?.setAttribute('aria-expanded','false');
-    if (started) started.value = String(Date.now());
     dialog?.showModal?.();
-    prepareTurnstile();
   };
 
   document.querySelectorAll('[data-open-contact]').forEach(button=>button.addEventListener('click',openContact));
   dialog?.querySelector('[data-close-dialog]')?.addEventListener('click',()=>dialog.close());
   dialog?.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
   document.querySelectorAll('[data-year]').forEach(x=>x.textContent=String(new Date().getFullYear()));
-
-  if (form) {
-    form.addEventListener('focusin', prepareTurnstile, { once:true });
-    form.addEventListener('submit',async e=>{
-      e.preventDefault();
-      if(!form.reportValidity() || submitButton.disabled) return;
-      submitButton.disabled = true;
-      await prepareTurnstile();
-      if (form.dataset.turnstileEnabled !== 'true') {
-        submitButton.disabled = false;
-        setStatus(config?.security.unavailable || 'Contact form unavailable. Please try again later.', 'error');
-        return;
-      }
-      const tokenField = form.querySelector('[name="turnstileToken"]');
-      let activeTurnstileToken = turnstileToken || String(tokenField?.value || '').trim();
-      if (!activeTurnstileToken && window.turnstile && turnstileWidgetId !== null) {
-        try { activeTurnstileToken = String(window.turnstile.getResponse(turnstileWidgetId) || '').trim(); } catch {}
-      }
-      if (!activeTurnstileToken) {
-        submitButton.disabled = false;
-        setStatus(config?.security.required || 'Complete the security check before sending.', 'error');
-        return;
-      }
-      turnstileToken = activeTurnstileToken;
-      if (tokenField) tokenField.value = activeTurnstileToken;
-
-      submitButton.disabled=true;
-      submitButton.setAttribute('aria-busy','true');
-      setStatus('');
-      const controller = new AbortController();
-      // Allow both server-side verification attempts and both provider attempts.
-      const timer = setTimeout(()=>controller.abort(),55_000);
-      try {
-        const response=await fetch('/api/contact',{
-          method:'POST',
-          headers:{'content-type':'application/json',accept:'application/json'},
-          body:JSON.stringify({ ...Object.fromEntries(new FormData(form).entries()), turnstileToken: activeTurnstileToken }),
-          signal:controller.signal
-        });
-        const result = await response.json().catch(()=>({}));
-        if(!response.ok) {
-          if (response.status === 429 || result.code === 'rate_limited') throw new Error('rate_limited');
-          if (String(result.code || '').startsWith('turnstile_')) throw new Error(String(result.code));
-          const safeCodes = new Set([
-            'invalid_form_timing','invalid_name','invalid_email','invalid_organisation','invalid_message',
-            'contact_unavailable','email_provider_timeout','email_provider_unavailable','email_provider_auth_failed',
-            'email_provider_forbidden','email_provider_rate_limited','email_provider_rejected','email_delivery_failed'
-          ]);
-          throw new Error(safeCodes.has(String(result.code || '')) ? String(result.code) : 'generic');
-        }
-        if (result.ok !== true) throw new Error('generic');
-        setStatus(form.dataset.success||'Thank you — your enquiry has been sent.','success');
-        form.reset();
-        if(started) started.value=String(Date.now());
-      } catch (error) {
-        const turnstileFailure = String(error.message || '').startsWith('turnstile_');
-        if(error.message === 'rate_limited') setStatus(config?.security.rateLimited || 'Too many attempts. Please try again later.','error');
-        else if(turnstileFailure) setStatus(`${config?.security.required || 'Complete the security check before sending.'} [${error.message}]`,'error');
-        else if(error.message && error.message !== 'generic') setStatus(`${config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.'} [${error.message}]`,'error');
-        else setStatus(config?.security.generic || form.dataset.error || 'The message could not be sent. Please try again later.','error');
-      } finally {
-        clearTimeout(timer);
-        // A server attempt may have consumed this single-use token even when
-        // email delivery failed. Never require a doomed duplicate-token retry.
-        turnstileToken = '';
-        const tokenField = form.querySelector('[name="turnstileToken"]');
-        if (tokenField) tokenField.value = '';
-        if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
-        submitButton.disabled=false;
-        submitButton.removeAttribute('aria-busy');
-      }
-    });
-  }
 })();

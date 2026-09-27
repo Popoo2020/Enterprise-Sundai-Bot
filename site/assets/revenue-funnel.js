@@ -49,7 +49,6 @@
   const interest = form.querySelector('[data-interest-select]');
   const details = form.querySelector('[data-enquiry-details]');
   const message = form.querySelector('[name="message"]');
-  const started = form.querySelector('[name="startedAt"]');
   const params = new URLSearchParams(window.location.search);
   const requested = params.get('package');
 
@@ -78,7 +77,6 @@
     message.value = `Availability enquiry: ${packageLabel}${source}\nPage: ${window.location.pathname}\n\nDetails:\n${detailText}`;
   };
 
-  if (started && !started.value) started.value = String(Date.now());
   if (requested && copy.packages[requested] && interest) interest.value = requested;
   compose();
 
@@ -90,7 +88,6 @@
     button.addEventListener('click', () => {
       const key = button.getAttribute('data-package');
       if (interest && copy.packages[key]) interest.value = key;
-      if (started) started.value = String(Date.now());
       compose();
       form.scrollIntoView({ behavior: 'smooth', block: 'start' });
       window.setTimeout(() => details?.focus({ preventScroll: true }), 550);

@@ -1,86 +1,87 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import vm from 'node:vm';
 
-const script = await readFile(new URL('../assets/neon-compact.js', import.meta.url), 'utf8');
+const root = new URL('../', import.meta.url);
+const endpoint = 'https://formspree.io/f/mqpagzed';
+const script = await readFile(new URL('assets/neon-compact.js', root), 'utf8');
 
-// Exercise the production submit handler with isolated DOM/provider fixtures.
-// These are unit tests; no external challenge is solved and no email is sent.
-async function fixture(response) {
-  const listeners = new Map();
-  const status = { textContent: '', className: '' };
-  const tokenField = { value: '' };
-  const started = { value: '123456789' };
-  const button = { disabled: false, setAttribute() {}, removeAttribute() {} };
-  const slot = {};
-  let resetCount = 0, widgetOptions;
-  const posted = [];
-  const form = {
-    dataset: {},
-    querySelector: selector => ({ '[data-form-status]': status, '[type="submit"]': button,
-      '[name="startedAt"]': started, '[name="turnstileToken"]': tokenField, '.turnstile-slot': slot })[selector] || null,
-    addEventListener: (name, callback) => listeners.set(name, callback),
-    reportValidity: () => true,
-    reset() { started.value = ''; tokenField.value = ''; }
-  };
+async function pages(dir = root) {
+  const result = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const url = new URL(entry.name + (entry.isDirectory() ? '/' : ''), dir);
+    if (entry.isDirectory()) result.push(...await pages(url));
+    else if (entry.name.endsWith('.html')) result.push(url);
+  }
+  return result;
+}
+
+test('all nine published contact forms use native POST, validation and the intended recipient endpoint', async () => {
+  let count = 0;
+  for (const url of await pages()) {
+    const html = await readFile(url, 'utf8');
+    for (const [form] of html.matchAll(/<form\b[^>]*data-contact-form[\s\S]*?<\/form>/g)) {
+      count++;
+      const tag = form.slice(0, form.indexOf('>') + 1);
+      assert.ok(tag.includes(`action="${endpoint}"`), url.pathname);
+      assert.match(tag, /method="post"/);
+      assert.doesNotMatch(tag, /novalidate|data-success|onsubmit/);
+      assert.match(form, /<input\b[^>]*name="name"[^>]*required/);
+      assert.match(form, /<input\b[^>]*name="email"[^>]*type="email"[^>]*required/);
+      assert.match(form, /<textarea\b[^>]*name="message"/);
+      assert.match(form, /<button\b[^>]*type="submit"/);
+      assert.doesNotMatch(form, /name="(?:website|startedAt|turnstileToken|_captcha)"|formaction=|formnovalidate/);
+      assert.match(form, /Formspree/);
+      assert.match(form, /href="\/(?:privacy\.html|da\/privatliv\.html|sv\/integritet\.html)"/);
+      if (tag.includes('data-revenue-form')) {
+        // Native submission must include user choices even without JavaScript.
+        assert.match(form, /<select\b[^>]*name="service"[^>]*data-interest-select/);
+        assert.match(form, /<textarea\b[^>]*name="details"[^>]*data-enquiry-details/);
+      } else assert.match(form, /<textarea\b[^>]*name="message"[^>]*required/);
+    }
+  }
+  assert.equal(count, 9);
+  const headers = await readFile(new URL('_headers', root), 'utf8');
+  assert.match(headers, /form-action 'self' https:\/\/formspree\.io;/);
+});
+
+test('shared UI leaves native submission alone and opening a contact dialog makes no API request', () => {
+  const handlers = new Map();
+  let opens = 0;
+  const dialog = { showModal() { opens++; }, querySelector() { return null; }, addEventListener() {} };
+  const openButton = { addEventListener(event, callback) { handlers.set(event, callback); } };
   const document = {
     styleSheets: [], documentElement: { lang: 'en' },
     head: { appendChild() {} }, createElement: () => ({}),
-    querySelector: selector => selector === '[data-contact-form]' ? form : null,
-    querySelectorAll: () => []
+    querySelector: selector => selector === '[data-contact-dialog]' ? dialog : null,
+    querySelectorAll: selector => selector === '[data-open-contact]' ? [openButton] : []
   };
-  const window = { turnstile: {
-    render(_slot, options) { widgetOptions = options; return 'fixture-widget'; },
-    getResponse() { return tokenField.value; },
-    reset() { resetCount++; }
-  } };
-  vm.runInNewContext(script, {
-    document, window, AbortController, setTimeout, clearTimeout, console,
-    FormData: class { entries() { return Object.entries({ name: 'Test Person', email: 'test@example.invalid',
-      message: 'A synthetic contact enquiry.', startedAt: started.value, turnstileToken: tokenField.value }); } },
-    fetch: async (_url, options) => {
-      if (options.method !== 'POST') return Response.json({ available: true, enabled: true, siteKey: 'fixture-key' });
-      posted.push(JSON.parse(options.body));
-      return response(posted.length);
-    }
-  });
-  await listeners.get('focusin')();
-  return { status, tokenField, started, button, posted, form,
-    solveFixture: token => widgetOptions.callback(token),
-    submit: () => listeners.get('submit')({ preventDefault() {} }),
-    resets: () => resetCount };
-}
-
-test('failed delivery clears the consumed token, preserves the enquiry and permits a fresh retry', async () => {
-  const f = await fixture(attempt => Response.json(attempt === 1
-    ? { ok: false, code: 'email_provider_unavailable' } : { ok: true }, { status: attempt === 1 ? 503 : 202 }));
-  f.solveFixture('first-token');
-  await f.submit();
-  assert.equal(f.resets(), 1);
-  assert.equal(f.tokenField.value, '');
-  assert.equal(f.started.value, '123456789');
-  assert.equal(f.button.disabled, false);
-  assert.match(f.status.className, /error/);
-  // The old token is no longer reusable; no second POST occurs yet.
-  await f.submit();
-  assert.equal(f.posted.length, 1);
-  f.solveFixture('second-token');
-  await f.submit();
-  assert.equal(f.posted.length, 2);
-  assert.equal(f.posted[1].turnstileToken, 'second-token');
-  assert.equal(f.posted[0].startedAt, f.posted[1].startedAt);
-  assert.equal(f.resets(), 2);
-  assert.match(f.status.className, /success/);
+  vm.runInNewContext(script, { document, fetch() { assert.fail('No legacy provider preflight'); } });
+  handlers.get('click')();
+  assert.equal(opens, 1);
+  assert.doesNotMatch(script, /turnstile|fetch\(|preventDefault\(|form\.reset\(/i);
 });
 
-test('lost response also resets the token without claiming a successful send', async () => {
-  const f = await fixture(() => { throw new TypeError('Synthetic network interruption'); });
-  f.solveFixture('first-token');
-  await f.submit();
-  assert.equal(f.resets(), 1);
-  assert.equal(f.tokenField.value, '');
-  assert.equal(f.started.value, '123456789');
-  assert.equal(f.button.disabled, false);
-  assert.match(f.status.className, /error/);
+test('enquiry composition preserves selected service, details and attribution without cancelling submission', async () => {
+  const funnel = await readFile(new URL('assets/revenue-funnel.js', root), 'utf8');
+  const listeners = new Map();
+  const interest = { value: 'unsure', addEventListener() {} };
+  const details = { value: 'Please assess our AI inventory.', addEventListener() {} };
+  const message = { value: '' };
+  const form = {
+    querySelector: s => ({ '[data-interest-select]': interest, '[data-enquiry-details]': details, '[name="message"]': message })[s],
+    addEventListener: (event, callback) => listeners.set(event, callback)
+  };
+  vm.runInNewContext(funnel, {
+    document: { documentElement: { lang: 'en' }, referrer: '', querySelector: () => form, querySelectorAll: () => [] },
+    window: { location: { search: '?package=call&source_page=%2Fservices%2F&utm_source=test', pathname: '/start/', hostname: 'sundaibot.com' } },
+    URLSearchParams, URL
+  });
+  assert.equal(interest.value, 'call');
+  details.value = 'Updated request before clicking send.';
+  listeners.get('submit')({ preventDefault() { assert.fail('Must allow native POST'); } });
+  assert.match(message.value, /AI Governance Decision Review/);
+  assert.match(message.value, /Updated request before clicking send\./);
+  assert.match(message.value, /source_page=\/services\/ \| utm_source=test/);
 });

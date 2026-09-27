@@ -15,7 +15,7 @@ for (const [file,lang,tokens] of pages) {
   if (!html.includes(`<html lang="${lang}"`)) errors.push(`${file}: wrong lang`);
   const visibleText=html.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ');
   for (const token of tokens) if (!html.includes(token)&&!visibleText.includes(token)) errors.push(`${file}: missing ${token}`);
-  for (const token of ['rel="canonical"','hreflang=','application/ld+json','OfferCatalog','/assets/revenue-funnel.css','/assets/revenue-funnel.js','name="startedAt"','name="message"','data-interest-select','data-enquiry-details','data-form-status']) {
+  for (const token of ['rel="canonical"','hreflang=','application/ld+json','OfferCatalog','/assets/revenue-funnel.css','/assets/revenue-funnel.js','name="message"','data-interest-select','data-enquiry-details','data-form-status']) {
     if (!html.includes(token)) errors.push(`${file}: missing funnel token ${token}`);
   }
   for (const forbidden of ['five business days','fem arbejdsdage','fem arbetsdagar','priceCurrency','immediate availability, reserved capacity']) {
@@ -62,7 +62,7 @@ if (!robots.includes('Sitemap: https://sundaibot.com/sitemap-commercial.xml')) e
 const indexNow = await readFile(path.resolve(root,'..','.github/workflows/indexnow.yml'),'utf8');
 if (!indexNow.includes('sitemap*.xml')) errors.push('IndexNow must submit every sitemap*.xml file');
 const funnelJs = await readFile(path.join(root,'assets/revenue-funnel.js'),'utf8');
-for (const token of ['utm_source','utm_medium','utm_campaign','document.referrer','Availability enquiry:','startedAt']) if (!funnelJs.includes(token)) errors.push(`revenue-funnel.js missing attribution token ${token}`);
+for (const token of ['utm_source','utm_medium','utm_campaign','document.referrer','Availability enquiry:']) if (!funnelJs.includes(token)) errors.push(`revenue-funnel.js missing attribution token ${token}`);
 if (!/fit, scope and current availability|fit, scope og aktuel tilgængelighed|passform, omfattning och aktuell tillgänglighet/.test(funnelJs)) errors.push('revenue-funnel.js missing availability-first fallback');
 
 if (errors.length) {

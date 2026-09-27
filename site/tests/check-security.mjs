@@ -13,6 +13,7 @@ for (const token of [
   "script-src 'self' https://challenges.cloudflare.com",
   "style-src 'self';",
   'frame-src https://challenges.cloudflare.com',
+  "form-action 'self' https://formspree.io;",
   'Cross-Origin-Opener-Policy: same-origin-allow-popups',
   'X-Permitted-Cross-Domain-Policies: none',
   '/api/*',
@@ -44,13 +45,6 @@ if (contact.includes('await resendResponse.text()')) errors.push('Contact functi
 
 const client = await read('site/assets/neon-compact.js');
 for (const token of [
-  'data-sundai-turnstile',
-  "'response-field': true",
-  "'response-field-name': 'turnstileToken'",
-  'turnstile/v0/api.js?render=explicit',
-  "fetch('/api/contact'",
-  'window.turnstile.getResponse(turnstileWidgetId)',
-  'turnstileToken: activeTurnstileToken',
   "'/assets/brands/openai.svg'",
   "'/assets/brands/ec-council.svg'"
 ]) {
@@ -98,4 +92,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Security hardening passed. Initial Turnstile is lazy, logos are local, JS is ${jsBytes} bytes and CSS is ${cssBytes} bytes.`);
+console.log(`Security hardening passed. Contact forms use native submission, logos are local, JS is ${jsBytes} bytes and CSS is ${cssBytes} bytes.`);
