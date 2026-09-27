@@ -34,6 +34,15 @@ const escapeHtml = (value = '') => String(value)
 const stripControlCharacters = (value = '') => String(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '');
 const singleLine = (value = '') => stripControlCharacters(value).replace(/[\r\n]+/g, ' ').trim();
 const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const normalizeApiKey = (value) => {
+  let key = String(value || '').trim();
+  if ((key.startsWith('"') && key.endsWith('"')) || (key.startsWith("'") && key.endsWith("'"))) {
+    key = key.slice(1, -1).trim();
+  }
+  return key.replace(/^Bearer\s+/i, '').trim();
+};
+const validResendApiKey = (value) => /^re_[A-Za-z0-9_-]+$/.test(normalizeApiKey(value));
+
 
 const withTimeout = async (url, options, timeoutMs, readResponse = response => response) => {
   const controller = new AbortController();
@@ -288,7 +297,7 @@ export async function onRequestGet({ env }) {
   const siteKey = String(env.TURNSTILE_SITE_KEY || '').trim();
   const secretConfigured = Boolean(String(env.TURNSTILE_SECRET_KEY || '').trim());
   const enabled = Boolean(siteKey && secretConfigured);
-  const available = Boolean(enabled && env.RESEND_API_KEY && env.CONTACT_TO_EMAIL && env.CONTACT_FROM_EMAIL);
+  const available = Boolean(enabled && validResendApiKey(env.RESEND_API_KEY) && String(env.CONTACT_TO_EMAIL || '').trim() && String(env.CONTACT_FROM_EMAIL || '').trim());
   return json({ available, enabled, siteKey: enabled ? siteKey : '', action: 'contact' }, available ? 200 : 503);
 }
 
@@ -325,10 +334,10 @@ export async function onRequestPost(context) {
     return json({ ok: false, code: turnstile.code }, status);
   }
 
-  const apiKey = env.RESEND_API_KEY;
-  const to = env.CONTACT_TO_EMAIL;
-  const from = env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !to || !from) {
+  const apiKey = normalizeApiKey(env.RESEND_API_KEY);
+  const to = String(env.CONTACT_TO_EMAIL || '').trim();
+  const from = String(env.CONTACT_FROM_EMAIL || '').trim();
+  if (!validResendApiKey(apiKey) || !to || !from) {
     console.error('Contact service configuration is incomplete');
     return json({ ok: false, code: 'contact_unavailable' }, 503);
   }
@@ -360,6 +369,7 @@ export async function onRequestPost(context) {
           authorization: `Bearer ${apiKey}`,
           'content-type': 'application/json',
           accept: 'application/json',
+          'user-agent': 'SundAI-Website-Contact/1.0',
           'idempotency-key': resendIdempotencyKey
         },
         body: JSON.stringify(resendPayload),
@@ -388,10 +398,15 @@ export async function onRequestPost(context) {
   }
 
   if (!resendResponse.ok) {
+    const providerStatus = resendResponse.status;
     console.error('Contact email delivery failed', {
-      status: resendResponse.status,
+      status: providerStatus,
       requestId: resendResponse.headers.get('x-request-id') || undefined
     });
+    if (providerStatus === 401) return json({ ok: false, code: 'email_provider_auth_failed' }, 503);
+    if (providerStatus === 403) return json({ ok: false, code: 'email_provider_forbidden' }, 503);
+    if (providerStatus === 429) return json({ ok: false, code: 'email_provider_rate_limited' }, 429, { 'retry-after': '60' });
+    if (providerStatus === 400 || providerStatus === 422) return json({ ok: false, code: 'email_provider_rejected' }, 502);
     return json({ ok: false, code: 'email_delivery_failed' }, 502);
   }
   return json({ ok: true }, 202);
