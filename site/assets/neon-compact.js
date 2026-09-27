@@ -308,7 +308,8 @@
           if (String(result.code || '').startsWith('turnstile_')) throw new Error(String(result.code));
           const safeCodes = new Set([
             'invalid_form_timing','invalid_name','invalid_email','invalid_organisation','invalid_message',
-            'contact_unavailable','email_provider_timeout','email_provider_unavailable','email_delivery_failed'
+            'contact_unavailable','email_provider_timeout','email_provider_unavailable','email_provider_auth_failed',
+            'email_provider_forbidden','email_provider_rate_limited','email_provider_rejected','email_delivery_failed'
           ]);
           throw new Error(safeCodes.has(String(result.code || '')) ? String(result.code) : 'generic');
         }
