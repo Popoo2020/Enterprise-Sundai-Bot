@@ -9,7 +9,7 @@ const env = {
   ...config.vars,
   TURNSTILE_SITE_KEY: 'test-public-key',
   TURNSTILE_SECRET_KEY: 'test-secret',
-  RESEND_API_KEY: 'test-only-never-send'
+  RESEND_API_KEY: 're_test_only_never_send'
 };
 let counter = 0;
 const fresh = () => import(`../functions/api/contact.js?delivery-test=${++counter}`);
@@ -48,6 +48,8 @@ test('accepted synthetic enquiry routes to the configured owner and replies to t
   assert.deepEqual(email.to, ['eririmo@protonmail.com']);
   assert.equal(email.from, config.vars.CONTACT_FROM_EMAIL);
   assert.equal(email.reply_to, 'reader@example.invalid');
+  assert.equal(calls[1].options.headers['user-agent'], 'SundAI-Website-Contact/1.0');
+  assert.equal(calls[1].options.headers.authorization, 'Bearer re_test_only_never_send');
   assert.equal(calls.length, 2);
 });
 
@@ -116,7 +118,7 @@ test('provider 5xx is retried once and can recover without duplicate logical sen
   assert.equal(idempotencyKeys[0], idempotencyKeys[1]);
 });
 
-test('provider rejection never reports successful form delivery', async t => {
+test('provider rejection returns precise safe error classes', async t => {
   let providerStatus = 403;
   t.mock.method(globalThis, 'fetch', async url => {
     if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
@@ -125,13 +127,42 @@ test('provider rejection never reports successful form delivery', async t => {
     assert.equal(url, 'https://api.resend.com/emails');
     return Response.json({ message: 'Synthetic failure' }, { status: providerStatus });
   });
-  for (const status of [401, 403, 422, 429, 500]) {
+  const expected = new Map([
+    [401, [503, 'email_provider_auth_failed']],
+    [403, [503, 'email_provider_forbidden']],
+    [422, [502, 'email_provider_rejected']],
+    [429, [429, 'email_provider_rate_limited']],
+    [500, [502, 'email_delivery_failed']]
+  ]);
+  for (const [status, [httpStatus, code]] of expected) {
     providerStatus = status;
     const contact = await fresh();
     const response = await contact.onRequestPost({ request: enquiry(), env });
-    assert.equal(response.status, 502);
-    assert.deepEqual(await response.json(), { ok: false, code: 'email_delivery_failed' });
+    assert.equal(response.status, httpStatus);
+    assert.deepEqual(await response.json(), { ok: false, code });
   }
+});
+
+test('provider key normalization removes harmless whitespace, wrapping quotes and Bearer prefix', async t => {
+  const seenAuthorization = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+      return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    }
+    seenAuthorization.push(options.headers.authorization);
+    return Response.json({ id: 'synthetic-provider-id' });
+  });
+  for (const key of [
+    '  re_test_only_never_send  ',
+    '"re_test_only_never_send"',
+    "'re_test_only_never_send'",
+    'Bearer re_test_only_never_send'
+  ]) {
+    const contact = await fresh();
+    const response = await contact.onRequestPost({ request: enquiry(), env: { ...env, RESEND_API_KEY: key } });
+    assert.equal(response.status, 202);
+  }
+  assert.deepEqual(seenAuthorization, Array(4).fill('Bearer re_test_only_never_send'));
 });
 
 test('missing provider key keeps public readiness unavailable without leaking settings', async () => {
