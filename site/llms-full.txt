@@ -1,0 +1,240 @@
+# SundAI service information
+
+Operator: RIIMON HOLDINGS LTD. Website: https://sundaibot.com/
+
+Content reviewed: 13 October 2026. These facts describe the published services, not measured ranking or customer outcomes.
+
+## Compliance, GRC & AI Governance
+
+Source: https://sundaibot.com/services/compliance-ai-governance/
+
+AI governance consulting makes the uncomfortable questions easier to answer: which AI tools are in use, what data they touch and who owns the risks. Your team gets a focused compliance readiness assessment and a prioritised plan, rather than another policy folder nobody opens.
+
+Scope: Compliance Readiness Sprint: one organisation, one process or product, one framework and up to ten control areas. We agree the scope and acceptance criteria in writing before work starts.
+
+Outside this scope: Full ISMS implementation, ISO certification, a SOC 2 examination, legal opinions and DPO appointment are outside this package. Wider implementation is quoted separately.
+
+### What does an ISO 27001 gap analysis or ISO 42001 readiness review cover?
+The agreed sprint reviews one framework and up to ten control areas. ISO 27001 readiness focuses on the agreed information-security evidence; ISO 42001 readiness addresses the agreed AI-management evidence. Full implementation and certification are separate.
+
+### When is GDPR readiness consulting or DPIA support for AI processing useful?
+GDPR consulting helps clarify the defined data-processing questions in scope. A separately scoped DPIA assessment examines one processing activity, risks to people and possible safeguards. Your organisation retains its decisions and ongoing responsibilities.
+
+### Can this help us with SOC 2 readiness consulting?
+SOC 2 readiness can identify gaps in the agreed controls and evidence. A SOC 2 examination and assurance report are separate professional work; this service does not issue them.
+
+### Do we get security policy development or an AI policy?
+Up to three draft documents can be included in the agreed sprint. Security policy development, an AI acceptable use policy or responsibility records should reflect your actual process and require your approval.
+
+### Is fractional CISO consulting or DPO support included?
+Fractional CISO consulting is a separately defined leadership mandate. DPO support is a distinct privacy service requiring an appropriate professional and an independence review. Neither role is automatically included in the readiness sprint.
+
+### What should we prepare for a compliance readiness assessment?
+Bring the product or process, relevant countries and sector, existing policies, supplier details and a decision-maker. We agree the framework, deliverables and acceptance criteria before work starts.
+
+## Secure AI Business Automation
+
+Source: https://sundaibot.com/services/secure-ai-automation/
+
+Business workflow automation frees your team from repeated copying, chasing and checking. We use secure AI automation where it earns its place, and straightforward rules where they do the job better. Start with one useful workflow and keep control of exceptions, costs and approvals.
+
+Scope: Secure AI Automation Sprint: one workflow, up to two systems with existing documented APIs, one trigger, one deployment environment and two refinement rounds. Acceptance criteria and operating costs are agreed before implementation.
+
+Outside this scope: Creating an unavailable API, major system migration and unrestricted payments or consequential actions are excluded. Cloud, model, messaging and external licence costs are agreed separately with a budget or cap.
+
+### What fits in a business process automation sprint?
+One workflow, one trigger, up to two systems with existing documented APIs and one deployment environment. Automation handover documentation and two refinement rounds support a practical handover. Wider process changes are scoped separately.
+
+### Do AI workflow integration and LLM automation always add value?
+No. AI workflow integration should solve a defined problem. LLM automation can help with variable text, but fixed rules are often clearer for validation and state changes. We agree evaluation criteria before selecting the approach.
+
+### Can you automate CRM, order and inventory updates?
+CRM workflow automation, order processing automation and inventory workflow automation are possible when the selected systems provide authorised, documented APIs. Shopify automation or other platform work depends on the specific access, actions and scope.
+
+### How do you control sensitive actions?
+Human approval workflows, least-privilege API access and secure automation secret management set the boundaries. Workflow input and output validation check data before the next step. Payments and other material actions do not receive unrestricted authority.
+
+### What happens when an automation fails or repeats an event?
+Automation error handling includes controlled retries, duplicate prevention, alerts and an exception handoff as agreed. Representative failures are tested; successful automation is not inferred from the absence of an error message.
+
+### What should we bring to an automation discovery session?
+Bring the repeated task, its owner, the systems involved and representative test data. We use workflow discovery to agree acceptance criteria, external licence costs, cloud costs and any relevant AI token budget before building.
+
+## Private AI Assistants, Agents & RAG
+
+Source: https://sundaibot.com/services/private-ai-agents-rag/
+
+Private AI assistant development makes approved knowledge easier to find without giving every user the same access. Enterprise RAG implementation connects an assistant to a ready-to-use source, with citations, clear permissions and an evaluation baseline. Useful answers matter more than confident guesses.
+
+Scope: Private AI Assistant / RAG Pilot: one assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. Agent actions are included only when explicitly described in the written scope.
+
+Outside this scope: Multi-cloud, fine-tuning, extensive OCR, production availability commitments and WhatsApp Business are outside the base package. Additional channels, data preparation and integration work are separately scoped.
+
+### What is a private AI assistant pilot?
+One assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. An enterprise AI chatbot or a document assistant is scoped around a real question set.
+
+### What does secure RAG implementation protect?
+Secure RAG implementation addresses identity, retrieval permissions and source handling within the agreed architecture. Access-controlled retrieval must also account for vector stores, caches and exports; encryption alone does not establish permission boundaries.
+
+### Can we use Azure, AWS or Google Cloud?
+An Azure private AI assistant, an AWS private AI assistant or a Google Cloud private AI assistant can be discussed for the chosen architecture. The base pilot selects one cloud; hosting region, supplier terms and retention are agreed before deployment.
+
+### Can the agent update systems as well as answer questions?
+AI agent tool integration is included only when explicitly scoped. Human-supervised AI agents use limited permissions and approval for sensitive writes. A retrieved document or model answer does not grant authority to take action.
+
+### How do you check answer quality?
+AI assistant evaluation uses representative questions, expected evidence, citation checks, permission tests and unsupported-answer refusal. RAG evaluation gives a baseline for a rollout decision; it does not promise that every answer will be correct.
+
+### Can we add website chat or WhatsApp later?
+Website AI chatbot integration and WhatsApp AI integration require separate scope, platform access, data-processing terms and supplier costs. The initial pilot includes one agreed interface, with data retention rules and handover documentation.
+
+## OSINT, Pentesting & Red Teaming
+
+Source: https://sundaibot.com/services/pentesting-red-teaming/
+
+Web application penetration testing looks at what an attacker can do inside the agreed boundaries. API penetration testing and manual security testing examine access, authorisation and business logic, then turn the findings into a fix list your team can work from. Written permission comes first.
+
+Scope: Scoped Web / API Pentest: one small web application, up to two roles and up to ten API endpoints. Focused manual testing with supporting automated review, a report, handover and one remediation verification within 30 days.
+
+Outside this scope: Complete code coverage is not promised. Extensive OSINT, organisation-wide red teaming, phishing, load testing and destructive testing are separately quoted. An automated scan alone is not a full pentest.
+
+### What is the difference between a vulnerability scan and a pentest?
+Vulnerability scan versus pentest is a useful buying distinction: a scan flags potential issues; a scoped pentest combines manual investigation with supporting tools and interprets findings in context. Automated output alone is not a complete pentest.
+
+### What does the initial web and API package cover?
+One small web application, up to two roles and up to ten API endpoints, with a report, handover and one verification of included fixes within 30 days of delivery. The proposal states the exact targets and acceptance criteria.
+
+### How do you protect sensitive test evidence?
+Secure pentest evidence handling uses limited, protected evidence needed to explain a finding. Access, sharing and retention are agreed for the assessment; live secrets and unnecessary personal data do not belong in a broadly circulated report.
+
+### Can we add OSINT and threat intelligence?
+A separate passive OSINT assessment or cyber threat intelligence snapshot covers one organisation and up to three owned domains. It is distinct from intrusive testing and continuous monitoring. The scope and sources are agreed separately.
+
+### Is a red-team exercise included?
+A scoped red team exercise is a separate engagement with its own objectives, authorisation and restrictions. Phishing, organisation-wide red teaming, load testing and destructive testing are not part of the entry web/API package.
+
+### What can a clean report actually tell us?
+Penetration testing limitations matter: findings reflect the targets, methods and test period. A report supports a risk decision and remediation retesting; it cannot prove that every vulnerability has been found or establish complete compliance.
+
+## DevSecOps & Secure Delivery Pipelines
+
+Source: https://sundaibot.com/services/devsecops/
+
+DevSecOps consulting puts useful checks where your team already works. Secure CI/CD pipelines connect code review, identity and release decisions, so a fast delivery process has boundaries your engineers can explain. Start with one repository, one pipeline and one deployment target.
+
+Scope: DevSecOps Foundation: one repository, one pipeline, one deployment target and up to two environments. The entry package covers the stated controls; additional checks and supply-chain features must be explicitly included in the agreement.
+
+Outside this scope: An organisation-wide development-platform migration is excluded. DAST requires a suitable environment; container and IaC checks, SBOM, signing and provenance are included only where agreed. External tooling and licence costs are separately approved.
+
+### What is SAST versus SCA?
+SAST versus SCA describes different checks: static application security testing examines code patterns; software composition analysis examines third-party dependencies and known issues. They complement secret scanning and human review; none guarantees detection of every problem.
+
+### What does the DevSecOps Foundation include?
+One repository, one pipeline, one deployment target and up to two environments. The written agreement defines checks, restricted identities, approvals, rollback guidance and acceptance tests. Tool licences and wider migrations are separate.
+
+### How do security release gates work?
+We agree severity thresholds, what blocks a release and who can approve exceptions. Security gate exception handling records the reason and owner. A passing automated check does not replace review of the actual change.
+
+### Can we add DAST or container checks?
+DAST integration needs a suitable test environment. Container image security scanning and infrastructure-as-code security checks are included only when explicitly agreed and supported by the target environment.
+
+### Can you add SBOM, signing and provenance?
+Software bill of materials setup records software components. Build signing and provenance provide agreed evidence about artefacts and their origin. These are separately specified supply-chain controls, rather than automatic features of the entry package.
+
+### What happens after handover?
+Your team owns ongoing operation and maintenance. We hand over the configured checks, deployment approval workflow and secure deployment rollback plan, with agreed acceptance evidence. Further support needs its own scope.
+
+## Cloud Security Engineering, Automation & Maintenance
+
+Source: https://sundaibot.com/services/cloud-security/
+
+A cloud security assessment starts with who can do what, and whether the team can see it. A cloud IAM review and privileged access review help turn unexplained permissions into a manageable foundation. We select one provider, agree authorised changes and hand over a treatment plan.
+
+Scope: Cloud IAM & Security Foundation: one subscription, account or project, up to ten identities and up to ten selected resources. Provider, licensing, authorised changes and acceptance criteria are agreed in advance.
+
+Outside this scope: A complete SOC and organisation-wide infrastructure coverage are excluded. Multi-cloud, wider migrations and incident-response retainers need separate scope. No 24/7 SOC, emergency availability or response-time SLA is promised by this package.
+
+### Which Azure controls can you review?
+A Microsoft Entra ID security review and Azure RBAC permissions review can examine agreed identities and resources. A Conditional Access baseline or Microsoft Entra PIM configuration review depends on licences, authorised changes and the selected scope.
+
+### Which AWS controls can you review?
+An AWS IAM policy review looks at agreed policies and roles. An AWS IAM Identity Center review can examine workforce access within scope. STS and permission boundaries are considered where relevant; your team approves changes before activation.
+
+### Which Google Cloud controls can you review?
+A Google Cloud IAM policy review can examine selected roles, bindings and conditions. A Google Cloud Privileged Access Manager review addresses agreed privileged-access controls. PIM and PAM are privilege-management services, not alternative names for RBAC.
+
+### What is included in monthly cloud security maintenance?
+Monthly cloud security maintenance is a separately agreed service: scheduled permission and configuration checks, alert review, small changes and a report, within up to six working hours per month against an agreed backlog. Extra work requires an approved extension.
+
+### Does the package include emergency incident response?
+No default on-call cover or 24/7 SOC is included. Initial evidence collection or specialist handoff may be agreed subject to availability. A response-time commitment needs suitable staffing, a separate on-call agreement and an SLA.
+
+### What access and decisions do you need from us?
+Provide authorised access, an accurate asset inventory, a technical owner and a change approver. Agree licences, emergency contacts and recovery requirements. We scope the cloud IAM review and acceptance checks before work starts.
+
+## Questions and answers
+Source: https://sundaibot.com/faq/
+
+### What does SundAI help a business do?
+SundAI offers six scoped services: compliance and AI governance, secure business automation, private AI assistants and RAG, authorised security testing, DevSecOps, and cloud security. Training and talks can be booked separately. Start with one process, product or risk you want to address.
+
+### Which service should we choose first?
+Choose automation for repeated operational work, private AI and RAG for approved knowledge retrieval, governance for requirements and ownership, pentesting for defined attack paths, DevSecOps for delivery controls, or cloud security for identities and configuration. We can discuss the fit before preparing a proposal.
+
+### Is AI always the best way to automate a process?
+No. Fixed rules and documented APIs may be simpler and more predictable. AI is useful when its capability fits the task and its behaviour can be bounded and evaluated. The service choice follows the business process, rather than the other way around.
+
+### Can we start with a pilot instead of a large rollout?
+Yes. The private assistant service starts with a defined AI knowledge assistant pilot: one source, one interface, one cloud and a limited set of roles and users. The evaluation evidence informs whether broader deployment makes sense.
+
+### How can GRC consulting help a small business?
+GRC consulting for SMEs can connect a relevant framework to practical ownership, controls and evidence. A scoped compliance readiness assessment helps a small team prioritise its next steps without assuming that every standard or regulation applies.
+
+### What is the difference between ISO readiness and certification?
+ISO readiness versus certification is a distinction worth keeping clear. Readiness work reviews an agreed scope and supports preparation. Certification is a separate decision by an appropriate certification body. SundAI does not issue ISO certificates or SOC 2 assurance reports.
+
+### Can you help answer customer security questionnaires?
+We can review agreed policies, responsibilities and compliance control evidence so answers reflect what your organisation can substantiate. Unsupported claims remain gaps to resolve; a questionnaire is not a reason to invent a control, certification or customer result.
+
+### Does governance work mean we are legally compliant?
+No assessment guarantees complete compliance. Applicability, implementation and residual risk depend on the organisation and agreed framework. Legal opinions, full ISMS implementation and formal assurance are separate from the entry readiness sprint.
+
+### How is a private AI assistant different from a generic chatbot?
+A private assistant is scoped around your approved source, roles and data-handling terms. Permission-aware RAG applies access before retrieval; AI answers with source citations help users check the basis of an answer. Private does not automatically mean on-premises or EU-only processing.
+
+### Can an AI agent approve payments or change important records?
+AI agent tool permissions must be explicitly scoped. Human approval and limited access control sensitive writes and auditable AI agent actions. A model response or an instruction embedded in a document does not authorise a consequential action.
+
+### Does 100% European service mean all data stays in the EU?
+SundAI provides 100% European service delivered by experts from the European Union. This describes service delivery. Data locations, endpoints, suppliers and processing terms depend on the agreed architecture; EU-only processing is not implied by the service statement.
+
+### Should we send passwords or confidential documents in the enquiry form?
+No. Describe the business problem and the systems involved without credentials, restricted records or personal case files. The enquiry starts a scope discussion; authorised access and any necessary secure transfer arrangements are agreed later.
+
+### What permission is needed for a penetration test?
+The appropriate asset owner must give written authorisation. Targets, test accounts, third-party restrictions, stop conditions and emergency contacts belong in the pentest rules of engagement before testing begins.
+
+### Is a vulnerability scan the same as a penetration test?
+No. Vulnerability scan versus pentest compares different work: scans identify possible issues; manual investigation examines agreed attack paths and interprets the findings. A report from the scoped assessment explains methods, evidence and limitations.
+
+### Can automated pipeline checks catch every insecure change?
+No. Secure CI/CD pipelines combine defined checks, restricted identities and review gates. Scanners have limitations; release owners must maintain the controls and assess exceptions. The proposal defines which controls are delivered.
+
+### Do cloud security services include a 24/7 SOC?
+No. The foundation covers a defined provider, identities, resources and controls. Monthly cloud security maintenance and incident-related work need separate scope. Emergency coverage and response commitments require staffing, an on-call agreement and an SLA.
+
+### How is a tailored proposal prepared?
+Tell us about your organisation, team and product or process. We review fit and delivery capacity, then agree scope, deliverables, timing, price, third-party costs and acceptance criteria before work begins. The enquiry itself does not place an order.
+
+### Is requesting a 20-minute call a confirmed booking?
+No. The form sends a meeting request. A date and time are confirmed separately after availability is checked. Please include your time zone and useful context so the follow-up can focus on the actual question.
+
+### Who delivers the work?
+The responsible lead and contributors are agreed before an engagement is accepted. Qualifications, relevant experience, availability and review needs are assessed for the scope. Recruitment goals do not mean every specialism is already staffed.
+
+### Can freelancers apply, and what is the commission?
+Yes. SundAI invites relevant junior collaborators and senior specialists to share a portfolio and experience. The commission is agreed upfront and never exceeds 12.5% of agreed net service revenue. The agreement defines allocation, responsibilities and payment; application does not guarantee projects or income.
+
+## Other language versions
+- da: https://sundaibot.com/da/ydelser/; https://sundaibot.com/da/spoergsmaal-svar/
+- sv: https://sundaibot.com/sv/tjanster/; https://sundaibot.com/sv/fragor-svar/

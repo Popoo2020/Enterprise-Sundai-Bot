@@ -1,6 +1,6 @@
 # SundAI · revision handover, 13 October 2026
 
-The work is prepared in local branch `upgrade/secure-ai-2026-10-13`. Publication was explicitly authorised by the owner on 13 October 2026 after correcting the European-service line. The corrected release is prepared; production deployment will be verified separately. The first prepared local implementation commit was `94bcb5408109777edafa4b0d825e3659e6e29ea2`; the pre-upgrade rollback baseline is `06b8fd12ab226f14c1926f457cada3d96f2e0c10`.
+The approved redesign was published on 13 October 2026 through PR 72, merge `6221543cb9fe7579a62edf5668b38d52ab3ebc92`. The follow-up SEO/Q&A source is prepared in `growth/seo-qa-2026-10-13`. The pre-upgrade rollback baseline remains `06b8fd12ab226f14c1926f457cada3d96f2e0c10`.
 
 ## Requested revision
 
@@ -61,3 +61,9 @@ After approval, push the prepared branch to `Popoo2020/Enterprise-Sundai-Bot`, c
 Rollback with a new revert commit or a verified prior Cloudflare version, restoring Worker and assets together. Do not force-reset shared main. No bookings database was added, so there is no destructive booking-data rollback.
 
 Evidence strength: 4/5 for local code readiness, based on source checks plus independent tests; full visual/live-operation readiness remains unverified. This score is not a success probability.
+
+## SEO and Q&A follow-up, 13 October 2026
+
+The follow-up adds120 scoped keyword intents with EN/DA/SV variants,108 exact phrases in visible content per language,18 enriched product pages and three Q&A hubs with20 questions per language. `seo-content.mjs` is buyer-focused content; `seo-keywords.mjs` is the internal mapping. The FAQ schema is derived from the visible answers. Canonical resource and related-product links support meaningful discovery. `discovery.json` and `llms-full.txt` mirror published service facts; they do not promise ranking or recommendation.
+
+The IndexNow workflow now verifies the matching public release manifest, three new canonical FAQ pages and public key before posting. It logs protocol acceptance separately from indexing. Public crawler rules remain unchanged. Search Console/Bing account settings, measured keyword volumes, rankings, actual AI recommendations and browser rendering have not been verified. See `SEO_KEYWORD_STRATEGY_2026-10-13.md` and its CSV. Publication status is established by CI/Cloudflare and served-page checks, separately from this source handover.

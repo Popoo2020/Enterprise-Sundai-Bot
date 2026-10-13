@@ -20,3 +20,36 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .mobile-workflow{display:none}
 
 .tech-grid [data-brand="onetrust"] img{width:245px;height:72px}
+/* Buyer-focused service discovery and readable, crawlable Q&A. */
+.section-label{font-size:1.55rem;line-height:1.35;margin:0 0 24px;max-width:850px}
+.service-list .service-copy h2{font-size:1.65rem;min-height:0;margin:0 0 10px;max-width:700px;line-height:1.2}
+.decision-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px}
+.decision-list article{border-top:1px solid var(--blue);padding-top:22px;min-width:0}
+.decision-list h3{font-size:1.25rem;margin:0 0 14px;line-height:1.35}
+.decision-list p,.delivery-steps p,.service-examples p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:0}
+.service-value .section-heading{grid-template-columns:1fr 1.4fr;gap:55px}
+.service-value .section-heading p{max-width:760px}
+.delivery-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px;list-style:none;padding:0;margin:0 0 54px}
+.delivery-steps li{border-top:1px solid var(--border);padding-top:22px;min-width:0}
+.delivery-steps .card-number{display:block;margin-bottom:12px}
+.delivery-steps h3{font-size:1.12rem;line-height:1.4;margin:0 0 12px}
+.example-heading{margin-top:40px;margin-bottom:25px}
+.service-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:42px}
+.service-examples article{border-left:2px solid var(--blue);padding-left:24px;min-width:0}
+.service-examples h3{font-size:1.2rem;line-height:1.35;margin:0 0 14px}
+.topic-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.topic-links a{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--border);border-radius:6px;font-size:.77rem;text-decoration:none}
+.topic-links a:hover{border-color:var(--lime);color:var(--lime)}
+.faq-topic{scroll-margin-top:110px}
+.faq-topic-grid{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:65px;align-items:start}
+.faq-topic-grid h2{font-size:2.2rem;line-height:1.2}
+.faq-answer{padding:16px 0 6px;max-width:900px}
+.faq .faq-answer p{padding-top:0;line-height:1.75;max-width:850px;font-size:.94rem}
+.all-questions{margin-top:25px}
+.resource-links{display:grid;gap:0;margin-top:22px}
+.resource-link{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:54px;border-top:1px solid var(--border);padding:16px 0;font-size:.87rem;text-decoration:none;line-height:1.5}
+.resource-link:hover{color:var(--lime)}
+.resource-link span:last-child{flex-shrink:0;color:var(--lime)}
+.service-connections h2{font-size:2rem;line-height:1.3}
+.service-connections p{font-size:.9rem;color:var(--muted)}
+.reviewed-note{padding-top:26px;padding-bottom:26px;font-size:.75rem;color:var(--muted)}

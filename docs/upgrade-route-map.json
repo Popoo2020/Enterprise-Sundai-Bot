@@ -17,7 +17,8 @@
       "insights": "/insights/",
       "industries": "/industries/",
       "usecases": "/use-cases/",
-      "methodology": "/methodology/"
+      "methodology": "/methodology/",
+      "faq": "/faq/"
     },
     "da": {
       "home": "/da/",
@@ -36,7 +37,8 @@
       "insights": "/da/insights/",
       "industries": "/da/brancher/",
       "usecases": "/da/anvendelser/",
-      "methodology": "/da/metode/"
+      "methodology": "/da/metode/",
+      "faq": "/da/spoergsmaal-svar/"
     },
     "sv": {
       "home": "/sv/",
@@ -55,7 +57,8 @@
       "insights": "/sv/insights/",
       "industries": "/sv/branscher/",
       "usecases": "/sv/anvandningsfall/",
-      "methodology": "/sv/metod/"
+      "methodology": "/sv/metod/",
+      "faq": "/sv/fragor-svar/"
     }
   },
   "redirects": [
@@ -193,6 +196,7 @@
   "generated": [
     "/",
     "/services/",
+    "/faq/",
     "/pricing/",
     "/services/compliance-ai-governance/",
     "/services/secure-ai-automation/",
@@ -211,6 +215,7 @@
     "/start/",
     "/da/",
     "/da/ydelser/",
+    "/da/spoergsmaal-svar/",
     "/da/pricing/",
     "/da/ydelser/compliance-ai-governance/",
     "/da/ydelser/secure-ai-automation/",
@@ -229,6 +234,7 @@
     "/da/start/",
     "/sv/",
     "/sv/tjanster/",
+    "/sv/fragor-svar/",
     "/sv/pricing/",
     "/sv/tjanster/compliance-ai-governance/",
     "/sv/tjanster/secure-ai-automation/",

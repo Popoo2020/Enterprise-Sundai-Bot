@@ -15,7 +15,7 @@ for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da
  if(!flow||(flow.match(/<li\b/g)||[]).length!==4)throw Error(`${page}: four HTML workflow controls required`);
  if(!/<ol>/.test(flow)||!flow.includes('step-dot'))throw Error(`${page}: accessible ordered workflow required`);
  if(/<canvas|<video|<iframe/.test(hero))throw Error(`${page}: heavyweight or inaccessible hero replacement`);
- const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1]);
+ const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
  if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css']))throw Error(`${page}: coherent base and mobile design required`);
 }
 console.log('Static hero QA passed: EN/DA/SV concise value proposition, request/product/network links, base/mobile styling and four-step textual workflow. NO browser visual or viewport rendering was performed.');

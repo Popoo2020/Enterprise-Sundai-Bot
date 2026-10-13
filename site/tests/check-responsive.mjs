@@ -13,7 +13,7 @@ async function pages(dir=root){const out=[];for(const f of await readdir(dir,{wi
 if(run('files')){for(const file of ['index.html','da/index.html','sv/index.html','assets/upgrade.css','assets/upgrade-mobile.css','assets/upgrade.js','assets/upgrade-forms.js','assets/sundai-wordmark-dark.svg','assets/eu-flag.svg','_headers'])await access(path.join(root,file));}
 if(run('premium')){
  requireTokens(css,['--bg:#050607','--surface:#101419','--lime:#b9ff66','--blue:#358bff','--text:#f5f7fa','--muted:#b8c0cc','--border:#26303a','color-scheme:dark'],'black design system');
- const faceBlocks=[...css.matchAll(/@font-face\s*\{([^}]+)\}/g)].map(m=>m[1]);
+ const faceBlocks=[...css.matchAll(/@font-face\s*\{([^}]+)\}/g)].map(m=>m[1].split('?')[0]);
  for(const name of ['Sora','Manrope']){
   const face=faceBlocks.find(block=>new RegExp(`font-family:\\s*['"]?${name}['"]?`, 'i').test(block));
   if(!face)throw Error(`Missing self-hosted ${name} font`);
@@ -35,7 +35,7 @@ if(run('polish')){
 if(run('legacy')||run('secondary'))for(const file of await pages()){
  const html=await readFile(file,'utf8'),label=path.relative(root,file);
  requireTokens(html,['/assets/upgrade.css','/assets/upgrade-mobile.css','class="skip-link"','<details class="mobile-menu">','id="main"'],label);
- const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1]);
+ const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
  if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css']))throw Error(`${label}: shared base and mobile stylesheets required in cascade order`);
  if(/<link[^>]+href="\/assets\/(?!upgrade(?:-mobile)?\.css)[^"]+\.css/.test(html))throw Error(`${label}: competing stylesheet remains`);
 }

@@ -1,0 +1,907 @@
+{
+  "version": "2026-10-13",
+  "contentDigest": "6e0faf933a3a1c0aa1bbc813de0b209ca76017d41fd5c37a4890deb2a6cf4f05",
+  "publisher": {
+    "name": "SundAI",
+    "legalName": "RIIMON HOLDINGS LTD",
+    "url": "https://sundaibot.com/"
+  },
+  "languages": [
+    "en",
+    "da",
+    "sv"
+  ],
+  "serviceDirectories": {
+    "en": "https://sundaibot.com/services/",
+    "da": "https://sundaibot.com/da/ydelser/",
+    "sv": "https://sundaibot.com/sv/tjanster/"
+  },
+  "questionsAndAnswers": {
+    "en": "https://sundaibot.com/faq/",
+    "da": "https://sundaibot.com/da/spoergsmaal-svar/",
+    "sv": "https://sundaibot.com/sv/fragor-svar/"
+  },
+  "services": [
+    {
+      "id": "compliance-ai-governance",
+      "locales": {
+        "en": {
+          "name": "Compliance, GRC & AI Governance",
+          "url": "https://sundaibot.com/services/compliance-ai-governance/",
+          "summary": "AI governance consulting makes the uncomfortable questions easier to answer: which AI tools are in use, what data they touch and who owns the risks. Your team gets a focused compliance readiness assessment and a prioritised plan, rather than another policy folder nobody opens.",
+          "scope": "Compliance Readiness Sprint: one organisation, one process or product, one framework and up to ten control areas. We agree the scope and acceptance criteria in writing before work starts.",
+          "exclusions": "Full ISMS implementation, ISO certification, a SOC 2 examination, legal opinions and DPO appointment are outside this package. Wider implementation is quoted separately.",
+          "questionsAndAnswers": [
+            {
+              "q": "Which frameworks can we discuss?",
+              "a": "ISO/IEC 27001 and ISO/IEC 42001 readiness, GDPR consulting, NIS2 readiness, DORA readiness and SOC 2 readiness, where applicable. The entry package covers one agreed framework; it does not assert that all of them apply to you."
+            },
+            {
+              "q": "Does this certify us?",
+              "a": "No. ISO certification is issued by an appropriate certification body. SOC 2 is a separate professional examination and report. Readiness advice or a single penetration test cannot establish complete regulatory compliance."
+            },
+            {
+              "q": "Can you help with a DPIA?",
+              "a": "A separately scoped DPIA covers one defined processing activity: processing description, necessity and proportionality, risks to people’s rights, mitigations, residual risk and follow-up ownership. It does not guarantee avoidance of fines."
+            },
+            {
+              "q": "Are CISO and DPO services included?",
+              "a": "No. Fractional CISO is a security leadership service; DPO is a distinct privacy role. Each requires a suitable professional and a defined mandate. Independence and conflicts of interest must be checked before combining roles."
+            },
+            {
+              "q": "What does an ISO 27001 gap analysis or ISO 42001 readiness review cover?",
+              "a": "The agreed sprint reviews one framework and up to ten control areas. ISO 27001 readiness focuses on the agreed information-security evidence; ISO 42001 readiness addresses the agreed AI-management evidence. Full implementation and certification are separate."
+            },
+            {
+              "q": "When is GDPR readiness consulting or DPIA support for AI processing useful?",
+              "a": "GDPR consulting helps clarify the defined data-processing questions in scope. A separately scoped DPIA assessment examines one processing activity, risks to people and possible safeguards. Your organisation retains its decisions and ongoing responsibilities."
+            },
+            {
+              "q": "Can this help us with SOC 2 readiness consulting?",
+              "a": "SOC 2 readiness can identify gaps in the agreed controls and evidence. A SOC 2 examination and assurance report are separate professional work; this service does not issue them."
+            },
+            {
+              "q": "Do we get security policy development or an AI policy?",
+              "a": "Up to three draft documents can be included in the agreed sprint. Security policy development, an AI acceptable use policy or responsibility records should reflect your actual process and require your approval."
+            },
+            {
+              "q": "Is fractional CISO consulting or DPO support included?",
+              "a": "Fractional CISO consulting is a separately defined leadership mandate. DPO support is a distinct privacy service requiring an appropriate professional and an independence review. Neither role is automatically included in the readiness sprint."
+            },
+            {
+              "q": "What should we prepare for a compliance readiness assessment?",
+              "a": "Bring the product or process, relevant countries and sector, existing policies, supplier details and a decision-maker. We agree the framework, deliverables and acceptance criteria before work starts."
+            }
+          ]
+        },
+        "da": {
+          "name": "Compliance, GRC & AI-governance",
+          "url": "https://sundaibot.com/da/ydelser/compliance-ai-governance/",
+          "summary": "Rådgivning om AI-governance gør de svære spørgsmål lettere at besvare: hvilke AI-værktøjer bruges, hvilke data berører de, og hvem ejer risikoen? Teamet får en afgrænset vurdering af compliance-parathed og en prioriteret plan, som kan bruges i praksis.",
+          "scope": "Compliance Readiness Sprint: én organisation, én proces eller ét produkt, ét regelsæt eller én standard og op til ti kontrolområder. Omfang og acceptkriterier aftales skriftligt, før arbejdet begynder.",
+          "exclusions": "Fuld implementering af et ISMS, ISO-certificering, SOC 2-erklæring, juridiske udtalelser og udpegning af en DPO er ikke inkluderet. Større implementeringer får et særskilt tilbud.",
+          "questionsAndAnswers": [
+            {
+              "q": "Hvilke standarder og krav kan vi tale om?",
+              "a": "Parathed til ISO/IEC 27001 og ISO/IEC 42001, GDPR-rådgivning, NIS2-parathed, DORA-parathed og SOC 2-parathed, hvor det er relevant. Startpakken omfatter ét aftalt regelsæt eller én standard; vi antager ikke, at alle gælder for jer."
+            },
+            {
+              "q": "Bliver vi certificeret?",
+              "a": "Nej. ISO-certificering udstedes af et relevant certificeringsorgan. SOC 2 er en særskilt professionel undersøgelse og rapport. Rådgivning om parathed eller én penetrationstest dokumenterer ikke fuld regeloverholdelse."
+            },
+            {
+              "q": "Kan I hjælpe med en konsekvensanalyse?",
+              "a": "En særskilt afgrænset DPIA omfatter én defineret behandling: beskrivelse, nødvendighed og proportionalitet, risici for personers rettigheder, afværgeforanstaltninger, restrisiko og ansvar for opfølgning. Den garanterer ikke, at bøder undgås."
+            },
+            {
+              "q": "Er CISO- og DPO-ydelser inkluderet?",
+              "a": "Nej. Fractional CISO er sikkerhedsledelse; DPO er en særskilt databeskyttelsesrolle. Begge kræver en egnet fagperson og et klart mandat. Uafhængighed og interessekonflikter undersøges, før roller eventuelt kombineres."
+            },
+            {
+              "q": "Hvad omfatter en gap-analyse for ISO 27001 og parathed til ISO 42001?",
+              "a": "Den aftalte sprint gennemgår én standard og op til ti kontrolområder. ISO 27001-parathed vedrører aftalt informationssikkerhedsdokumentation; ISO 42001-parathed vedrører aftalt AI-ledelsesdokumentation. Fuld implementering og certificering er separate opgaver."
+            },
+            {
+              "q": "Hvornår er GDPR-rådgivning og parathed eller hjælp til DPIA for AI-behandling nyttige?",
+              "a": "GDPR-rådgivning afklarer de aftalte spørgsmål om databehandling. En særskilt DPIA-vurdering undersøger én behandling, risici for personer og mulige beskyttelsestiltag. Organisationen beholder sine beslutninger og sit løbende ansvar."
+            },
+            {
+              "q": "Kan I hjælpe med rådgivning om SOC 2-parathed?",
+              "a": "SOC 2-parathed kan afdække mangler i aftalte kontroller og dokumentation. En SOC 2-undersøgelse og erklæring er særskilt professionelt arbejde; denne ydelse udsteder dem ikke."
+            },
+            {
+              "q": "Får vi udvikling af sikkerhedspolitikker eller en AI-politik?",
+              "a": "Op til tre dokumentudkast kan indgå i den aftalte sprint. Udvikling af sikkerhedspolitikker, en politik for acceptabel AI-brug eller ansvarsregistrering skal passe til den faktiske proces og godkendes af jer."
+            },
+            {
+              "q": "Er rådgivning fra en ekstern CISO eller DPO-støtte inkluderet?",
+              "a": "Rådgivning fra en ekstern CISO er et særskilt ledelsesmandat. DPO-støtte er en selvstændig databeskyttelsesydelse med krav til fagperson og vurdering af uafhængighed. Roller indgår ikke automatisk i sprinten."
+            },
+            {
+              "q": "Hvad skal vi forberede til en vurdering af compliance-parathed?",
+              "a": "Medbring produkt eller proces, relevante lande og branche, eksisterende politikker, leverandøroplysninger og en beslutningstager. Standard, leverancer og acceptkriterier aftales, før arbejdet begynder."
+            }
+          ]
+        },
+        "sv": {
+          "name": "Compliance, GRC & AI-styrning",
+          "url": "https://sundaibot.com/sv/tjanster/compliance-ai-governance/",
+          "summary": "Rådgivning om AI-styrning gör de svåra frågorna lättare att besvara: vilka AI-verktyg används, vilka data berör de och vem ansvarar för riskerna? Teamet får en avgränsad bedömning av compliance-beredskap och en prioriterad plan att använda i praktiken.",
+          "scope": "Compliance Readiness Sprint: en organisation, en process eller produkt, ett regelverk eller en standard och upp till tio kontrollområden. Omfattning och acceptanskriterier avtalas skriftligt innan arbetet börjar.",
+          "exclusions": "Fullständig ISMS-implementering, ISO-certifiering, SOC 2-granskning, juridiska utlåtanden och utnämning av dataskyddsombud ingår inte. Mer omfattande implementering offereras separat.",
+          "questionsAndAnswers": [
+            {
+              "q": "Vilka standarder och regelverk kan vi diskutera?",
+              "a": "Beredskap inför ISO/IEC 27001 och ISO/IEC 42001, GDPR-rådgivning, NIS2-beredskap, DORA-beredskap och SOC 2-beredskap där de är tillämpliga. Startpaketet omfattar ett överenskommet regelverk eller en standard; vi förutsätter inte att samtliga gäller er."
+            },
+            {
+              "q": "Blir vi certifierade?",
+              "a": "Nej. ISO-certifiering utfärdas av ett lämpligt certifieringsorgan. SOC 2 är en separat professionell granskning och rapport. Beredskapsrådgivning eller ett enskilt penetrationstest visar inte fullständig regelefterlevnad."
+            },
+            {
+              "q": "Kan ni hjälpa till med en konsekvensbedömning?",
+              "a": "En separat avgränsad DPIA omfattar en definierad behandling: beskrivning, nödvändighet och proportionalitet, risker för människors rättigheter, skyddsåtgärder, kvarstående risk och ansvar för uppföljning. Den garanterar inte att böter undviks."
+            },
+            {
+              "q": "Ingår CISO- och DPO-tjänster?",
+              "a": "Nej. Fractional CISO är säkerhetsledning; DPO är en separat dataskyddsroll. Båda kräver en lämplig yrkesperson och ett tydligt uppdrag. Oberoende och intressekonflikter bedöms innan roller eventuellt kombineras."
+            },
+            {
+              "q": "Vad omfattar gapanalys för ISO 27001 och beredskap inför ISO 42001?",
+              "a": "Den avtalade sprinten granskar en standard och upp till tio kontrollområden. ISO 27001-beredskap gäller avtalade informationssäkerhetsunderlag; ISO 42001-beredskap gäller avtalade underlag för AI-ledning. Full implementering och certifiering är separata uppdrag."
+            },
+            {
+              "q": "När är GDPR-rådgivning och beredskap eller stöd för DPIA vid AI-behandling användbart?",
+              "a": "GDPR-rådgivning klargör avtalade frågor om databehandling. En separat DPIA-bedömning granskar en behandling, risker för människor och möjliga skyddsåtgärder. Organisationen behåller sina beslut och sitt löpande ansvar."
+            },
+            {
+              "q": "Kan ni hjälpa med rådgivning inför SOC 2-granskning?",
+              "a": "SOC 2-beredskap kan visa brister i avtalade kontroller och underlag. En SOC 2-granskning och bestyrkanderapport är separat professionellt arbete; denna tjänst utfärdar dem inte."
+            },
+            {
+              "q": "Får vi utveckling av säkerhetspolicyer eller en AI-policy?",
+              "a": "Upp till tre dokumentutkast kan ingå i den avtalade sprinten. Utveckling av säkerhetspolicyer, en policy för acceptabel AI-användning eller ansvarsregister ska spegla den verkliga processen och godkännas av er."
+            },
+            {
+              "q": "Ingår rådgivning från en extern CISO eller DPO-stöd?",
+              "a": "Rådgivning från en extern CISO är ett separat ledningsuppdrag. DPO-stöd är en särskild dataskyddstjänst med krav på lämplig yrkesperson och bedömning av oberoende. Roller ingår inte automatiskt i sprinten."
+            },
+            {
+              "q": "Vad ska vi förbereda inför en bedömning av compliance-beredskap?",
+              "a": "Ta med produkten eller processen, relevanta länder och bransch, befintliga policyer, leverantörsuppgifter och en beslutsfattare. Standard, leveranser och acceptanskriterier avtalas innan arbetet börjar."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "secure-ai-automation",
+      "locales": {
+        "en": {
+          "name": "Secure AI Business Automation",
+          "url": "https://sundaibot.com/services/secure-ai-automation/",
+          "summary": "Business workflow automation frees your team from repeated copying, chasing and checking. We use secure AI automation where it earns its place, and straightforward rules where they do the job better. Start with one useful workflow and keep control of exceptions, costs and approvals.",
+          "scope": "Secure AI Automation Sprint: one workflow, up to two systems with existing documented APIs, one trigger, one deployment environment and two refinement rounds. Acceptance criteria and operating costs are agreed before implementation.",
+          "exclusions": "Creating an unavailable API, major system migration and unrestricted payments or consequential actions are excluded. Cloud, model, messaging and external licence costs are agreed separately with a budget or cap.",
+          "questionsAndAnswers": [
+            {
+              "q": "Does every workflow need AI?",
+              "a": "No. Deterministic rules or API automation can be a better fit. We use an LLM only where it adds useful capability and can be bounded and tested."
+            },
+            {
+              "q": "Can it act without supervision?",
+              "a": "Only for explicitly agreed low-risk actions. Payments and other material actions need the approval controls defined in the scope; a model-generated instruction alone is not authority to act."
+            },
+            {
+              "q": "What happens when a service fails?",
+              "a": "The agreed design includes controlled retries, duplicate prevention, alerts and a fallback or human handoff. Recovery behaviour is tested against the acceptance criteria, rather than relying on silent success."
+            },
+            {
+              "q": "What fits in a business process automation sprint?",
+              "a": "One workflow, one trigger, up to two systems with existing documented APIs and one deployment environment. Automation handover documentation and two refinement rounds support a practical handover. Wider process changes are scoped separately."
+            },
+            {
+              "q": "Do AI workflow integration and LLM automation always add value?",
+              "a": "No. AI workflow integration should solve a defined problem. LLM automation can help with variable text, but fixed rules are often clearer for validation and state changes. We agree evaluation criteria before selecting the approach."
+            },
+            {
+              "q": "Can you automate CRM, order and inventory updates?",
+              "a": "CRM workflow automation, order processing automation and inventory workflow automation are possible when the selected systems provide authorised, documented APIs. Shopify automation or other platform work depends on the specific access, actions and scope."
+            },
+            {
+              "q": "How do you control sensitive actions?",
+              "a": "Human approval workflows, least-privilege API access and secure automation secret management set the boundaries. Workflow input and output validation check data before the next step. Payments and other material actions do not receive unrestricted authority."
+            },
+            {
+              "q": "What happens when an automation fails or repeats an event?",
+              "a": "Automation error handling includes controlled retries, duplicate prevention, alerts and an exception handoff as agreed. Representative failures are tested; successful automation is not inferred from the absence of an error message."
+            },
+            {
+              "q": "What should we bring to an automation discovery session?",
+              "a": "Bring the repeated task, its owner, the systems involved and representative test data. We use workflow discovery to agree acceptance criteria, external licence costs, cloud costs and any relevant AI token budget before building."
+            }
+          ]
+        },
+        "da": {
+          "name": "Sikker AI-automatisering af virksomheden",
+          "url": "https://sundaibot.com/da/ydelser/secure-ai-automation/",
+          "summary": "Automatisering af virksomhedens arbejdsgange frigør teamet fra gentagen kopiering, rykkere og kontrol. Vi bruger sikker AI-automatisering, hvor det giver værdi, og faste regler, hvor de løser opgaven bedre. Start med én nyttig proces, og behold kontrollen over undtagelser, omkostninger og godkendelser.",
+          "scope": "Secure AI Automation Sprint: én arbejdsgang, op til to systemer med eksisterende dokumenterede API’er, én trigger, ét driftsmiljø og to tilpasningsrunder. Acceptkriterier og driftsomkostninger aftales før implementering.",
+          "exclusions": "Udvikling af et manglende API, større systemmigreringer og ubegrænsede betalinger eller væsentlige handlinger er ikke inkluderet. Cloud, modeller, beskedtjenester og eksterne licenser aftales særskilt med budget eller loft.",
+          "questionsAndAnswers": [
+            {
+              "q": "Kræver alle arbejdsgange AI?",
+              "a": "Nej. Faste regler eller API-automatisering kan være bedre. Vi bruger kun en LLM, når den tilfører relevant funktionalitet, som kan afgrænses og testes."
+            },
+            {
+              "q": "Kan løsningen handle uden opsyn?",
+              "a": "Kun ved udtrykkeligt aftalte handlinger med lav risiko. Betalinger og andre væsentlige handlinger kræver de godkendelseskontroller, der er fastlagt i omfanget. En modelgenereret instruktion er ikke i sig selv en tilladelse."
+            },
+            {
+              "q": "Hvad sker der, når en tjeneste fejler?",
+              "a": "Det aftalte design omfatter kontrollerede genforsøg, forebyggelse af dubletter, alarmer og fallback eller menneskelig overtagelse. Gendannelsesadfærden testes mod acceptkriterierne."
+            },
+            {
+              "q": "Hvad indgår i en sprint for procesautomatisering?",
+              "a": "Én arbejdsgang, én trigger, op til to systemer med eksisterende dokumenterede API’er og ét driftsmiljø. Dokumentation til overdragelse af automatisering og to tilpasningsrunder understøtter overdragelsen. Større procesændringer afgrænses særskilt."
+            },
+            {
+              "q": "Giver AI-workflow-integration og LLM-automatisering altid værdi?",
+              "a": "Nej. AI-workflow-integration skal løse et bestemt problem. LLM-automatisering kan hjælpe med varierende tekst, men faste regler er ofte tydeligere ved validering og tilstandsændringer. Vurderingskriterier aftales før metodevalget."
+            },
+            {
+              "q": "Kan I automatisere CRM, ordrer og lager?",
+              "a": "Automatisering af CRM-arbejdsgange, automatisering af ordrebehandling og automatisering af lagerarbejdsgange er mulige med autoriserede, dokumenterede API’er. Shopify-automatisering og andet platformarbejde afhænger af adgang, handlinger og omfang."
+            },
+            {
+              "q": "Hvordan styres følsomme handlinger?",
+              "a": "Arbejdsgange med menneskelig godkendelse, API-adgang med mindst mulige rettigheder og sikker håndtering af hemmeligheder i automatisering sætter rammerne. Validering af input og output i arbejdsgange kontrollerer data før næste trin. Betalinger får ikke ubegrænset autoritet."
+            },
+            {
+              "q": "Hvad sker der ved fejl eller gentagne hændelser?",
+              "a": "Fejlhåndtering i automatisering omfatter aftalte genforsøg, forebyggelse af dubletter, alarmer og overdragelse af undtagelser. Repræsentative fejl testes; fravær af en fejlmeddelelse er ikke i sig selv dokumentation for succes."
+            },
+            {
+              "q": "Hvad skal vi medbringe til en workflow-afklaring?",
+              "a": "Medbring rutineopgaven, ejeren, systemerne og repræsentative testdata. Workflow-afklaring bruges til at aftale acceptkriterier, eksterne licensomkostninger, cloudomkostninger og et relevant AI-tokenbudget før udvikling."
+            }
+          ]
+        },
+        "sv": {
+          "name": "Säker AI-automatisering för företag",
+          "url": "https://sundaibot.com/sv/tjanster/secure-ai-automation/",
+          "summary": "Automatisering av företags arbetsflöden frigör teamet från upprepad kopiering, påminnelser och kontroller. Vi använder säker AI-automatisering där den skapar värde och fasta regler där de löser uppgiften bättre. Börja med ett användbart flöde och behåll kontrollen över avvikelser, kostnader och godkännanden.",
+          "scope": "Secure AI Automation Sprint: ett arbetsflöde, upp till två system med befintliga dokumenterade API:er, en utlösare, en driftsmiljö och två justeringsrundor. Acceptanskriterier och driftkostnader avtalas före implementeringen.",
+          "exclusions": "Utveckling av ett saknat API, större systemmigreringar och obegränsade betalningar eller väsentliga åtgärder ingår inte. Moln, modeller, meddelandetjänster och externa licenser avtalas separat med budget eller kostnadstak.",
+          "questionsAndAnswers": [
+            {
+              "q": "Behöver alla arbetsflöden AI?",
+              "a": "Nej. Fasta regler eller API-automatisering kan passa bättre. Vi använder en LLM endast när den ger användbar funktionalitet som kan avgränsas och testas."
+            },
+            {
+              "q": "Kan lösningen agera utan tillsyn?",
+              "a": "Endast för uttryckligen avtalade åtgärder med låg risk. Betalningar och andra väsentliga åtgärder kräver de godkännandekontroller som anges i uppdraget. En modellgenererad instruktion är inte i sig ett tillstånd."
+            },
+            {
+              "q": "Vad händer när en tjänst slutar fungera?",
+              "a": "Den avtalade lösningen omfattar kontrollerade återförsök, skydd mot dubbletter, larm och reservförfarande eller mänsklig överlämning. Återhämtningen testas mot acceptanskriterierna."
+            },
+            {
+              "q": "Vad ingår i en sprint för processautomatisering?",
+              "a": "Ett arbetsflöde, en utlösare, upp till två system med befintliga dokumenterade API:er och en driftsmiljö. Överlämningsdokumentation för automatisering och två justeringsrundor stödjer överlämningen. Större processändringar avgränsas separat."
+            },
+            {
+              "q": "Skapar AI-integration av arbetsflöden och LLM-automatisering alltid värde?",
+              "a": "Nej. AI-integration av arbetsflöden ska lösa ett konkret problem. LLM-automatisering kan hjälpa med varierande text, men fasta regler är ofta tydligare vid validering och tillståndsändringar. Utvärderingskriterier avtalas före metodvalet."
+            },
+            {
+              "q": "Kan ni automatisera CRM, order och lager?",
+              "a": "Automatisering av CRM-arbetsflöden, automatisering av orderhantering och automatisering av lagerarbetsflöden är möjliga med auktoriserade, dokumenterade API:er. Shopify-automatisering och annat plattformsarbete beror på åtkomst, åtgärder och omfattning."
+            },
+            {
+              "q": "Hur styrs känsliga åtgärder?",
+              "a": "Arbetsflöden med mänskligt godkännande, API-åtkomst med minsta möjliga behörighet och säker hantering av hemligheter i automatisering sätter ramarna. Validering av indata och utdata i arbetsflöden kontrollerar data före nästa steg. Betalningar får inte obegränsat mandat."
+            },
+            {
+              "q": "Vad händer vid fel eller upprepade händelser?",
+              "a": "Felhantering i automatisering omfattar avtalade återförsök, skydd mot dubbletter, larm och överlämning av avvikelser. Representativa fel testas; avsaknad av ett felmeddelande är inte i sig bevis på framgång."
+            },
+            {
+              "q": "Vad ska vi förbereda inför en kartläggning av arbetsflöden?",
+              "a": "Ta med rutinuppgiften, ägaren, systemen och representativa testdata. Kartläggning av arbetsflöden används för att avtala acceptanskriterier, externa licenskostnader, molnkostnader och en relevant AI-tokenbudget före utveckling."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "private-ai-agents-rag",
+      "locales": {
+        "en": {
+          "name": "Private AI Assistants, Agents & RAG",
+          "url": "https://sundaibot.com/services/private-ai-agents-rag/",
+          "summary": "Private AI assistant development makes approved knowledge easier to find without giving every user the same access. Enterprise RAG implementation connects an assistant to a ready-to-use source, with citations, clear permissions and an evaluation baseline. Useful answers matter more than confident guesses.",
+          "scope": "Private AI Assistant / RAG Pilot: one assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. Agent actions are included only when explicitly described in the written scope.",
+          "exclusions": "Multi-cloud, fine-tuning, extensive OCR, production availability commitments and WhatsApp Business are outside the base package. Additional channels, data preparation and integration work are separately scoped.",
+          "questionsAndAnswers": [
+            {
+              "q": "What does private mean here?",
+              "a": "Access and data handling are scoped for your organisation. The project identifies who processes content, which endpoints receive it, the storage region, supplier data-use terms and processing agreements. Private does not automatically mean EU-only or on-premises."
+            },
+            {
+              "q": "Is the complete AI chain end-to-end encrypted?",
+              "a": "We specify TLS in transit and encryption at rest according to the architecture. We do not describe the complete path to an LLM as end-to-end encrypted without evidence that supports that claim."
+            },
+            {
+              "q": "Can we add WhatsApp or website chat?",
+              "a": "Yes, subject to a separate scope, platform permissions, processing terms and supplier costs. The base pilot includes one agreed interface; it does not include WhatsApp Business."
+            },
+            {
+              "q": "Will it always answer correctly?",
+              "a": "No. Source citation, permission checks, unsupported-answer refusal and agreed evaluation tests reduce risk. Important decisions remain subject to the human review defined for the use case."
+            },
+            {
+              "q": "What is a private AI assistant pilot?",
+              "a": "One assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. An enterprise AI chatbot or a document assistant is scoped around a real question set."
+            },
+            {
+              "q": "What does secure RAG implementation protect?",
+              "a": "Secure RAG implementation addresses identity, retrieval permissions and source handling within the agreed architecture. Access-controlled retrieval must also account for vector stores, caches and exports; encryption alone does not establish permission boundaries."
+            },
+            {
+              "q": "Can we use Azure, AWS or Google Cloud?",
+              "a": "An Azure private AI assistant, an AWS private AI assistant or a Google Cloud private AI assistant can be discussed for the chosen architecture. The base pilot selects one cloud; hosting region, supplier terms and retention are agreed before deployment."
+            },
+            {
+              "q": "Can the agent update systems as well as answer questions?",
+              "a": "AI agent tool integration is included only when explicitly scoped. Human-supervised AI agents use limited permissions and approval for sensitive writes. A retrieved document or model answer does not grant authority to take action."
+            },
+            {
+              "q": "How do you check answer quality?",
+              "a": "AI assistant evaluation uses representative questions, expected evidence, citation checks, permission tests and unsupported-answer refusal. RAG evaluation gives a baseline for a rollout decision; it does not promise that every answer will be correct."
+            },
+            {
+              "q": "Can we add website chat or WhatsApp later?",
+              "a": "Website AI chatbot integration and WhatsApp AI integration require separate scope, platform access, data-processing terms and supplier costs. The initial pilot includes one agreed interface, with data retention rules and handover documentation."
+            }
+          ]
+        },
+        "da": {
+          "name": "Private AI-assistenter, agenter & RAG",
+          "url": "https://sundaibot.com/da/ydelser/private-ai-agents-rag/",
+          "summary": "Udvikling af private AI-assistenter gør godkendt viden lettere at finde uden at give alle samme adgang. Implementering af RAG til virksomheder forbinder en assistent med en klar videnskilde, kildehenvisninger, rettigheder og et grundlag for evaluering. Brugbare svar betyder mere end selvsikre gæt.",
+          "scope": "Private AI Assistant / RAG Pilot: én assistent, én brugsklar videnskilde, ét interface, én cloudleverandør, op til to brugerroller og op til ti pilotbrugere. Agenthandlinger indgår kun, når de er beskrevet udtrykkeligt i det skriftlige omfang.",
+          "exclusions": "Multi-cloud, fine-tuning, omfattende OCR, aftalt produktionsoppetid og WhatsApp Business er ikke inkluderet. Ekstra kanaler, dataklargøring og integrationer afgrænses særskilt.",
+          "questionsAndAnswers": [
+            {
+              "q": "Hvad betyder privat her?",
+              "a": "Adgang og datahåndtering afgrænses til din organisation. Projektet angiver, hvem der behandler indholdet, hvilke endpoints der modtager det, lagringsregion, leverandørernes vilkår for databrug og databehandleraftaler. Privat betyder ikke automatisk kun EU eller lokal drift."
+            },
+            {
+              "q": "Er hele AI-kæden ende-til-ende-krypteret?",
+              "a": "Vi specificerer TLS under transport og kryptering af lagrede data efter arkitekturen. Vi kalder ikke hele vejen til en LLM ende-til-ende-krypteret uden dokumentation for det."
+            },
+            {
+              "q": "Kan vi tilføje WhatsApp eller chat på hjemmesiden?",
+              "a": "Ja, med særskilt omfang, platformstilladelser, databehandlingsvilkår og leverandøromkostninger. Piloten omfatter ét aftalt interface og ikke WhatsApp Business."
+            },
+            {
+              "q": "Er svarene altid korrekte?",
+              "a": "Nej. Kildehenvisninger, rettighedskontrol, afvisning af svar uden grundlag og aftalte evalueringstests reducerer risikoen. Vigtige beslutninger kræver den menneskelige gennemgang, der er fastlagt for anvendelsen."
+            },
+            {
+              "q": "Hvad er en pilot med privat AI-assistent?",
+              "a": "Én assistent, én klar videnskilde, én grænseflade, én cloududbyder, op til to brugerroller og op til ti pilotbrugere. En AI-chatbot til virksomheder eller dokumentassistent afgrænses ud fra virkelige spørgsmål."
+            },
+            {
+              "q": "Hvad beskytter sikker RAG-implementering?",
+              "a": "Sikker RAG-implementering omfatter identitet, søgerettigheder og kildehåndtering i den aftalte arkitektur. Adgangsstyret søgning skal også tage højde for vektordatabaser, caches og eksport; kryptering alene fastlægger ikke rettigheder."
+            },
+            {
+              "q": "Kan vi bruge Azure, AWS eller Google Cloud?",
+              "a": "En privat AI-assistent på Azure, en privat AI-assistent på AWS eller en privat AI-assistent på Google Cloud kan drøftes for den valgte arkitektur. Grundpiloten bruger én cloud; region, leverandørvilkår og opbevaring aftales før udrulning."
+            },
+            {
+              "q": "Kan agenten opdatere systemer?",
+              "a": "Integration af AI-agentværktøjer indgår kun efter udtrykkelig aftale. AI-agenter med menneskeligt tilsyn har begrænsede rettigheder og godkendelse ved følsomme ændringer. Et hentet dokument eller modelsvar giver ikke handlingsautoritet."
+            },
+            {
+              "q": "Hvordan kontrolleres svarkvaliteten?",
+              "a": "Evaluering af AI-assistenter bruger repræsentative spørgsmål, forventede underlag, kildekontrol, rettighedstests og afvisning af svar uden grundlag. RAG-evaluering understøtter en udrulningsbeslutning; den lover ikke korrekte svar hver gang."
+            },
+            {
+              "q": "Kan vi senere tilføje websitechat eller WhatsApp?",
+              "a": "Integration af AI-chatbot på websites og WhatsApp AI-integration kræver særskilt omfang, platformadgang, databehandlingsvilkår og leverandøromkostninger. Piloten har én aftalt grænseflade, regler for dataopbevaring og overdragelsesdokumentation."
+            }
+          ]
+        },
+        "sv": {
+          "name": "Privata AI-assistenter, agenter & RAG",
+          "url": "https://sundaibot.com/sv/tjanster/private-ai-agents-rag/",
+          "summary": "Utveckling av privata AI-assistenter gör godkänd kunskap lättare att hitta utan att ge alla samma åtkomst. implementering av RAG för företag kopplar en assistent till en förberedd kunskapskälla, med källhänvisningar, behörigheter och ett underlag för utvärdering. Användbara svar betyder mer än självsäkra gissningar.",
+          "scope": "Private AI Assistant / RAG Pilot: en assistent, en färdig kunskapskälla, ett gränssnitt, en molnleverantör, upp till två användarroller och upp till tio pilotanvändare. Agentåtgärder ingår bara om de uttryckligen beskrivs i den skriftliga omfattningen.",
+          "exclusions": "Multi-cloud, finjustering av modeller, omfattande OCR, avtalad tillgänglighet i produktion och WhatsApp Business ingår inte. Extra kanaler, databearbetning och integrationer avgränsas separat.",
+          "questionsAndAnswers": [
+            {
+              "q": "Vad betyder privat här?",
+              "a": "Åtkomst och datahantering avgränsas för organisationen. Projektet anger vem som behandlar innehåll, vilka endpoints som tar emot det, lagringsregion, leverantörernas villkor för dataanvändning och personuppgiftsbiträdesavtal. Privat betyder inte automatiskt enbart EU eller lokal drift."
+            },
+            {
+              "q": "Är hela AI-kedjan totalsträckskrypterad?",
+              "a": "Vi specificerar TLS under överföring och kryptering av lagrade data enligt arkitekturen. Vi beskriver inte hela vägen till en LLM som totalsträckskrypterad utan stöd för påståendet."
+            },
+            {
+              "q": "Kan vi lägga till WhatsApp eller webbchatt?",
+              "a": "Ja, med separat omfattning, plattformstillstånd, databehandlingsvillkor och leverantörskostnader. Grundpiloten omfattar ett avtalat gränssnitt och inte WhatsApp Business."
+            },
+            {
+              "q": "Är svaren alltid korrekta?",
+              "a": "Nej. Källhänvisningar, behörighetskontroller, avstående från svar utan stöd och avtalade utvärderingstester minskar risken. Viktiga beslut kräver den mänskliga granskning som fastställts för användningen."
+            },
+            {
+              "q": "Vad är en pilot med privat AI-assistent?",
+              "a": "En assistent, en förberedd kunskapskälla, ett gränssnitt, en molnleverantör, upp till två användarroller och upp till tio pilotanvändare. En AI-chattbot för företag eller dokumentassistent avgränsas utifrån verkliga frågor."
+            },
+            {
+              "q": "Vad skyddar säker RAG-implementering?",
+              "a": "Säker RAG-implementering omfattar identitet, sökbehörigheter och källhantering i avtalad arkitektur. Åtkomststyrd sökning måste också hantera vektordatabaser, cache och export; kryptering ensam fastställer inte behörigheterna."
+            },
+            {
+              "q": "Kan vi använda Azure, AWS eller Google Cloud?",
+              "a": "En privat AI-assistent på Azure, en privat AI-assistent på AWS eller en privat AI-assistent på Google Cloud kan diskuteras för vald arkitektur. Grundpiloten använder ett moln; region, leverantörsvillkor och lagring avtalas före utrullning."
+            },
+            {
+              "q": "Kan agenten uppdatera system?",
+              "a": "Integration av AI-agentverktyg ingår bara när det uttryckligen avtalats. AI-agenter med mänsklig tillsyn använder begränsade behörigheter och godkännande vid känsliga ändringar. Ett hämtat dokument eller modellsvar ger inte handlingsmandat."
+            },
+            {
+              "q": "Hur granskas svarskvaliteten?",
+              "a": "Utvärdering av AI-assistenter använder representativa frågor, förväntade underlag, källkontroll, behörighetstester och avvisning av svar utan underlag. RAG-utvärdering stödjer ett utrullningsbeslut; den lovar inte korrekta svar varje gång."
+            },
+            {
+              "q": "Kan vi lägga till webbchatt eller WhatsApp senare?",
+              "a": "Integration av AI-chattbot på webbplatser och WhatsApp AI-integration kräver separat omfattning, plattformsåtkomst, databehandlingsvillkor och leverantörskostnader. Piloten har ett avtalat gränssnitt, regler för datalagring och överlämningsdokumentation."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "pentesting-red-teaming",
+      "locales": {
+        "en": {
+          "name": "OSINT, Pentesting & Red Teaming",
+          "url": "https://sundaibot.com/services/pentesting-red-teaming/",
+          "summary": "Web application penetration testing looks at what an attacker can do inside the agreed boundaries. API penetration testing and manual security testing examine access, authorisation and business logic, then turn the findings into a fix list your team can work from. Written permission comes first.",
+          "scope": "Scoped Web / API Pentest: one small web application, up to two roles and up to ten API endpoints. Focused manual testing with supporting automated review, a report, handover and one remediation verification within 30 days.",
+          "exclusions": "Complete code coverage is not promised. Extensive OSINT, organisation-wide red teaming, phishing, load testing and destructive testing are separately quoted. An automated scan alone is not a full pentest.",
+          "questionsAndAnswers": [
+            {
+              "q": "Can you test any website or third-party service?",
+              "a": "No. Testing requires written authorisation, defined targets and Rules of Engagement. Third-party terms and permissions must allow the agreed tests; stop conditions apply throughout."
+            },
+            {
+              "q": "Can the scope cover AI and sensitive workflows?",
+              "a": "Yes, where agreed. AI interfaces, permissions, configuration, code and APIs can be examined. Call documentation, care and sales systems also need checks of information restrictions and data flows."
+            },
+            {
+              "q": "Does a report mean we are compliant or vulnerability-free?",
+              "a": "No. Findings reflect the agreed scope, methods and testing period. A pentest cannot guarantee all vulnerabilities have been found or establish complete regulatory compliance."
+            },
+            {
+              "q": "What is an OSINT snapshot?",
+              "a": "A separate CTI / Passive OSINT Snapshot covers one organisation and up to three domains it owns. It does not include continuous monitoring, intrusive testing or a broad red-team exercise."
+            },
+            {
+              "q": "What is the difference between a vulnerability scan and a pentest?",
+              "a": "Vulnerability scan versus pentest is a useful buying distinction: a scan flags potential issues; a scoped pentest combines manual investigation with supporting tools and interprets findings in context. Automated output alone is not a complete pentest."
+            },
+            {
+              "q": "What does the initial web and API package cover?",
+              "a": "One small web application, up to two roles and up to ten API endpoints, with a report, handover and one verification of included fixes within 30 days of delivery. The proposal states the exact targets and acceptance criteria."
+            },
+            {
+              "q": "How do you protect sensitive test evidence?",
+              "a": "Secure pentest evidence handling uses limited, protected evidence needed to explain a finding. Access, sharing and retention are agreed for the assessment; live secrets and unnecessary personal data do not belong in a broadly circulated report."
+            },
+            {
+              "q": "Can we add OSINT and threat intelligence?",
+              "a": "A separate passive OSINT assessment or cyber threat intelligence snapshot covers one organisation and up to three owned domains. It is distinct from intrusive testing and continuous monitoring. The scope and sources are agreed separately."
+            },
+            {
+              "q": "Is a red-team exercise included?",
+              "a": "A scoped red team exercise is a separate engagement with its own objectives, authorisation and restrictions. Phishing, organisation-wide red teaming, load testing and destructive testing are not part of the entry web/API package."
+            },
+            {
+              "q": "What can a clean report actually tell us?",
+              "a": "Penetration testing limitations matter: findings reflect the targets, methods and test period. A report supports a risk decision and remediation retesting; it cannot prove that every vulnerability has been found or establish complete compliance."
+            }
+          ]
+        },
+        "da": {
+          "name": "OSINT, penetrationstest & red teaming",
+          "url": "https://sundaibot.com/da/ydelser/pentesting-red-teaming/",
+          "summary": "Penetrationstest af webapplikationer undersøger, hvad en angriber kan gøre inden for aftalte rammer. Penetrationstest af API’er og manuel sikkerhedstest gennemgår adgang, autorisation og forretningslogik og giver teamet en liste over relevante rettelser. Skriftlig tilladelse kommer først.",
+          "scope": "Scoped Web / API Pentest: én mindre webapplikation, op til to roller og op til ti API-endpoints. Fokuseret manuel test med understøttende automatiseret gennemgang, rapport, overdragelse og én kontrol af rettelser inden for 30 dage.",
+          "exclusions": "Der loves ikke dækning af al kode. Omfattende OSINT, red teaming på organisationsniveau, phishing, belastningstest og destruktive tests får særskilte tilbud. En automatiseret scanning alene er ikke en fuld penetrationstest.",
+          "questionsAndAnswers": [
+            {
+              "q": "Kan I teste enhver hjemmeside eller tredjepartstjeneste?",
+              "a": "Nej. Test kræver skriftlig tilladelse, definerede mål og Rules of Engagement. Tredjepartsvilkår og tilladelser skal omfatte de aftalte tests; stopbetingelser gælder under hele forløbet."
+            },
+            {
+              "q": "Kan testen omfatte AI og følsomme arbejdsgange?",
+              "a": "Ja, når det er aftalt. AI-interfaces, rettigheder, konfiguration, kode og API’er kan undersøges. Systemer til samtaledokumentation, behandling og salg kræver også kontrol af informationsbegrænsning og datastrømme."
+            },
+            {
+              "q": "Betyder rapporten, at vi overholder alle regler og ikke har sårbarheder?",
+              "a": "Nej. Fund gælder det aftalte omfang, metoderne og testperioden. En penetrationstest kan ikke garantere, at alle sårbarheder er fundet, eller dokumentere fuld regeloverholdelse."
+            },
+            {
+              "q": "Hvad er et OSINT-snapshot?",
+              "a": "Et særskilt CTI / Passive OSINT Snapshot omfatter én organisation og op til tre domæner, den ejer. Løbende overvågning, indgribende tests og større red team-øvelser er ikke inkluderet."
+            },
+            {
+              "q": "Hvad er forskellen på scanning og penetrationstest?",
+              "a": "Sårbarhedsscanning kontra penetrationstest er en nyttig købsafklaring: scanning finder mulige problemer; en afgrænset pentest kombinerer manuel undersøgelse og værktøjer og fortolker fund i sammenhæng. Automatiseret output alene er ikke en fuld pentest."
+            },
+            {
+              "q": "Hvad omfatter startpakken for web og API?",
+              "a": "Én lille webapplikation, op til to roller og op til ti API-endpoints med rapport, overdragelse og én kontrol af inkluderede rettelser inden 30 dage efter levering. Tilbuddet fastlægger mål og acceptkriterier."
+            },
+            {
+              "q": "Hvordan beskyttes følsom dokumentation?",
+              "a": "Sikker håndtering af pentest-evidens bruger begrænset, beskyttet dokumentation til at forklare et fund. Adgang, deling og opbevaring aftales. Aktive hemmeligheder og unødvendige persondata hører ikke hjemme i en bredt delt rapport."
+            },
+            {
+              "q": "Kan vi tilføje OSINT og trusselsanalyse?",
+              "a": "En separat passiv OSINT-vurdering eller afgrænset cybertrusselsanalyse omfatter én organisation og op til tre egne domæner. Det er adskilt fra indgribende test og løbende overvågning. Omfang og kilder aftales særskilt."
+            },
+            {
+              "q": "Er en red team-øvelse inkluderet?",
+              "a": "En afgrænset red team-øvelse er en separat opgave med egne mål, tilladelser og restriktioner. Phishing, organisationsdækkende red teaming, belastningstest og destruktiv test indgår ikke i startpakken."
+            },
+            {
+              "q": "Hvad fortæller en rapport uden fund?",
+              "a": "Begrænsninger ved penetrationstest er vigtige: fund afspejler mål, metode og testperiode. Rapporten understøtter risikobeslutninger og gentest; den beviser ikke, at alle sårbarheder er fundet, eller at alle regler er overholdt."
+            }
+          ]
+        },
+        "sv": {
+          "name": "OSINT, penetrationstest & red teaming",
+          "url": "https://sundaibot.com/sv/tjanster/pentesting-red-teaming/",
+          "summary": "Penetrationstestning av webbapplikationer granskar vad en angripare kan göra inom avtalade ramar. Penetrationstestning av API:er och manuell säkerhetstestning granskar åtkomst, auktorisering och affärslogik och ger teamet en användbar åtgärdslista. Skriftligt tillstånd kommer först.",
+          "scope": "Scoped Web / API Pentest: en mindre webbapplikation, upp till två roller och upp till tio API-endpoints. Fokuserad manuell testning med stödjande automatiserad granskning, rapport, överlämning och en verifiering av rättningar inom 30 dagar.",
+          "exclusions": "Fullständig kodtäckning utlovas inte. Omfattande OSINT, red teaming på organisationsnivå, nätfiske, belastningstest och destruktiva tester offereras separat. En automatiserad skanning ensam är inte ett fullständigt penetrationstest.",
+          "questionsAndAnswers": [
+            {
+              "q": "Kan ni testa vilken webbplats eller tredjepartstjänst som helst?",
+              "a": "Nej. Testning kräver skriftligt tillstånd, definierade mål och Rules of Engagement. Tredjepartsvillkor och tillstånd måste tillåta de avtalade testerna. Stoppvillkor gäller under hela uppdraget."
+            },
+            {
+              "q": "Kan testet omfatta AI och känsliga arbetsflöden?",
+              "a": "Ja, när det är avtalat. AI-gränssnitt, behörigheter, konfiguration, kod och API:er kan undersökas. System för samtalsdokumentation, vård och försäljning behöver även kontroll av informationsbegränsning och dataflöden."
+            },
+            {
+              "q": "Betyder rapporten att vi följer alla regler och saknar sårbarheter?",
+              "a": "Nej. Fynden gäller avtalad omfattning, metoder och testperiod. Ett penetrationstest kan inte garantera att alla sårbarheter har hittats eller visa fullständig regelefterlevnad."
+            },
+            {
+              "q": "Vad är en OSINT-ögonblicksbild?",
+              "a": "En separat CTI / Passive OSINT Snapshot omfattar en organisation och upp till tre domäner den äger. Löpande bevakning, inträngande testning och breda red team-övningar ingår inte."
+            },
+            {
+              "q": "Vad skiljer skanning från penetrationstestning?",
+              "a": "Sårbarhetsskanning kontra penetrationstestning är en användbar köparfråga: skanning visar möjliga problem; en avgränsad pentest kombinerar manuell granskning och verktyg och tolkar fynd i sitt sammanhang. Automatiserad utdata ensam är ingen fullständig pentest."
+            },
+            {
+              "q": "Vad omfattar startpaketet för webb och API?",
+              "a": "En liten webbapplikation, upp till två roller och upp till tio API-endpoints, med rapport, överlämning och en kontroll av inkluderade rättningar inom 30 dagar efter leverans. Offerten fastställer mål och acceptanskriterier."
+            },
+            {
+              "q": "Hur skyddas känsliga testunderlag?",
+              "a": "Säker hantering av pentestunderlag använder begränsad, skyddad dokumentation för att förklara ett fynd. Åtkomst, delning och lagring avtalas. Aktiva hemligheter och onödiga personuppgifter hör inte hemma i en brett delad rapport."
+            },
+            {
+              "q": "Kan vi lägga till OSINT och hotanalys?",
+              "a": "En separat passiv OSINT-bedömning eller avgränsad cyberhotanalys omfattar en organisation och upp till tre egna domäner. Det skiljer sig från inträngande testning och löpande övervakning. Omfattning och källor avtalas separat."
+            },
+            {
+              "q": "Ingår en red team-övning?",
+              "a": "En avgränsad red team-övning är ett separat uppdrag med egna mål, tillstånd och begränsningar. Nätfiske, organisationsövergripande red teaming, belastningstestning och destruktiv testning ingår inte i startpaketet."
+            },
+            {
+              "q": "Vad säger en rapport utan fynd?",
+              "a": "Begränsningar vid penetrationstestning spelar roll: fynd speglar mål, metod och testperiod. Rapporten stödjer riskbeslut och omtestning; den bevisar inte att alla sårbarheter hittats eller att alla regler följs."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "devsecops",
+      "locales": {
+        "en": {
+          "name": "DevSecOps & Secure Delivery Pipelines",
+          "url": "https://sundaibot.com/services/devsecops/",
+          "summary": "DevSecOps consulting puts useful checks where your team already works. Secure CI/CD pipelines connect code review, identity and release decisions, so a fast delivery process has boundaries your engineers can explain. Start with one repository, one pipeline and one deployment target.",
+          "scope": "DevSecOps Foundation: one repository, one pipeline, one deployment target and up to two environments. The entry package covers the stated controls; additional checks and supply-chain features must be explicitly included in the agreement.",
+          "exclusions": "An organisation-wide development-platform migration is excluded. DAST requires a suitable environment; container and IaC checks, SBOM, signing and provenance are included only where agreed. External tooling and licence costs are separately approved.",
+          "questionsAndAnswers": [
+            {
+              "q": "Will checks block every insecure change?",
+              "a": "No. Automated checks have limitations. We agree gate behaviour, severity thresholds and exception ownership; human review and maintenance remain necessary."
+            },
+            {
+              "q": "Can you add DAST, containers and IaC?",
+              "a": "Yes, where the environment and scope support them. DAST needs a suitable test target. Container and infrastructure-as-code checks, SBOM, signatures and provenance are specified in the package agreement."
+            },
+            {
+              "q": "Does a training certificate prove production delivery?",
+              "a": "No. Training, a configured repository and verified production experience are different evidence. Tools are offered only when the assigned practitioner has the relevant capability."
+            },
+            {
+              "q": "What is SAST versus SCA?",
+              "a": "SAST versus SCA describes different checks: static application security testing examines code patterns; software composition analysis examines third-party dependencies and known issues. They complement secret scanning and human review; none guarantees detection of every problem."
+            },
+            {
+              "q": "What does the DevSecOps Foundation include?",
+              "a": "One repository, one pipeline, one deployment target and up to two environments. The written agreement defines checks, restricted identities, approvals, rollback guidance and acceptance tests. Tool licences and wider migrations are separate."
+            },
+            {
+              "q": "How do security release gates work?",
+              "a": "We agree severity thresholds, what blocks a release and who can approve exceptions. Security gate exception handling records the reason and owner. A passing automated check does not replace review of the actual change."
+            },
+            {
+              "q": "Can we add DAST or container checks?",
+              "a": "DAST integration needs a suitable test environment. Container image security scanning and infrastructure-as-code security checks are included only when explicitly agreed and supported by the target environment."
+            },
+            {
+              "q": "Can you add SBOM, signing and provenance?",
+              "a": "Software bill of materials setup records software components. Build signing and provenance provide agreed evidence about artefacts and their origin. These are separately specified supply-chain controls, rather than automatic features of the entry package."
+            },
+            {
+              "q": "What happens after handover?",
+              "a": "Your team owns ongoing operation and maintenance. We hand over the configured checks, deployment approval workflow and secure deployment rollback plan, with agreed acceptance evidence. Further support needs its own scope."
+            }
+          ]
+        },
+        "da": {
+          "name": "DevSecOps & sikre leverancepipelines",
+          "url": "https://sundaibot.com/da/ydelser/devsecops/",
+          "summary": "DevSecOps-rådgivning placerer brugbare kontroller i teamets eksisterende arbejde. Sikre CI/CD-pipelines forbinder kodegennemgang, identitet og releasebeslutninger, så en hurtig leveringsproces har rammer, udviklerne kan forklare. Start med ét repository, én pipeline og ét deploymentmål.",
+          "scope": "DevSecOps Foundation: ét repository, én pipeline, ét deploymentmål og op til to miljøer. Startpakken omfatter de angivne kontroller; yderligere tests og softwareforsyningskædefunktioner skal fremgå udtrykkeligt af aftalen.",
+          "exclusions": "Migration af hele organisationens udviklingsplatform er ikke inkluderet. DAST kræver et egnet miljø; container- og IaC-kontroller, SBOM, signering og provenance indgår kun efter aftale. Eksterne værktøjer og licenser godkendes særskilt.",
+          "questionsAndAnswers": [
+            {
+              "q": "Stopper kontrollerne alle usikre ændringer?",
+              "a": "Nej. Automatiske kontroller har begrænsninger. Vi aftaler blokeringsadfærd, alvorstærskler og ansvar for undtagelser. Menneskelig gennemgang og vedligeholdelse er fortsat nødvendige."
+            },
+            {
+              "q": "Kan I tilføje DAST, containere og IaC?",
+              "a": "Ja, når miljøet og omfanget understøtter det. DAST kræver et egnet testmål. Container- og infrastructure-as-code-kontroller, SBOM, signaturer og provenance fastlægges i pakkeaftalen."
+            },
+            {
+              "q": "Dokumenterer et kursusbevis levering i produktion?",
+              "a": "Nej. Uddannelse, et konfigureret repository og verificeret produktionserfaring er forskellige typer evidens. Værktøjer tilbydes kun, når den tilknyttede fagperson har relevante kompetencer."
+            },
+            {
+              "q": "Hvad betyder SAST kontra SCA?",
+              "a": "SAST kontra SCA beskriver forskellige kontroller: statisk applikationssikkerhedstest undersøger kodemønstre; software composition analysis undersøger tredjepartsafhængigheder og kendte problemer. De supplerer hemmelighedsscanning og menneskelig gennemgang uden at finde alt."
+            },
+            {
+              "q": "Hvad omfatter DevSecOps Foundation?",
+              "a": "Ét repository, én pipeline, ét deploymentmål og op til to miljøer. Aftalen fastlægger kontroller, begrænsede identiteter, godkendelser, rollback-vejledning og accepttests. Licenser og større migreringer er separate."
+            },
+            {
+              "q": "Hvordan fungerer sikkerhedsgates ved releases?",
+              "a": "Vi aftaler alvorlighedsgrænser, hvad der blokerer, og hvem der kan godkende undtagelser. Håndtering af undtagelser i sikkerhedsgates dokumenterer årsag og ejer. En godkendt automatisk kontrol erstatter ikke gennemgang af ændringen."
+            },
+            {
+              "q": "Kan vi tilføje DAST og containerkontroller?",
+              "a": "Integration af DAST kræver et egnet testmiljø. Sikkerhedsscanning af container-images og sikkerhedskontrol af infrastructure as code indgår kun efter udtrykkelig aftale og med et egnet målmiljø."
+            },
+            {
+              "q": "Kan I tilføje SBOM, signering og proveniens?",
+              "a": "Opsætning af softwarestykliste registrerer softwarekomponenter. Signering og sporbar oprindelse af builds giver aftalt dokumentation om artefakter og oprindelse. De er særskilt specificerede forsyningskædekontroller, ikke automatiske dele af startpakken."
+            },
+            {
+              "q": "Hvad sker der efter overdragelsen?",
+              "a": "Teamet ejer løbende drift og vedligeholdelse. Vi overdrager kontroller, arbejdsgang til godkendelse af deployment og rollback-plan for sikker deployment med aftalt dokumentation fra accepttests. Yderligere support afgrænses særskilt."
+            }
+          ]
+        },
+        "sv": {
+          "name": "DevSecOps & säkra leveranspipelines",
+          "url": "https://sundaibot.com/sv/tjanster/devsecops/",
+          "summary": "DevSecOps-rådgivning placerar användbara kontroller i teamets befintliga arbete. Säkra CI/CD-pipelines kopplar kodgranskning, identitet och releasebeslut, så en snabb leveransprocess får ramar utvecklarna kan förklara. Börja med ett repository, en pipeline och ett driftsättningsmål.",
+          "scope": "DevSecOps Foundation: ett repository, en pipeline, ett driftsättningsmål och upp till två miljöer. Startpaketet omfattar angivna kontroller; ytterligare tester och funktioner för programvaruförsörjningskedjan måste uttryckligen ingå i avtalet.",
+          "exclusions": "Migration av hela organisationens utvecklingsplattform ingår inte. DAST kräver en lämplig miljö; container- och IaC-kontroller, SBOM, signering och provenance ingår bara efter överenskommelse. Externa verktyg och licenser godkänns separat.",
+          "questionsAndAnswers": [
+            {
+              "q": "Stoppar kontrollerna alla osäkra ändringar?",
+              "a": "Nej. Automatiska kontroller har begränsningar. Vi avtalar blockeringsbeteende, allvarlighetsnivåer och ansvar för undantag. Mänsklig granskning och underhåll behövs fortfarande."
+            },
+            {
+              "q": "Kan ni lägga till DAST, containrar och IaC?",
+              "a": "Ja, när miljön och omfattningen stöder det. DAST kräver ett lämpligt testmål. Container- och infrastructure-as-code-kontroller, SBOM, signaturer och provenance anges i paketavtalet."
+            },
+            {
+              "q": "Visar ett kursintyg förmåga att leverera i produktion?",
+              "a": "Nej. Utbildning, ett konfigurerat repository och verifierad produktionserfarenhet är olika slags underlag. Verktyg erbjuds endast när den tilldelade yrkespersonen har relevant kompetens."
+            },
+            {
+              "q": "Vad innebär SAST kontra SCA?",
+              "a": "SAST kontra SCA beskriver olika kontroller: statisk applikationssäkerhetstestning granskar kodmönster; software composition analysis granskar tredjepartsberoenden och kända problem. De kompletterar hemlighetsskanning och mänsklig granskning utan att hitta allt."
+            },
+            {
+              "q": "Vad omfattar DevSecOps Foundation?",
+              "a": "Ett repository, en pipeline, ett driftsättningsmål och upp till två miljöer. Avtalet fastställer kontroller, begränsade identiteter, godkännanden, återställningsvägledning och acceptanstester. Licenser och större migreringar är separata."
+            },
+            {
+              "q": "Hur fungerar säkerhetskontroller inför releaser?",
+              "a": "Vi avtalar allvarlighetsgränser, vad som blockerar och vem som får godkänna undantag. Hantering av undantag från säkerhetskontroller dokumenterar orsak och ägare. En godkänd automatisk kontroll ersätter inte granskning av ändringen."
+            },
+            {
+              "q": "Kan vi lägga till DAST och containerkontroller?",
+              "a": "Integration av DAST kräver en lämplig testmiljö. Säkerhetsskanning av containeravbilder och säkerhetskontroller för infrastruktur som kod ingår bara efter uttryckligt avtal och med en lämplig målmiljö."
+            },
+            {
+              "q": "Kan ni lägga till SBOM, signering och proveniens?",
+              "a": "Konfigurering av programvaruförteckning registrerar programvarukomponenter. Signering och spårbart ursprung för byggen ger avtalade underlag om artefakter och ursprung. Det är särskilt specificerade leveranskedjekontroller, inga automatiska delar av startpaketet."
+            },
+            {
+              "q": "Vad händer efter överlämningen?",
+              "a": "Teamet äger löpande drift och underhåll. Vi lämnar över kontroller, arbetsflöde för godkännande av driftsättning och återställningsplan för säker driftsättning med avtalade acceptansunderlag. Ytterligare stöd avgränsas separat."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "cloud-security",
+      "locales": {
+        "en": {
+          "name": "Cloud Security Engineering, Automation & Maintenance",
+          "url": "https://sundaibot.com/services/cloud-security/",
+          "summary": "A cloud security assessment starts with who can do what, and whether the team can see it. A cloud IAM review and privileged access review help turn unexplained permissions into a manageable foundation. We select one provider, agree authorised changes and hand over a treatment plan.",
+          "scope": "Cloud IAM & Security Foundation: one subscription, account or project, up to ten identities and up to ten selected resources. Provider, licensing, authorised changes and acceptance criteria are agreed in advance.",
+          "exclusions": "A complete SOC and organisation-wide infrastructure coverage are excluded. Multi-cloud, wider migrations and incident-response retainers need separate scope. No 24/7 SOC, emergency availability or response-time SLA is promised by this package.",
+          "questionsAndAnswers": [
+            {
+              "q": "Which cloud identity controls are relevant?",
+              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access and Entra PIM. AWS: IAM policies and roles, IAM Identity Center, STS and permission boundaries where needed. Google Cloud: Cloud IAM roles and policy bindings, IAM Conditions and Privileged Access Manager. Controls depend on the selected provider and licensing. PIM/PAM manage privileged access; they are not alternative names for RBAC."
+            },
+            {
+              "q": "What does monthly Cloud Security Care include?",
+              "a": "A separately agreed monthly service includes scheduled permission/configuration checks, alert review, small changes and a report, for up to six working hours per month against an agreed backlog. Additional hours require an approved service extension; they are not billed automatically."
+            },
+            {
+              "q": "Can you respond to an incident?",
+              "a": "Initial response, evidence collection and specialist handoff may be agreed subject to availability. Emergency coverage and response commitments require appropriate staffing, an on-call agreement and an SLA; they are not included by default."
+            },
+            {
+              "q": "Which Azure controls can you review?",
+              "a": "A Microsoft Entra ID security review and Azure RBAC permissions review can examine agreed identities and resources. A Conditional Access baseline or Microsoft Entra PIM configuration review depends on licences, authorised changes and the selected scope."
+            },
+            {
+              "q": "Which AWS controls can you review?",
+              "a": "An AWS IAM policy review looks at agreed policies and roles. An AWS IAM Identity Center review can examine workforce access within scope. STS and permission boundaries are considered where relevant; your team approves changes before activation."
+            },
+            {
+              "q": "Which Google Cloud controls can you review?",
+              "a": "A Google Cloud IAM policy review can examine selected roles, bindings and conditions. A Google Cloud Privileged Access Manager review addresses agreed privileged-access controls. PIM and PAM are privilege-management services, not alternative names for RBAC."
+            },
+            {
+              "q": "What is included in monthly cloud security maintenance?",
+              "a": "Monthly cloud security maintenance is a separately agreed service: scheduled permission and configuration checks, alert review, small changes and a report, within up to six working hours per month against an agreed backlog. Extra work requires an approved extension."
+            },
+            {
+              "q": "Does the package include emergency incident response?",
+              "a": "No default on-call cover or 24/7 SOC is included. Initial evidence collection or specialist handoff may be agreed subject to availability. A response-time commitment needs suitable staffing, a separate on-call agreement and an SLA."
+            },
+            {
+              "q": "What access and decisions do you need from us?",
+              "a": "Provide authorised access, an accurate asset inventory, a technical owner and a change approver. Agree licences, emergency contacts and recovery requirements. We scope the cloud IAM review and acceptance checks before work starts."
+            }
+          ]
+        },
+        "da": {
+          "name": "Cloudsikkerhed, automatisering & vedligeholdelse",
+          "url": "https://sundaibot.com/da/ydelser/cloud-security/",
+          "summary": "En vurdering af cloudsikkerhed begynder med, hvem der kan gøre hvad, og om teamet kan se det. En gennemgang af cloud-IAM og en gennemgang af privilegeret adgang gør uklare rettigheder lettere at håndtere. Vi vælger én udbyder, aftaler ændringer og overdrager en behandlingsplan.",
+          "scope": "Cloud IAM & Security Foundation: ét abonnement, én konto eller ét projekt, op til ti identiteter og op til ti udvalgte ressourcer. Leverandør, licenser, tilladte ændringer og acceptkriterier aftales på forhånd.",
+          "exclusions": "Et komplet SOC og dækning af hele organisationens infrastruktur er ikke inkluderet. Multi-cloud, større migreringer og beredskabsaftaler kræver særskilt omfang. Pakken lover ikke SOC døgnet rundt, akut tilgængelighed eller en SLA for responstid.",
+          "questionsAndAnswers": [
+            {
+              "q": "Hvilke identitetskontroller er relevante?",
+              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access og Entra PIM. AWS: IAM policies og roles, IAM Identity Center, STS og rettighedsgrænser efter behov. Google Cloud: Cloud IAM roles og policy bindings, IAM Conditions og Privileged Access Manager. Kontrollerne afhænger af leverandør og licenser. PIM/PAM styrer privilegeret adgang og er ikke andre navne for RBAC."
+            },
+            {
+              "q": "Hvad omfatter månedlig Cloud Security Care?",
+              "a": "En særskilt aftalt månedsydelse omfatter planlagte rettigheds- og konfigurationskontroller, alarmgennemgang, mindre ændringer og en rapport: op til seks arbejdstimer om måneden efter en aftalt backlog. Ekstra timer kræver en godkendt udvidelse og faktureres ikke automatisk."
+            },
+            {
+              "q": "Kan I hjælpe ved en sikkerhedshændelse?",
+              "a": "Indledende håndtering, indsamling af evidens og overdragelse til en specialist kan aftales efter tilgængelighed. Akut dækning og responstider kræver passende bemanding, vagtordning og SLA og indgår ikke automatisk."
+            },
+            {
+              "q": "Hvilke Azure-kontroller kan I gennemgå?",
+              "a": "En sikkerhedsgennemgang af Microsoft Entra ID og en gennemgang af Azure RBAC-rettigheder kan undersøge aftalte identiteter og ressourcer. En baseline for Conditional Access eller en gennemgang af Microsoft Entra PIM-konfiguration afhænger af licenser, tilladelser og omfang."
+            },
+            {
+              "q": "Hvilke AWS-kontroller kan I gennemgå?",
+              "a": "En gennemgang af AWS IAM-politikker undersøger aftalte politikker og roller. En gennemgang af AWS IAM Identity Center kan undersøge medarbejderadgang i omfanget. STS og rettighedsgrænser overvejes, hvor relevant; teamet godkender ændringer før aktivering."
+            },
+            {
+              "q": "Hvilke Google Cloud-kontroller kan I gennemgå?",
+              "a": "En gennemgang af Google Cloud IAM-politikker kan undersøge valgte roller, bindinger og betingelser. En gennemgang af Google Cloud Privileged Access Manager omfatter aftalte privilegiekontroller. PIM og PAM er tjenester til privilegeret adgang, ikke andre navne for RBAC."
+            },
+            {
+              "q": "Hvad omfatter månedlig vedligeholdelse af cloudsikkerhed?",
+              "a": "Månedlig vedligeholdelse af cloudsikkerhed er en særskilt aftalt ydelse: planlagte rettigheds- og konfigurationstjek, alarmgennemgang, små ændringer og en rapport inden for op til seks arbejdstimer om måneden på en aftalt backlog. Ekstra arbejde kræver godkendt udvidelse."
+            },
+            {
+              "q": "Omfatter pakken akut hændelseshåndtering?",
+              "a": "Ingen automatisk vagtordning eller 24/7 SOC indgår. Indledende evidensindsamling eller specialistoverdragelse kan aftales afhængigt af kapacitet. En svartidsgaranti kræver bemanding, en særskilt vagtaftale og en SLA."
+            },
+            {
+              "q": "Hvilken adgang og hvilke beslutninger skal I bruge?",
+              "a": "Stil autoriseret adgang, korrekt aktivoversigt, teknisk ejer og ændringsgodkender til rådighed. Aftal licenser, nødkontakter og recoverykrav. Vi afgrænser gennemgang af cloud-IAM og acceptkriterier før opgavestart."
+            }
+          ]
+        },
+        "sv": {
+          "name": "Molnsäkerhet, automatisering & underhåll",
+          "url": "https://sundaibot.com/sv/tjanster/cloud-security/",
+          "summary": "En bedömning av molnsäkerhet börjar med vem som kan göra vad, och om teamet kan se det. En granskning av moln-IAM och en granskning av privilegierad åtkomst gör oklara behörigheter hanterbara. Vi väljer en leverantör, avtalar ändringar och lämnar över en åtgärdsplan.",
+          "scope": "Cloud IAM & Security Foundation: en prenumeration, ett konto eller ett projekt, upp till tio identiteter och upp till tio valda resurser. Leverantör, licenser, tillåtna ändringar och acceptanskriterier avtalas i förväg.",
+          "exclusions": "Ett fullständigt SOC och täckning av organisationens hela infrastruktur ingår inte. Multi-cloud, större migreringar och incidentberedskap kräver separat omfattning. Paketet utlovar inte SOC dygnet runt, akut tillgänglighet eller en SLA för svarstid.",
+          "questionsAndAnswers": [
+            {
+              "q": "Vilka identitetskontroller är relevanta?",
+              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access och Entra PIM. AWS: IAM policies och roles, IAM Identity Center, STS och behörighetsgränser vid behov. Google Cloud: Cloud IAM roles och policy bindings, IAM Conditions och Privileged Access Manager. Kontrollerna beror på leverantör och licenser. PIM/PAM hanterar privilegierad åtkomst och är inte andra namn för RBAC."
+            },
+            {
+              "q": "Vad ingår i månatlig Cloud Security Care?",
+              "a": "En separat avtalad månadstjänst omfattar schemalagd behörighets- och konfigurationsgranskning, larmgranskning, mindre ändringar och en rapport: upp till sex arbetstimmar per månad enligt en avtalad backlog. Extra timmar kräver en godkänd utökning och faktureras inte automatiskt."
+            },
+            {
+              "q": "Kan ni hjälpa till vid en incident?",
+              "a": "Inledande hantering, insamling av underlag och överlämning till en specialist kan avtalas utifrån tillgänglighet. Akut beredskap och svarstidsåtaganden kräver lämplig bemanning, jouravtal och SLA och ingår inte automatiskt."
+            },
+            {
+              "q": "Vilka Azure-kontroller kan ni granska?",
+              "a": "En säkerhetsgranskning av Microsoft Entra ID och en granskning av Azure RBAC-behörigheter kan granska avtalade identiteter och resurser. En grundnivå för Conditional Access eller en granskning av Microsoft Entra PIM-konfiguration beror på licenser, tillstånd och omfattning."
+            },
+            {
+              "q": "Vilka AWS-kontroller kan ni granska?",
+              "a": "En granskning av AWS IAM-policyer granskar avtalade policyer och roller. En granskning av AWS IAM Identity Center kan undersöka personalåtkomst inom omfattningen. STS och behörighetsgränser övervägs där relevant; teamet godkänner ändringar före aktivering."
+            },
+            {
+              "q": "Vilka Google Cloud-kontroller kan ni granska?",
+              "a": "En granskning av Google Cloud IAM-policyer kan undersöka valda roller, bindningar och villkor. En granskning av Google Cloud Privileged Access Manager omfattar avtalade privilegiekontroller. PIM och PAM hanterar privilegierad åtkomst; de är inte andra namn för RBAC."
+            },
+            {
+              "q": "Vad omfattar månatligt underhåll av molnsäkerhet?",
+              "a": "Månatligt underhåll av molnsäkerhet är en separat avtalad tjänst: planerade behörighets- och konfigurationskontroller, larmgranskning, små ändringar och en rapport inom upp till sex arbetstimmar per månad mot en avtalad backlog. Extra arbete kräver godkänd utökning."
+            },
+            {
+              "q": "Omfattar paketet akut incidenthantering?",
+              "a": "Ingen automatisk jour eller 24/7 SOC ingår. Inledande insamling av underlag eller specialistöverlämning kan avtalas beroende på tillgänglighet. Ett svarstidsåtagande kräver bemanning, ett separat jouravtal och en SLA."
+            },
+            {
+              "q": "Vilken åtkomst och vilka beslut behöver ni?",
+              "a": "Tillhandahåll auktoriserad åtkomst, korrekt tillgångsförteckning, teknisk ägare och ändringsgodkännare. Avtala licenser, nödkontakter och återhämtningskrav. Vi avgränsar granskning av moln-IAM och acceptanskriterier före uppdraget."
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "commercialModel": "Tailored proposals; deliverables, cost and responsibilities agreed in writing.",
+  "contact": "https://sundaibot.com/book/",
+  "bookingStatus": "Meeting requests await personal confirmation.",
+  "technologyRelationships": "Technology references do not imply official partnerships.",
+  "scopeBoundary": "Readiness advice is distinct from certification, legal advice and assurance reports."
+}
