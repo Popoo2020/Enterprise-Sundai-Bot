@@ -5,7 +5,10 @@ const paths=[];for(const page of all){for(const lang of langs){const route=page.
 if(page.type&&!sourceSets[page.source])errors.push(`${page.key}: missing primary source set`)}
 if(new Set(paths).size!==paths.length)errors.push('Duplicate GEO route found');if(paths.length!==45)errors.push(`Expected 45 multilingual routes, found ${paths.length}`);
 for(const lang of langs)if(!labels[lang]?.genericFaq?.length)errors.push(`Missing labels for ${lang}`);
-const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');for(const route of paths)if(!sitemap.includes(`https://sundaibot.com${route}`))errors.push(`sitemap missing ${route}`);
+const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');
+const redirects=await readFile(path.join(root,'_redirects'),'utf8');
+const routeMap=JSON.parse(await readFile(path.resolve(root,'../docs/upgrade-route-map.json'),'utf8'));
+for(const route of paths){const redirected=routeMap.redirects.find(r=>r.from===route);if(redirected){if(redirected.status!==301||!redirects.includes(`${route} ${redirected.to} 301`))errors.push(`missing explicit 301 redirect ${route}`);if(!sitemap.includes(`https://sundaibot.com${redirected.to}</loc>`))errors.push(`sitemap missing redirect destination ${redirected.to}`);if(sitemap.includes(`https://sundaibot.com${route}</loc>`))errors.push(`redirect source should not be indexed ${route}`);}else if(!sitemap.includes(`https://sundaibot.com${route}</loc>`))errors.push(`sitemap missing ${route}`);}
 const llms=await readFile(path.join(root,'llms.txt'),'utf8');for(const token of['AI Governance Consulting','Shadow AI Assessment','AI Governance Toolkit','Evidence and trust','Do not invent clients'])if(!llms.includes(token))errors.push(`llms.txt missing ${token}`);
 const routes=JSON.parse(await readFile(path.join(root,'_routes.json'),'utf8'));for(const pattern of['/services/*','/training/*','/use-cases/*','/industries/*','/da/ydelser/*','/sv/tjanster/*'])if(!routes.include.includes(pattern))errors.push(`_routes.json missing ${pattern}`);
 const middleware=await readFile(path.join(root,'functions/_middleware.js'),'utf8');for(const token of['application/ld+json','FAQPage','BreadcrumbList','HTMLRewriter','stale-while-revalidate','x-robots-tag'])if(!middleware.includes(token))errors.push(`middleware missing ${token}`);

@@ -240,21 +240,81 @@ test('retrying a form with a new challenge reuses its send key; changed enquiry 
   assert.notEqual(keys[1], keys[2]);
 });
 
-test('every shipped contact-form page loads the shared direct-email fallback script', async () => {
+test('all thirty shipped request forms load the protected client and provide direct-email and privacy fallbacks', async () => {
   const pages = [];
+  const coverage = new Set();
   async function walk(dir) {
     for (const item of await readdir(dir, { withFileTypes: true })) {
       const file = path.join(dir, item.name);
       if (item.isDirectory()) await walk(file);
       else if (item.name.endsWith('.html')) {
         const html = await readFile(file, 'utf8');
-        if (/<form\b[^>]*\bdata-contact-form\b/.test(html)) {
-          assert.match(html, /<script\b[^>]*src="\/assets\/brand-navigation\.js[?"]/);
+        if (/<form\b[^>]*\bdata-upgrade-form\b/.test(html)) {
+          assert.match(html, /<script\b[^>]*defer[^>]*src="\/assets\/upgrade-forms\.js[?"]/);
+          const lang = html.match(/<html\b[^>]*lang="(en|da|sv)"/)?.[1];
+          for (const [form] of html.matchAll(/<form\b[^>]*\bdata-upgrade-form\b[\s\S]*?<\/form>/g)) {
+            const kind = form.match(/data-kind="(booking|join|training|enquiry)"/)?.[1];
+            assert.ok(lang && kind, file);
+            const service = html.includes('data-page-kind="service"');
+            const selectedInterest = form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
+            const key = `${lang}:${kind}${service ? ':' + selectedInterest : ''}`;
+            if (service) {
+              assert.equal(kind, 'enquiry', file);
+              assert.ok(selectedInterest, `${file}: selected product`);
+              assert.match(form, /<input\b[^>]*name="organisation"[^>]*required/);
+              assert.match(form, /<(?:input|textarea)\b[^>]*name="product"[^>]*required/);
+              assert.match(form, /name="team"/);
+            }
+            assert.ok(!coverage.has(key), `Duplicate form ${key}`);
+            coverage.add(key);
+            assert.match(form, /<noscript>[\s\S]*?<a\b[^>]*href="mailto:eririmo@protonmail\.com"/);
+            assert.match(form, /href="\/(?:privacy\.html|da\/privatliv\.html|sv\/integritet\.html)"/);
+            assert.match(form, /data-form-status[^>]*role="status"[^>]*aria-live="polite"/);
+          }
           pages.push(path.relative(root, file));
         }
       }
     }
   }
   await walk(path.join(root, 'site'));
-  assert.ok(pages.length >= 6, `Expected home and enquiry forms in three languages; got ${pages.length}`);
+  assert.equal(pages.length, 30);
+  assert.equal(coverage.size, 30);
+  for (const lang of ['en', 'da', 'sv']) for (const kind of ['booking', 'join', 'training', 'enquiry']) assert.ok(coverage.has(`${lang}:${kind}`));
+  for (const lang of ['en', 'da', 'sv']) assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`)).length, 6);
+});
+
+test('company, team and product context survives delivery and HTML-like content is escaped', async t => {
+  const calls = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    calls.push({ url, options });
+    if (url.includes('siteverify')) return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
+    return Response.json({ id: 'synthetic-provider-id' });
+  });
+  const body = await enquiry().json();
+  body.organisation = 'Example <script>Org</script>';
+  body.message = 'Service enquiry\nInterest: secure-ai-automation\nTeam: Finance & operations\nProduct or workflow: <img src=x onerror=alert(1)>Invoice routing\n\nPlease quote a workflow tailored to our organisation.';
+  const contact = await fresh();
+  const req = new Request(enquiry(), { body: JSON.stringify(body) });
+  const response = await contact.onRequestPost({ request: req, env });
+  assert.equal(response.status, 202);
+  const email = JSON.parse(calls[1].options.body);
+  for (const token of [body.organisation, 'secure-ai-automation', 'Finance & operations', '<img src=x onerror=alert(1)>Invoice routing']) assert.ok(email.text.includes(token));
+  assert.match(email.html, /Example &lt;script&gt;Org&lt;\/script&gt;/);
+  assert.match(email.html, /Finance &amp; operations/);
+  assert.match(email.html, /&lt;img src=x onerror=alert\(1\)&gt;Invoice routing/);
+  assert.doesNotMatch(email.html, /<script>|<img\b/);
+  assert.deepEqual(await response.json(), { ok: true });
+});
+
+test('proposal context obeys server message bounds and rejects forged price fields before provider contact', async t => {
+  const mock = t.mock.method(globalThis, 'fetch', () => { throw new Error('Invalid proposals must not contact providers'); });
+  for (const [patch, code] of [[{ message: 'Service enquiry\nTeam: ' + 'T'.repeat(3000) }, 'invalid_message'], [{ total: 1 }, 'unexpected_fields']]) {
+    const body = { ...await enquiry().json(), ...patch };
+    const contact = await fresh();
+    const request = new Request(enquiry(), { body: JSON.stringify(body) });
+    const response = await contact.onRequestPost({ request, env });
+    assert.equal(response.status, 400);
+    assert.deepEqual(await response.json(), { ok: false, code });
+  }
+  assert.equal(mock.mock.callCount(), 0);
 });

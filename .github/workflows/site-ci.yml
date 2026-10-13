@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "site/**"
+      - "scripts/**"
+      - "docs/**"
       - ".github/**"
       - "SECURITY_DEPLOYMENT.md"
       - "worker.js"
@@ -12,6 +14,8 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "scripts/**"
+      - "docs/**"
       - ".github/**"
       - "SECURITY_DEPLOYMENT.md"
       - "worker.js"
@@ -34,6 +38,15 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check site/assets/site.js
+          node --check site/assets/upgrade.js
+          node --check site/assets/upgrade-forms.js
+          node --check scripts/build-upgrade.mjs
+          node --check scripts/upgrade-content.mjs
+          node --check scripts/upgrade-labels.mjs
+          node --check scripts/upgrade-sales.mjs
+          node --check scripts/upgrade-ecosystem.mjs
+          node --check scripts/build-review.mjs
+          node --check site/functions/_shared/catalog.js
           node --check site/assets/neon-compact.js
           node --check site/assets/brand-navigation.js
           node --check site/assets/final-polish.js
@@ -70,7 +83,7 @@ jobs:
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
       - name: Exercise contact API security controls and delivery routing
-        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs site/tests/contact-client.test.mjs
+        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs site/tests/contact-client.test.mjs site/tests/upgrade-forms.test.mjs site/tests/upgrade-pricing.test.mjs
       - name: Validate security and performance budgets
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness

@@ -2,20 +2,22 @@
 
 This repository contains the code-side security controls. Account settings must be checked separately; source tests cannot confirm them.
 
-## Active contact forms: Formspree migration, 27 September 2026
+## Active contact forms: repository state, 13 October 2026
 
-All nine public contact forms now make a native HTML POST to `https://formspree.io/f/mqpagzed`. Formspree hosts the security check and confirmation page. The browser does not call `/api/contact`, load Turnstile or depend on Resend credentials. The CSP allows form navigation to Formspree without adding third-party scripts to the website. The three privacy notices disclose Formspree processing and international transfers.
+The current website contains 30 request forms across English, Danish and Swedish: 18 product-proposal forms and 12 booking, freelancer, training and general-enquiry forms. All use `site/assets/upgrade-forms.js` to send JSON to the same-origin Worker endpoint `/api/contact`. The Worker verifies Cloudflare Turnstile before sending through Resend to the configured owner inbox. These public forms no longer use Formspree. The three privacy notices disclose the implemented Cloudflare, Resend and Proton Mail flow.
 
-Before calling the migration complete, verify in the Formspree dashboard:
+The client makes no readiness request and loads no Turnstile script until a visitor focuses a form or attempts to submit it. It first checks `/api/contact` configuration, then loads the challenge with explicit rendering. Incomplete configuration, failed verification and ambiguous acceptance preserve the visitor's input and do not report success. The published direct-email link to `eririmo@protonmail.com` remains available as the fallback; visitors without JavaScript use that link instead of submitting the protected form.
 
-1. The form is active and its notification target is the verified `eririmo@protonmail.com` address.
-2. CAPTCHA is enabled under Settings → Spam protection. Do not disable CAPTCHA or add a client-side bypass to get a test through.
-3. A uniquely labelled test submitted from `https://sundaibot.com/start/` reaches the hosted confirmation page and appears in Submissions with the expected fields.
-4. The corresponding notification arrives in the target inbox. Provider acceptance and inbox delivery are separate checks.
+`GET /api/contact` and `GET /api/contact-diagnostics` check configuration only. A successful readiness response does not prove that a challenge can be completed, the provider will accept a message or an email will reach the inbox. `POST /api/contact` returns HTTP 202 only after receiving a valid Resend message ID. That confirms provider acceptance, not inbox delivery, a reply, admission to the freelancer network or a confirmed appointment. Booking requests require the operator to agree the time separately.
 
-The endpoint is a public form identifier, not a secret. The code cannot establish the account's CAPTCHA setting, notification target or quota. Retain the direct-email and copy-enquiry fallback.
+Before calling the live contact flow verified:
 
-The Worker `/api/contact` and its configuration-only diagnostics are retained as a legacy path, with their security controls unchanged. They are no longer a readiness check for the public form. Turnstile and Resend instructions below apply only to that legacy path.
+1. Confirm the production Worker uses the root `wrangler.jsonc` configuration for `sundai01`. Preserve `keep_vars: true` and the existing runtime Turnstile/email settings; keep secrets in Cloudflare's secret store.
+2. Confirm both configuration endpoints return HTTP 200 and the contact readiness response reports `available: true`. Do not log secret values or disable verification to make a check pass.
+3. Complete the security check through the deployed form and submit a uniquely labelled test. Check that the provider accepts the request and the expected fields appear in the corresponding provider record.
+4. Confirm the matching notification arrives at the configured owner inbox. Record provider acceptance and inbox receipt as separate checks.
+
+This section describes the current repository implementation. It does not claim that production configuration, browser interaction or live email delivery has been verified. Source and mocked-provider tests cannot establish those outcomes.
 
 Deployment caution: this project's Cloudflare integration has previously deployed a feature branch to production. Treat a branch push as a potential production deployment until the Cloudflare build configuration is corrected. Use a reviewed, explicitly authorised publication and verify the served HTML, JavaScript and CSP together.
 
@@ -32,8 +34,9 @@ Unverified account controls: WAF rules, account-level rate limits, administrator
 ## Performance design
 
 - The public website remains static and cacheable.
-- Contact forms submit natively to Formspree; no CAPTCHA JavaScript is loaded on the SundAI page.
+- Contact forms use the shared same-origin JSON client. Cloudflare Turnstile is loaded only after form interaction and a successful configuration check; it is not loaded during ordinary page browsing. Contact API and diagnostic responses are not cached.
 - Brand images are hosted locally under `site/assets/brands/`, removing third-party image requests from normal browsing.
+- Sora and Manrope are hosted locally under `site/assets/fonts/`; the base and dedicated mobile stylesheets share one semantic page rather than duplicating mobile content.
 - CodeQL, Dependabot and OWASP ZAP run in GitHub Actions and add no JavaScript or latency for website visitors.
 - CI enforces an 85 KB budget for the main website JavaScript and a 250 KB combined CSS budget.
 

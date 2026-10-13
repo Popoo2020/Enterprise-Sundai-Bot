@@ -1,0 +1,9 @@
+tool,version_or_environment,evidence,personal_lab_evidence,demonstrated_project,assigned_delivery_contributor,status
+GitHub Actions,repository configuration,DevSecOps-Reference-Pipeline mentioned in supplied brief,not independently loaded here,configuration only,not assigned,requires verification before commitment
+pytest,repository configuration,supplied brief and current repository Python tests,not independently verified,local test execution separately recorded,not assigned,training does not establish production experience
+Ruff,repository configuration,supplied brief,not independently verified,configuration only,not assigned,requires verification
+Bandit,repository configuration,supplied brief,not independently verified,configuration only,not assigned,requires verification
+pip-audit,repository configuration,supplied brief,not independently verified,configuration only,not assigned,requires verification
+Gitleaks,repository configuration,supplied brief,not independently verified,configuration only,not assigned,requires verification
+CTIA,training programme,supplied brief describes OSINT IoCs Python YARA threat hunting,personal lab list not available,not assessed,not assigned,do not market every syllabus tool as practiced
+ECDE,training programme,supplied brief lists public syllabus platforms,personal lab list not available,not assessed,not assigned,verify tool class and assigned contributor capability

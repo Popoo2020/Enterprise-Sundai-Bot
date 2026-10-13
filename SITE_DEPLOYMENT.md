@@ -8,14 +8,18 @@ The production assets are in `site/`. The observed production integration is **C
 - Configuration: `wrangler.jsonc`
 - Entry point: `worker.js`
 - Worker name: `sundai01`
-- Build command: none required
+- Build command: `node scripts/build-upgrade.mjs` (the generated HTML is also tracked)
 - Production deploy command: `npx wrangler deploy`
 - Preview deploy command: `npx wrangler versions upload` (never `deploy` for preview branches)
 - Assets: `site/`, binding `ASSETS`
 
 The Worker explicitly handles `/api/contact`; Workers does not automatically execute a Pages `functions/` directory. Static pages and assets continue to use the asset binding. Existing dashboard variables are preserved with `keep_vars`; secrets belong in the runtime environment, never the repository.
 
-Both Turnstile keys and the three email-provider settings described in `SECURITY_DEPLOYMENT.md` are required. Until these are configured, the endpoint returns a controlled HTTP 503 and the form offers telephone contact. Verify `/api/contact` returns JSON after deploying and that `/functions/api/contact.js` no longer serves source code.
+Both Turnstile keys and the three email-provider settings described in `SECURITY_DEPLOYMENT.md` are required. Until these are configured, the endpoint returns a controlled HTTP 503 and the form offers the existing email contact. No telephone or personal GitHub link is displayed. Verify `/api/contact` returns JSON after deploying and that `/functions/api/contact.js` does not serve source code.
+
+The 2026 upgrade keeps the same Worker and hosting. `run_worker_first: ["/*"]` allows the Worker to sanitize legacy offer structured data at request time. The revised public site shows tailored proposals without numeric service prices. `/api/pricing` exposes product names and scopes without monetary values, and `/api/quote` validates bundle IDs without returning prices. Neither endpoint accepts service orders.
+
+Meeting requests are sent through the existing contact pipeline, with an explicit **awaiting confirmation** state. No calendar, durable confirmed-slot store, video provider or booking-admin access is configured. The website does not pretend to reserve a slot. See `docs/SUNDAI_UPGRADE_OPERATIONS.md` for the remaining scheduler integration and operational controls.
 
 The Pages configuration below is retained for a separately configured legacy Pages deployment; it is not the active Workers entry point.
 
