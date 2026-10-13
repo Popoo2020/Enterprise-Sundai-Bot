@@ -45,10 +45,13 @@ jobs:
             json.dump(payload, f)
           print(f'Prepared {len(urls)} unique URLs from {len(sitemap_files)} sitemap files')
           PY
-      - name: Notify IndexNow
+      - name: Verify the matching release is publicly available
+        run: python scripts/verify-indexnow-release.py
+      - name: Notify IndexNow after verified publication
         run: |
           curl --fail-with-body --retry 3 --retry-delay 5 \
             --connect-timeout 10 --max-time 30 \
+            --write-out '\nIndexNow HTTP %{http_code}\n' \
             -H 'Content-Type: application/json; charset=utf-8' \
             --data-binary @/tmp/indexnow.json \
             https://api.indexnow.org/indexnow

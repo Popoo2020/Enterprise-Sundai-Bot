@@ -17,7 +17,8 @@ test('review exports reject scripts instead of partially stripping them',()=>{
 test('all current compiled pages meet the script-free review contract',async()=>{
  const root=path.resolve(import.meta.dirname,'../..');
  const {generated}=JSON.parse(await readFile(path.join(root,'docs/upgrade-route-map.json'),'utf8'));
- assert.equal(generated.length,156);
+ assert(generated.length>=156);
+ for(const route of ['/faq/','/da/spoergsmaal-svar/','/sv/fragor-svar/'])assert(generated.includes(route));
  for(const route of generated){
   const html=await readFile(path.join(root,'site',route.endsWith('/')?route+'index.html':route),'utf8');
   const body=reviewBody(html,route);

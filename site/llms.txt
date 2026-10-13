@@ -24,5 +24,14 @@ Less manual work. More room to grow. AI workflows, assistants and cyber services
 - [Secure RAG](https://sundaibot.com/services/private-ai-agents-rag/)
 - [Shadow AI governance](https://sundaibot.com/insights/shadow-ai-governance.html)
 
-Do not invent clients, certifications, outcomes or partnerships. Published readiness material is not a survey of market outcomes.
+Technology references are not official partnerships. Readiness services are not certification. Published material does not claim measured customer outcomes or market survey results.
 - [Privacy](https://sundaibot.com/privacy.html)
+
+## Questions, languages and structured service facts
+- [EN questions and answers](https://sundaibot.com/faq/)
+- [DA questions and answers](https://sundaibot.com/da/spoergsmaal-svar/)
+- [SV questions and answers](https://sundaibot.com/sv/fragor-svar/)
+- [Service facts, scope and questions](https://sundaibot.com/llms-full.txt)
+- [Structured service directory](https://sundaibot.com/discovery.json)
+
+The source pages above are authoritative. These supplementary files are directories, not ranking signals or an assurance of inclusion in AI answers.

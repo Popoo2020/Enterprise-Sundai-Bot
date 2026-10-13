@@ -36,7 +36,7 @@ for (const file of htmlFiles) {
   if(!redirectsByPath.has(currentPath)&&rel!=='404.html')for(const lang of ['en','da','sv'])if(!html.includes('rel="alternate" hreflang="'+lang+'"'))errors.push(`${rel}: missing ${lang} hreflang`);
   if(!redirectsByPath.has(currentPath)&&rel!=='404.html'){for(const [kind,map,value]of [['title',titles,html.match(/<title>([^<]+)<\/title>/)?.[1]],['description',descriptions,html.match(/<meta name="description" content="([^"]+)"/)?.[1]]]){if(!value?.trim())errors.push(`${rel}: empty ${kind}`);else if(map.has(value))errors.push(`${rel}: duplicate ${kind} with ${map.get(value)}`);else map.set(value,rel);}}
   for (const token of ['<meta name="viewport"', '<title>', 'lang="']) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
-  if (!html.includes('href="/assets/upgrade.css"')) errors.push(`${rel}: upgrade stylesheet missing`);
+  if (!/href="\/assets\/upgrade[.]css(?:[?][^"]*)?"/.test(html)) errors.push(`${rel}: upgrade stylesheet missing`);
   for(const runtime of ['neon-compact.js','final-polish.js','full-refresh.js','revenue-funnel.js']) if(html.includes('src="/assets/'+runtime)) errors.push(`${rel}: stale content-changing runtime ${runtime}`);
   if((html.match(/<h1\b/gi)||[]).length!==1) errors.push(`${rel}: expected one H1`);
   for(const token of ['name="description"','rel="canonical"','href="#main"','id="main"','application/ld+json','theme-color" content="#050607"']) if(!html.includes(token)) errors.push(`${rel}: missing ${token}`);
@@ -147,7 +147,7 @@ const robots = await readFile(path.join(root,'robots.txt'),'utf8');
 for (const token of ['OAI-SearchBot','ChatGPT-User','GPTBot','Googlebot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml','Sitemap: https://sundaibot.com/sitemap-research.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
 
 const llms = await readFile(path.join(root,'llms.txt'),'utf8');
-for (const token of ['SundAI','/pricing/','/book/','/join/','12.5%','SundAI AI Control Matrix','European AI Governance Readiness Brief 2026','Evidence and trust','Article 50 AI transparency checklist','AI vendor security review','Secure RAG','Shadow AI governance','Do not invent clients','not a survey',...services.map(s=>'/services/'+s.id+'/')]) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+for (const token of ['SundAI','/pricing/','/book/','/join/','12.5%','SundAI AI Control Matrix','European AI Governance Readiness Brief 2026','Evidence and trust','Article 50 AI transparency checklist','AI vendor security review','Secure RAG','Shadow AI governance','Technology references are not official partnerships','does not claim measured customer outcomes',...services.map(s=>'/services/'+s.id+'/')]) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
 
 const redirects=await readFile(path.join(root,'_redirects'),'utf8');
 for(const token of [
