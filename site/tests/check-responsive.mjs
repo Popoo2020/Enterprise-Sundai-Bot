@@ -36,8 +36,9 @@ if(run('legacy')||run('secondary'))for(const file of await pages()){
  const html=await readFile(file,'utf8'),label=path.relative(root,file);
  requireTokens(html,['/assets/upgrade.css','/assets/upgrade-mobile.css','class="skip-link"','<details class="mobile-menu">','id="main"'],label);
  const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
- if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css']))throw Error(`${label}: shared base and mobile stylesheets required in cascade order`);
- if(/<link[^>]+href="\/assets\/(?!upgrade(?:-mobile)?\.css)[^"]+\.css/.test(html))throw Error(`${label}: competing stylesheet remains`);
+ const expectedSheets=['/assets/upgrade.css','/assets/upgrade-mobile.css'];
+ if(/^(?:da\/|sv\/)?insights\//.test(label))expectedSheets.push('/assets/insights-layout.css');
+ if(JSON.stringify(sheets)!==JSON.stringify(expectedSheets))throw Error(`${label}: shared styles and scoped Insights layout required in cascade order`);
 }
 if(run('legaljs')){const js=await readFile(path.join(root,'assets/upgrade.js'),'utf8');requireTokens(js,["e.key==='Escape'","menu.open=false","querySelector('summary')?.focus()","!menu.contains(e.target)"],'mobile menu keyboard/dismissal');}
 if(run('home'))for(const [file,lang]of [['index.html','en'],['da/index.html','da'],['sv/index.html','sv']]){const html=await readFile(path.join(root,file),'utf8');requireTokens(html,[`lang="${lang}"`,'class="skip-link"','<details class="mobile-menu">','class="workflow"','class="container hero-grid"'],file);if((html.match(/class="service-card"/g)||[]).length!==6)throw Error(`${file}: expected six static service cards`);}
