@@ -13,7 +13,7 @@ for (const token of [
   "script-src 'self' https://challenges.cloudflare.com",
   "style-src 'self';",
   'frame-src https://challenges.cloudflare.com',
-  "form-action 'self' https://formspree.io;",
+  "form-action 'self';",
   'Cross-Origin-Opener-Policy: same-origin-allow-popups',
   'X-Permitted-Cross-Domain-Policies: none',
   '/api/*',
@@ -43,21 +43,17 @@ for (const token of [
 }
 if (contact.includes('await resendResponse.text()')) errors.push('Contact function must not log provider response bodies');
 
-const client = await read('site/assets/neon-compact.js');
-for (const token of [
-  "'/assets/brands/openai.svg'",
-  "'/assets/brands/ec-council.svg'"
-]) {
-  if (!client.includes(token)) errors.push(`Client script missing security/performance token: ${token}`);
-}
-for (const remoteLogoHost of ['images.ctfassets.net','msftstories.thesourcemediaassets.com','github.githubassets.com','cdn.shopify.com','a0.awsstatic.com','egs.eccouncil.org']) {
-  if (client.includes(remoteLogoHost)) errors.push(`Client still loads remote logo host: ${remoteLogoHost}`);
-}
-
-for (const page of ['site/index.html','site/da/index.html','site/sv/index.html']) {
-  const html = await read(page);
-  if (html.includes('challenges.cloudflare.com/turnstile')) errors.push(`${page}: Turnstile must be lazy-loaded, not part of initial HTML`);
-  if (!html.includes('data-contact-form')) errors.push(`${page}: contact form missing`);
+const client = await read('site/assets/upgrade-forms.js');
+for(const token of ["credentials: 'same-origin'", "cache: 'no-store'", "redirect: 'error'", 'AbortController', 'turnstile/v0/api.js?render=explicit', 'form.reportValidity()', 'message.length > 3000', "response.status === 202 && body.ok === true", 'button.disabled = true', 'finally', 'startedAt', "new Intl.DateTimeFormat", 'url.username || url.password'])if(!client.includes(token))errors.push(`Upgrade forms missing ${token}`);
+if(client.includes('booking_confirmed'))errors.push('Request-only forms must not emit appointment confirmation');
+if(/localStorage|sessionStorage/.test(client))errors.push('Forms must not persist enquiry PII in browser storage');
+for (const remoteLogoHost of ['images.ctfassets.net','msftstories.thesourcemediaassets.com','github.githubassets.com','cdn.shopify.com','a0.awsstatic.com','egs.eccouncil.org']) if(client.includes(remoteLogoHost))errors.push(`Remote logo host remains ${remoteLogoHost}`);
+const {routes:upgradeRoutes}=JSON.parse(await read('docs/upgrade-route-map.json'));
+for (const page of Object.values(upgradeRoutes).flatMap(r=>['book','join','training'].map(k=>r[k].slice(1)+'index.html'))) {
+ const html=await read('site/'+page);
+ if(html.includes('challenges.cloudflare.com/turnstile'))errors.push(`${page}: Turnstile must be lazy-loaded`);
+ for(const token of ['data-upgrade-form','action="/api/contact"','data-turnstile','data-form-status'])if(!html.includes(token))errors.push(`${page}: missing ${token}`);
+ if(/action="https:\/\/formspree/.test(html))errors.push(`${page}: stale provider action`);
 }
 
 for (const asset of ['openai.svg','azure.svg','gemini.svg','github.svg','shopify.svg','aws.svg','denmark-mfa.svg','ec-council.svg']) {
@@ -65,12 +61,12 @@ for (const asset of ['openai.svg','azure.svg','gemini.svg','github.svg','shopify
   catch { errors.push(`Missing local brand asset: ${asset}`); }
 }
 
-const jsBytes = (await stat(path.join(siteRoot, 'assets', 'neon-compact.js'))).size;
-if (jsBytes > 85_000) errors.push(`neon-compact.js exceeds 85 KB performance budget: ${jsBytes}`);
-const cssFiles = (await readdir(path.join(siteRoot, 'assets'))).filter(name => name.endsWith('.css'));
+let jsBytes=0;for(const file of ['upgrade.js','upgrade-forms.js'])jsBytes+=(await stat(path.join(siteRoot,'assets',file))).size;
+if (jsBytes > 85_000) errors.push(`Active JS exceeds 85 KB performance budget: ${jsBytes}`);
+const cssFiles = ['upgrade.css','upgrade-mobile.css'];
 let cssBytes = 0;
 for (const name of cssFiles) cssBytes += (await stat(path.join(siteRoot, 'assets', name))).size;
-if (cssBytes > 250_000) errors.push(`Total CSS exceeds 250 KB performance budget: ${cssBytes}`);
+if (cssBytes > 250_000) errors.push(`Active CSS exceeds 250 KB performance budget: ${cssBytes}`);
 
 const workflowsDir = path.join(repoRoot, '.github', 'workflows');
 for (const workflowName of await readdir(workflowsDir)) {
@@ -92,4 +88,4 @@ if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
-console.log(`Security hardening passed. Contact forms use native submission, logos are local, JS is ${jsBytes} bytes and CSS is ${cssBytes} bytes.`);
+console.log(`Security hardening passed. Upgrade forms use the hardened same-origin handler, logos are local, JS is ${jsBytes} bytes and CSS is ${cssBytes} bytes.`);

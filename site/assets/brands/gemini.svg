@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 64" role="img" aria-labelledby="t"><title id="t">Google Gemini</title><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#076EFF"/><stop offset=".55" stop-color="#7C3AED"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs><path d="M32 7c3.4 14.1 12.5 23.2 26.6 26.6C44.5 37 35.4 46.1 32 60.2 28.6 46.1 19.5 37 5.4 33.6 19.5 30.2 28.6 21.1 32 7Z" fill="url(#g)"/><text x="72" y="41" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700" fill="#334155">Google Gemini</text></svg>
+<svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_14059_4017)">
+<mask id="mask0_14059_4017" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="49">
+<rect y="0.675781" width="48" height="48" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_14059_4017)">
+<path d="M23.9922 42.6758L9.99219 35.0758V23.0758L1.99219 18.6758L23.9922 6.67578L45.9922 18.6758V34.6758H41.9922V20.8758L37.9922 23.0758V35.0758L23.9922 42.6758ZM23.9922 26.0758L37.6922 18.6758L23.9922 11.2758L10.2922 18.6758L23.9922 26.0758ZM23.9922 38.1258L33.9922 32.7258V25.1758L23.9922 30.6758L13.9922 25.1758V32.7258L23.9922 38.1258Z" fill="url(#paint0_linear_14059_4017)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_14059_4017" x1="1.99219" y1="42.6758" x2="41.783" y2="17.9123" gradientUnits="userSpaceOnUse">
+<stop offset="0.445" stop-color="#346BF0"/>
+<stop offset="1" stop-color="#4EA0FF"/>
+</linearGradient>
+<clipPath id="clip0_14059_4017">
+<rect width="48" height="48" fill="white" transform="translate(0 0.675781)"/>
+</clipPath>
+</defs>
+</svg>

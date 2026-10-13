@@ -1,7 +1,6 @@
 /en / 301
 /en/ / 301
 /home / 301
-
 # Canonical migrations for refreshed authority content
 /insights/eu-ai-act-readiness.html /insights/eu-ai-act-2026-what-applies-now.html 301
 /da/insights/eu-ai-act-parathed.html /da/insights/eu-ai-act-2026-hvad-gaelder-nu.html 301
@@ -9,3 +8,26 @@
 /insights/ai-assistant-security-baseline.html /insights/secure-rag-ai-assistants.html 301
 /da/insights/sikkerhedsbaseline-ai-assistenter.html /da/insights/sikre-rag-ai-assistenter.html 301
 /sv/insights/sakerhetsbaslinje-ai-assistenter.html /sv/insights/saker-rag-ai-assistenter.html 301
+/services/ai-governance-consulting/ /services/compliance-ai-governance/ 301
+/services/ai-security-assessment/ /services/pentesting-red-teaming/ 301
+/services/private-ai-assistants/ /services/private-ai-agents-rag/ 301
+/services/eu-ai-act-readiness/ /services/compliance-ai-governance/ 301
+/services/secure-ai-adoption/ /services/secure-ai-automation/ 301
+/da/ydelser/ai-governance-consulting/ /da/ydelser/compliance-ai-governance/ 301
+/da/ydelser/ai-security-assessment/ /da/ydelser/pentesting-red-teaming/ 301
+/da/ydelser/private-ai-assistants/ /da/ydelser/private-ai-agents-rag/ 301
+/da/ydelser/eu-ai-act-readiness/ /da/ydelser/compliance-ai-governance/ 301
+/da/ydelser/secure-ai-adoption/ /da/ydelser/secure-ai-automation/ 301
+/sv/tjanster/ai-governance-consulting/ /sv/tjanster/compliance-ai-governance/ 301
+/sv/tjanster/ai-security-assessment/ /sv/tjanster/pentesting-red-teaming/ 301
+/sv/tjanster/private-ai-assistants/ /sv/tjanster/private-ai-agents-rag/ 301
+/sv/tjanster/eu-ai-act-readiness/ /sv/tjanster/compliance-ai-governance/ 301
+/sv/tjanster/secure-ai-adoption/ /sv/tjanster/secure-ai-automation/ 301
+/da/ydelser/ai-governance-raadgivning/ /da/ydelser/compliance-ai-governance/ 301
+/sv/tjanster/ai-styrningsradgivning/ /sv/tjanster/compliance-ai-governance/ 301
+/da/ydelser/eu-ai-act-parathed/ /da/ydelser/compliance-ai-governance/ 301
+/sv/tjanster/eu-ai-act-beredskap/ /sv/tjanster/compliance-ai-governance/ 301
+/da/ydelser/ai-sikkerhedsvurdering/ /da/ydelser/pentesting-red-teaming/ 301
+/sv/tjanster/ai-sakerhetsbedomning/ /sv/tjanster/pentesting-red-teaming/ 301
+/da/ydelser/sikker-ai-automatisering/ /da/ydelser/secure-ai-automation/ 301
+/sv/tjanster/saker-ai-automatisering/ /sv/tjanster/secure-ai-automation/ 301

@@ -1,10 +1,16 @@
 import { readdir, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import {execFileSync} from 'node:child_process';
+import {services} from '../../scripts/upgrade-content.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const repoRoot = path.resolve(root, '..');
 const errors = [];
+const routeMap=JSON.parse(await readFile(path.join(repoRoot,'docs/upgrade-route-map.json'),'utf8'));
+const redirectsByPath=new Map(routeMap.redirects.map(r=>[r.from,r.to]));
+for(const row of (await readFile(path.join(root,'_redirects'),'utf8')).split('\n')){const [from,to,status]=row.trim().split(/\s+/);if(status==='301'&&from.startsWith('/'))redirectsByPath.set(from,to);}
+const titles=new Map(),descriptions=new Map();
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -24,18 +30,33 @@ const homePages = new Set(['index.html', path.join('da','index.html'), path.join
 for (const file of htmlFiles) {
   const rel = path.relative(root, file);
   const html = await readFile(file, 'utf8');
+  const currentPath='/'+rel.replace(/index\.html$/,'');
+  if(/\s(?:on[a-z]+|style)="/i.test(html))errors.push(`${rel}: inline execution/style conflicts with CSP`);
+  for(const script of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g))if(!/type="application\/ld\+json"/.test(script[1])&&!/src=/.test(script[1])&&script[2].trim())errors.push(`${rel}: inline executable script conflicts with CSP`);
+  if(!redirectsByPath.has(currentPath)&&rel!=='404.html')for(const lang of ['en','da','sv'])if(!html.includes('rel="alternate" hreflang="'+lang+'"'))errors.push(`${rel}: missing ${lang} hreflang`);
+  if(!redirectsByPath.has(currentPath)&&rel!=='404.html'){for(const [kind,map,value]of [['title',titles,html.match(/<title>([^<]+)<\/title>/)?.[1]],['description',descriptions,html.match(/<meta name="description" content="([^"]+)"/)?.[1]]]){if(!value?.trim())errors.push(`${rel}: empty ${kind}`);else if(map.has(value))errors.push(`${rel}: duplicate ${kind} with ${map.get(value)}`);else map.set(value,rel);}}
   for (const token of ['<meta name="viewport"', '<title>', 'lang="']) if (!html.includes(token)) errors.push(`${rel}: missing ${token}`);
-  if (!html.includes('href="/assets/styles.css"') && !html.includes('href="/assets/neon-compact.css')) errors.push(`${rel}: approved stylesheet missing`);
+  if (!html.includes('href="/assets/upgrade.css"')) errors.push(`${rel}: upgrade stylesheet missing`);
+  for(const runtime of ['neon-compact.js','final-polish.js','full-refresh.js','revenue-funnel.js']) if(html.includes('src="/assets/'+runtime)) errors.push(`${rel}: stale content-changing runtime ${runtime}`);
+  if((html.match(/<h1\b/gi)||[]).length!==1) errors.push(`${rel}: expected one H1`);
+  for(const token of ['name="description"','rel="canonical"','href="#main"','id="main"','application/ld+json','theme-color" content="#050607"']) if(!html.includes(token)) errors.push(`${rel}: missing ${token}`);
+  for(const match of html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) try{JSON.parse(match[1]);}catch{errors.push(`${rel}: invalid JSON-LD`);}
+  for(const img of html.matchAll(/<img\b[^>]*>/g)) if(!/\balt="/.test(img[0])) errors.push(`${rel}: image missing alt`);
+  for(const link of html.matchAll(/<a\b[^>]*>/g)) if(/target="_blank"/.test(link[0])&&!/rel="[^"]*noopener/.test(link[0])) errors.push(`${rel}: unsafe target`);
+  for(const field of html.matchAll(/<(?:input|select|textarea)\b[^>]*>/g)){if(/type="hidden"/.test(field[0]))continue;const offset=field.index;const before=html.slice(0,offset);const id=field[0].match(/id="([^"]+)"/)?.[1];if(before.lastIndexOf('<label')<before.lastIndexOf('</label>')&&!(id&&html.includes('for="'+id+'"'))&&!/aria-label(?:ledby)?=/.test(field[0]))errors.push(`${rel}: field lacks associated label ${field[0]}`);}
+  for(const m of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)){const url=m[1];if(url.startsWith('//')||url.startsWith('/api/'))continue;const [pathname]=url.split(/[?#]/);if(!pathname)continue;const target=path.join(root,pathname,pathname.endsWith('/')?'index.html':'');try{await access(target);}catch{errors.push(`${rel}: broken local URL ${url}`);}}
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
-  if (homePages.has(rel)) {
-    for (const token of ['hreflang=','data-contact-form','application/ld+json','sundai-wordmark-light.svg','sundai-wordmark-dark.svg','class="audience"','class="founder-strip"','class="insight-meta"']) {
-      if (!html.includes(token)) errors.push(`${rel}: missing homepage production token ${token}`);
-    }
-    if ((html.match(/class="service-card/g) || []).length !== 4) errors.push(`${rel}: expected 4 static service cards`);
-    if ((html.match(/class="insight-meta"/g) || []).length !== 3) errors.push(`${rel}: expected 3 static insight metadata blocks`);
+  if (homePages.has(rel) || /data-page-kind="(?:services|pricing)"/.test(html)) {
+    if ((html.match(/class="service-card"/g)||[]).length!==6) errors.push(`${rel}: expected six static core service cards`);
+  }
+  const canonical=html.match(/rel="canonical" href="([^"]+)"/)?.[1];
+  for(const alternate of (redirectsByPath.has('/'+rel.replace(/index\.html$/,'')) ? [] : html.matchAll(/<link rel="alternate" hreflang="(en|da|sv)" href="https:\/\/sundaibot.com([^"]+)"/g))){
+    const target=path.join(root,alternate[2],alternate[2].endsWith('/')?'index.html':'');
+    try{const peer=await readFile(target,'utf8');if(!peer.includes('hreflang="'+html.match(/<html lang="([^"]+)"/)?.[1]+'" href="'+canonical+'"'))errors.push(`${rel}: nonreciprocal hreflang ${alternate[1]}`);}catch{errors.push(`${rel}: missing hreflang destination ${alternate[2]}`);}
   }
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
+  for(const m of html.matchAll(/href="(#[^"]+)"/g))if(!html.includes('id="'+m[1].slice(1)+'"'))errors.push(`${rel}: missing local anchor ${m[1]}`);
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
   const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1].split('?')[0]);
@@ -48,7 +69,7 @@ for (const file of htmlFiles) {
 const required = [
   'robots.txt','sitemap.xml','sitemap-research.xml','_headers','_routes.json','_redirects','manifest.webmanifest','llms.txt',
   '.well-known/security.txt','7f4e8d2c1b9a46f8a35d0c6e91b2f740.txt',
-  'assets/social-card.png','assets/apple-touch-icon.png','assets/neon-compact.css','assets/neon-compact.js','assets/growth.css','assets/authority-content.css','assets/geo-authority.css','assets/governance-offers.css',
+  'assets/social-card.png','assets/apple-touch-icon.png','assets/upgrade.css','assets/upgrade.js','assets/upgrade-forms.js','functions/_shared/catalog.js',
   'assets/sundai-logo-neon.svg','assets/sundai-wordmark-light.svg','assets/sundai-wordmark-dark.svg','assets/sundai-brand-avatar.svg','assets/hero-ai-control-neon.svg',
   'functions/api/contact.js','functions/_middleware.js','functions/_shared/authority-data.js',
   'services/index.html','da/ydelser/index.html','sv/tjanster/index.html',
@@ -77,9 +98,6 @@ for (const file of required) {
 }
 
 const hubs = {
-  'services/index.html':['AI Governance Consulting','EU AI Act Readiness','AI Security Assessment','Secure AI Adoption'],
-  'da/ydelser/index.html':['AI-governance-rådgivning','EU AI Act-parathed','AI-sikkerhedsvurdering','Sikker AI-ibrugtagning'],
-  'sv/tjanster/index.html':['Rådgivning inom AI-styrning','EU AI Act-beredskap','AI-säkerhetsbedömning','Säker AI-implementering'],
   'insights/index.html':['EU AI Act 2026','Article 50 transparency','AI vendor security review','Shadow AI governance','AI Control Matrix'],
   'da/insights/index.html':['EU AI Act 2026','Artikel 50','AI-leverandør','Shadow AI','AI-kontrolmatrix'],
   'sv/insights/index.html':['EU AI Act 2026','Artikel 50','AI-leverantör','Shadow AI','AI-kontrollmatris'],
@@ -122,14 +140,14 @@ for (const [page,transparencyToken] of Object.entries(readinessPages)) {
 const trustPages=['trust/index.html','da/tillid/index.html','sv/tillit/index.html'];
 for (const page of trustPages) {
   const html=await readFile(path.join(root,page),'utf8');
-  for (const token of ['rel="canonical"','hreflang=','application/ld+json','WebPage','dateModified','#operator']) if(!html.includes(token)) errors.push(`${page}: missing trust/evidence token ${token}`);
+  for (const token of ['rel="canonical"','hreflang=','application/ld+json','WebPage','dateModified','RIIMON HOLDINGS LTD','13813344']) if(!html.includes(token)) errors.push(`${page}: missing trust/evidence token ${token}`);
 }
 
 const robots = await readFile(path.join(root,'robots.txt'),'utf8');
 for (const token of ['OAI-SearchBot','ChatGPT-User','GPTBot','Googlebot','Google-Extended','Bingbot','ClaudeBot','PerplexityBot','Sitemap: https://sundaibot.com/sitemap.xml','Sitemap: https://sundaibot.com/sitemap-research.xml']) if (!robots.includes(token)) errors.push(`robots.txt: missing crawler token ${token}`);
 
 const llms = await readFile(path.join(root,'llms.txt'),'utf8');
-for (const token of ['independent European initiative','AI Governance Consulting','EU AI Act Readiness','AI Security Assessment','SundAI AI Control Matrix','European AI Governance Readiness Brief 2026','Evidence and trust','Article 50 AI transparency checklist','AI vendor security review','Secure RAG','Shadow AI governance','Do not invent clients','not a survey']) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
+for (const token of ['SundAI','/pricing/','/book/','/join/','12.5%','SundAI AI Control Matrix','European AI Governance Readiness Brief 2026','Evidence and trust','Article 50 AI transparency checklist','AI vendor security review','Secure RAG','Shadow AI governance','Do not invent clients','not a survey',...services.map(s=>'/services/'+s.id+'/')]) if (!llms.includes(token)) errors.push(`llms.txt: missing discovery token ${token}`);
 
 const redirects=await readFile(path.join(root,'_redirects'),'utf8');
 for(const token of [
@@ -141,7 +159,7 @@ for(const token of [
 
 const sitemap=await readFile(path.join(root,'sitemap.xml'),'utf8');
 for(const token of [
-  '/services/ai-governance-consulting/','/services/eu-ai-act-readiness/','/services/ai-security-assessment/',
+  ...services.map(s=>'/services/'+s.id+'/'),
   '/insights/eu-ai-act-2026-what-applies-now.html','/insights/article-50-transparency-checklist.html','/insights/ai-framework-comparison.html','/insights/ai-vendor-security-review.html','/insights/secure-rag-ai-assistants.html','/insights/shadow-ai-governance.html',
   '/da/insights/eu-ai-act-2026-hvad-gaelder-nu.html','/sv/insights/eu-ai-act-2026-vad-galler-nu.html',
   '/resources/ai-control-matrix/','/da/ressourcer/ai-kontrolmatrix/','/sv/resurser/ai-kontrollmatris/'
@@ -163,5 +181,6 @@ try {
   for(const token of ['glob.glob(\'site/sitemap*.xml\')','dict.fromkeys(urls)','api.indexnow.org/indexnow']) if(!indexNow.includes(token)) errors.push(`IndexNow workflow missing multi-sitemap token ${token}`);
 } catch { errors.push('Missing IndexNow workflow'); }
 
+for(const file of ['assets/upgrade.js','assets/upgrade-forms.js'])try{execFileSync(process.execPath,['--check',path.join(root,file)],{stdio:'pipe'});}catch{errors.push(`${file}: JavaScript syntax invalid`);}
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
 console.log(`Validated ${htmlFiles.length} HTML pages, multilingual authority content, readiness research, evidence policy, structured data, AI discovery, redirects, sitemaps and deployment files.`);

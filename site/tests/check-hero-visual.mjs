@@ -1,26 +1,21 @@
-import { readFile } from 'node:fs/promises';
+import {readFile} from 'node:fs/promises';
 import path from 'node:path';
-
-const root = path.resolve(import.meta.dirname, '..');
-const errors = [];
-for (const [page, language, start] of [
-  ['index.html', 'en', '/start/'],
-  ['da/index.html', 'da', '/da/start/'],
-  ['sv/index.html', 'sv', '/sv/start/']
-]) {
-  const html = await readFile(path.join(root, page), 'utf8');
-  if (!html.includes(`<html lang="${language}"`)) errors.push(`${page}: incorrect language`);
-  if (!/<body[^>]*class="[^"]*\bgrowth-home\b[^"]*"/.test(html)) errors.push(`${page}: missing current homepage layout`);
-  if (!/<h1>[^<]+<span>[^<]+<\/span><\/h1>/.test(html)) errors.push(`${page}: missing two-part value proposition`);
-  if (!html.includes('class="outcome-panel"')) errors.push(`${page}: missing outcome explanation`);
-  if (!html.includes(`href="${start}#enquiry"`)) errors.push(`${page}: no direct enquiry link`);
-  const sheets = [...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m => m[1]);
-  if (!sheets.at(-1)?.startsWith('/assets/brand-2026.css')) errors.push(`${page}: current brand styles must load last`);
-  const startHtml = await readFile(path.join(root, `${start.slice(1)}index.html`), 'utf8');
-  if (!startHtml.includes('id="enquiry"')) errors.push(`${page}: enquiry destination does not exist`);
+const root=path.resolve(import.meta.dirname,'..');
+for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da/'],['sv/index.html','sv','sv/']]){
+ const html=await readFile(path.join(root,page),'utf8');
+ for(const token of [`<html lang="${lang}"`,'data-page-kind="home"','class="container hero-grid"','class="workflow"','class="hero-subtitle"',`href="/${prefix}book/"`,`href="/${prefix}pricing/"`,`href="/${prefix}join/"`,'/assets/upgrade.css','/assets/upgrade-mobile.css','/assets/eu-flag.svg'])if(!html.includes(token))throw Error(`${page}: missing ${token}`);
+ const hero=html.match(/<section class="hero">([\s\S]*?)<\/section>/)?.[1];
+ if(!hero)throw Error(`${page}: semantic hero missing`);
+ if((hero.match(/<h1\b/g)||[]).length!==1)throw Error(`${page}: one static hero H1 required`);
+ const heading=hero.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g,'');
+ if(!heading||heading.length>120)throw Error(`${page}: brief, readable hero heading required`);
+ if(/\bserious\b|\btop security\b/i.test(hero))throw Error(`${page}: removed wording or unsupported superlative remains`);
+ const aside=hero.match(/<aside class="hero-art"[^>]*aria-label="[^"]+"[^>]*>([\s\S]*?)<\/aside>/)?.[1];
+ const flow=aside?.match(/<div class="workflow">([\s\S]*?)<\/ol>/)?.[1];
+ if(!flow||(flow.match(/<li\b/g)||[]).length!==4)throw Error(`${page}: four HTML workflow controls required`);
+ if(!/<ol>/.test(flow)||!flow.includes('step-dot'))throw Error(`${page}: accessible ordered workflow required`);
+ if(/<canvas|<video|<iframe/.test(hero))throw Error(`${page}: heavyweight or inaccessible hero replacement`);
+ const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1]);
+ if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css']))throw Error(`${page}: coherent base and mobile design required`);
 }
-if (errors.length) {
-  console.error(errors.join('\n'));
-  process.exit(1);
-}
-console.log('Homepage structure passed for EN, DA and SV: value proposition, outcomes, stylesheet order and enquiry destinations. Browser review is still required for appearance.');
+console.log('Static hero QA passed: EN/DA/SV concise value proposition, request/product/network links, base/mobile styling and four-step textual workflow. NO browser visual or viewport rendering was performed.');
