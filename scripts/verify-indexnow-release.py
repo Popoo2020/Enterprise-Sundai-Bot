@@ -31,7 +31,7 @@ def verify_page(url):
     if not url.startswith(ORIGIN + "/"):
         raise ValueError("Unexpected page origin")
     html = read_public(url + "?release=" + expected["contentDigest"])
-    if 'content="seo-2026-10-13"' not in html or 'rel="canonical" href="' + url + '"' not in html:
+    if 'content="' + expected['release'] + '"' not in html or 'rel="canonical" href="' + url + '"' not in html:
         raise RuntimeError("Page is not the expected canonical release")
 
 
@@ -41,10 +41,10 @@ while time.monotonic() < deadline:
         if current.get("contentDigest") != expected["contentDigest"]:
             raise RuntimeError("Waiting for current service and Q&A content")
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-            list(pool.map(verify_page, expected["questionsAndAnswers"].values()))
+            list(pool.map(verify_page, [*expected["questionsAndAnswers"].values(), *expected["buyerGuides"].values()]))
         if read_public(payload["keyLocation"]).strip() != payload["key"]:
             raise RuntimeError("Public IndexNow key does not match")
-        print("Public content digest, three canonical Q&A pages and IndexNow key verified. Notification may proceed.")
+        print("Public content digest, three canonical Q&A pages and three buyer guides and IndexNow key verified. Notification may proceed.")
         break
     except (OSError, ValueError, RuntimeError) as error:
         print("Publication not yet verified:", type(error).__name__, flush=True)

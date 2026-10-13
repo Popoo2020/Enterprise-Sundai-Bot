@@ -33,5 +33,8 @@ Technology references are not official partnerships. Readiness services are not 
 - [SV questions and answers](https://sundaibot.com/sv/fragor-svar/)
 - [Service facts, scope and questions](https://sundaibot.com/llms-full.txt)
 - [Structured service directory](https://sundaibot.com/discovery.json)
+- [EN service selection and procurement guide](https://sundaibot.com/service-selection/)
+- [DA service selection and procurement guide](https://sundaibot.com/da/vaelg-ydelse/)
+- [SV service selection and procurement guide](https://sundaibot.com/sv/valj-tjanst/)
 
 The source pages above are authoritative. These supplementary files are directories, not ranking signals or an assurance of inclusion in AI answers.

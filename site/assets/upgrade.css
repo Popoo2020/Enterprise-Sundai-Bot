@@ -21,6 +21,41 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 
 .tech-grid [data-brand="onetrust"] img{width:245px;height:72px}
 /* Buyer-focused service discovery and readable, crawlable Q&A. */
+/* Service facts remain visible without opening a panel or running JavaScript. */
+.service-facts{border-top:1px solid var(--border)}
+.service-facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:start}
+.service-facts h3,.scope-facts dt,.identity-facts dt{font-family:Sora,sans-serif;font-size:1.05rem;font-weight:650;line-height:1.5}
+.service-facts .scope-list,.scope-facts dd{font-size:.88rem;line-height:1.75;color:var(--muted)}
+.scope-facts,.identity-facts{margin:0}
+.scope-facts>div{padding:0 0 20px;margin-bottom:20px;border-bottom:1px solid var(--border)}
+.scope-facts dd,.identity-facts dd{margin:8px 0 0}
+.acceptance-note{border-left:2px solid var(--blue);padding:6px 0 6px 24px;margin-top:30px;max-width:900px}
+.acceptance-note ul,.acceptance-examples ul{font-size:.88rem;line-height:1.75;color:var(--muted);padding-left:22px}
+.guide-invitation{padding-bottom:30px}
+.buyer-hero h1{max-width:1050px}
+.buyer-jumps{display:flex;gap:12px 28px;flex-wrap:wrap;margin-top:28px}
+.buyer-jumps a{font-size:.82rem;min-height:44px;display:inline-flex;align-items:center;text-underline-offset:5px}
+.comparison-table{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left}
+.comparison-table caption{text-align:left;font-size:.92rem;line-height:1.75;color:var(--muted);padding:0 0 25px;max-width:850px}
+.comparison-table th,.comparison-table td{padding:22px 18px 22px 0;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+.comparison-table thead th{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.comparison-table tbody th{font-family:Sora,sans-serif;font-size:1rem;font-weight:600}
+.comparison-table tbody th a{display:inline-block;min-height:44px;text-underline-offset:5px}
+.comparison-table td{font-size:.83rem;line-height:1.75;color:var(--muted)}
+.comparison-table td:last-child{padding-right:0}
+.procurement-list{list-style:none;padding:0;margin:0;max-width:1000px}
+.procurement-list li{display:grid;grid-template-columns:55px minmax(0,1fr);gap:25px;border-top:1px solid var(--border);padding:25px 0}
+.procurement-list h3{font-size:1.15rem;margin:0 0 10px;line-height:1.4}
+.procurement-list p{font-size:.92rem;line-height:1.75;color:var(--muted);margin:0}
+.acceptance-examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 55px;margin-top:32px}
+.acceptance-examples article{border-top:1px solid var(--blue);padding-top:24px;min-width:0}
+.acceptance-examples h3{font-size:1.2rem;line-height:1.4}
+.buyer-sources p,.buyer-sources ul{font-size:.85rem;color:var(--muted);max-width:900px;line-height:1.75}
+.buyer-sources li a{display:inline-block;min-height:44px;padding:8px 0}
+.identity-facts{max-width:1000px}
+.identity-facts>div{display:grid;grid-template-columns:230px minmax(0,1fr);gap:25px;border-top:1px solid var(--border);padding:20px 0}
+.identity-facts dd{margin:0;line-height:1.7;font-size:.9rem;overflow-wrap:anywhere}
+.business-identity .small{max-width:900px}
 .section-label{font-size:1.55rem;line-height:1.35;margin:0 0 24px;max-width:850px}
 .service-list .service-copy h2{font-size:1.65rem;min-height:0;margin:0 0 10px;max-width:700px;line-height:1.2}
 .decision-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px}

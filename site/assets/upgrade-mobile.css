@@ -1,5 +1,26 @@
 /* SundAI responsive composition. Load after upgrade.css.
    Content stays in one semantic document; only decorative art is omitted on phones. */
+@media (max-width:800px) {
+  .service-facts-grid{grid-template-columns:1fr;gap:28px}
+  .acceptance-examples{grid-template-columns:1fr;gap:28px}
+  .identity-facts>div{grid-template-columns:1fr;gap:6px}
+  .comparison-table,.comparison-table tbody{display:block;width:100%}
+  .comparison-table caption{display:block}
+  .comparison-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .comparison-table tbody tr{display:block;border-top:1px solid var(--blue);padding:22px 0}
+  .comparison-table tbody th,.comparison-table tbody td{display:block;border:0;padding:7px 0}
+  .comparison-table tbody th{font-size:1.1rem}
+  .comparison-table tbody td::before{content:attr(data-label);display:block;font-weight:750;color:var(--text);font-size:.75rem;margin-bottom:5px}
+}
+@media (max-width:600px) {
+  .service-facts .section-heading{display:block}
+  .acceptance-note{padding-left:18px;margin-top:20px}
+  .procurement-list li{grid-template-columns:30px minmax(0,1fr);gap:14px;padding:22px 0}
+  .procurement-list h3{font-size:1.05rem}
+  .procurement-list p{font-size:.88rem}
+  .buyer-jumps{display:grid;gap:8px}
+  .buyer-jumps a{font-size:.8rem}
+}
 @media (max-width:1000px) {
   .container,.geo-shell,.legal-container {
     width:calc(100% - 48px);

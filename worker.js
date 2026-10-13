@@ -50,7 +50,17 @@ const contactDiagnostics = (env) => {
 // Workers does not execute Pages' functions/ directory automatically.
 export default {
   async fetch(request, env) {
-    const path = new URL(request.url).pathname;
+    const requestUrl = new URL(request.url);
+    // Consolidate public crawling on the canonical origin without replaying
+    // submitted forms or affecting Workers preview and development hosts.
+    if (['GET', 'HEAD'].includes(request.method)
+      && ['sundaibot.com', 'www.sundaibot.com'].includes(requestUrl.hostname)
+      && (requestUrl.protocol === 'http:' || requestUrl.hostname === 'www.sundaibot.com')) {
+      requestUrl.protocol = 'https:';
+      requestUrl.host = 'sundaibot.com';
+      return Response.redirect(requestUrl.toString(), 308);
+    }
+    const path = requestUrl.pathname;
     if(path==='/api/pricing'){
       if(!['GET','HEAD'].includes(request.method))return new Response(JSON.stringify({ok:false,code:'method_not_allowed'}),{status:405,headers:{...diagnosticHeaders,allow:'GET, HEAD'}});
       return new Response(request.method==='HEAD'?null:JSON.stringify({quoteRequired:true,mode:'tailored_proposals',packages:packages.map(p=>({id:p.id,names:p.names,scopes:p.scopes,bundleEligible:p.bundleEligible}))}),{headers:diagnosticHeaders});
