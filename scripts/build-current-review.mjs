@@ -1,6 +1,7 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
+import {reviewBody} from './review-body.mjs';
 
 // Open the current homepage directly, even in viewers that block JavaScript.
 // Review navigation is local; forms never submit or contact the production API.
@@ -12,7 +13,7 @@ const pages={},assets={};
 const order=[routes.en.home,routes.en.services,routes.en.join,routes.en.book,...generated];
 for(const route of [...new Set(order)]){
  const html=await readFile(path.join(site,route.endsWith('/')?route+'index.html':route),'utf8');
- let body=html.match(/<body[^>]*>([\s\S]*)<\/body>/)[1].replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'');
+ let body=reviewBody(html,route);
  for(const [,asset] of body.matchAll(/src="(\/assets\/[^"\s]+)"/g)){
   if(!assets[asset]){
    const binary=await readFile(path.join(site,asset));
@@ -37,7 +38,7 @@ const pages=${json(pages)},assets=${json(assets)};
 const content=document.getElementById('review-content'),select=document.getElementById('review-page'),status=document.getElementById('review-status');
 function scrollToHash(hash){if(!hash){window.scrollTo(0,0);return;}try{document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView();}catch{}}
 function show(route,hash='',query=''){
- const p=pages[route];if(!p)return;
+ if(!Object.hasOwn(pages,route))return;const p=pages[route];
  content.innerHTML=p.body.replace(/src="(\\/assets\\/[^"\\s]+)"/g,(_,asset)=>'src="'+assets[asset]+'"');select.value=route;document.documentElement.lang=p.lang;document.body.dataset.pageKind=p.kind;document.title=p.title.replaceAll('&amp;','&');status.textContent='';
  const interest=document.querySelector('[name="interest"]'),requested=new URLSearchParams(query).get('interest');
  if(interest&&requested&&[...interest.options].some(o=>o.value===requested))interest.value=requested;
@@ -53,7 +54,7 @@ document.addEventListener('click',e=>{
  let u;try{u=new URL(href,'https://sundaibot.com'+select.value);}catch{return;}
  if(u.origin!=='https://sundaibot.com')return;
  e.preventDefault();
- if(pages[u.pathname])show(u.pathname,u.hash,u.search);
+ if(Object.hasOwn(pages,u.pathname))show(u.pathname,u.hash,u.search);
  else status.textContent='קובץ זה מיועד לסקירת האתר. המשאב המקושר אינו מוטמע בתצוגה המקומית.';
 });
 document.addEventListener('keydown',e=>{const m=document.querySelector('.mobile-menu');if(e.key==='Escape'&&m?.open){m.open=false;m.querySelector('summary')?.focus();}});
