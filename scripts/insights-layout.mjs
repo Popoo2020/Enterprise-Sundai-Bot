@@ -7,7 +7,14 @@ const ui={
  da:{contents:'I denne guide',table:'Tabel i artiklen',swipe:'Rul tabellen vandret for at sammenligne alle kolonner.'},
  sv:{contents:'I den här guiden',table:'Tabell i artikeln',swipe:'Rulla tabellen i sidled för att jämföra alla kolumner.'}
 };
-const plain=value=>value.replace(/<[^>]*>/g,'').replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('&#39;',"'").trim();
+const plain=value=>{
+ // Navigation labels and column names in these documents are encoded text,
+ // not HTML fragments. Reject unexpected markup instead of stripping it.
+ if(/[<>]/.test(value))throw new Error('Insights heading and column labels must be plain encoded text');
+ const entities={amp:'&',quot:'"','#39':"'"};
+ // One pass preserves nested literal entities such as &amp;quot;.
+ return value.replace(/&(amp|quot|#39);/g,(_,name)=>entities[name]).trim();
+};
 export const isInsightsUrl=url=>/^\/(?:da\/|sv\/)?insights\/(?:[^/?]+\.html)?$/.test(url);
 
 function headingIds(content){
