@@ -1,9 +1,13 @@
 {
   "version": "2026-10-13",
-  "contentDigest": "6e0faf933a3a1c0aa1bbc813de0b209ca76017d41fd5c37a4890deb2a6cf4f05",
+  "release": "ai-visibility-2026-10-13",
+  "contentDigest": "1bd30d111dbc42df6b6e876ab708f45858fe454889b4d370bf485b36ee42cabb",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",
+    "companyNumber": "13813344",
+    "registryUrl": "https://find-and-update.company-information.service.gov.uk/company/13813344",
+    "email": "eririmo@protonmail.com",
     "url": "https://sundaibot.com/"
   },
   "languages": [
@@ -15,6 +19,11 @@
     "en": "https://sundaibot.com/services/",
     "da": "https://sundaibot.com/da/ydelser/",
     "sv": "https://sundaibot.com/sv/tjanster/"
+  },
+  "buyerGuides": {
+    "en": "https://sundaibot.com/service-selection/",
+    "da": "https://sundaibot.com/da/vaelg-ydelse/",
+    "sv": "https://sundaibot.com/sv/valj-tjanst/"
   },
   "questionsAndAnswers": {
     "en": "https://sundaibot.com/faq/",
@@ -30,7 +39,18 @@
           "url": "https://sundaibot.com/services/compliance-ai-governance/",
           "summary": "AI governance consulting makes the uncomfortable questions easier to answer: which AI tools are in use, what data they touch and who owns the risks. Your team gets a focused compliance readiness assessment and a prioritised plan, rather than another policy folder nobody opens.",
           "scope": "Compliance Readiness Sprint: one organisation, one process or product, one framework and up to ten control areas. We agree the scope and acceptance criteria in writing before work starts.",
+          "deliverables": [
+            "Map AI uses, suppliers, data flows and responsibilities for the agreed process or product.",
+            "Review up to ten control areas and record gaps, supporting evidence and risk priorities.",
+            "Deliver an action plan, up to three draft documents and a handover session."
+          ],
+          "clientResponsibilities": "Provide accurate process information, relevant policies and a decision-maker. Your organisation owns the resulting decisions, implementation and ongoing compliance. Changes to the agreed scope require approval before work proceeds.",
           "exclusions": "Full ISMS implementation, ISO certification, a SOC 2 examination, legal opinions and DPO appointment are outside this package. Wider implementation is quoted separately.",
+          "illustrativeAcceptanceCriteria": [
+            "Each agreed control area links to available evidence or a recorded gap, with a proposed owner and next step.",
+            "Document drafts identify the agreed process and framework, assumptions and decisions needing your approval."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "Which frameworks can we discuss?",
@@ -79,7 +99,18 @@
           "url": "https://sundaibot.com/da/ydelser/compliance-ai-governance/",
           "summary": "Rådgivning om AI-governance gør de svære spørgsmål lettere at besvare: hvilke AI-værktøjer bruges, hvilke data berører de, og hvem ejer risikoen? Teamet får en afgrænset vurdering af compliance-parathed og en prioriteret plan, som kan bruges i praksis.",
           "scope": "Compliance Readiness Sprint: én organisation, én proces eller ét produkt, ét regelsæt eller én standard og op til ti kontrolområder. Omfang og acceptkriterier aftales skriftligt, før arbejdet begynder.",
+          "deliverables": [
+            "Kortlæg AI-anvendelser, leverandører, datastrømme og ansvar for den aftalte proces eller det aftalte produkt.",
+            "Gennemgå op til ti kontrolområder, og dokumentér mangler, eksisterende evidens og risikoprioriteter.",
+            "Modtag en handlingsplan, op til tre dokumentudkast og et overdragelsesmøde."
+          ],
+          "clientResponsibilities": "Stil korrekte procesoplysninger, relevante politikker og en beslutningstager til rådighed. Organisationen er ansvarlig for beslutninger, implementering og løbende overholdelse. Ændringer af omfanget skal godkendes, før de udføres.",
           "exclusions": "Fuld implementering af et ISMS, ISO-certificering, SOC 2-erklæring, juridiske udtalelser og udpegning af en DPO er ikke inkluderet. Større implementeringer får et særskilt tilbud.",
+          "illustrativeAcceptanceCriteria": [
+            "Hvert aftalt kontrolområde henviser til eksisterende dokumentation eller en registreret mangel med foreslået ansvarlig og næste skridt.",
+            "Dokumentudkast angiver aftalt proces og regelsæt, forudsætninger og beslutninger, der kræver jeres godkendelse."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Hvilke standarder og krav kan vi tale om?",
@@ -128,7 +159,18 @@
           "url": "https://sundaibot.com/sv/tjanster/compliance-ai-governance/",
           "summary": "Rådgivning om AI-styrning gör de svåra frågorna lättare att besvara: vilka AI-verktyg används, vilka data berör de och vem ansvarar för riskerna? Teamet får en avgränsad bedömning av compliance-beredskap och en prioriterad plan att använda i praktiken.",
           "scope": "Compliance Readiness Sprint: en organisation, en process eller produkt, ett regelverk eller en standard och upp till tio kontrollområden. Omfattning och acceptanskriterier avtalas skriftligt innan arbetet börjar.",
+          "deliverables": [
+            "Kartlägg AI-användning, leverantörer, dataflöden och ansvar för den avtalade processen eller produkten.",
+            "Granska upp till tio kontrollområden och dokumentera brister, befintliga underlag och riskprioriteringar.",
+            "Få en åtgärdsplan, upp till tre dokumentutkast och ett överlämningsmöte."
+          ],
+          "clientResponsibilities": "Tillhandahåll korrekta processuppgifter, relevanta policyer och en beslutsfattare. Organisationen ansvarar för beslut, genomförande och löpande regelefterlevnad. Ändringar i omfattningen kräver godkännande innan arbetet utförs.",
           "exclusions": "Fullständig ISMS-implementering, ISO-certifiering, SOC 2-granskning, juridiska utlåtanden och utnämning av dataskyddsombud ingår inte. Mer omfattande implementering offereras separat.",
+          "illustrativeAcceptanceCriteria": [
+            "Varje avtalat kontrollområde hänvisar till befintligt underlag eller en dokumenterad brist, med föreslagen ansvarig och nästa steg.",
+            "Dokumentutkast anger avtalad process och regelverk, antaganden och beslut som kräver ert godkännande."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Vilka standarder och regelverk kan vi diskutera?",
@@ -182,7 +224,18 @@
           "url": "https://sundaibot.com/services/secure-ai-automation/",
           "summary": "Business workflow automation frees your team from repeated copying, chasing and checking. We use secure AI automation where it earns its place, and straightforward rules where they do the job better. Start with one useful workflow and keep control of exceptions, costs and approvals.",
           "scope": "Secure AI Automation Sprint: one workflow, up to two systems with existing documented APIs, one trigger, one deployment environment and two refinement rounds. Acceptance criteria and operating costs are agreed before implementation.",
+          "deliverables": [
+            "Process specification, data map and integrations with least-privilege access and managed secrets.",
+            "Input/output validation, token budgets where relevant, retries, duplicate-action prevention, minimal logs and alerts.",
+            "Approval for sensitive actions, fallback behaviour, two refinement rounds and handover documentation."
+          ],
+          "clientResponsibilities": "Provide authorised API access, a process owner and representative test data. Approve sensitive actions and the acceptance tests; retain responsibility for operational decisions and permissions.",
           "exclusions": "Creating an unavailable API, major system migration and unrestricted payments or consequential actions are excluded. Cloud, model, messaging and external licence costs are agreed separately with a budget or cap.",
+          "illustrativeAcceptanceCriteria": [
+            "Replaying an agreed input does not create a duplicate action; the test records the outcome.",
+            "An agreed downstream failure produces the defined alert or human handoff; a sensitive action waits for required approval."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "Does every workflow need AI?",
@@ -227,7 +280,18 @@
           "url": "https://sundaibot.com/da/ydelser/secure-ai-automation/",
           "summary": "Automatisering af virksomhedens arbejdsgange frigør teamet fra gentagen kopiering, rykkere og kontrol. Vi bruger sikker AI-automatisering, hvor det giver værdi, og faste regler, hvor de løser opgaven bedre. Start med én nyttig proces, og behold kontrollen over undtagelser, omkostninger og godkendelser.",
           "scope": "Secure AI Automation Sprint: én arbejdsgang, op til to systemer med eksisterende dokumenterede API’er, én trigger, ét driftsmiljø og to tilpasningsrunder. Acceptkriterier og driftsomkostninger aftales før implementering.",
+          "deliverables": [
+            "Procesbeskrivelse, datakortlægning og integrationer med mindst mulige rettigheder og administrerede hemmeligheder.",
+            "Validering af input og output, relevante tokenbudgetter, genforsøg, forebyggelse af dublerede handlinger, begrænsede logs og alarmer.",
+            "Godkendelse af følsomme handlinger, fallback, to tilpasningsrunder og dokumentation til overdragelse."
+          ],
+          "clientResponsibilities": "Stil autoriseret API-adgang, en procesejer og repræsentative testdata til rådighed. Godkend følsomme handlinger og accepttests, og behold ansvaret for driftsbeslutninger og rettigheder.",
           "exclusions": "Udvikling af et manglende API, større systemmigreringer og ubegrænsede betalinger eller væsentlige handlinger er ikke inkluderet. Cloud, modeller, beskedtjenester og eksterne licenser aftales særskilt med budget eller loft.",
+          "illustrativeAcceptanceCriteria": [
+            "Gentagelse af et aftalt input skaber ikke en dubleret handling; testen registrerer resultatet.",
+            "En aftalt fejl i et tilsluttet system udløser den definerede alarm eller menneskelig overtagelse; følsomme handlinger afventer krævet godkendelse."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Kræver alle arbejdsgange AI?",
@@ -272,7 +336,18 @@
           "url": "https://sundaibot.com/sv/tjanster/secure-ai-automation/",
           "summary": "Automatisering av företags arbetsflöden frigör teamet från upprepad kopiering, påminnelser och kontroller. Vi använder säker AI-automatisering där den skapar värde och fasta regler där de löser uppgiften bättre. Börja med ett användbart flöde och behåll kontrollen över avvikelser, kostnader och godkännanden.",
           "scope": "Secure AI Automation Sprint: ett arbetsflöde, upp till två system med befintliga dokumenterade API:er, en utlösare, en driftsmiljö och två justeringsrundor. Acceptanskriterier och driftkostnader avtalas före implementeringen.",
+          "deliverables": [
+            "Processbeskrivning, datakartläggning och integrationer med minsta möjliga behörighet och hanterade hemligheter.",
+            "Validering av indata och utdata, relevanta tokenbudgetar, återförsök, skydd mot dubbla åtgärder, begränsade loggar och larm.",
+            "Godkännande av känsliga åtgärder, reservförfarande, två justeringsrundor och överlämningsdokumentation."
+          ],
+          "clientResponsibilities": "Tillhandahåll auktoriserad API-åtkomst, en processägare och representativa testdata. Godkänn känsliga åtgärder och acceptanstester och behåll ansvaret för verksamhetsbeslut och behörigheter.",
           "exclusions": "Utveckling av ett saknat API, större systemmigreringar och obegränsade betalningar eller väsentliga åtgärder ingår inte. Moln, modeller, meddelandetjänster och externa licenser avtalas separat med budget eller kostnadstak.",
+          "illustrativeAcceptanceCriteria": [
+            "Upprepning av ett avtalat indatafall skapar ingen dubbel åtgärd; testet dokumenterar utfallet.",
+            "Ett avtalat fel i ett anslutet system ger definierat larm eller mänsklig överlämning; känsliga åtgärder inväntar erforderligt godkännande."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Behöver alla arbetsflöden AI?",
@@ -322,7 +397,18 @@
           "url": "https://sundaibot.com/services/private-ai-agents-rag/",
           "summary": "Private AI assistant development makes approved knowledge easier to find without giving every user the same access. Enterprise RAG implementation connects an assistant to a ready-to-use source, with citations, clear permissions and an evaluation baseline. Useful answers matter more than confident guesses.",
           "scope": "Private AI Assistant / RAG Pilot: one assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. Agent actions are included only when explicitly described in the written scope.",
+          "deliverables": [
+            "User identity and permissions enforced before retrieval, with separation of clients and sources across embeddings, vector stores, caches and exports.",
+            "Scoped tools, supervised write actions, separation of instructions from untrusted content, and prompt-injection and source-poisoning tests.",
+            "Secret protection, minimal sensitive logging, answer citations, retention and deletion rules, usage and cost controls, security and acceptance tests, and handover."
+          ],
+          "clientResponsibilities": "Provide a knowledge source you are authorised to use, accurate role permissions and a pilot owner. Approve data-processing terms, retention, suppliers and hosting region before deployment. Validate the pilot before expanding its use.",
           "exclusions": "Multi-cloud, fine-tuning, extensive OCR, production availability commitments and WhatsApp Business are outside the base package. Additional channels, data preparation and integration work are separately scoped.",
+          "illustrativeAcceptanceCriteria": [
+            "The agreed restricted-document test denies retrieval and source access to a role without permission.",
+            "Agreed supported questions cite permitted sources; an unsupported question produces the defined refusal or handoff."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "What does private mean here?",
@@ -371,7 +457,18 @@
           "url": "https://sundaibot.com/da/ydelser/private-ai-agents-rag/",
           "summary": "Udvikling af private AI-assistenter gør godkendt viden lettere at finde uden at give alle samme adgang. Implementering af RAG til virksomheder forbinder en assistent med en klar videnskilde, kildehenvisninger, rettigheder og et grundlag for evaluering. Brugbare svar betyder mere end selvsikre gæt.",
           "scope": "Private AI Assistant / RAG Pilot: én assistent, én brugsklar videnskilde, ét interface, én cloudleverandør, op til to brugerroller og op til ti pilotbrugere. Agenthandlinger indgår kun, når de er beskrevet udtrykkeligt i det skriftlige omfang.",
+          "deliverables": [
+            "Brugeridentitet og rettigheder kontrolleres før søgning; kunder og kilder adskilles i embeddings, vektordatabaser, caches og eksport.",
+            "Afgrænsede værktøjer, kontrollerede skrivehandlinger, adskillelse af instruktioner fra upålideligt indhold samt tests af prompt injection og kildeforgiftning.",
+            "Beskyttelse af hemmeligheder, begrænset logning af følsomt indhold, kildehenvisninger, regler for opbevaring og sletning, forbrugs- og omkostningskontrol, sikkerheds- og accepttests samt overdragelse."
+          ],
+          "clientResponsibilities": "Stil en videnskilde med nødvendige brugsrettigheder, korrekte brugerrettigheder og en pilotansvarlig til rådighed. Godkend databehandlingsvilkår, opbevaring, leverandører og lagringsregion før idriftsættelse. Valider piloten, før brugen udvides.",
           "exclusions": "Multi-cloud, fine-tuning, omfattende OCR, aftalt produktionsoppetid og WhatsApp Business er ikke inkluderet. Ekstra kanaler, dataklargøring og integrationer afgrænses særskilt.",
+          "illustrativeAcceptanceCriteria": [
+            "Den aftalte test af et adgangsbegrænset dokument afviser søgning og kildeadgang for en rolle uden tilladelse.",
+            "Aftalte spørgsmål med dokumentation henviser til tilladte kilder; et udokumenteret spørgsmål giver det definerede afslag eller overdragelse."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Hvad betyder privat her?",
@@ -420,7 +517,18 @@
           "url": "https://sundaibot.com/sv/tjanster/private-ai-agents-rag/",
           "summary": "Utveckling av privata AI-assistenter gör godkänd kunskap lättare att hitta utan att ge alla samma åtkomst. implementering av RAG för företag kopplar en assistent till en förberedd kunskapskälla, med källhänvisningar, behörigheter och ett underlag för utvärdering. Användbara svar betyder mer än självsäkra gissningar.",
           "scope": "Private AI Assistant / RAG Pilot: en assistent, en färdig kunskapskälla, ett gränssnitt, en molnleverantör, upp till två användarroller och upp till tio pilotanvändare. Agentåtgärder ingår bara om de uttryckligen beskrivs i den skriftliga omfattningen.",
+          "deliverables": [
+            "Användaridentitet och behörigheter kontrolleras före sökning; kunder och källor separeras i embeddings, vektordatabaser, cache och export.",
+            "Avgränsade verktyg, övervakade skrivåtgärder, separation av instruktioner från opålitligt innehåll samt tester av prompt injection och förgiftning av källor.",
+            "Skydd av hemligheter, begränsad loggning av känsligt innehåll, källhänvisningar, regler för lagring och radering, förbruknings- och kostnadskontroll, säkerhets- och acceptanstester samt överlämning."
+          ],
+          "clientResponsibilities": "Tillhandahåll en kunskapskälla med nödvändiga användningsrättigheter, korrekta rollbehörigheter och en pilotansvarig. Godkänn databehandlingsvillkor, lagring, leverantörer och lagringsregion före driftsättning. Validera piloten innan användningen utökas.",
           "exclusions": "Multi-cloud, finjustering av modeller, omfattande OCR, avtalad tillgänglighet i produktion och WhatsApp Business ingår inte. Extra kanaler, databearbetning och integrationer avgränsas separat.",
+          "illustrativeAcceptanceCriteria": [
+            "Det avtalade testet av ett begränsat dokument nekar informationshämtning och källåtkomst för en roll utan behörighet.",
+            "Avtalade frågor med stöd i underlagen hänvisar till tillåtna källor; en fråga utan stöd ger definierat avböjande eller överlämning."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Vad betyder privat här?",
@@ -474,7 +582,18 @@
           "url": "https://sundaibot.com/services/pentesting-red-teaming/",
           "summary": "Web application penetration testing looks at what an attacker can do inside the agreed boundaries. API penetration testing and manual security testing examine access, authorisation and business logic, then turn the findings into a fix list your team can work from. Written permission comes first.",
           "scope": "Scoped Web / API Pentest: one small web application, up to two roles and up to ten API endpoints. Focused manual testing with supporting automated review, a report, handover and one remediation verification within 30 days.",
+          "deliverables": [
+            "Written scope, methodology, Rules of Engagement, targets, stop conditions and third-party restrictions before testing.",
+            "Protected evidence, finding severity and business impact, test limitations and practical remediation guidance.",
+            "Management summary, technical report, handover session and one verification of the included fixes within 30 days of delivery."
+          ],
+          "clientResponsibilities": "Provide written authorisation from the appropriate asset owner, a test environment or agreed production restrictions, test accounts and an emergency contact. You remain responsible for remediation and risk decisions.",
           "exclusions": "Complete code coverage is not promised. Extensive OSINT, organisation-wide red teaming, phishing, load testing and destructive testing are separately quoted. An automated scan alone is not a full pentest.",
+          "illustrativeAcceptanceCriteria": [
+            "Any reported finding records an authorised target, proportionate reproduction evidence, severity and remediation guidance.",
+            "The agreed verification records the status of included fixes within the authorised scope and the package’s 30-day window."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "Can you test any website or third-party service?",
@@ -523,7 +642,18 @@
           "url": "https://sundaibot.com/da/ydelser/pentesting-red-teaming/",
           "summary": "Penetrationstest af webapplikationer undersøger, hvad en angriber kan gøre inden for aftalte rammer. Penetrationstest af API’er og manuel sikkerhedstest gennemgår adgang, autorisation og forretningslogik og giver teamet en liste over relevante rettelser. Skriftlig tilladelse kommer først.",
           "scope": "Scoped Web / API Pentest: én mindre webapplikation, op til to roller og op til ti API-endpoints. Fokuseret manuel test med understøttende automatiseret gennemgang, rapport, overdragelse og én kontrol af rettelser inden for 30 dage.",
+          "deliverables": [
+            "Skriftligt omfang, metode, Rules of Engagement, mål, stopbetingelser og tredjepartsbegrænsninger før testen.",
+            "Beskyttet dokumentation, fundenes alvor og forretningspåvirkning, testbegrænsninger og konkrete rettelsesforslag.",
+            "Ledelsesresumé, teknisk rapport, overdragelsesmøde og én kontrol af de inkluderede rettelser inden for 30 dage efter levering."
+          ],
+          "clientResponsibilities": "Sørg for skriftlig tilladelse fra den relevante ejer, et testmiljø eller aftalte produktionsbegrænsninger, testkonti og en kontakt ved nødsituationer. I er ansvarlige for afhjælpning og risikobeslutninger.",
           "exclusions": "Der loves ikke dækning af al kode. Omfattende OSINT, red teaming på organisationsniveau, phishing, belastningstest og destruktive tests får særskilte tilbud. En automatiseret scanning alene er ikke en fuld penetrationstest.",
+          "illustrativeAcceptanceCriteria": [
+            "Hvert rapporteret fund angiver et autoriseret mål, passende evidens for reproduktion, alvorlighed og vejledning til afhjælpning.",
+            "Den aftalte kontrol dokumenterer status for inkluderede rettelser inden for autoriseret omfang og pakkens frist på 30 dage."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Kan I teste enhver hjemmeside eller tredjepartstjeneste?",
@@ -572,7 +702,18 @@
           "url": "https://sundaibot.com/sv/tjanster/pentesting-red-teaming/",
           "summary": "Penetrationstestning av webbapplikationer granskar vad en angripare kan göra inom avtalade ramar. Penetrationstestning av API:er och manuell säkerhetstestning granskar åtkomst, auktorisering och affärslogik och ger teamet en användbar åtgärdslista. Skriftligt tillstånd kommer först.",
           "scope": "Scoped Web / API Pentest: en mindre webbapplikation, upp till två roller och upp till tio API-endpoints. Fokuserad manuell testning med stödjande automatiserad granskning, rapport, överlämning och en verifiering av rättningar inom 30 dagar.",
+          "deliverables": [
+            "Skriftlig omfattning, metod, Rules of Engagement, mål, stoppvillkor och tredjepartsbegränsningar före testet.",
+            "Skyddade underlag, fyndens allvar och verksamhetspåverkan, testbegränsningar och praktiska åtgärdsförslag.",
+            "Ledningssammanfattning, teknisk rapport, överlämningsmöte och en verifiering av de inkluderade rättningarna inom 30 dagar efter leverans."
+          ],
+          "clientResponsibilities": "Ordna skriftligt tillstånd från rätt tillgångsägare, en testmiljö eller avtalade produktionsbegränsningar, testkonton och en kontakt vid nödsituationer. Ni ansvarar för åtgärder och riskbeslut.",
           "exclusions": "Fullständig kodtäckning utlovas inte. Omfattande OSINT, red teaming på organisationsnivå, nätfiske, belastningstest och destruktiva tester offereras separat. En automatiserad skanning ensam är inte ett fullständigt penetrationstest.",
+          "illustrativeAcceptanceCriteria": [
+            "Varje rapporterat fynd anger ett auktoriserat mål, proportionerligt underlag för reproduktion, allvarlighetsgrad och åtgärdsvägledning.",
+            "Den avtalade kontrollen dokumenterar status för inkluderade rättningar inom auktoriserad omfattning och paketets tidsfönster på 30 dagar."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Kan ni testa vilken webbplats eller tredjepartstjänst som helst?",
@@ -626,7 +767,18 @@
           "url": "https://sundaibot.com/services/devsecops/",
           "summary": "DevSecOps consulting puts useful checks where your team already works. Secure CI/CD pipelines connect code review, identity and release decisions, so a fast delivery process has boundaries your engineers can explain. Start with one repository, one pipeline and one deployment target.",
           "scope": "DevSecOps Foundation: one repository, one pipeline, one deployment target and up to two environments. The entry package covers the stated controls; additional checks and supply-chain features must be explicitly included in the agreement.",
+          "deliverables": [
+            "Focused threat model, SAST, software composition analysis (SCA) and secret scanning.",
+            "Least-privilege pipeline identities, environment separation and OIDC or short-lived credentials where supported.",
+            "Release approvals, rollback guidance, acceptance checks, documentation and handover."
+          ],
+          "clientResponsibilities": "Provide authorised repository and deployment access, a technical owner and suitable test environments. Agree release gates, exception handling and rollback approval. Your team owns ongoing pipeline operation after handover.",
           "exclusions": "An organisation-wide development-platform migration is excluded. DAST requires a suitable environment; container and IaC checks, SBOM, signing and provenance are included only where agreed. External tooling and licence costs are separately approved.",
+          "illustrativeAcceptanceCriteria": [
+            "An agreed test change exercises a release gate and records the expected block, approval or authorised exception.",
+            "Deployment identity permissions and the documented rollback steps are reviewed against the agreed target and environments."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "Will checks block every insecure change?",
@@ -671,7 +823,18 @@
           "url": "https://sundaibot.com/da/ydelser/devsecops/",
           "summary": "DevSecOps-rådgivning placerer brugbare kontroller i teamets eksisterende arbejde. Sikre CI/CD-pipelines forbinder kodegennemgang, identitet og releasebeslutninger, så en hurtig leveringsproces har rammer, udviklerne kan forklare. Start med ét repository, én pipeline og ét deploymentmål.",
           "scope": "DevSecOps Foundation: ét repository, én pipeline, ét deploymentmål og op til to miljøer. Startpakken omfatter de angivne kontroller; yderligere tests og softwareforsyningskædefunktioner skal fremgå udtrykkeligt af aftalen.",
+          "deliverables": [
+            "Fokuseret trusselsmodel, SAST, analyse af softwareafhængigheder (SCA) og scanning for hemmeligheder.",
+            "Pipelineidentiteter med mindst mulige rettigheder, adskilte miljøer og OIDC eller kortlivede credentials, hvor det understøttes.",
+            "Releasegodkendelser, rollbackvejledning, acceptkontroller, dokumentation og overdragelse."
+          ],
+          "clientResponsibilities": "Stil autoriseret repository- og deploymentadgang, en teknisk ansvarlig og egnede testmiljøer til rådighed. Aftal releasekrav, undtagelser og rollbackgodkendelse. Teamet er ansvarligt for den løbende pipeline efter overdragelsen.",
           "exclusions": "Migration af hele organisationens udviklingsplatform er ikke inkluderet. DAST kræver et egnet miljø; container- og IaC-kontroller, SBOM, signering og provenance indgår kun efter aftale. Eksterne værktøjer og licenser godkendes særskilt.",
+          "illustrativeAcceptanceCriteria": [
+            "En aftalt testændring afprøver en releasekontrol og dokumenterer forventet blokering, godkendelse eller autoriseret undtagelse.",
+            "Deployment-identitetens rettigheder og dokumenterede rollback-trin gennemgås i forhold til aftalt mål og miljøer."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Stopper kontrollerne alle usikre ændringer?",
@@ -716,7 +879,18 @@
           "url": "https://sundaibot.com/sv/tjanster/devsecops/",
           "summary": "DevSecOps-rådgivning placerar användbara kontroller i teamets befintliga arbete. Säkra CI/CD-pipelines kopplar kodgranskning, identitet och releasebeslut, så en snabb leveransprocess får ramar utvecklarna kan förklara. Börja med ett repository, en pipeline och ett driftsättningsmål.",
           "scope": "DevSecOps Foundation: ett repository, en pipeline, ett driftsättningsmål och upp till två miljöer. Startpaketet omfattar angivna kontroller; ytterligare tester och funktioner för programvaruförsörjningskedjan måste uttryckligen ingå i avtalet.",
+          "deliverables": [
+            "Fokuserad hotmodell, SAST, analys av programvaruberoenden (SCA) och skanning efter hemligheter.",
+            "Pipelineidentiteter med minsta möjliga behörighet, separerade miljöer och OIDC eller kortlivade autentiseringsuppgifter där det stöds.",
+            "Releasegodkännanden, rollbackvägledning, acceptanskontroller, dokumentation och överlämning."
+          ],
+          "clientResponsibilities": "Tillhandahåll auktoriserad åtkomst till repository och driftsättning, en teknisk ansvarig och lämpliga testmiljöer. Avtala releasekrav, undantagshantering och godkännande av rollback. Teamet ansvarar för löpande pipelinedrift efter överlämningen.",
           "exclusions": "Migration av hela organisationens utvecklingsplattform ingår inte. DAST kräver en lämplig miljö; container- och IaC-kontroller, SBOM, signering och provenance ingår bara efter överenskommelse. Externa verktyg och licenser godkänns separat.",
+          "illustrativeAcceptanceCriteria": [
+            "En avtalad teständring prövar en releasekontroll och dokumenterar förväntad blockering, godkännande eller auktoriserat undantag.",
+            "Driftsättningsidentitetens behörigheter och dokumenterade återställningssteg granskas mot avtalat mål och avtalade miljöer."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Stoppar kontrollerna alla osäkra ändringar?",
@@ -766,7 +940,18 @@
           "url": "https://sundaibot.com/services/cloud-security/",
           "summary": "A cloud security assessment starts with who can do what, and whether the team can see it. A cloud IAM review and privileged access review help turn unexplained permissions into a manageable foundation. We select one provider, agree authorised changes and hand over a treatment plan.",
           "scope": "Cloud IAM & Security Foundation: one subscription, account or project, up to ten identities and up to ten selected resources. Provider, licensing, authorised changes and acceptance criteria are agreed in advance.",
+          "deliverables": [
+            "Permission map and least-privilege review for selected identities and resources, including workload identities and secrets within scope.",
+            "MFA and privileged-access baseline subject to licensing, audit logging and up to five alert rules.",
+            "Emergency-access procedure, scoped backup/recovery configuration review, treatment plan, documentation and handover."
+          ],
+          "clientResponsibilities": "Provide authorised access, a reliable asset inventory and a change approver. Confirm licensing, emergency contacts and recovery requirements. Approve tested changes and retain ownership of ongoing cloud operations.",
           "exclusions": "A complete SOC and organisation-wide infrastructure coverage are excluded. Multi-cloud, wider migrations and incident-response retainers need separate scope. No 24/7 SOC, emergency availability or response-time SLA is promised by this package.",
+          "illustrativeAcceptanceCriteria": [
+            "An agreed role change is checked for authorised access and excessive permissions before approved activation.",
+            "An agreed test event reaches the designated audit log or alert route; emergency-access instructions identify ownership and approval."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
               "q": "Which cloud identity controls are relevant?",
@@ -811,7 +996,18 @@
           "url": "https://sundaibot.com/da/ydelser/cloud-security/",
           "summary": "En vurdering af cloudsikkerhed begynder med, hvem der kan gøre hvad, og om teamet kan se det. En gennemgang af cloud-IAM og en gennemgang af privilegeret adgang gør uklare rettigheder lettere at håndtere. Vi vælger én udbyder, aftaler ændringer og overdrager en behandlingsplan.",
           "scope": "Cloud IAM & Security Foundation: ét abonnement, én konto eller ét projekt, op til ti identiteter og op til ti udvalgte ressourcer. Leverandør, licenser, tilladte ændringer og acceptkriterier aftales på forhånd.",
+          "deliverables": [
+            "Rettighedskort og gennemgang af mindst mulige rettigheder for udvalgte identiteter og ressourcer, inklusive workloadidentiteter og hemmeligheder inden for omfanget.",
+            "Grundlag for MFA og privilegeret adgang efter licensmuligheder, revisionslogs og op til fem alarmregler.",
+            "Procedure for nødadgang, afgrænset gennemgang af backup- og gendannelseskonfiguration, behandlingsplan, dokumentation og overdragelse."
+          ],
+          "clientResponsibilities": "Stil autoriseret adgang, en pålidelig ressourceoversigt og en ændringsansvarlig til rådighed. Bekræft licenser, nødkontakter og gendannelseskrav. Godkend testede ændringer, og behold ansvaret for den løbende clouddrift.",
           "exclusions": "Et komplet SOC og dækning af hele organisationens infrastruktur er ikke inkluderet. Multi-cloud, større migreringer og beredskabsaftaler kræver særskilt omfang. Pakken lover ikke SOC døgnet rundt, akut tilgængelighed eller en SLA for responstid.",
+          "illustrativeAcceptanceCriteria": [
+            "En aftalt rolleændring kontrolleres for autoriseret adgang og for omfattende rettigheder før godkendt aktivering.",
+            "En aftalt testhændelse når den udpegede revisionslog eller alarmkanal; nødadgangsvejledningen angiver ansvar og godkendelse."
+          ],
+          "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
               "q": "Hvilke identitetskontroller er relevante?",
@@ -856,7 +1052,18 @@
           "url": "https://sundaibot.com/sv/tjanster/cloud-security/",
           "summary": "En bedömning av molnsäkerhet börjar med vem som kan göra vad, och om teamet kan se det. En granskning av moln-IAM och en granskning av privilegierad åtkomst gör oklara behörigheter hanterbara. Vi väljer en leverantör, avtalar ändringar och lämnar över en åtgärdsplan.",
           "scope": "Cloud IAM & Security Foundation: en prenumeration, ett konto eller ett projekt, upp till tio identiteter och upp till tio valda resurser. Leverantör, licenser, tillåtna ändringar och acceptanskriterier avtalas i förväg.",
+          "deliverables": [
+            "Behörighetskarta och granskning av minsta möjliga behörighet för valda identiteter och resurser, inklusive workloadidentiteter och hemligheter inom omfattningen.",
+            "Grund för MFA och privilegierad åtkomst enligt licensmöjligheter, granskningsloggar och upp till fem larmregler.",
+            "Rutiner för nödåtkomst, avgränsad granskning av backup- och återställningskonfiguration, åtgärdsplan, dokumentation och överlämning."
+          ],
+          "clientResponsibilities": "Tillhandahåll auktoriserad åtkomst, en tillförlitlig resursinventering och en person som godkänner ändringar. Bekräfta licenser, nödkontakter och återställningskrav. Godkänn testade ändringar och behåll ansvaret för löpande molndrift.",
           "exclusions": "Ett fullständigt SOC och täckning av organisationens hela infrastruktur ingår inte. Multi-cloud, större migreringar och incidentberedskap kräver separat omfattning. Paketet utlovar inte SOC dygnet runt, akut tillgänglighet eller en SLA för svarstid.",
+          "illustrativeAcceptanceCriteria": [
+            "En avtalad rolländring kontrolleras för auktoriserad åtkomst och överdrivna behörigheter före godkänd aktivering.",
+            "En avtalad testhändelse når angiven granskningslogg eller larmkanal; nödåtkomstinstruktionen anger ansvar och godkännande."
+          ],
+          "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
             {
               "q": "Vilka identitetskontroller är relevanta?",

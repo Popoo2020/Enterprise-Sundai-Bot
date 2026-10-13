@@ -10,6 +10,13 @@ Source: https://sundaibot.com/services/compliance-ai-governance/
 
 AI governance consulting makes the uncomfortable questions easier to answer: which AI tools are in use, what data they touch and who owns the risks. Your team gets a focused compliance readiness assessment and a prioritised plan, rather than another policy folder nobody opens.
 
+Deliverables:
+ - Map AI uses, suppliers, data flows and responsibilities for the agreed process or product.
+ - Review up to ten control areas and record gaps, supporting evidence and risk priorities.
+ - Deliver an action plan, up to three draft documents and a handover session.
+
+Client responsibilities: Provide accurate process information, relevant policies and a decision-maker. Your organisation owns the resulting decisions, implementation and ongoing compliance. Changes to the agreed scope require approval before work proceeds.
+
 Scope: Compliance Readiness Sprint: one organisation, one process or product, one framework and up to ten control areas. We agree the scope and acceptance criteria in writing before work starts.
 
 Outside this scope: Full ISMS implementation, ISO certification, a SOC 2 examination, legal opinions and DPO appointment are outside this package. Wider implementation is quoted separately.
@@ -37,6 +44,13 @@ Bring the product or process, relevant countries and sector, existing policies, 
 Source: https://sundaibot.com/services/secure-ai-automation/
 
 Business workflow automation frees your team from repeated copying, chasing and checking. We use secure AI automation where it earns its place, and straightforward rules where they do the job better. Start with one useful workflow and keep control of exceptions, costs and approvals.
+
+Deliverables:
+ - Process specification, data map and integrations with least-privilege access and managed secrets.
+ - Input/output validation, token budgets where relevant, retries, duplicate-action prevention, minimal logs and alerts.
+ - Approval for sensitive actions, fallback behaviour, two refinement rounds and handover documentation.
+
+Client responsibilities: Provide authorised API access, a process owner and representative test data. Approve sensitive actions and the acceptance tests; retain responsibility for operational decisions and permissions.
 
 Scope: Secure AI Automation Sprint: one workflow, up to two systems with existing documented APIs, one trigger, one deployment environment and two refinement rounds. Acceptance criteria and operating costs are agreed before implementation.
 
@@ -66,6 +80,13 @@ Source: https://sundaibot.com/services/private-ai-agents-rag/
 
 Private AI assistant development makes approved knowledge easier to find without giving every user the same access. Enterprise RAG implementation connects an assistant to a ready-to-use source, with citations, clear permissions and an evaluation baseline. Useful answers matter more than confident guesses.
 
+Deliverables:
+ - User identity and permissions enforced before retrieval, with separation of clients and sources across embeddings, vector stores, caches and exports.
+ - Scoped tools, supervised write actions, separation of instructions from untrusted content, and prompt-injection and source-poisoning tests.
+ - Secret protection, minimal sensitive logging, answer citations, retention and deletion rules, usage and cost controls, security and acceptance tests, and handover.
+
+Client responsibilities: Provide a knowledge source you are authorised to use, accurate role permissions and a pilot owner. Approve data-processing terms, retention, suppliers and hosting region before deployment. Validate the pilot before expanding its use.
+
 Scope: Private AI Assistant / RAG Pilot: one assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. Agent actions are included only when explicitly described in the written scope.
 
 Outside this scope: Multi-cloud, fine-tuning, extensive OCR, production availability commitments and WhatsApp Business are outside the base package. Additional channels, data preparation and integration work are separately scoped.
@@ -93,6 +114,13 @@ Website AI chatbot integration and WhatsApp AI integration require separate scop
 Source: https://sundaibot.com/services/pentesting-red-teaming/
 
 Web application penetration testing looks at what an attacker can do inside the agreed boundaries. API penetration testing and manual security testing examine access, authorisation and business logic, then turn the findings into a fix list your team can work from. Written permission comes first.
+
+Deliverables:
+ - Written scope, methodology, Rules of Engagement, targets, stop conditions and third-party restrictions before testing.
+ - Protected evidence, finding severity and business impact, test limitations and practical remediation guidance.
+ - Management summary, technical report, handover session and one verification of the included fixes within 30 days of delivery.
+
+Client responsibilities: Provide written authorisation from the appropriate asset owner, a test environment or agreed production restrictions, test accounts and an emergency contact. You remain responsible for remediation and risk decisions.
 
 Scope: Scoped Web / API Pentest: one small web application, up to two roles and up to ten API endpoints. Focused manual testing with supporting automated review, a report, handover and one remediation verification within 30 days.
 
@@ -122,6 +150,13 @@ Source: https://sundaibot.com/services/devsecops/
 
 DevSecOps consulting puts useful checks where your team already works. Secure CI/CD pipelines connect code review, identity and release decisions, so a fast delivery process has boundaries your engineers can explain. Start with one repository, one pipeline and one deployment target.
 
+Deliverables:
+ - Focused threat model, SAST, software composition analysis (SCA) and secret scanning.
+ - Least-privilege pipeline identities, environment separation and OIDC or short-lived credentials where supported.
+ - Release approvals, rollback guidance, acceptance checks, documentation and handover.
+
+Client responsibilities: Provide authorised repository and deployment access, a technical owner and suitable test environments. Agree release gates, exception handling and rollback approval. Your team owns ongoing pipeline operation after handover.
+
 Scope: DevSecOps Foundation: one repository, one pipeline, one deployment target and up to two environments. The entry package covers the stated controls; additional checks and supply-chain features must be explicitly included in the agreement.
 
 Outside this scope: An organisation-wide development-platform migration is excluded. DAST requires a suitable environment; container and IaC checks, SBOM, signing and provenance are included only where agreed. External tooling and licence costs are separately approved.
@@ -149,6 +184,13 @@ Your team owns ongoing operation and maintenance. We hand over the configured ch
 Source: https://sundaibot.com/services/cloud-security/
 
 A cloud security assessment starts with who can do what, and whether the team can see it. A cloud IAM review and privileged access review help turn unexplained permissions into a manageable foundation. We select one provider, agree authorised changes and hand over a treatment plan.
+
+Deliverables:
+ - Permission map and least-privilege review for selected identities and resources, including workload identities and secrets within scope.
+ - MFA and privileged-access baseline subject to licensing, audit logging and up to five alert rules.
+ - Emergency-access procedure, scoped backup/recovery configuration review, treatment plan, documentation and handover.
+
+Client responsibilities: Provide authorised access, a reliable asset inventory and a change approver. Confirm licensing, emergency contacts and recovery requirements. Approve tested changes and retain ownership of ongoing cloud operations.
 
 Scope: Cloud IAM & Security Foundation: one subscription, account or project, up to ten identities and up to ten selected resources. Provider, licensing, authorised changes and acceptance criteria are agreed in advance.
 

@@ -18,7 +18,8 @@
       "industries": "/industries/",
       "usecases": "/use-cases/",
       "methodology": "/methodology/",
-      "faq": "/faq/"
+      "faq": "/faq/",
+      "buyer": "/service-selection/"
     },
     "da": {
       "home": "/da/",
@@ -38,7 +39,8 @@
       "industries": "/da/brancher/",
       "usecases": "/da/anvendelser/",
       "methodology": "/da/metode/",
-      "faq": "/da/spoergsmaal-svar/"
+      "faq": "/da/spoergsmaal-svar/",
+      "buyer": "/da/vaelg-ydelse/"
     },
     "sv": {
       "home": "/sv/",
@@ -58,7 +60,8 @@
       "industries": "/sv/branscher/",
       "usecases": "/sv/anvandningsfall/",
       "methodology": "/sv/metod/",
-      "faq": "/sv/fragor-svar/"
+      "faq": "/sv/fragor-svar/",
+      "buyer": "/sv/valj-tjanst/"
     }
   },
   "redirects": [
@@ -196,6 +199,7 @@
   "generated": [
     "/",
     "/services/",
+    "/service-selection/",
     "/faq/",
     "/pricing/",
     "/services/compliance-ai-governance/",
@@ -215,6 +219,7 @@
     "/start/",
     "/da/",
     "/da/ydelser/",
+    "/da/vaelg-ydelse/",
     "/da/spoergsmaal-svar/",
     "/da/pricing/",
     "/da/ydelser/compliance-ai-governance/",
@@ -234,6 +239,7 @@
     "/da/start/",
     "/sv/",
     "/sv/tjanster/",
+    "/sv/valj-tjanst/",
     "/sv/fragor-svar/",
     "/sv/pricing/",
     "/sv/tjanster/compliance-ai-governance/",
