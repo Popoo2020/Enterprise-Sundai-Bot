@@ -45,10 +45,12 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(html.includes(esc(service.copy[lang].scope)),`${lang}: static scope ${service.id}`);
   assert.ok(html.includes('data-page-kind="service"'));
   assert.equal((html.match(/<h1\b/g)||[]).length,1,`${lang}/${service.id}: one H1`);
-  for(const className of ['sales-hero','sales-fit','sales-benefits','product-details'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
-  const detailDisclosure=html.match(/<div class="product-details">([\s\S]*?)<\/div>/)?.[1];assert.ok(detailDisclosure,`${lang}/${service.id}: product detail disclosures`);
-  assert.equal((detailDisclosure.match(/<details\b/g)||[]).length,3,`${lang}/${service.id}: scope, deliverables and example retained`);
-  assert.equal((detailDisclosure.match(/<summary\b[^>]*>[^<]+<\/summary>/g)||[]).length,3,`${lang}/${service.id}: named accessible disclosure controls`);
+  for(const className of ['sales-hero','sales-fit','sales-benefits','service-facts','scenario-output'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
+  const body=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
+  assert.equal(body.split(esc(service.copy[lang].scope)).length-1,1,`${lang}/${service.id}: scope appears once before enquiry`);
+  for(const value of service.copy[lang].deliverables)assert.equal(body.split(esc(value)).length-1,1,`${lang}/${service.id}: deliverable appears once`);
+  assert.ok(body.indexOf('id="service-facts"')<body.indexOf('id="proposal"'),`${lang}/${service.id}: essential scope visible before enquiry`);
+  assert.doesNotMatch(body,/class="product-details"/,`${lang}/${service.id}: duplicate product details removed`);
   assert.ok(html.includes('id="proposal"'),`${lang}/${service.id}: proposal destination`);
   assert.ok(html.includes('href="#proposal"'),`${lang}/${service.id}: direct proposal CTA`);
   const forms=[...html.matchAll(/<form\b[^>]*data-upgrade-form[\s\S]*?<\/form>/g)];assert.equal(forms.length,1,`${lang}/${service.id}: one protected proposal form`);

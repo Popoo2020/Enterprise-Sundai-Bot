@@ -88,3 +88,30 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .service-connections h2{font-size:2rem;line-height:1.3}
 .service-connections p{font-size:.9rem;color:var(--muted)}
 .reviewed-note{padding-top:26px;padding-bottom:26px;font-size:.75rem;color:var(--muted)}
+/* Buyer-focused service labels and clearly labelled project examples. */
+.service-list .service-copy p.service-benefit{font-family:Sora,Arial,sans-serif;font-weight:650;font-size:.92rem;line-height:1.5;color:var(--lime);margin:0 0 10px;max-width:650px}
+.scenario-notice{font-size:.88rem;line-height:1.7;color:var(--muted)}
+.scenario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start}
+.scenario-card{min-width:0;border-top:2px solid var(--blue);padding-top:22px}
+.scenario-badge{font-size:.72rem;font-weight:700;line-height:1.5;color:var(--lime);margin:0 0 16px}
+.scenario-card h3{font-size:1.4rem;line-height:1.3;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance}
+.scenario-story{margin:0}
+.scenario-story>div{margin:0 0 22px}
+.scenario-story dt,.scenario-output dt{font-weight:750;font-size:.82rem;color:var(--text);margin-bottom:6px}
+.scenario-story dd{margin:0;color:var(--muted);font-size:.88rem;line-height:1.75;overflow-wrap:anywhere}
+.scenario-output{margin:24px 0 0;border-block:1px solid var(--border)}
+.scenario-output summary{font-size:.85rem;font-weight:750;line-height:1.5;min-height:48px;padding:14px 0;cursor:pointer}
+.scenario-output[open] summary{color:var(--lime)}
+.scenario-output .small{margin:4px 0 20px}
+.scenario-output dl{margin:0 0 20px;padding-left:16px;border-left:2px solid var(--blue)}
+.scenario-output dl>div{margin-bottom:16px}
+.scenario-output dd{margin:0;font-size:.82rem;line-height:1.65;overflow-wrap:anywhere;color:var(--muted)}
+.scenario-services{display:grid;gap:8px;margin-top:18px}
+.scenario-services a{font-size:.78rem;line-height:1.5;min-height:44px;display:flex;align-items:center;text-underline-offset:4px;color:var(--text)}
+.scenario-services a:hover{color:var(--lime)}
+.scenario-cta{display:inline-flex;align-items:center;min-height:48px;margin-top:16px}
+.single-scenario .scenario-grid{grid-template-columns:1fr}
+.single-scenario .scenario-story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.single-scenario .scenario-story>div{margin:0}
+.single-scenario .scenario-output{max-width:760px}
+.use-case-section .actions{margin-block:0}

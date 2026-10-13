@@ -1,7 +1,7 @@
 {
   "version": "2026-10-13",
-  "release": "mobile-polish-2026-10-13",
-  "contentDigest": "5f50de2bc077d301de7ee10eb31054c137e1d66f3652ff29e9158fd9ec4dca9e",
+  "release": "sales-clarity-2026-10-13",
+  "contentDigest": "a937aa6a221bf5f8b487bdbdfbfe9087174f0787be427c9059816f1443caa877",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",
@@ -61,14 +61,6 @@
               "a": "No. ISO certification is issued by an appropriate certification body. SOC 2 is a separate professional examination and report. Readiness advice or a single penetration test cannot establish complete regulatory compliance."
             },
             {
-              "q": "Can you help with a DPIA?",
-              "a": "A separately scoped DPIA covers one defined processing activity: processing description, necessity and proportionality, risks to people’s rights, mitigations, residual risk and follow-up ownership. It does not guarantee avoidance of fines."
-            },
-            {
-              "q": "Are CISO and DPO services included?",
-              "a": "No. Fractional CISO is a security leadership service; DPO is a distinct privacy role. Each requires a suitable professional and a defined mandate. Independence and conflicts of interest must be checked before combining roles."
-            },
-            {
               "q": "What does an ISO 27001 gap analysis or ISO 42001 readiness review cover?",
               "a": "The agreed sprint reviews one framework and up to ten control areas. ISO 27001 readiness focuses on the agreed information-security evidence; ISO 42001 readiness addresses the agreed AI-management evidence. Full implementation and certification are separate."
             },
@@ -119,14 +111,6 @@
             {
               "q": "Bliver vi certificeret?",
               "a": "Nej. ISO-certificering udstedes af et relevant certificeringsorgan. SOC 2 er en særskilt professionel undersøgelse og rapport. Rådgivning om parathed eller én penetrationstest dokumenterer ikke fuld regeloverholdelse."
-            },
-            {
-              "q": "Kan I hjælpe med en konsekvensanalyse?",
-              "a": "En særskilt afgrænset DPIA omfatter én defineret behandling: beskrivelse, nødvendighed og proportionalitet, risici for personers rettigheder, afværgeforanstaltninger, restrisiko og ansvar for opfølgning. Den garanterer ikke, at bøder undgås."
-            },
-            {
-              "q": "Er CISO- og DPO-ydelser inkluderet?",
-              "a": "Nej. Fractional CISO er sikkerhedsledelse; DPO er en særskilt databeskyttelsesrolle. Begge kræver en egnet fagperson og et klart mandat. Uafhængighed og interessekonflikter undersøges, før roller eventuelt kombineres."
             },
             {
               "q": "Hvad omfatter en gap-analyse for ISO 27001 og parathed til ISO 42001?",
@@ -181,14 +165,6 @@
               "a": "Nej. ISO-certifiering utfärdas av ett lämpligt certifieringsorgan. SOC 2 är en separat professionell granskning och rapport. Beredskapsrådgivning eller ett enskilt penetrationstest visar inte fullständig regelefterlevnad."
             },
             {
-              "q": "Kan ni hjälpa till med en konsekvensbedömning?",
-              "a": "En separat avgränsad DPIA omfattar en definierad behandling: beskrivning, nödvändighet och proportionalitet, risker för människors rättigheter, skyddsåtgärder, kvarstående risk och ansvar för uppföljning. Den garanterar inte att böter undviks."
-            },
-            {
-              "q": "Ingår CISO- och DPO-tjänster?",
-              "a": "Nej. Fractional CISO är säkerhetsledning; DPO är en separat dataskyddsroll. Båda kräver en lämplig yrkesperson och ett tydligt uppdrag. Oberoende och intressekonflikter bedöms innan roller eventuellt kombineras."
-            },
-            {
               "q": "Vad omfattar gapanalys för ISO 27001 och beredskap inför ISO 42001?",
               "a": "Den avtalade sprinten granskar en standard och upp till tio kontrollområden. ISO 27001-beredskap gäller avtalade informationssäkerhetsunderlag; ISO 42001-beredskap gäller avtalade underlag för AI-ledning. Full implementering och certifiering är separata uppdrag."
             },
@@ -238,18 +214,6 @@
           "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
-              "q": "Does every workflow need AI?",
-              "a": "No. Deterministic rules or API automation can be a better fit. We use an LLM only where it adds useful capability and can be bounded and tested."
-            },
-            {
-              "q": "Can it act without supervision?",
-              "a": "Only for explicitly agreed low-risk actions. Payments and other material actions need the approval controls defined in the scope; a model-generated instruction alone is not authority to act."
-            },
-            {
-              "q": "What happens when a service fails?",
-              "a": "The agreed design includes controlled retries, duplicate prevention, alerts and a fallback or human handoff. Recovery behaviour is tested against the acceptance criteria, rather than relying on silent success."
-            },
-            {
               "q": "What fits in a business process automation sprint?",
               "a": "One workflow, one trigger, up to two systems with existing documented APIs and one deployment environment. Automation handover documentation and two refinement rounds support a practical handover. Wider process changes are scoped separately."
             },
@@ -294,18 +258,6 @@
           "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
-              "q": "Kræver alle arbejdsgange AI?",
-              "a": "Nej. Faste regler eller API-automatisering kan være bedre. Vi bruger kun en LLM, når den tilfører relevant funktionalitet, som kan afgrænses og testes."
-            },
-            {
-              "q": "Kan løsningen handle uden opsyn?",
-              "a": "Kun ved udtrykkeligt aftalte handlinger med lav risiko. Betalinger og andre væsentlige handlinger kræver de godkendelseskontroller, der er fastlagt i omfanget. En modelgenereret instruktion er ikke i sig selv en tilladelse."
-            },
-            {
-              "q": "Hvad sker der, når en tjeneste fejler?",
-              "a": "Det aftalte design omfatter kontrollerede genforsøg, forebyggelse af dubletter, alarmer og fallback eller menneskelig overtagelse. Gendannelsesadfærden testes mod acceptkriterierne."
-            },
-            {
               "q": "Hvad indgår i en sprint for procesautomatisering?",
               "a": "Én arbejdsgang, én trigger, op til to systemer med eksisterende dokumenterede API’er og ét driftsmiljø. Dokumentation til overdragelse af automatisering og to tilpasningsrunder understøtter overdragelsen. Større procesændringer afgrænses særskilt."
             },
@@ -349,18 +301,6 @@
           ],
           "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
-            {
-              "q": "Behöver alla arbetsflöden AI?",
-              "a": "Nej. Fasta regler eller API-automatisering kan passa bättre. Vi använder en LLM endast när den ger användbar funktionalitet som kan avgränsas och testas."
-            },
-            {
-              "q": "Kan lösningen agera utan tillsyn?",
-              "a": "Endast för uttryckligen avtalade åtgärder med låg risk. Betalningar och andra väsentliga åtgärder kräver de godkännandekontroller som anges i uppdraget. En modellgenererad instruktion är inte i sig ett tillstånd."
-            },
-            {
-              "q": "Vad händer när en tjänst slutar fungera?",
-              "a": "Den avtalade lösningen omfattar kontrollerade återförsök, skydd mot dubbletter, larm och reservförfarande eller mänsklig överlämning. Återhämtningen testas mot acceptanskriterierna."
-            },
             {
               "q": "Vad ingår i en sprint för processautomatisering?",
               "a": "Ett arbetsflöde, en utlösare, upp till två system med befintliga dokumenterade API:er och en driftsmiljö. Överlämningsdokumentation för automatisering och två justeringsrundor stödjer överlämningen. Större processändringar avgränsas separat."
@@ -419,14 +359,6 @@
               "a": "We specify TLS in transit and encryption at rest according to the architecture. We do not describe the complete path to an LLM as end-to-end encrypted without evidence that supports that claim."
             },
             {
-              "q": "Can we add WhatsApp or website chat?",
-              "a": "Yes, subject to a separate scope, platform permissions, processing terms and supplier costs. The base pilot includes one agreed interface; it does not include WhatsApp Business."
-            },
-            {
-              "q": "Will it always answer correctly?",
-              "a": "No. Source citation, permission checks, unsupported-answer refusal and agreed evaluation tests reduce risk. Important decisions remain subject to the human review defined for the use case."
-            },
-            {
               "q": "What is a private AI assistant pilot?",
               "a": "One assistant, one ready-to-use knowledge source, one interface, one cloud provider, up to two user roles and up to ten pilot users. An enterprise AI chatbot or a document assistant is scoped around a real question set."
             },
@@ -479,14 +411,6 @@
               "a": "Vi specificerer TLS under transport og kryptering af lagrede data efter arkitekturen. Vi kalder ikke hele vejen til en LLM ende-til-ende-krypteret uden dokumentation for det."
             },
             {
-              "q": "Kan vi tilføje WhatsApp eller chat på hjemmesiden?",
-              "a": "Ja, med særskilt omfang, platformstilladelser, databehandlingsvilkår og leverandøromkostninger. Piloten omfatter ét aftalt interface og ikke WhatsApp Business."
-            },
-            {
-              "q": "Er svarene altid korrekte?",
-              "a": "Nej. Kildehenvisninger, rettighedskontrol, afvisning af svar uden grundlag og aftalte evalueringstests reducerer risikoen. Vigtige beslutninger kræver den menneskelige gennemgang, der er fastlagt for anvendelsen."
-            },
-            {
               "q": "Hvad er en pilot med privat AI-assistent?",
               "a": "Én assistent, én klar videnskilde, én grænseflade, én cloududbyder, op til to brugerroller og op til ti pilotbrugere. En AI-chatbot til virksomheder eller dokumentassistent afgrænses ud fra virkelige spørgsmål."
             },
@@ -537,14 +461,6 @@
             {
               "q": "Är hela AI-kedjan totalsträckskrypterad?",
               "a": "Vi specificerar TLS under överföring och kryptering av lagrade data enligt arkitekturen. Vi beskriver inte hela vägen till en LLM som totalsträckskrypterad utan stöd för påståendet."
-            },
-            {
-              "q": "Kan vi lägga till WhatsApp eller webbchatt?",
-              "a": "Ja, med separat omfattning, plattformstillstånd, databehandlingsvillkor och leverantörskostnader. Grundpiloten omfattar ett avtalat gränssnitt och inte WhatsApp Business."
-            },
-            {
-              "q": "Är svaren alltid korrekta?",
-              "a": "Nej. Källhänvisningar, behörighetskontroller, avstående från svar utan stöd och avtalade utvärderingstester minskar risken. Viktiga beslut kräver den mänskliga granskning som fastställts för användningen."
             },
             {
               "q": "Vad är en pilot med privat AI-assistent?",
@@ -604,14 +520,6 @@
               "a": "Yes, where agreed. AI interfaces, permissions, configuration, code and APIs can be examined. Call documentation, care and sales systems also need checks of information restrictions and data flows."
             },
             {
-              "q": "Does a report mean we are compliant or vulnerability-free?",
-              "a": "No. Findings reflect the agreed scope, methods and testing period. A pentest cannot guarantee all vulnerabilities have been found or establish complete regulatory compliance."
-            },
-            {
-              "q": "What is an OSINT snapshot?",
-              "a": "A separate CTI / Passive OSINT Snapshot covers one organisation and up to three domains it owns. It does not include continuous monitoring, intrusive testing or a broad red-team exercise."
-            },
-            {
               "q": "What is the difference between a vulnerability scan and a pentest?",
               "a": "Vulnerability scan versus pentest is a useful buying distinction: a scan flags potential issues; a scoped pentest combines manual investigation with supporting tools and interprets findings in context. Automated output alone is not a complete pentest."
             },
@@ -664,14 +572,6 @@
               "a": "Ja, når det er aftalt. AI-interfaces, rettigheder, konfiguration, kode og API’er kan undersøges. Systemer til samtaledokumentation, behandling og salg kræver også kontrol af informationsbegrænsning og datastrømme."
             },
             {
-              "q": "Betyder rapporten, at vi overholder alle regler og ikke har sårbarheder?",
-              "a": "Nej. Fund gælder det aftalte omfang, metoderne og testperioden. En penetrationstest kan ikke garantere, at alle sårbarheder er fundet, eller dokumentere fuld regeloverholdelse."
-            },
-            {
-              "q": "Hvad er et OSINT-snapshot?",
-              "a": "Et særskilt CTI / Passive OSINT Snapshot omfatter én organisation og op til tre domæner, den ejer. Løbende overvågning, indgribende tests og større red team-øvelser er ikke inkluderet."
-            },
-            {
               "q": "Hvad er forskellen på scanning og penetrationstest?",
               "a": "Sårbarhedsscanning kontra penetrationstest er en nyttig købsafklaring: scanning finder mulige problemer; en afgrænset pentest kombinerer manuel undersøgelse og værktøjer og fortolker fund i sammenhæng. Automatiseret output alene er ikke en fuld pentest."
             },
@@ -722,14 +622,6 @@
             {
               "q": "Kan testet omfatta AI och känsliga arbetsflöden?",
               "a": "Ja, när det är avtalat. AI-gränssnitt, behörigheter, konfiguration, kod och API:er kan undersökas. System för samtalsdokumentation, vård och försäljning behöver även kontroll av informationsbegränsning och dataflöden."
-            },
-            {
-              "q": "Betyder rapporten att vi följer alla regler och saknar sårbarheter?",
-              "a": "Nej. Fynden gäller avtalad omfattning, metoder och testperiod. Ett penetrationstest kan inte garantera att alla sårbarheter har hittats eller visa fullständig regelefterlevnad."
-            },
-            {
-              "q": "Vad är en OSINT-ögonblicksbild?",
-              "a": "En separat CTI / Passive OSINT Snapshot omfattar en organisation och upp till tre domäner den äger. Löpande bevakning, inträngande testning och breda red team-övningar ingår inte."
             },
             {
               "q": "Vad skiljer skanning från penetrationstestning?",
@@ -785,10 +677,6 @@
               "a": "No. Automated checks have limitations. We agree gate behaviour, severity thresholds and exception ownership; human review and maintenance remain necessary."
             },
             {
-              "q": "Can you add DAST, containers and IaC?",
-              "a": "Yes, where the environment and scope support them. DAST needs a suitable test target. Container and infrastructure-as-code checks, SBOM, signatures and provenance are specified in the package agreement."
-            },
-            {
               "q": "Does a training certificate prove production delivery?",
               "a": "No. Training, a configured repository and verified production experience are different evidence. Tools are offered only when the assigned practitioner has the relevant capability."
             },
@@ -841,10 +729,6 @@
               "a": "Nej. Automatiske kontroller har begrænsninger. Vi aftaler blokeringsadfærd, alvorstærskler og ansvar for undtagelser. Menneskelig gennemgang og vedligeholdelse er fortsat nødvendige."
             },
             {
-              "q": "Kan I tilføje DAST, containere og IaC?",
-              "a": "Ja, når miljøet og omfanget understøtter det. DAST kræver et egnet testmål. Container- og infrastructure-as-code-kontroller, SBOM, signaturer og provenance fastlægges i pakkeaftalen."
-            },
-            {
               "q": "Dokumenterer et kursusbevis levering i produktion?",
               "a": "Nej. Uddannelse, et konfigureret repository og verificeret produktionserfaring er forskellige typer evidens. Værktøjer tilbydes kun, når den tilknyttede fagperson har relevante kompetencer."
             },
@@ -895,10 +779,6 @@
             {
               "q": "Stoppar kontrollerna alla osäkra ändringar?",
               "a": "Nej. Automatiska kontroller har begränsningar. Vi avtalar blockeringsbeteende, allvarlighetsnivåer och ansvar för undantag. Mänsklig granskning och underhåll behövs fortfarande."
-            },
-            {
-              "q": "Kan ni lägga till DAST, containrar och IaC?",
-              "a": "Ja, när miljön och omfattningen stöder det. DAST kräver ett lämpligt testmål. Container- och infrastructure-as-code-kontroller, SBOM, signaturer och provenance anges i paketavtalet."
             },
             {
               "q": "Visar ett kursintyg förmåga att leverera i produktion?",
@@ -954,18 +834,6 @@
           "acceptanceCriteriaStatus": "Illustrative checks for negotiation. These are not completed test results, new contractual promises or additions to the package. The written proposal defines the actual acceptance criteria.",
           "questionsAndAnswers": [
             {
-              "q": "Which cloud identity controls are relevant?",
-              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access and Entra PIM. AWS: IAM policies and roles, IAM Identity Center, STS and permission boundaries where needed. Google Cloud: Cloud IAM roles and policy bindings, IAM Conditions and Privileged Access Manager. Controls depend on the selected provider and licensing. PIM/PAM manage privileged access; they are not alternative names for RBAC."
-            },
-            {
-              "q": "What does monthly Cloud Security Care include?",
-              "a": "A separately agreed monthly service includes scheduled permission/configuration checks, alert review, small changes and a report, for up to six working hours per month against an agreed backlog. Additional hours require an approved service extension; they are not billed automatically."
-            },
-            {
-              "q": "Can you respond to an incident?",
-              "a": "Initial response, evidence collection and specialist handoff may be agreed subject to availability. Emergency coverage and response commitments require appropriate staffing, an on-call agreement and an SLA; they are not included by default."
-            },
-            {
               "q": "Which Azure controls can you review?",
               "a": "A Microsoft Entra ID security review and Azure RBAC permissions review can examine agreed identities and resources. A Conditional Access baseline or Microsoft Entra PIM configuration review depends on licences, authorised changes and the selected scope."
             },
@@ -1010,18 +878,6 @@
           "acceptanceCriteriaStatus": "Illustrative kontroller til forhandling. De er ikke gennemførte testresultater, nye kontraktløfter eller udvidelser af pakken. Det skriftlige tilbud fastlægger de faktiske acceptkriterier.",
           "questionsAndAnswers": [
             {
-              "q": "Hvilke identitetskontroller er relevante?",
-              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access og Entra PIM. AWS: IAM policies og roles, IAM Identity Center, STS og rettighedsgrænser efter behov. Google Cloud: Cloud IAM roles og policy bindings, IAM Conditions og Privileged Access Manager. Kontrollerne afhænger af leverandør og licenser. PIM/PAM styrer privilegeret adgang og er ikke andre navne for RBAC."
-            },
-            {
-              "q": "Hvad omfatter månedlig Cloud Security Care?",
-              "a": "En særskilt aftalt månedsydelse omfatter planlagte rettigheds- og konfigurationskontroller, alarmgennemgang, mindre ændringer og en rapport: op til seks arbejdstimer om måneden efter en aftalt backlog. Ekstra timer kræver en godkendt udvidelse og faktureres ikke automatisk."
-            },
-            {
-              "q": "Kan I hjælpe ved en sikkerhedshændelse?",
-              "a": "Indledende håndtering, indsamling af evidens og overdragelse til en specialist kan aftales efter tilgængelighed. Akut dækning og responstider kræver passende bemanding, vagtordning og SLA og indgår ikke automatisk."
-            },
-            {
               "q": "Hvilke Azure-kontroller kan I gennemgå?",
               "a": "En sikkerhedsgennemgang af Microsoft Entra ID og en gennemgang af Azure RBAC-rettigheder kan undersøge aftalte identiteter og ressourcer. En baseline for Conditional Access eller en gennemgang af Microsoft Entra PIM-konfiguration afhænger af licenser, tilladelser og omfang."
             },
@@ -1065,18 +921,6 @@
           ],
           "acceptanceCriteriaStatus": "Illustrativa kontroller att förhandla om. De är inte genomförda testresultat, nya avtalslöften eller tillägg till paketet. Den skriftliga offerten fastställer de faktiska acceptanskriterierna.",
           "questionsAndAnswers": [
-            {
-              "q": "Vilka identitetskontroller är relevanta?",
-              "a": "Azure: Azure RBAC, Microsoft Entra ID, Conditional Access och Entra PIM. AWS: IAM policies och roles, IAM Identity Center, STS och behörighetsgränser vid behov. Google Cloud: Cloud IAM roles och policy bindings, IAM Conditions och Privileged Access Manager. Kontrollerna beror på leverantör och licenser. PIM/PAM hanterar privilegierad åtkomst och är inte andra namn för RBAC."
-            },
-            {
-              "q": "Vad ingår i månatlig Cloud Security Care?",
-              "a": "En separat avtalad månadstjänst omfattar schemalagd behörighets- och konfigurationsgranskning, larmgranskning, mindre ändringar och en rapport: upp till sex arbetstimmar per månad enligt en avtalad backlog. Extra timmar kräver en godkänd utökning och faktureras inte automatiskt."
-            },
-            {
-              "q": "Kan ni hjälpa till vid en incident?",
-              "a": "Inledande hantering, insamling av underlag och överlämning till en specialist kan avtalas utifrån tillgänglighet. Akut beredskap och svarstidsåtaganden kräver lämplig bemanning, jouravtal och SLA och ingår inte automatiskt."
-            },
             {
               "q": "Vilka Azure-kontroller kan ni granska?",
               "a": "En säkerhetsgranskning av Microsoft Entra ID och en granskning av Azure RBAC-behörigheter kan granska avtalade identiteter och resurser. En grundnivå för Conditional Access eller en granskning av Microsoft Entra PIM-konfiguration beror på licenser, tillstånd och omfattning."

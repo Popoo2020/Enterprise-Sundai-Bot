@@ -56,6 +56,7 @@ jobs:
           node --check scripts/ai-buyer-render.mjs
           node --check scripts/insights-layout.mjs
           node --check scripts/mobile-polish.mjs
+          node --check scripts/sales-clarity.mjs
           node --check site/functions/_shared/catalog.js
           node --check site/assets/neon-compact.js
           node --check site/assets/brand-navigation.js

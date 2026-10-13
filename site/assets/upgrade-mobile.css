@@ -447,3 +447,20 @@
  .upgrade-site .header-inner{gap:4px}
  .upgrade-site .brand img{width:88px}
 }
+@media (max-width:900px) {
+ .scenario-grid{grid-template-columns:1fr;gap:34px}
+ .single-scenario .scenario-story{grid-template-columns:1fr;gap:20px}
+ .scenario-card h3{max-width:650px}
+ .scenario-story dd{max-width:75ch}
+}
+@media (max-width:600px) {
+ .service-list .service-copy p.service-benefit{font-size:.86rem;margin-bottom:10px}
+ .scenario-card{padding-top:20px}
+ .scenario-card h3{font-size:1.25rem;margin-bottom:20px}
+ .scenario-notice{font-size:.8rem}
+ .scenario-story dd{font-size:.88rem;line-height:1.65}
+ .scenario-story>div{margin-bottom:18px}
+ .scenario-output{margin-top:20px}
+ .scenario-services{gap:4px}
+ .scenario-services a{font-size:.78rem}
+}
