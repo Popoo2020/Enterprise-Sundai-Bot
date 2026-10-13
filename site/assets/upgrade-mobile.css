@@ -464,3 +464,22 @@
  .scenario-services{gap:4px}
  .scenario-services a{font-size:.78rem}
 }
+/* Home hero: one primary action, its reassurance, then a compact link row. */
+@media (max-width:600px) {
+ .upgrade-site[data-page-kind="home"] .hero-copy{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  column-gap:14px;
+  grid-template-areas:"eyebrow eyebrow" "title title" "subtitle subtitle" "lead lead" "call call" "reassurance reassurance" "solutions freelancers" "europe europe";
+ }
+ .upgrade-site[data-page-kind="home"] .hero-copy>.eyebrow{grid-area:eyebrow}
+ .upgrade-site[data-page-kind="home"] .hero-copy>h1{grid-area:title}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.hero-subtitle{grid-area:subtitle}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.hero-lead{grid-area:lead}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.actions{display:contents}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.actions .button.primary{grid-area:call;width:100%;min-width:0;min-height:50px;margin-top:22px;line-height:1.4}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.microcopy{grid-area:reassurance;max-width:none;margin:10px 0 12px;font-size:.75rem;line-height:1.5;text-align:center}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.actions .button.secondary{grid-area:solutions;width:auto;min-width:0;min-height:44px;margin:0;padding:10px 0;border:0;border-radius:0;font-size:.76rem;line-height:1.4;text-align:start;justify-content:flex-start;align-items:flex-start}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.join-quick{grid-area:freelancers;display:flex;align-items:flex-start;min-width:0;min-height:44px;margin:0;padding:10px 0 10px 14px;border-left:1px solid var(--border);font-size:.76rem;line-height:1.4;gap:0}
+ .upgrade-site[data-page-kind="home"] .hero-copy>.eu-mark{grid-area:europe;margin-top:18px}
+}
