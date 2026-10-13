@@ -63,7 +63,7 @@ for (const asset of ['openai.svg','azure.svg','gemini.svg','github.svg','shopify
 
 let jsBytes=0;for(const file of ['upgrade.js','upgrade-forms.js'])jsBytes+=(await stat(path.join(siteRoot,'assets',file))).size;
 if (jsBytes > 85_000) errors.push(`Active JS exceeds 85 KB performance budget: ${jsBytes}`);
-const cssFiles = ['upgrade.css','upgrade-mobile.css'];
+const cssFiles = ['upgrade.css','upgrade-mobile.css','insights-layout.css'];
 let cssBytes = 0;
 for (const name of cssFiles) cssBytes += (await stat(path.join(siteRoot, 'assets', name))).size;
 if (cssBytes > 250_000) errors.push(`Active CSS exceeds 250 KB performance budget: ${cssBytes}`);
