@@ -2,6 +2,18 @@
  const menu=document.querySelector('.mobile-menu');
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.open){menu.open=false;menu.querySelector('summary')?.focus();}});
  document.addEventListener('click',e=>{if(menu?.open&&!menu.contains(e.target))menu.open=false;});
+ // Keep footer navigation available without JS; collapse it only on small screens.
+ const footerGroups=[...document.querySelectorAll('.footer-nav')];
+ const footerViewport=window.matchMedia('(max-width:600px)');
+ const arrangeFooter=()=>{
+  for(const group of footerGroups){
+   // A viewport change must not conceal the link a keyboard user is using.
+   if(!footerViewport.matches||group.contains(document.activeElement))group.open=true;
+   else group.open=false;
+  }
+ };
+ arrangeFooter();
+ footerViewport.addEventListener('change',arrangeFooter);
  const emit=event=>window.dispatchEvent(new CustomEvent('sundai:metric',{detail:{event}}));
  const kind=document.body.dataset.pageKind;
  if(kind==='service')emit('service_view');if(kind==='pricing')emit('pricing_view');
