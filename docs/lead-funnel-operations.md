@@ -24,7 +24,7 @@ Operator notifications use `CONTACT_TO_EMAIL` and direct replies to the requesti
 
 ## Publication checks and limits
 
-The read-only GitHub smoke workflow checks the exact public content digest, localized entry/article pages, nine PDF responses and a real Durable Object storage-read probe through GET `/api/leads`. It creates no lead, changes no consent and sends no email. Unit tests exercise queueing, confirmation, cancellation, retries, retention, validation and client download states with test doubles.
+The read-only GitHub smoke workflow checks the exact public content digest, localized entry/article pages, nine PDF responses and a real Durable Object storage-read probe through GET `/api/leads`. It creates no lead, changes no consent and sends no email. A second production step verifies all nine guide landing pages, PDF response headers and the three published €490 offer schemas, then checks rejection of invalid methods, foreign origins, unknown fields, invalid email, missing security proof and invalid preference tokens. These are rejection checks, not a successful signup. Unit tests exercise queueing, confirmation, cancellation, retries, retention, validation and client download states with test doubles.
 
 Browser/iPhone rendering, a real visitor's Turnstile signup, production alarm execution and inbox receipt require distinct verification; do not describe the configuration smoke as those tests. No conversion uplift, search position or AI recommendation is measured by this release.
 
