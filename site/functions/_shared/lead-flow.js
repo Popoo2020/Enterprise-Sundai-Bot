@@ -27,7 +27,7 @@ export class LeadFlow {
    result.providerStatus=response.status;
    if(response.ok){result.credential='accepted';result.permission='full_access';}
    else{const body=await response.json();if(response.status===401&&body.name==='restricted_api_key'&&body.message==='This API key is restricted to only send emails'){result.credential='accepted';result.permission='sending_only';}else if([401,403].includes(response.status))result.credential='rejected';}
-  }catch{ /* No provider body, API key or personal data is returned or logged. */ }
+  }catch(error){const message=String(error?.message||'');result.failureCode=controller.signal.aborted?'timeout':/redirect/i.test(message)?'redirect_rejected':/different.*request|cross.request|I\/O.*context/i.test(message)?'io_context':/fetch is not defined|fetch.*not.*function/i.test(message)?'fetch_unavailable':/global.*fetch|Fetch API.*Durable|Durable.*fetch/i.test(message)?'fetch_scope_restricted':/header/i.test(message)?'request_header_invalid':/network|connection|TLS|SSL|DNS|resolve/i.test(message)?'network_error':'runtime_error';result.failureType=['Error','TypeError','ReferenceError','AbortError'].includes(error?.name)?error.name:'Other'; /* Raw errors and credentials are never returned or logged. */ }
   finally{clearTimeout(timer);}
   await this.ctx.storage.put('mail-readiness',{keyFingerprint,checkedAt:Date.now(),result});return Response.json(result);
  }
