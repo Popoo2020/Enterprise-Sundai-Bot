@@ -240,7 +240,7 @@ test('retrying a form with a new challenge reuses its send key; changed enquiry 
   assert.notEqual(keys[1], keys[2]);
 });
 
-test('all thirty shipped request forms load the protected client and provide direct-email and privacy fallbacks', async () => {
+test('all thirty-six shipped request forms load the protected client and provide direct-email and privacy fallbacks', async () => {
   const pages = [];
   const coverage = new Set();
   async function walk(dir) {
@@ -257,7 +257,8 @@ test('all thirty shipped request forms load the protected client and provide dir
             assert.ok(lang && kind, file);
             const service = html.includes('data-page-kind="service"');
             const selectedInterest = form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
-            const key = `${lang}:${kind}${service ? ':' + selectedInterest : ''}`;
+            const growth = html.match(/data-page-kind="(decision-review|security-assessment)"/)?.[1];
+    const key = `${lang}:${kind}${service ? ':' + selectedInterest : growth ? ':growth-' + growth : ''}`;
             if (service) {
               assert.equal(kind, 'enquiry', file);
               assert.ok(selectedInterest, `${file}: selected product`);
@@ -277,10 +278,10 @@ test('all thirty shipped request forms load the protected client and provide dir
     }
   }
   await walk(path.join(root, 'site'));
-  assert.equal(pages.length, 30);
-  assert.equal(coverage.size, 30);
+  assert.equal(pages.length, 36);
+  assert.equal(coverage.size, 36);
   for (const lang of ['en', 'da', 'sv']) for (const kind of ['booking', 'join', 'training', 'enquiry']) assert.ok(coverage.has(`${lang}:${kind}`));
-  for (const lang of ['en', 'da', 'sv']) assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`)).length, 6);
+  for (const lang of ['en', 'da', 'sv']) assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-')).length, 6);
 });
 
 test('company, team and product context survives delivery and HTML-like content is escaped', async t => {

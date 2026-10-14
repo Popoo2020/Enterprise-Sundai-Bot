@@ -9,7 +9,7 @@ Less manual work. More room to grow. AI workflows, assistants and cyber services
 - [DevSecOps & Secure Delivery Pipelines](https://sundaibot.com/services/devsecops/): Build security into the path from commit to deployment—with controlled identities, automated checks and releases you can trace.
 - [Cloud Security Engineering, Automation & Maintenance](https://sundaibot.com/services/cloud-security/): Get control of identities, privileged access, cloud configuration and security signals—then keep that foundation maintained.
 
-- [Tailored proposals](https://sundaibot.com/pricing/): Scope-based proposals for the company, team and product; no public numeric service prices.
+- [Tailored proposals](https://sundaibot.com/pricing/): Scope-based proposals for the company, team and product; core service prices are tailored. A separate one-decision AI Decision Review costs EUR 490 before any applicable VAT.
 - [Book](https://sundaibot.com/book/): Free 20-minute call request; awaiting confirmation.
 - [Training](https://sundaibot.com/training/): By booking, separate from core services.
 - [Network](https://sundaibot.com/join/): Recruitment goals; commission ceiling 12.5%.
@@ -38,3 +38,10 @@ Technology references are not official partnerships. Readiness services are not 
 - [SV service selection and procurement guide](https://sundaibot.com/sv/valj-tjanst/)
 
 The source pages above are authoritative. These supplementary files are directories, not ranking signals or an assurance of inclusion in AI answers.
+
+## Practical entry points
+- [Free practical PDF guides](https://sundaibot.com/free-guides/): AI Act readiness, agent security and supplier access; optional confirmed three-email series.
+- [AI security self-assessment](https://sundaibot.com/ai-security-check/): Four questions with local results before contact capture.
+- [AI Decision Review](https://sundaibot.com/ai-decision-review/): EUR 490 for one decision, 45-minute discussion and 3–5-page memo; VAT, scope and timing agreed before acceptance. No checkout or confirmed booking.
+- [Illustrative scenarios](https://sundaibot.com/customer-scenarios/): Examples, not verified customer results.
+- [Denmark CPR access lessons](https://sundaibot.com/insights/denmark-cpr-access-security.html): Dated source-based analysis; reported weak passwords are not a proven intrusion method.

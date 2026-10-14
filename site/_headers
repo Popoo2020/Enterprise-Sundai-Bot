@@ -42,3 +42,9 @@
 
 /sv/*.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/downloads/*
+  Content-Type: application/pdf
+  Content-Disposition: attachment
+  X-Robots-Tag: noindex
+  X-Content-Type-Options: nosniff

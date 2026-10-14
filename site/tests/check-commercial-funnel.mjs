@@ -12,6 +12,8 @@ const esc=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').re
 const moneyKeys=new Set(['price','basePrice','launchPrice','currentPrice','lowPrice','highPrice','priceCurrency','priceSpecification','baseTotal','included','total','currency']);
 function noPublicAmounts(value,label){
  if(!value||typeof value!=='object')return;
+ if(value['@type']==='Offer'&&String(value['@id']).endsWith('/ai-decision-review/#offer')){assert.equal(value.price,'490');assert.equal(value.priceCurrency,'EUR');return;}
+
  for(const [key,item]of Object.entries(value)){assert.ok(!moneyKeys.has(key),`${label}: public monetary field ${key}`);noPublicAmounts(item,label);}
 }
 async function pages(dir=root){const out=[];for(const entry of await readdir(dir,{withFileTypes:true})){if(['tests','functions','assets'].includes(entry.name))continue;const file=path.join(dir,entry.name);if(entry.isDirectory())out.push(...await pages(file));else if(entry.name.endsWith('.html'))out.push(file);}return out;}
@@ -92,7 +94,7 @@ for(const file of await pages()){
  const html=await readFile(file,'utf8'),label=path.relative(root,file);
  assert.doesNotMatch(html,/data-price\s*=|data-bundle-tool|class="(?:price|price-line|price-card|bundle-result)"/,`${label}: pricing widget remains`);
  const readable=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
- assert.doesNotMatch(readable,/(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)\s*[\d]|\d[\d\s.,\u00a0]*\s*(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)/,`${label}: numeric public price remains`);
+ assert.doesNotMatch(readable.replace(/€490\b/g,''),/(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)\s*[\d]|\d[\d\s.,\u00a0]*\s*(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)/,`${label}: numeric public price remains`);
  for(const match of html.matchAll(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g))noPublicAmounts(JSON.parse(match[1]),label);
  checked++;
 }
@@ -101,4 +103,4 @@ assert.ok(js.includes("new URLSearchParams(window.location.search).get('interest
 assert.ok(js.includes('interest.options].some(option=>option.value===requestedInterest)'),'Interest query only accepts a published option');
 assert.doesNotMatch(js,/\.total\b|\.included\b|\.currentPrice\b|\.basePrice\b|\.launchPrice\b/, 'Public client must not render private prices');
 await access(path.join(root,'assets/upgrade-mobile.css'));
-console.log(`Commercial QA passed: ${checked} HTML pages without monetary offers, 18 sales pages with company/team/product proposals, six product CTAs in three languages, prominent freelancer funnel and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
+console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, six product CTAs in three languages, prominent freelancer funnel and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);

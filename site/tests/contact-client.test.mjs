@@ -18,8 +18,8 @@ for (const url of await pages()) {
   for (const [form] of html.matchAll(/<form\b[^>]*data-upgrade-form[\s\S]*?<\/form>/g)) shipped.push({ url, html, form });
 }
 
-test('all thirty request forms share the protected endpoint and native field constraints', () => {
-  assert.equal(shipped.length, 30);
+test('all thirty-six request forms share the protected endpoint and native field constraints', () => {
+  assert.equal(shipped.length, 36);
   const coverage = new Set();
   for (const { url, html, form } of shipped) {
     const tag = form.slice(0, form.indexOf('>') + 1);
@@ -38,7 +38,8 @@ test('all thirty request forms share the protected endpoint and native field con
     assert.ok(lang && kind, url.pathname);
     const service = html.includes('data-page-kind="service"');
     const selectedInterest = form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
-    const key = `${lang}:${kind}${service ? ':' + selectedInterest : ''}`;
+    const growth = html.match(/data-page-kind="(decision-review|security-assessment)"/)?.[1];
+    const key = `${lang}:${kind}${service ? ':' + selectedInterest : growth ? ':growth-' + growth : ''}`;
     if (service) {
       assert.equal(kind, 'enquiry', url.pathname);
       assert.ok(selectedInterest, `${url.pathname}: service selection required`);
@@ -51,10 +52,10 @@ test('all thirty request forms share the protected endpoint and native field con
     assert.ok(!coverage.has(key), url.pathname);
     coverage.add(key);
   }
-  assert.equal(coverage.size, 30);
+  assert.equal(coverage.size, 36);
   for (const lang of ['en', 'da', 'sv']) {
     for (const kind of ['booking', 'join', 'training', 'enquiry']) assert.ok(coverage.has(`${lang}:${kind}`));
-    assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`)).length, 6);
+    assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-')).length, 6);
   }
 });
 
