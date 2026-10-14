@@ -23,9 +23,10 @@ export class LeadFlow {
   try{
    // A read-only endpoint cannot send a message. Sending-only keys reject this
    // operation with a documented restriction, distinct from invalid credentials.
-   const response=await fetch('https://api.resend.com/api-keys',{method:'GET',redirect:'error',signal:controller.signal,headers:{authorization:`Bearer ${normalizeApiKey(this.env.RESEND_API_KEY)}`}});
+   const response=await fetch('https://api.resend.com/api-keys',{method:'GET',redirect:'manual',signal:controller.signal,headers:{authorization:`Bearer ${normalizeApiKey(this.env.RESEND_API_KEY)}`}});
    result.providerStatus=response.status;
    if(response.ok){result.credential='accepted';result.permission='full_access';}
+   else if(response.status>=300&&response.status<400){result.failureCode='provider_redirect_not_followed';}
    else{const body=await response.json();if(response.status===401&&body.name==='restricted_api_key'&&body.message==='This API key is restricted to only send emails'){result.credential='accepted';result.permission='sending_only';}else if([401,403].includes(response.status))result.credential='rejected';}
   }catch(error){const message=String(error?.message||'');result.failureCode=controller.signal.aborted?'timeout':/redirect/i.test(message)?'redirect_rejected':/different.*request|cross.request|I\/O.*context/i.test(message)?'io_context':/fetch is not defined|fetch.*not.*function/i.test(message)?'fetch_unavailable':/global.*fetch|Fetch API.*Durable|Durable.*fetch/i.test(message)?'fetch_scope_restricted':/header/i.test(message)?'request_header_invalid':/network|connection|TLS|SSL|DNS|resolve/i.test(message)?'network_error':'runtime_error';result.failureType=['Error','TypeError','ReferenceError','AbortError'].includes(error?.name)?error.name:'Other'; /* Raw errors and credentials are never returned or logged. */ }
   finally{clearTimeout(timer);}
@@ -68,7 +69,7 @@ export class LeadFlow {
  if(job.attempts&&now-job.created>23*3600000){job.status='expired';await this.save(state);return;}
  job.attempts++;await this.ctx.storage.put('lead',state);
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);let retry=true;
- try{const response=await fetch('https://api.resend.com/emails',{method:'POST',redirect:'error',signal:controller.signal,headers:{authorization:`Bearer ${normalizeApiKey(this.env.RESEND_API_KEY)}`,'content-type':'application/json','idempotency-key':`sundai-${job.id}`},body:JSON.stringify(job.payload)});if(response.ok){const receipt=await response.json();if(typeof receipt.id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(receipt.id)){job.status='accepted';job.receipt=receipt.id;retry=false;}}else if(response.status!==429&&response.status<500){job.status='failed';retry=false;if(job.marketing){state.cancelled=true;for(const pending of state.jobs)if(pending.marketing&&pending.status==='pending')pending.status='cancelled';}}}catch{ /* No provider response or personal data is logged. */ }finally{clearTimeout(timer);}
+ try{const response=await fetch('https://api.resend.com/emails',{method:'POST',redirect:'manual',signal:controller.signal,headers:{authorization:`Bearer ${normalizeApiKey(this.env.RESEND_API_KEY)}`,'content-type':'application/json','idempotency-key':`sundai-${job.id}`},body:JSON.stringify(job.payload)});if(response.ok){const receipt=await response.json();if(typeof receipt.id==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(receipt.id)){job.status='accepted';job.receipt=receipt.id;retry=false;}}else if(response.status!==429&&response.status<500){job.status='failed';retry=false;if(job.marketing){state.cancelled=true;for(const pending of state.jobs)if(pending.marketing&&pending.status==='pending')pending.status='cancelled';}}}catch{ /* No provider response or personal data is logged. */ }finally{clearTimeout(timer);}
  if(retry){job.due=now+Math.min(3600000,60000*2**Math.min(job.attempts,6));}await this.save(state);
  });}
 }
