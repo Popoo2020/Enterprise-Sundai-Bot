@@ -238,7 +238,7 @@
 @media (max-width:600px) {
   body {
     font-size:16px;
-    padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));
+    padding-bottom:0;
   }
   .container,.geo-shell,.legal-container { width:calc(100% - 36px); }
   .header-inner { gap:8px; min-height:68px; }
@@ -350,9 +350,9 @@
   .authority-body h2 { font-size:1.6rem; }
   .authority-kicker,.matrix-controls,.article-nav { gap:12px; }
   .mobile-dock {
-    position:fixed;
-    inset:auto 0 0;
-    z-index:35;
+    position:static;
+    inset:auto;
+    z-index:auto;
     display:flex;
     align-items:stretch;
     gap:10px;
