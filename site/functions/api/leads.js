@@ -18,6 +18,7 @@ export async function leads(request,env){const url=new URL(request.url),path=url
   const stub=env.LEAD_FLOWS.get(env.LEAD_FLOWS.idFromName(await hashValue(email))),response=await stub.fetch('https://lead.internal/capture',{method:'POST',body:JSON.stringify({...body,email})});const receipt=await response.json();if(!response.ok||!receipt.ok)return json({ok:false,code:receipt.code||'queue_unavailable'},response.status);
   return json({ok:true,status:'queued',download:downloadPath(body.guide,body.lang),followup:body.followup==='yes'?'confirmation_required':'not_requested'},202);
  }
+ if(path==='/api/leads/mail-readiness'){if(request.method!=='GET')return json({ok:false,code:'method_not_allowed'},405,{allow:'GET'});const stub=env.LEAD_FLOWS.get(env.LEAD_FLOWS.idFromName('sundai-lead-storage-health-v1'));const response=await stub.fetch('https://lead.internal/mail-readiness');return json(await response.json(),response.status);}
  const purpose=path==='/api/leads/confirm'?'confirm':path==='/api/leads/unsubscribe'?'unsubscribe':null;
  if(!purpose)return json({ok:false},404);if(!['GET','POST'].includes(request.method))return json({ok:false},405,{allow:'GET, POST'});
  let payload;try{payload=await readToken(url.searchParams.get('t'),purpose,env);}catch{return preferencePage('en','Email preference',`<p>${copy.en.invalid}</p>`,410);}
