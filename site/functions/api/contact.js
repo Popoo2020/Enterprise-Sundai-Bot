@@ -393,7 +393,7 @@ export async function onRequestPost(context) {
           'idempotency-key': resendIdempotencyKey
         },
         body: JSON.stringify(resendPayload),
-        redirect: 'error',
+        redirect: 'manual',
         signal: controller.signal
       });
       if (resendResponse.ok) {

@@ -227,7 +227,7 @@ test('retrying a form with a new challenge reuses its send key; changed enquiry 
   t.mock.method(globalThis, 'fetch', async (url, options) => {
     if (url.includes('siteverify')) return Response.json({ success: true, hostname: 'sundaibot.com', action: 'contact' });
     keys.push(options.headers['idempotency-key']);
-    assert.equal(options.redirect, 'error');
+    assert.equal(options.redirect, 'manual');
     return Response.json({ id: 'synthetic-provider-id' });
   });
   const body = await enquiry().json();
@@ -319,3 +319,5 @@ test('proposal context obeys server message bounds and rejects forged price fiel
   }
   assert.equal(mock.mock.callCount(), 0);
 });
+
+test('contact mail never follows a provider redirect or forwards credentials to its target',async t=>{const contact=await fresh();const urls=[];t.mock.method(globalThis,'fetch',async(url,options)=>{urls.push(url);if(url.includes('siteverify'))return Response.json({success:true,hostname:'sundaibot.com',action:'contact'});assert.equal(options.redirect,'manual');return new Response(null,{status:302,headers:{location:'https://untrusted.example/collect'}})});const response=await contact.onRequestPost({request:enquiry(),env});assert.equal(response.status,502);assert.equal((await response.json()).ok,false);assert.equal(urls.length,2);assert(urls.every(url=>!url.includes('untrusted.example')));});

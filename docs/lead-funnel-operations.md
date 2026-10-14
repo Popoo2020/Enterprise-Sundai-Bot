@@ -33,3 +33,11 @@ Three customer scenarios are explicitly illustrative. The Denmark CPR article di
 ## Sending credential probe
 
 GET `/api/leads/mail-readiness` uses the dedicated health object to make at most one read-only Resend API-keys request per minute per credential. It returns only a classification and HTTP status; no key, key metadata, provider body or recipient data is exposed. A sending-only key has a documented read restriction and is classified separately from an inactive key. Credential acceptance is not proof of mail submission or inbox delivery. The health cache stores only a credential fingerprint and operational result, separate from lead records.
+
+## Live verification — 14 October 2026
+
+An authorized browser test passed Cloudflare verification, received a durable queue receipt and downloaded the exact 50,186-byte agent-security PDF. The live test revealed a redirect-handling TypeError in outgoing Durable Object requests. Manual, non-following redirects resolved it; the original queued request retried with its existing idempotency key. Resend recorded guide and operator-notification messages as delivered at 17:18 UTC. This is provider delivery evidence, not a read receipt or a mailbox-folder inspection.
+
+The live diagnostic displayed access/data-specific checks before contact capture and populated all four choices locally into the enquiry. Its privacy introduction was corrected in all three languages.
+
+The confirmation link opened successfully, but the cloud browser security policy blocked clicking the confirmation button and subsequent handoff on that page. Subscription confirmation and the three follow-up messages remain unverified. The cloud browser exposes no viewport-resize capability; observed rendering was desktop at 1363 CSS pixels, not an iPhone test.
