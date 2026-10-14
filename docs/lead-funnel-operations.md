@@ -20,7 +20,7 @@ Alarms send one job at a time. Network/429/5xx failures retry with stable payloa
 
 Completed payloads are removed from queue history, pending jobs are preserved and queue/history size is bounded. A cleanup alarm deletes the record 180 days after the latest request or preference change. Operator mailbox and provider logs have separate retention processes. Erasure of this queue is not erasure of those other systems.
 
-Operator notifications use `CONTACT_TO_EMAIL`. Replies, actual bookings, invoices, reports and the suitability of follow-on work remain human responsibilities. Marketing consent is not inferred from a contact enquiry or a PDF request.
+Operator notifications use `CONTACT_TO_EMAIL` and direct replies to the requesting visitor. Visitor guide and follow-up messages direct replies to the operator inbox, rather than the sending-only website address. Replies, actual bookings, invoices, reports and the suitability of follow-on work remain human responsibilities. Marketing consent is not inferred from a contact enquiry or a PDF request.
 
 ## Publication checks and limits
 
