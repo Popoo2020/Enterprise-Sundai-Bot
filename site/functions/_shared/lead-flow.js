@@ -14,7 +14,25 @@ export async function readToken(token,purpose,env,now=Date.now()){if(typeof toke
 function email(env,to,subject,text,links=[],headers){return {from:env.CONTACT_FROM_EMAIL,to:[to],reply_to:[env.CONTACT_TO_EMAIL],subject,text:text+'\n\n'+links.map(([label,url])=>label+': '+url).join('\n')+'\n\n'+copy.en.footer+'\nRegistered office: Unit A, 82 James Carter Road, Mildenhall, Suffolk, IP28 7DE, United Kingdom.',html:`<div><h1>${esc(subject)}</h1><p>${esc(text).replaceAll('\n','<br>')}</p>${links.map(([label,url])=>`<p><a href="${esc(url)}">${esc(label)}</a></p>`).join('')}<hr><p>${esc(copy.en.footer)}</p><p>Registered office: Unit A, 82 James Carter Road, Mildenhall, Suffolk, IP28 7DE, United Kingdom.</p><p><a href="${origin}/privacy.html">Privacy</a></p></div>`,...(headers?{headers}:{})};}
 export class LeadFlow {
  constructor(ctx,env){this.ctx=ctx;this.env=env;}
- async fetch(request){return this.ctx.blockConcurrencyWhile(async()=>{if(new URL(request.url).pathname==='/health'){await this.ctx.storage.get('__health_probe');return Response.json({ok:true,storage:'readable'});}const body=await request.json(),now=Date.now();let state=await this.ctx.storage.get('lead');const action=new URL(request.url).pathname;
+ async mailReadiness(){
+  const keyFingerprint=await hashValue(normalizeApiKey(this.env.RESEND_API_KEY));
+  const cached=await this.ctx.storage.get('mail-readiness');
+  if(cached&&cached.keyFingerprint===keyFingerprint&&Date.now()-cached.checkedAt<60000)return Response.json(cached.result);
+  const result={scope:'credential_validation_only',credential:'unknown',providerStatus:null,emailSent:false,emailDeliveryVerified:false};
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   // A read-only endpoint cannot send a message. Sending-only keys reject this
+   // operation with a documented restriction, distinct from invalid credentials.
+   const response=await fetch('https://api.resend.com/api-keys',{method:'GET',redirect:'error',signal:controller.signal,headers:{authorization:`Bearer ${normalizeApiKey(this.env.RESEND_API_KEY)}`}});
+   result.providerStatus=response.status;
+   if(response.ok){result.credential='accepted';result.permission='full_access';}
+   else{const body=await response.json();if(response.status===401&&body.name==='restricted_api_key'&&body.message==='This API key is restricted to only send emails'){result.credential='accepted';result.permission='sending_only';}else if([401,403].includes(response.status))result.credential='rejected';}
+  }catch{ /* No provider body, API key or personal data is returned or logged. */ }
+  finally{clearTimeout(timer);}
+  await this.ctx.storage.put('mail-readiness',{keyFingerprint,checkedAt:Date.now(),result});return Response.json(result);
+ }
+
+ async fetch(request){return this.ctx.blockConcurrencyWhile(async()=>{if(new URL(request.url).pathname==='/mail-readiness')return this.mailReadiness();if(new URL(request.url).pathname==='/health'){await this.ctx.storage.get('__health_probe');return Response.json({ok:true,storage:'readable'});}const body=await request.json(),now=Date.now();let state=await this.ctx.storage.get('lead');const action=new URL(request.url).pathname;
  if(action==='/capture'){
   const id=await hashValue(`${body.email}|${body.guide}|${body.startedAt}`);
   if(state?.captures.some(c=>c.id===id))return Response.json({ok:true,duplicate:true});

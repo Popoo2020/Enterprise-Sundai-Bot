@@ -2,7 +2,7 @@ name: Verify public lead funnel
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'worker.js', 'wrangler.jsonc', 'scripts/verify-lead-release.py', 'scripts/verify-lead-security.py']
+    paths: ['site/**', 'worker.js', 'wrangler.jsonc', 'scripts/verify-lead-release.py', 'scripts/verify-lead-security.py', 'scripts/verify-mail-readiness.py']
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,3 +16,5 @@ jobs:
         run: python scripts/verify-lead-release.py
       - name: Check live download headers and reject invalid guide requests
         run: python scripts/verify-lead-security.py
+      - name: Inspect sending credential readiness without sending email
+        run: python scripts/verify-mail-readiness.py

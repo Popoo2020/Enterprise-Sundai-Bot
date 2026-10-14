@@ -29,3 +29,7 @@ The read-only GitHub smoke workflow checks the exact public content digest, loca
 Browser/iPhone rendering, a real visitor's Turnstile signup, production alarm execution and inbox receipt require distinct verification; do not describe the configuration smoke as those tests. No conversion uplift, search position or AI recommendation is measured by this release.
 
 Three customer scenarios are explicitly illustrative. The Denmark CPR article distinguishes the ministry's account, press reports and security review hypotheses; it does not claim a proved entry method, a regulatory judgment or verified external client results.
+
+## Sending credential probe
+
+GET `/api/leads/mail-readiness` uses the dedicated health object to make at most one read-only Resend API-keys request per minute per credential. It returns only a classification and HTTP status; no key, key metadata, provider body or recipient data is exposed. A sending-only key has a documented read restriction and is classified separately from an inactive key. Credential acceptance is not proof of mail submission or inbox delivery. The health cache stores only a credential fingerprint and operational result, separate from lead records.
