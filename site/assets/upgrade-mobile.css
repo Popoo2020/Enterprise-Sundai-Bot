@@ -483,3 +483,71 @@
  .upgrade-site[data-page-kind="home"] .hero-copy>.join-quick{grid-area:freelancers;display:flex;align-items:flex-start;min-width:0;min-height:44px;margin:0;padding:10px 0 10px 14px;border-left:1px solid var(--border);font-size:.76rem;line-height:1.4;gap:0}
  .upgrade-site[data-page-kind="home"] .hero-copy>.eu-mark{grid-area:europe;margin-top:18px}
 }
+
+/* October 2026: shorter reading lines without sacrificing paragraph width. */
+@media (max-width:800px){
+ .framework-intro{align-items:start;gap:12px;flex-direction:column}
+ .framework-badges{gap:12px}
+ .footer .framework-badge img{width:112px;height:112px}
+ .framework-detail-grid{gap:26px}
+}
+@media (max-width:600px){
+ .upgrade-site p,.upgrade-site li{overflow-wrap:break-word;word-break:normal}
+ .upgrade-site h1,.upgrade-site h2,.upgrade-site h3{overflow-wrap:break-word}
+ .upgrade-site .header-inner{min-height:64px}
+ .upgrade-site .hero{padding:28px 0 32px}
+ .upgrade-site .hero h1{font-size:clamp(2.15rem,9.4vw,3rem);line-height:1.1;margin-bottom:18px}
+ .upgrade-site .hero-subtitle{font-size:1.08rem;line-height:1.45;margin-bottom:14px}
+ .upgrade-site .hero-lead{font-size:1rem;line-height:1.6}
+ .upgrade-site .page-hero .lead{line-height:1.6;margin-bottom:0}
+ .upgrade-site .section-heading{margin-bottom:22px;gap:10px}
+ .upgrade-site .section-heading p{font-size:1rem;line-height:1.6}
+ .upgrade-site .section-heading h2{margin-bottom:12px}
+ .upgrade-site .button{white-space:normal;max-width:100%;line-height:1.4;min-height:48px;overflow-wrap:break-word}
+ .upgrade-site .service-list .service-card{grid-template-columns:26px minmax(0,1fr);column-gap:12px;row-gap:14px;padding-block:26px}
+ .upgrade-site .service-list .service-copy{display:contents}
+ .upgrade-site .service-list .service-copy>h2,.upgrade-site .service-list .service-copy>h3{grid-column:2;font-size:1.26rem;line-height:1.35;margin:0}
+ .upgrade-site .service-list .service-copy>p{grid-column:1/-1;font-size:1rem;line-height:1.65;margin:0;max-width:60ch}
+ .upgrade-site .service-list .service-copy>p.service-benefit{font-size:.92rem;line-height:1.5;margin:2px 0 0}
+ .upgrade-site .service-list .card-link{grid-column:1/-1;min-height:46px;padding:10px 16px;margin-top:2px}
+ .upgrade-site .growth-grid{gap:0}
+ .upgrade-site .growth-grid>.growth-card{padding:24px 0;border:0;border-top:1px solid var(--border);border-radius:0;gap:12px;min-width:0;background:transparent}
+ .upgrade-site .growth-card p{font-size:1rem;line-height:1.65;margin-bottom:4px}
+ .upgrade-site .growth-card .growth-price{font-size:2.5rem}
+ .upgrade-site .growth-grid .growth-card .button{margin-top:6px}
+ .upgrade-site .growth-paths{border-top:1px solid var(--border);padding-top:22px;margin-top:12px;gap:10px}
+ .upgrade-site .growth-paths .button.primary{order:-1}
+ .upgrade-site .growth-paths .button.secondary{border-color:transparent;justify-content:flex-start;padding-inline:0;min-height:44px}
+ .upgrade-site .growth-form{min-width:0;gap:18px}
+ .upgrade-site .growth-questions{gap:20px;min-width:0}
+ .upgrade-site .growth-form input[type=email],.upgrade-site .growth-form select{font-size:16px;min-width:0;max-width:100%}
+ .upgrade-site .growth-form .growth-choice{font-size:.9rem;line-height:1.6}
+ .upgrade-site .growth-preview{padding-left:16px;margin-top:24px}
+ .upgrade-site .growth-list{padding-left:1.2em}
+ .upgrade-site .growth-list li{margin-bottom:14px;line-height:1.65}
+ .upgrade-site .framework-strip{padding-bottom:26px;margin-bottom:26px}
+ .upgrade-site .framework-intro{gap:6px}
+ .upgrade-site .framework-intro h2{font-size:1.45rem;line-height:1.35}
+ .upgrade-site .framework-intro .eyebrow{font-size:.64rem;line-height:1.6;margin-bottom:10px}
+ .upgrade-site .framework-scope{font-size:.85rem}
+ .upgrade-site .framework-badges{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px;margin:14px 0 20px}
+ .upgrade-site .framework-badge{padding:6px 0;gap:4px}
+ .upgrade-site .framework-badge img{width:112px;height:112px;margin-bottom:7px}
+ .upgrade-site .framework-name{font-size:.82rem;line-height:1.45}
+ .upgrade-site .framework-role{font-size:.78rem;line-height:1.5}
+ .upgrade-site .framework-note{font-size:.78rem;line-height:1.6;margin-top:14px}
+ .upgrade-site .framework-detail-grid{grid-template-columns:1fr;gap:18px;margin:24px 0}
+ .upgrade-site .framework-detail-grid article{padding-top:20px;scroll-margin-top:84px}
+ .upgrade-site .framework-detail-grid h3{font-size:1.25rem}
+ .upgrade-site .framework-detail-grid p{font-size:1rem;line-height:1.65}
+ .upgrade-site .framework-detail-grid .framework-detail-label{font-size:.8rem}
+ .upgrade-site .footer-grid{grid-template-columns:1fr;gap:0}
+ .upgrade-site .footer-grid>div{padding-bottom:20px}
+ .upgrade-site .footer-grid>div>p{max-width:42ch;font-size:.84rem;line-height:1.6;margin-bottom:10px}
+ .upgrade-site .footer-nav{border-top:1px solid var(--border)}
+ .upgrade-site .footer-nav summary{min-height:56px;padding-block:12px}
+ .upgrade-site .footer-nav summary h2{font-size:.9rem}
+ .upgrade-site .footer-nav nav{padding:0 0 16px;margin:0;gap:0}
+ .upgrade-site .footer-nav nav a{font-size:.88rem;min-height:44px}
+ .upgrade-site .footer-bottom{margin-top:18px;gap:8px}
+}
