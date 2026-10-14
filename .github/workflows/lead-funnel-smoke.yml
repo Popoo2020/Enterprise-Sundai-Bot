@@ -1,0 +1,16 @@
+name: Verify public lead funnel
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'worker.js', 'wrangler.jsonc', 'scripts/verify-lead-release.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Verify published pages, PDFs and configuration without submitting personal data
+        run: python scripts/verify-lead-release.py

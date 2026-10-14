@@ -1,3 +1,5 @@
+import {leads} from './site/functions/api/leads.js';
+export {LeadFlow} from './site/functions/_shared/lead-flow.js';
 import {
   contactConfiguration,
   onRequestGet,
@@ -61,6 +63,7 @@ export default {
       return Response.redirect(requestUrl.toString(), 308);
     }
     const path = requestUrl.pathname;
+    if(path==='/api/leads'||path.startsWith('/api/leads/')){try{return await leads(request,env);}catch{return new Response(JSON.stringify({ok:false,code:'lead_service_unavailable'}),{status:503,headers:diagnosticHeaders});}}
     if(path==='/api/pricing'){
       if(!['GET','HEAD'].includes(request.method))return new Response(JSON.stringify({ok:false,code:'method_not_allowed'}),{status:405,headers:{...diagnosticHeaders,allow:'GET, HEAD'}});
       return new Response(request.method==='HEAD'?null:JSON.stringify({quoteRequired:true,mode:'tailored_proposals',packages:packages.map(p=>({id:p.id,names:p.names,scopes:p.scopes,bundleEligible:p.bundleEligible}))}),{headers:diagnosticHeaders});

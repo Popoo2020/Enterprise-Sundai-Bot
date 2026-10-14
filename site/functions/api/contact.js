@@ -233,7 +233,7 @@ const verifyTurnstile = async ({ request, env, token }) => {
   };
 };
 
-const parseJsonBody = async (request) => {
+const parseJsonBody = async (request, allowedFields = ALLOWED_FIELDS) => {
   const contentType = String(request.headers.get('content-type') || '').toLowerCase();
   if (!/^application\/json(?:\s*;|$)/.test(contentType)) {
     return { error: json({ ok: false, code: 'unsupported_media_type' }, 415) };
@@ -284,7 +284,7 @@ const parseJsonBody = async (request) => {
   }
   if (!body || Array.isArray(body) || typeof body !== 'object') return { error: json({ ok: false, code: 'invalid_json' }, 400) };
   const keys = Object.keys(body);
-  if (keys.length > ALLOWED_FIELDS.size || keys.some(key => !ALLOWED_FIELDS.has(key))) {
+  if (keys.length > allowedFields.size || keys.some(key => !allowedFields.has(key))) {
     return { error: json({ ok: false, code: 'unexpected_fields' }, 400) };
   }
   if (keys.some(key => key === 'startedAt'
@@ -452,3 +452,6 @@ export function onRequestOptions() {
 export function onRequest() {
   return json({ ok: false, code: 'method_not_allowed' }, 405, { allow: 'GET, HEAD, POST, OPTIONS' });
 }
+
+// Reuse the same bounded parser, anti-abuse and verification controls for guide requests.
+export { json, escapeHtml, singleLine, validEmail, normalizeApiKey, hashValue, enforceRateLimit, verifyTurnstile, parseJsonBody, validateSameOrigin };
