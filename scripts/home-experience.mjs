@@ -4,7 +4,7 @@ import {htmlEscape as esc} from './seo-render.mjs';
 export const experienceCopy = {
   en:{
     guideNav:'Free guides',guideEyebrow:'FREE / PRACTICAL KNOW-HOW',
-    guideTitle:'Kick-ass know-how. Yours for free.',
+    guideTitle:'Kick-ass know‑how. Yours for free.',
     guideIntro:'Spot the AI and security risks worth fixing before you commit your data, budget or team.',
     guideCta:'Choose your free guide',guideNote:'Practical PDFs. No payment required.',
     libraryTitle:'A smarter first step. A safer next move.',
