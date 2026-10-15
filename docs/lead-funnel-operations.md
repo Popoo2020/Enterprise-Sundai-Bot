@@ -28,7 +28,7 @@ The read-only GitHub smoke workflow checks the exact public content digest, loca
 
 Browser/iPhone rendering, a real visitor's Turnstile signup, production alarm execution and inbox receipt require distinct verification; do not describe the configuration smoke as those tests. No conversion uplift, search position or AI recommendation is measured by this release.
 
-Three customer scenarios are explicitly illustrative. The Denmark CPR article distinguishes the ministry's account, press reports and security review hypotheses; it does not claim a proved entry method, a regulatory judgment or verified external client results.
+As of 15 October 2026, the three illustrative customer scenarios and the earlier fictional project examples are replaced by four client testimonials supplied by the site owner for publication. Quotes remain in the original English across EN/DA/SV; controls and headings are localized. The only editorial change is removal of the stray comma in “seamless , extension”. No independent verification, star ratings, portraits or additional results are asserted. The Denmark CPR article distinguishes the ministry's account, press reports and security review hypotheses; it does not claim a proved entry method, a regulatory judgment or verified external client results.
 
 ## Sending credential probe
 
@@ -41,3 +41,12 @@ An authorized browser test passed Cloudflare verification, received a durable qu
 The live diagnostic displayed access/data-specific checks before contact capture and populated all four choices locally into the enquiry. Its privacy introduction was corrected in all three languages.
 
 The confirmation link opened successfully, but the cloud browser security policy blocked clicking the confirmation button and subsequent handoff on that page. Subscription confirmation and the three follow-up messages remain unverified. The cloud browser exposes no viewport-resize capability; observed rendering was desktop at 1363 CSS pixels, not an iPhone test.
+
+
+## Client feedback update — 15 October 2026
+
+The homepage, service directory, six product pages and existing `/customer-scenarios/` URL in each language now use one shared testimonial component (27 pages). The old URL is retained so existing links continue to work. Navigation and discovery copy now describe client feedback.
+
+The enhanced carousel displays one complete quote, starts rotating only when at least 25% of its section is visible, allows 24 seconds to read, and transitions left in 500 ms. Previous/Next navigation pauses autoplay; Pause/Play is explicit. Hover, keyboard focus and hidden tabs suspend rotation. Reduced-motion users get manual navigation without animation. Without JavaScript, all four quotes remain readable. The layout uses the tallest quote to avoid shifting the following content. This change does not alter lead capture, mail consent or the contact API.
+
+Validation for this update: all 58 required local CI commands passed, including 98 Node tests, all 186 generated pages, commercial checks and security/performance budgets. Seven carousel tests cover the 27 replacement pages, complete text and attribution, no-JavaScript reading, 500 ms leftward wraparound, reading time, visibility gating, manual pause, focus/hover, reduced motion and older-browser fallbacks. Mobile source rules are checked; this does not constitute physical-device visual testing.

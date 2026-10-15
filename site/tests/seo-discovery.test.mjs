@@ -81,7 +81,9 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
   assert(rows.length>0);
   for(const [,url,date]of rows){
    assert.equal(new URL(url).origin,'https://sundaibot.com');
-   assert.equal(date,/free-guides|ai-decision-review|ai-security-check|customer-scenarios|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
+   const pathname=new URL(url).pathname;
+   const feedbackUpdate=/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
+   assert.equal(date,feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
    const html=await readPage(new URL(url).pathname);
    assert(html.includes(`rel="canonical" href="${url}"`));
    assert(!html.includes('content="noindex'));

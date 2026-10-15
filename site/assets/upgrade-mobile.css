@@ -447,22 +447,8 @@
  .upgrade-site .header-inner{gap:4px}
  .upgrade-site .brand img{width:88px}
 }
-@media (max-width:900px) {
- .scenario-grid{grid-template-columns:1fr;gap:34px}
- .single-scenario .scenario-story{grid-template-columns:1fr;gap:20px}
- .scenario-card h3{max-width:650px}
- .scenario-story dd{max-width:75ch}
-}
 @media (max-width:600px) {
  .service-list .service-copy p.service-benefit{font-size:.86rem;margin-bottom:10px}
- .scenario-card{padding-top:20px}
- .scenario-card h3{font-size:1.25rem;margin-bottom:20px}
- .scenario-notice{font-size:.8rem}
- .scenario-story dd{font-size:.88rem;line-height:1.65}
- .scenario-story>div{margin-bottom:18px}
- .scenario-output{margin-top:20px}
- .scenario-services{gap:4px}
- .scenario-services a{font-size:.78rem}
 }
 /* Home hero: one primary action, its reassurance, then a compact link row. */
 @media (max-width:600px) {
@@ -550,4 +536,17 @@
  .upgrade-site .footer-nav nav{padding:0 0 16px;margin:0;gap:0}
  .upgrade-site .footer-nav nav a{font-size:.88rem;min-height:44px}
  .upgrade-site .footer-bottom{margin-top:18px;gap:8px}
+}
+
+@media (max-width:600px){
+ .upgrade-site .testimonial-heading{margin-bottom:24px}
+ .upgrade-site .testimonial-heading h1,.upgrade-site .testimonial-heading h2{font-size:clamp(1.65rem,7.5vw,2.4rem);line-height:1.15}
+ .upgrade-site .testimonial-slide{padding:24px 0 24px 18px;gap:24px;border-left-width:2px}
+ .upgrade-site .testimonial-slide blockquote p{font-size:1rem;line-height:1.65;letter-spacing:0;text-wrap:wrap}
+ .upgrade-site .testimonial-slide figcaption{font-size:.8rem;line-height:1.6}
+ .upgrade-site .testimonial-slide figcaption strong{font-size:.92rem}
+ .upgrade-site .testimonial-controls{flex-wrap:wrap;gap:12px;margin-top:16px}
+ .upgrade-site .testimonial-controls button{padding:9px 12px;font-size:.75rem}
+ .upgrade-site .testimonial-navigation{gap:12px;margin-left:auto}
+ .upgrade-site .testimonial-counter{font-size:.7rem;letter-spacing:0}
 }

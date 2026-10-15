@@ -47,7 +47,7 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(html.includes(esc(service.copy[lang].scope)),`${lang}: static scope ${service.id}`);
   assert.ok(html.includes('data-page-kind="service"'));
   assert.equal((html.match(/<h1\b/g)||[]).length,1,`${lang}/${service.id}: one H1`);
-  for(const className of ['sales-hero','sales-fit','sales-benefits','service-facts','scenario-output'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
+  for(const className of ['sales-hero','sales-fit','sales-benefits','service-facts','testimonials'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
   const body=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
   assert.equal(body.split(esc(service.copy[lang].scope)).length-1,1,`${lang}/${service.id}: scope appears once before enquiry`);
   for(const value of service.copy[lang].deliverables)assert.equal(body.split(esc(value)).length-1,1,`${lang}/${service.id}: deliverable appears once`);

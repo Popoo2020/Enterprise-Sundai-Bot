@@ -43,5 +43,5 @@ The source pages above are authoritative. These supplementary files are director
 - [Free practical PDF guides](https://sundaibot.com/free-guides/): AI Act readiness, agent security and supplier access; optional confirmed three-email series.
 - [AI security self-assessment](https://sundaibot.com/ai-security-check/): Four questions with local results before contact capture.
 - [AI Decision Review](https://sundaibot.com/ai-decision-review/): EUR 490 for one decision, 45-minute discussion and 3–5-page memo; VAT, scope and timing agreed before acceptance. No checkout or confirmed booking.
-- [Illustrative scenarios](https://sundaibot.com/customer-scenarios/): Examples, not verified customer results.
+- [Client feedback](https://sundaibot.com/customer-scenarios/): Four client testimonials about AI security, decision reviews, literacy training and advisory support.
 - [Denmark CPR access lessons](https://sundaibot.com/insights/denmark-cpr-access-security.html): Dated source-based analysis; reported weak passwords are not a proven intrusion method.
