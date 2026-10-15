@@ -2,13 +2,18 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,readdir} from 'node:fs/promises';
 import path from 'node:path';
-import {editorialContent,editorialLanguages,articlePath,editorialUi} from '../../scripts/editorial.mjs';
+import {editorialContent,editorialLanguages,articlePath,editorialUi,editorialPlainText} from '../../scripts/editorial.mjs';
 import {visibleFaqPairs} from '../../scripts/seo-render.mjs';
 
 const root=path.resolve(import.meta.dirname,'..'),origin='https://sundaibot.com';
 const read=route=>readFile(path.join(root,route.endsWith('/')?route+'index.html':route),'utf8');
 const nodes=html=>[...html.matchAll(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(m=>{const j=JSON.parse(m[1]);return j['@graph']||[j];});
-const plain=s=>s.replace(/<[^>]*>/g,' ').replaceAll('&amp;','&').replaceAll('&quot;','"').replace(/\s+/g,' ');
+const plain=editorialPlainText;
+
+test('metadata decoding is single-pass and preserves nested literal entities',()=>{
+ assert.equal(editorialPlainText('Read &amp;quot; and &amp;#39; literally'),'Read &quot; and &#39; literally');
+ assert.equal(editorialPlainText('AI &amp; security: &quot;review&quot;'),'AI & security: "review"');
+});
 
 test('12 new articles have reciprocal locale routes, truthful metadata, source links and matching FAQ',async()=>{
  let count=0;

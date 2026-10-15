@@ -33,7 +33,11 @@ export const articleForService={
 };
 export function editorialServiceLinks(lang,id){return `<div class="editorial-service-links"><h3>${esc(editorialUi[lang].related)}</h3>${articleForService[id].map(key=>`<p><a href="${articlePath(lang,key)}">${esc(editorialContent[lang].find(a=>a.id===key).title)}</a></p>`).join('')}</div>`;}
 const safeJson=value=>JSON.stringify(value).replaceAll('<','\\u003c');
-const plain=value=>value.replace(/<[^>]*>/g,' ').replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('&#39;',"'").replace(/\s+/g,' ').trim();
+// Read text from trusted, repository-owned article metadata. This is not an HTML
+// sanitizer. Decode once so a literal nested entity stays literal; escape again
+// at the HTML/XML output boundary.
+export const editorialPlainText=value=>value.replace(/<[^>]*>/g,' ').replace(/&(amp|quot|#39);/g,(_,entity)=>({amp:'&',quot:'"','#39':"'"})[entity]).replace(/\s+/g,' ').trim();
+const plain=editorialPlainText;
 const wordCount=a=>[a.answer,...a.sections.flatMap(s=>[s.title,...s.paragraphs]),...a.checklist,...a.faq.flat()].join(' ').trim().split(/\s+/u).length;
 const cited=text=>esc(text).replace(/\[([12])\]/g,'<a class="source-reference" href="#source-$1">[$1]</a>');
 const topicIndex=url=>/governance|governance|framework|ramverk|rammer|ai-act|ai-forord|artikel-50|article-50|shadow-ai|ai-leverand|ai-vendor/.test(url)?1:/pilots|piloter|future-ready|code-security|kode-sikkerhed|kod-sakerhet|cost-roi|pris-roi|kostnad-roi/.test(url)?2:0;
