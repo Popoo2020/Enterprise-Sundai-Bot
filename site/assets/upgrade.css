@@ -90,30 +90,6 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .reviewed-note{padding-top:26px;padding-bottom:26px;font-size:.75rem;color:var(--muted)}
 /* Buyer-focused service labels and clearly labelled project examples. */
 .service-list .service-copy p.service-benefit{font-family:Sora,Arial,sans-serif;font-weight:650;font-size:.92rem;line-height:1.5;color:var(--lime);margin:0 0 10px;max-width:650px}
-.scenario-notice{font-size:.88rem;line-height:1.7;color:var(--muted)}
-.scenario-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start}
-.scenario-card{min-width:0;border-top:2px solid var(--blue);padding-top:22px}
-.scenario-badge{font-size:.72rem;font-weight:700;line-height:1.5;color:var(--lime);margin:0 0 16px}
-.scenario-card h3{font-size:1.4rem;line-height:1.3;letter-spacing:-.025em;margin:0 0 22px;text-wrap:balance}
-.scenario-story{margin:0}
-.scenario-story>div{margin:0 0 22px}
-.scenario-story dt,.scenario-output dt{font-weight:750;font-size:.82rem;color:var(--text);margin-bottom:6px}
-.scenario-story dd{margin:0;color:var(--muted);font-size:.88rem;line-height:1.75;overflow-wrap:anywhere}
-.scenario-output{margin:24px 0 0;border-block:1px solid var(--border)}
-.scenario-output summary{font-size:.85rem;font-weight:750;line-height:1.5;min-height:48px;padding:14px 0;cursor:pointer}
-.scenario-output[open] summary{color:var(--lime)}
-.scenario-output .small{margin:4px 0 20px}
-.scenario-output dl{margin:0 0 20px;padding-left:16px;border-left:2px solid var(--blue)}
-.scenario-output dl>div{margin-bottom:16px}
-.scenario-output dd{margin:0;font-size:.82rem;line-height:1.65;overflow-wrap:anywhere;color:var(--muted)}
-.scenario-services{display:grid;gap:8px;margin-top:18px}
-.scenario-services a{font-size:.78rem;line-height:1.5;min-height:44px;display:flex;align-items:center;text-underline-offset:4px;color:var(--text)}
-.scenario-services a:hover{color:var(--lime)}
-.scenario-cta{display:inline-flex;align-items:center;min-height:48px;margin-top:16px}
-.single-scenario .scenario-grid{grid-template-columns:1fr}
-.single-scenario .scenario-story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
-.single-scenario .scenario-story>div{margin:0}
-.single-scenario .scenario-output{max-width:760px}
 .use-case-section .actions{margin-block:0}
 
 /* Practical entry points: editorial rhythm and native controls. */
@@ -151,3 +127,25 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .footer-toggle::before{width:10px;height:1px;left:0;top:4px}
 .footer-toggle::after{width:1px;height:10px;left:4px;top:0}
 .footer-nav[open] .footer-toggle::after{display:none}
+
+/* Client voices: one complete quote, stable height, restrained controls. */
+.testimonial-heading{max-width:960px;margin-bottom:36px}
+.testimonial-heading h1,.testimonial-heading h2{margin:0;max-width:900px}
+.testimonial-viewport{overflow:hidden;border-block:1px solid var(--border)}
+.testimonial-slide{margin:0;padding:36px 40px;min-width:0;display:flex;flex-direction:column;gap:28px;border-left:3px solid var(--blue)}
+.testimonial-slide+.testimonial-slide{border-top:1px solid var(--border)}
+.testimonial-slide blockquote{margin:0;flex:1;max-width:1040px}
+.testimonial-slide blockquote p{font-size:clamp(1.1rem,1.65vw,1.4rem);line-height:1.7;letter-spacing:-.012em;color:var(--text);margin:0;text-wrap:pretty;overflow-wrap:break-word}
+.testimonial-slide figcaption{display:flex;flex-direction:column;gap:2px;font-size:.86rem;line-height:1.55;color:var(--muted)}
+.testimonial-slide figcaption strong{color:var(--lime);font-size:1rem}
+.testimonials.is-enhanced .testimonial-viewport{display:grid}
+.testimonials.is-enhanced .testimonial-slide{grid-area:1/1;visibility:hidden;border-top:0}
+.testimonials.is-enhanced .testimonial-slide.is-current,.testimonials.is-enhanced .testimonial-slide.is-leaving{visibility:visible}
+.testimonial-controls{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:20px}
+.testimonial-controls[hidden]{display:none}
+.testimonial-controls button{min-height:44px;border:1px solid var(--border);border-radius:8px;padding:9px 18px;background:transparent;color:var(--text);font-size:.8rem;font-weight:700;cursor:pointer}
+.testimonial-controls button:hover{border-color:var(--lime)}
+.testimonial-controls button:disabled{border-color:transparent;color:var(--muted);cursor:default;padding-inline:0}
+.testimonial-navigation{display:flex;align-items:center;gap:20px;flex-shrink:0}
+.testimonial-counter{font-size:.75rem;font-variant-numeric:tabular-nums;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.testimonial-status{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
