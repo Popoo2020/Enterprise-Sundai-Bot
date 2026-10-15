@@ -550,3 +550,35 @@
  .upgrade-site .testimonial-navigation{gap:12px;margin-left:auto}
  .upgrade-site .testimonial-counter{font-size:.7rem;letter-spacing:0}
 }
+
+/* Keep the buying case and guide invitation easy to scan on a phone. */
+@media (max-width:1000px){
+ .why-layout{grid-template-columns:1fr;gap:32px}
+ .why-intro h2{max-width:720px}
+ .why-intro>p:not(.eyebrow){max-width:65ch}
+ .guide-promo-layout{gap:32px;grid-template-columns:minmax(0,1.4fr) minmax(220px,.8fr)}
+ .guide-library-grid{gap:24px}
+ .guide-library-card h2{font-size:1.3rem}
+}
+@media (max-width:700px){
+ .guide-promo-layout,.guide-library-grid{grid-template-columns:1fr}
+ .guide-library-grid{gap:34px}
+ .guide-library-card h2{max-width:32ch;font-size:1.45rem}
+}
+@media (max-width:600px){
+ .upgrade-site .why-layout{gap:26px}
+ .upgrade-site .why-intro h2,.upgrade-site .guide-promo h2{font-size:clamp(1.8rem,7.6vw,2.4rem);line-height:1.14}
+ .upgrade-site .why-reasons{grid-template-columns:1fr;gap:0}
+ .upgrade-site .why-reason{grid-template-columns:24px minmax(0,1fr);gap:12px;padding-block:19px}
+ .upgrade-site .why-reason:last-child{padding-bottom:0}
+ .upgrade-site .why-reason h3{font-size:1rem;margin-bottom:8px}
+ .upgrade-site .why-reason p{font-size:.88rem;line-height:1.65}
+ .upgrade-site .guide-promo-layout{gap:26px}
+ .upgrade-site .guide-promo-copy>p:not(.eyebrow){font-size:.94rem;line-height:1.65}
+ .upgrade-site .guide-promo-action .button{width:100%}
+ .upgrade-site .guide-promo-action{justify-items:stretch}
+ .upgrade-site .guide-promo-action .small{text-align:center}
+ .upgrade-site .guide-library-card{padding-top:20px}
+ .upgrade-site .guide-library-card dd{font-size:.9rem}
+ .upgrade-site .guide-library-how{font-size:.8rem;line-height:1.65}
+}

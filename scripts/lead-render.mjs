@@ -1,3 +1,4 @@
+import {experienceCopy,guideInvitation,guideLibrary} from './home-experience.mjs';
 import {clientTestimonials,testimonialCopy} from './testimonials.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
@@ -14,7 +15,8 @@ const faq=l=>section(`<h2>Q&amp;A</h2>${copy[l].faq.map(([q,a])=>`<details class
 export async function renderGrowth({root,routes,shell,save,hero,form}){
  for(const l of langs){const t=copy[l],r=routes[l],base=prefix(l),hub=urls('/free-guides/'),review=urls('/ai-decision-review/'),check=urls('/ai-security-check/'),cases=urls('/customer-scenarios/'),article=urls('/insights/denmark-cpr-access-security.html');
  const make=(u,title,desc,body,alts,kind='growth')=>shell(l,u,title,desc,body,alts,kind);
- await save(hub[l],make(hub[l],t.hub,t.intro,hero(l,t.hub,t.intro,t.free)+section(guideCards(l))+section(`<div class="growth-band"><div><h2>${esc(t.questionTitle)}</h2><p>${esc(t.questionIntro)}</p></div>${button(check[l],t.check)}</div>`)+faq(l),hub));
+ const experience=experienceCopy[l];
+ await save(hub[l],make(hub[l],experience.libraryTitle,experience.libraryIntro,hero(l,experience.libraryTitle,experience.libraryIntro,experience.guideEyebrow)+section(guideLibrary(l,guideIds,guideTitles[l]))+section(`<div class="growth-band"><div><h2>${esc(t.questionTitle)}</h2><p>${esc(t.questionIntro)}</p></div>${button(check[l],t.check)}</div>`)+faq(l),hub,'guide-library'));
  for(const [i,id]of guideIds.entries()){
   const alts=urls('/free-guides/'+id+'/'),content=checklistContent[l][i];
   const body=hero(l,guideTitles[l][i],content[0][1],t.free)+section(`<div class="growth-split"><div><h2>${esc(t.preview)}</h2>${list(content.map(part=>part[0]))}<div class="growth-preview"><h3>${esc(content[0][0])}</h3>${list(content[0].slice(1))}</div><p class="small">PDF · ${l.toUpperCase()} · 4 ${l==='da'?'sider':l==='sv'?'sidor':'pages'} · 14 October 2026</p></div><div>${capture(l,id,r)}</div></div>`)+faq(l);
@@ -35,7 +37,7 @@ export async function renderGrowth({root,routes,shell,save,hero,form}){
  // Rebuildable integration into existing source pages, preserving their content and forms.
  for(const [url,type]of [[r.home,'home'],[r.services,'services'],[r.resources,'resources'],[r.insights,'insights'],[r.privacy,'privacy'],...['compliance-ai-governance','private-ai-agents-rag','pentesting-red-teaming'].map(id=>[r.services+id+'/','service'])]){
   const file=path.join(root,url.endsWith('/')?url+'index.html':url);let html=await readFile(file,'utf8');
-  const block=type==='privacy'?section(`<h2>${esc(t.guides)}</h2><p>${esc(t.retention)}</p>`):type==='insights'?section(`<p class="eyebrow">NEW / SECURITY</p><h2><a href="${article[l]}">${esc(t.articleTitle)}</a></h2><p>${esc(t.articleIntro)}</p>`):type==='service'?section(`<div class="growth-band"><div><h2>${esc(t.reviewTitle)}</h2><p>${esc(t.reviewIntro)}</p></div>${button(review[l],t.reviewCta)}</div><p class="small">${esc(t.reviewScope)}</p>`):section(`<div class="section-heading"><div><p class="eyebrow">${esc(t.free)}</p><h2>${esc(t.hub)}</h2></div><p>${esc(t.intro)}</p></div>${guideCards(l)}<div class="growth-paths">${button(check[l],t.check,true)}${button(review[l],t.reviewCta)}${button(cases[l],testimonialCopy[l].link,true)}</div>`);
+  const block=type==='home'?guideInvitation(l):type==='privacy'?section(`<h2>${esc(t.guides)}</h2><p>${esc(t.retention)}</p>`):type==='insights'?section(`<p class="eyebrow">NEW / SECURITY</p><h2><a href="${article[l]}">${esc(t.articleTitle)}</a></h2><p>${esc(t.articleIntro)}</p>`):type==='service'?section(`<div class="growth-band"><div><h2>${esc(t.reviewTitle)}</h2><p>${esc(t.reviewIntro)}</p></div>${button(review[l],t.reviewCta)}</div><p class="small">${esc(t.reviewScope)}</p>`):section(`<div class="section-heading"><div><p class="eyebrow">${esc(t.free)}</p><h2>${esc(t.hub)}</h2></div><p>${esc(t.intro)}</p></div>${guideCards(l)}<div class="growth-paths">${button(check[l],t.check,true)}${button(review[l],t.reviewCta)}${button(cases[l],testimonialCopy[l].link,true)}</div>`);
   if(type==='home')html=html.replace('<section class="section" id="process">',block+'<section class="section" id="process">');
   else if(type==='service')html=html.replace('<section class="section proposal-section" id="proposal">',block+'<section class="section proposal-section" id="proposal">');
   else html=html.replace('</main>',block+'</main>');await writeFile(file,html);

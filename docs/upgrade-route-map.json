@@ -19,7 +19,8 @@
       "usecases": "/use-cases/",
       "methodology": "/methodology/",
       "faq": "/faq/",
-      "buyer": "/service-selection/"
+      "buyer": "/service-selection/",
+      "guides": "/free-guides/"
     },
     "da": {
       "home": "/da/",
@@ -40,7 +41,8 @@
       "usecases": "/da/anvendelser/",
       "methodology": "/da/metode/",
       "faq": "/da/spoergsmaal-svar/",
-      "buyer": "/da/vaelg-ydelse/"
+      "buyer": "/da/vaelg-ydelse/",
+      "guides": "/da/free-guides/"
     },
     "sv": {
       "home": "/sv/",
@@ -61,7 +63,8 @@
       "usecases": "/sv/anvandningsfall/",
       "methodology": "/sv/metod/",
       "faq": "/sv/fragor-svar/",
-      "buyer": "/sv/valj-tjanst/"
+      "buyer": "/sv/valj-tjanst/",
+      "guides": "/sv/free-guides/"
     }
   },
   "redirects": [

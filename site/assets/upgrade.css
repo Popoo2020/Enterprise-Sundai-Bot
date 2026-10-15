@@ -6,7 +6,7 @@
 /* Retained knowledge pages keep their semantic content under this design. */
 .training-hero,.geo-hero{padding:70px 0}.geo-hero h1,.training-hero h1{font-size:clamp(2.5rem,5vw,4.5rem)}.geo-grid,.training-grid,.audience-grid,.why-grid,.service-grid,.insights-grid,.resource-grid,.geo-proof,.geo-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.geo-card,.geo-step,.geo-proof article,.training-grid article,.audience-card,.why-item,.insight-card,.resource-card{display:block;padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--surface)}.geo-card h3,.geo-step h3{font-size:1.3rem}.geo-lead,.geo-note,.geo-answer{color:var(--muted)}.geo-section-head{margin-bottom:30px}.geo-list li{margin-bottom:14px}.geo-sources{display:flex;gap:20px;flex-wrap:wrap}.geo-cta,.standards-strip{padding:50px 0}.geo-cta-box,.training-teaser-panel,.human-standard .container{display:flex;gap:30px;align-items:center;justify-content:space-between}.geo-cta h2{font-size:2rem}.geo-answer{border-left:3px solid var(--blue);padding:24px;background:var(--surface)}.article-body,.insight-body,.article-shell{max-width:950px;margin-inline:auto}.article-body h2,.insight-body h2{font-size:2rem}.insight-meta{color:var(--lime);font-size:.8rem}.article-body table{width:100%;border-collapse:collapse}.article-body td,.article-body th{padding:12px;border:1px solid var(--border)}
 @media(min-width:1440px){.hero{padding-top:110px}.hero-grid{gap:90px}}
-@media(max-width:1100px){.desktop-nav{gap:15px}.header-inner{gap:16px}.desktop-nav a:nth-last-child(2){display:none}.hero-grid{gap:30px}.brand img{width:125px}.header .button{display:none}.tech-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1100px){.desktop-nav{gap:15px}.header-inner{gap:16px}.desktop-nav .nav-secondary{display:none}.hero-grid{gap:30px}.brand img{width:125px}.header .button{display:none}.tech-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:800px){.container,.geo-shell,.legal-container{width:calc(100% - 40px)}.desktop-nav{display:none}.header-inner{min-height:74px}.languages{margin-left:auto}.mobile-menu{display:block;position:relative}.mobile-menu summary{cursor:pointer;font-size:.85rem;min-height:44px;display:flex;align-items:center}.mobile-menu nav{position:absolute;right:0;top:52px;width:min(300px,calc(100vw - 40px));padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;gap:16px}.mobile-menu nav a{text-decoration:none}.hero{padding:48px 0}.hero-grid,.section-heading,.split,.detail-grid,.band{grid-template-columns:1fr}.hero h1{font-size:clamp(2.5rem,9vw,4.6rem)}.workflow{max-width:600px}.grid,.geo-grid,.training-grid,.audience-grid,.why-grid,.service-grid,.insights-grid,.resource-grid,.geo-proof,.geo-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.section,.geo-section,.training-teaser,.audience,.why,.human-standard,.trust-ecosystem,.founder-strip,.insights{padding:56px 0}.band{padding:30px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}.footer-grid>div{grid-column:1/-1}.detail-grid aside{position:static}.page-hero{padding-top:45px}.geo-cta-box,.training-teaser-panel,.human-standard .container{flex-direction:column;align-items:start}.footer-bottom{flex-direction:column;gap:0}.table-scroll{font-size:.85rem}}
 @media(max-width:480px){.container,.geo-shell,.legal-container{width:calc(100% - 32px)}.grid,.geo-grid,.training-grid,.audience-grid,.why-grid,.service-grid,.insights-grid,.resource-grid,.geo-proof,.geo-steps,.data-form{grid-template-columns:1fr}.header-inner{gap:12px}.brand img{width:108px}.languages{gap:9px}.hero h1{font-size:2.65rem;overflow-wrap:anywhere}.hero-subtitle{font-size:1.25rem}.actions .button{width:100%}.service-card,.card,.price-card{padding:25px}.service-card h3{min-height:0}.split .panel{padding:24px}.workflow{padding:23px}.footer-grid{gap:22px}.tech-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.band{padding:26px}.price-table th,.price-table td{padding:12px 8px}.price-table .price{font-size:1.15rem}.page-hero h1{overflow-wrap:anywhere}.button{padding:13px 20px}.data-form .full{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -149,3 +149,36 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .testimonial-navigation{display:flex;align-items:center;gap:20px;flex-shrink:0}
 .testimonial-counter{font-size:.75rem;font-variant-numeric:tabular-nums;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
 .testimonial-status{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* A concise buying case, followed by the client's own words. */
+.why-sundai{background:#0a0e13}
+.why-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:64px;align-items:start}
+.why-intro h2{font-size:clamp(2rem,3.1vw,3rem);max-width:440px;line-height:1.12}
+.why-intro>p:not(.eyebrow){max-width:38ch;color:var(--muted);font-size:.95rem}
+.why-intro .text-link{display:inline-flex;align-items:center;min-height:44px;margin-top:4px;font-size:.82rem}
+.why-reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 28px;list-style:none;margin:0;padding:0}
+.why-reason{min-width:0;border-top:1px solid var(--border);padding-top:18px;display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;align-items:start}
+.why-number{font-size:.72rem;line-height:1.8;color:var(--blue);font-variant-numeric:tabular-nums;font-weight:750}
+.why-reason h3{font-size:1.04rem;line-height:1.35;margin:0 0 12px;letter-spacing:-.02em}
+.why-reason p{font-size:.86rem;line-height:1.7;color:var(--muted);margin:0}
+/* One invitation on the homepage; the full choice lives in Free guides. */
+.guide-promo{background:linear-gradient(115deg,#10233e,#0a1019);border-block:1px solid #24446d}
+.guide-promo-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.7fr);gap:64px;align-items:center}
+.guide-promo h2{font-size:clamp(2rem,3.9vw,3.6rem);max-width:780px;margin-bottom:22px}
+.guide-promo-copy>p:not(.eyebrow){font-size:1rem;line-height:1.7;max-width:62ch;color:var(--muted);margin-bottom:0}
+.guide-promo-action{display:grid;gap:14px;justify-items:start}
+.guide-promo-action .small{margin:0;font-size:.75rem}
+.guide-library-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.guide-library-card{display:flex;flex-direction:column;min-width:0;border-top:2px solid var(--blue);padding-top:24px}
+.guide-library-card h2{font-size:1.55rem;line-height:1.3;margin-bottom:24px;letter-spacing:-.025em}
+.guide-library-card .eyebrow{font-size:.68rem;letter-spacing:.08em;margin-bottom:18px}
+.guide-library-card dl{margin:0 0 24px;flex:1}
+.guide-library-card dl>div+div{margin-top:20px}
+.guide-library-card dt{font-size:.75rem;font-weight:750;margin-bottom:7px;color:var(--text)}
+.guide-library-card dd{font-size:.9rem;color:var(--muted);line-height:1.7;margin:0}
+.guide-library-card .button{align-self:flex-start}
+.guide-library-how{max-width:80ch;margin:32px 0 0;font-size:.82rem;color:var(--muted)}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .button{transition:transform .18s ease,background-color .18s ease,border-color .18s ease}
+ .button:hover{transform:translateY(-2px)}
+}
