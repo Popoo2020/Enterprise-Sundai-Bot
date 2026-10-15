@@ -9,6 +9,9 @@ import {
 } from './site/functions/api/contact.js';
 import {publicCatalog,bundleQuote,packages,priceFor,isLaunch,launch,launchState} from './site/functions/_shared/catalog.js';
 import {labels} from './scripts/upgrade-labels.mjs';
+import {canonicalArticlePaths} from './site/functions/_shared/article-routes.js';
+
+const canonicalArticles=new Set(canonicalArticlePaths);
 
 const money=(price,lang)=>new Intl.NumberFormat(lang,{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(price);
 const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
@@ -25,7 +28,7 @@ async function quote(request){
  catch(error){void reader.cancel().catch(()=>{});return new Response(JSON.stringify({ok:false,code:error.message==='body_timeout'?'body_timeout':'invalid_bundle'}),{status:error.message==='body_timeout'?408:400,headers:diagnosticHeaders});}finally{clearTimeout(timer);reader.releaseLock();}
 }
 export function currentSchema(schema){const forbidden=new Set(['price','priceCurrency','lowPrice','highPrice','priceSpecification','offers','hasOfferCatalog']);function clean(value){if(Array.isArray(value))return value.map(clean).filter(x=>x!==null);if(value&&typeof value==='object'){if(['Offer','AggregateOffer','OfferCatalog','PriceSpecification'].includes(value['@type']))return null;return Object.fromEntries(Object.entries(value).filter(([key])=>!forbidden.has(key)).map(([key,item])=>[key,clean(item)]));}return value;}return clean(schema);}
-async function serveAssets(request,env){const response=await env.ASSETS.fetch(request);if(request.method==='HEAD'||!response.headers.get('content-type')?.includes('text/html'))return response;if(typeof HTMLRewriter==='undefined')return response;
+async function serveAssets(request,env,assetRequest=request){const response=await env.ASSETS.fetch(assetRequest);if(request.method==='HEAD'||!response.headers.get('content-type')?.includes('text/html'))return response;if(typeof HTMLRewriter==='undefined')return response;
  const pathname=new URL(request.url).pathname,lang=pathname.startsWith('/da/')?'da':pathname.startsWith('/sv/')?'sv':'en';const now=new Date();
  const result=new HTMLRewriter().on('[data-price]',{element(el){const html=renderCurrentPrice(el.getAttribute('data-price'),lang,now);if(html)el.setInnerContent(html,{html:true});}}).on('[data-launch-banner]',{element(el){el.setInnerContent(launchState(now)==='upcoming'?labels[lang].launchUpcoming:isLaunch(now)?labels[lang].offer:labels[lang].launchExpired);}}).on('script[data-upgrade-schema]',{
    text(chunk){this.value=(this.value||'')+chunk.text;chunk.remove();if(chunk.lastInTextNode){try{chunk.after(JSON.stringify(currentSchema(JSON.parse(this.value),now)).replaceAll('<','\\u003c'),{html:true});}catch{ /* Preserve valid published schema if a chunk boundary is unusual. */ chunk.after(this.value,{html:true});}this.value='';}}
@@ -63,6 +66,19 @@ export default {
       return Response.redirect(requestUrl.toString(), 308);
     }
     const path = requestUrl.pathname;
+    if (['GET','HEAD'].includes(request.method)) {
+      if (canonicalArticles.has(path)) {
+        // Resolve the provider's extensionless asset internally, retaining the
+        // established .html public URL and its matching canonical metadata.
+        const assetUrl=new URL(request.url);
+        assetUrl.pathname=path.slice(0,-5);
+        return serveAssets(request,env,new Request(assetUrl,request));
+      }
+      if (canonicalArticles.has(path+'.html')) {
+        requestUrl.pathname=path+'.html';
+        return Response.redirect(requestUrl.toString(),308);
+      }
+    }
     if(path==='/api/leads'||path.startsWith('/api/leads/')){try{return await leads(request,env);}catch{return new Response(JSON.stringify({ok:false,code:'lead_service_unavailable'}),{status:503,headers:diagnosticHeaders});}}
     if(path==='/api/pricing'){
       if(!['GET','HEAD'].includes(request.method))return new Response(JSON.stringify({ok:false,code:'method_not_allowed'}),{status:405,headers:{...diagnosticHeaders,allow:'GET, HEAD'}});

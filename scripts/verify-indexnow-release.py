@@ -16,7 +16,7 @@ payload = json.loads(Path("/tmp/indexnow.json").read_text())
 deadline = time.monotonic() + 360
 
 
-def read_public(url):
+def read_public(url, expected_path=None):
     parsed = urllib.parse.urlsplit(url)
     if parsed.scheme != "https" or parsed.netloc != "sundaibot.com":
         raise ValueError("Unexpected public release origin")
@@ -24,13 +24,16 @@ def read_public(url):
     with urllib.request.urlopen(request, timeout=12) as response:
         if response.status != 200:
             raise RuntimeError("Public release resource unavailable")
+        if expected_path and urllib.parse.urlsplit(response.url).path != expected_path:
+            raise RuntimeError("Published canonical path redirects to a different path")
         return response.read().decode("utf-8")
 
 
 def verify_page(url):
     if not url.startswith(ORIGIN + "/"):
         raise ValueError("Unexpected page origin")
-    html = read_public(url + "?release=" + expected["contentDigest"])
+    html = read_public(url + "?release=" + expected["contentDigest"],
+                       expected_path=urllib.parse.urlsplit(url).path)
     if 'content="' + expected['release'] + '"' not in html or 'rel="canonical" href="' + url + '"' not in html:
         raise RuntimeError("Page is not the expected canonical release")
 

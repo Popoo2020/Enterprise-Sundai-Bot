@@ -63,3 +63,11 @@ Off-site authority remains separate work: permissioned client references, accura
 ## Validation
 
 Focused checks cover 12 new articles, localized reciprocal links, matching visible/schema Q&A, two source domains per article, valid anchors, all 45 canonical archive entries, feeds, sitemaps, unchanged homepage structure and ROI arithmetic. Required repository gates and publication checks are recorded in the PR/CI. Physical phone verification is not implied by source-level responsive checks.
+
+## Live routing finding and correction
+
+Live browser inspection after PR93 found that the asset provider redirected a requested `.html` article to an extensionless URL while the page still declared the `.html` canonical. Cloudflare documents this default here: https://developers.cloudflare.com/workers/static-assets/routing/advanced/html-handling/ .
+
+The follow-up preserves all 45 established canonical article URLs. The Worker serves their extensionless asset internally, without a public redirect, and permanently redirects the known extensionless aliases to their `.html` canonical. Service URLs, directory indexes, feeds, forms, unknown paths and historical redirect-source files are untouched. The generated allowlist excludes old redirected articles. Regression tests exercise all 45 GET/HEAD paths and aliases; IndexNow release checks now reject unexpected final URL paths.
+
+PR93 also resolved a CodeQL double-unescaping alert with single-pass entity decoding and a nested-entity regression check. All PR93 checks passed before merge. These findings were corrected rather than suppressing the security or commercial checks.
