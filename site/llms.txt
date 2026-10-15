@@ -45,3 +45,20 @@ The source pages above are authoritative. These supplementary files are director
 - [AI Decision Review](https://sundaibot.com/ai-decision-review/): EUR 490 for one decision, 45-minute discussion and 3–5-page memo; VAT, scope and timing agreed before acceptance. No checkout or confirmed booking.
 - [Client feedback](https://sundaibot.com/customer-scenarios/): Four client testimonials about AI security, decision reviews, literacy training and advisory support.
 - [Denmark CPR access lessons](https://sundaibot.com/insights/denmark-cpr-access-security.html): Dated source-based analysis; reported weak passwords are not a proven intrusion method.
+
+## Articles and practical decision guides
+- [Articles](https://sundaibot.com/insights/)
+- [AI security assessment or penetration test: what should you buy?](https://sundaibot.com/insights/ai-security-assessment-vs-pentest.html)
+- [MCP security: seven questions before connecting an AI agent](https://sundaibot.com/insights/mcp-security-review-business.html)
+- [AI-generated code: a security review before you ship](https://sundaibot.com/insights/ai-generated-code-security-review.html)
+- [What does secure AI automation cost? Build a useful ROI case](https://sundaibot.com/insights/secure-ai-automation-cost-roi.html)
+- [Artikler](https://sundaibot.com/da/insights/)
+- [AI-sikkerhedsvurdering eller penetrationstest: hvad skal I købe?](https://sundaibot.com/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html)
+- [MCP-sikkerhed: syv spørgsmål før I forbinder en AI-agent](https://sundaibot.com/da/insights/mcp-sikkerhed-virksomheder.html)
+- [AI-genereret kode: sikkerhedsgennemgang før idriftsættelse](https://sundaibot.com/da/insights/ai-genereret-kode-sikkerhed.html)
+- [Hvad koster sikker AI-automatisering? Beregn værdien før køb](https://sundaibot.com/da/insights/sikker-ai-automatisering-pris-roi.html)
+- [Artiklar](https://sundaibot.com/sv/insights/)
+- [AI-säkerhetsgranskning eller penetrationstest: vad ska ni köpa?](https://sundaibot.com/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html)
+- [MCP-säkerhet: sju frågor innan ni ansluter en AI-agent](https://sundaibot.com/sv/insights/mcp-sakerhet-foretag.html)
+- [AI-genererad kod: säkerhetsgranskning före lansering](https://sundaibot.com/sv/insights/ai-genererad-kod-sakerhetsgranskning.html)
+- [Vad kostar säker AI-automatisering? Räkna på nyttan före köp](https://sundaibot.com/sv/insights/saker-ai-automatisering-kostnad-roi.html)

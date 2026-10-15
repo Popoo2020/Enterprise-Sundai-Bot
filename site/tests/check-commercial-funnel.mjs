@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {readFile,readdir,access} from 'node:fs/promises';
 import path from 'node:path';
 import {packages,launch,isLaunch,priceFor,bundleQuote} from '../functions/_shared/catalog.js';
+import {articlePath} from '../../scripts/editorial.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
 import {labels} from '../../scripts/upgrade-labels.mjs';
 import {ecosystem} from '../../scripts/upgrade-ecosystem.mjs';
@@ -93,7 +94,17 @@ let checked=0;
 for(const file of await pages()){
  const html=await readFile(file,'utf8'),label=path.relative(root,file);
  assert.doesNotMatch(html,/data-price\s*=|data-bundle-tool|class="(?:price|price-line|price-card|bundle-result)"/,`${label}: pricing widget remains`);
- const readable=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
+ let commercialHtml=html;
+ const examples=[...html.matchAll(/<section class="article-calculation-example" data-illustrative-calculation>([\s\S]*?)<\/section>/g)];
+ if(examples.length){
+  assert(['en','da','sv'].some(lang=>articlePath(lang,'value')==='/'+label),'Illustrative money is allowed only in the scoped ROI article');
+  assert.equal(examples.length,1);
+  assert.match(examples[0][1],/fictional planning example|fiktivt planlægningseksempel|fiktivt planeringsexempel/);
+  assert.match(examples[0][1],/not a client result or a SundAI price|ikke et kunderesultat eller en SundAI-pris|inte ett kundresultat eller ett SundAI-pris/);
+  assert.doesNotMatch(examples[0][1],/<form|class="button|itemtype=.*Offer/);
+  commercialHtml=commercialHtml.replace(examples[0][0],'');
+ }
+ const readable=commercialHtml.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
  assert.doesNotMatch(readable.replace(/€490\b/g,''),/(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)\s*[\d]|\d[\d\s.,\u00a0]*\s*(?:€|\bEUR\b|\bUSD\b|\bDKK\b|\bSEK\b)/,`${label}: numeric public price remains`);
  for(const match of html.matchAll(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g))noPublicAmounts(JSON.parse(match[1]),label);
  checked++;

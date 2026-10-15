@@ -182,3 +182,7 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
  .button{transition:transform .18s ease,background-color .18s ease,border-color .18s ease}
  .button:hover{transform:translateY(-2px)}
 }
+.editorial-service-links {margin-top:28px;padding-top:22px;border-top:1px solid var(--border,#26303a)}
+.editorial-service-links h3 {font-size:1rem;margin-bottom:14px}
+.editorial-service-links p {margin:0 0 12px}
+.editorial-service-links a {display:inline-block;padding-block:8px;color:#87b9ff;text-underline-offset:4px;line-height:1.6}
