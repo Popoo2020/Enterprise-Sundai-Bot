@@ -1,0 +1,966 @@
+{
+  "date": "2026-10-16",
+  "method": "Public EN/DA/SV query research plus editorial variants. Existing 120 localized service intents preserved. Do not force every variant verbatim into prose. No paid keyword volume, difficulty or Search Console data available.",
+  "queries": [
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI security assessment",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI penetration testing",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI security audit scope",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI risk assessment consulting",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "LLM security testing",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI red teaming services",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI assessment vs pentest",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI release security review",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI security testing deliverables",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI security assessment cost",
+      "target": "/insights/ai-security-assessment-vs-pentest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP security",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP server security review",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP OAuth security",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "AI agent permissions",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP token passthrough",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "enterprise MCP risk assessment",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "AI agent access control",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP security checklist",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "secure AI tool integration",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP server supplier review",
+      "target": "/insights/mcp-security-review-business.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "AI-generated code security",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "AI code review",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "vibe coding security review",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "DevSecOps consulting",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "secure CI/CD pipeline",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "GitHub Actions security review",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "AI application access control",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "AI code dependency review",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "production readiness AI code",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "code",
+      "queryCandidate": "AI code release checklist",
+      "target": "/insights/ai-generated-code-security-review.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI automation cost",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "secure AI automation ROI",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI automation business case",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI implementation budget",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI workflow review cost",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI automation payback",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI automation total cost",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI Decision Review",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI pilot acceptance criteria",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "en",
+      "intentCluster": "value",
+      "queryCandidate": "AI automation vs rules-based automation",
+      "target": "/insights/secure-ai-automation-cost-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-sikkerhedsvurdering",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "penetrationstest af AI",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-sikkerhedsrevision",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "risikovurdering af AI",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "sikkerhedstest af sprogmodeller",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "red teaming af AI",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-vurdering eller penetrationstest",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "sikkerhed før AI-udrulning",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "dokumentation for AI-sikkerhed",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "assessment",
+      "queryCandidate": "pris på AI-sikkerhedsvurdering",
+      "target": "/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP-sikkerhed",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "sikkerhedsgennemgang af MCP-server",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "OAuth-sikkerhed i MCP",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "AI-agenters rettigheder",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "token-videresendelse i MCP",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP-risikovurdering",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "adgangskontrol for AI-agenter",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP-sikkerhedstjekliste",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "sikker integration af AI-værktøjer",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "mcp",
+      "queryCandidate": "vurdering af MCP-leverandør",
+      "target": "/da/insights/mcp-sikkerhed-virksomheder.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "sikkerhed i AI-genereret kode",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "gennemgang af AI-kode",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "sikkerhed ved vibe coding",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "DevSecOps-rådgivning",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "sikker CI/CD-pipeline",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "sikkerhed i GitHub Actions",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "adgangskontrol i AI-applikationer",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "afhængigheder i AI-kode",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "AI-kode klar til produktion",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "code",
+      "queryCandidate": "tjekliste før AI-release",
+      "target": "/da/insights/ai-genereret-kode-sikkerhed.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "pris på AI-automatisering",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "ROI for sikker AI-automatisering",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "business case for AI",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "budget til AI-implementering",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "omkostninger til AI-kontrol",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "tilbagebetaling af AI-investering",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "samlede omkostninger til AI",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "AI-beslutningsreview",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "acceptkriterier for AI-pilot",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "da",
+      "intentCluster": "value",
+      "queryCandidate": "AI eller regelbaseret automatisering",
+      "target": "/da/insights/sikker-ai-automatisering-pris-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-säkerhetsgranskning",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "penetrationstest av AI",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-säkerhetsrevision",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "riskbedömning av AI",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "säkerhetstest av språkmodeller",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "red teaming av AI",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "AI-granskning eller penetrationstest",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "säkerhet inför AI-lansering",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "underlag för AI-säkerhet",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "assessment",
+      "queryCandidate": "kostnad för AI-säkerhetsgranskning",
+      "target": "/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP-säkerhet",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "säkerhetsgranskning av MCP-server",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "OAuth-säkerhet i MCP",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "AI-agenters behörigheter",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "vidarebefordran av MCP-token",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "riskbedömning av MCP",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "åtkomstkontroll för AI-agenter",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "MCP-säkerhetschecklista",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "säker integration av AI-verktyg",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "mcp",
+      "queryCandidate": "granskning av MCP-leverantör",
+      "target": "/sv/insights/mcp-sakerhet-foretag.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "säkerhet i AI-genererad kod",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "granskning av AI-kod",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "säkerhet vid vibe coding",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "DevSecOps-rådgivning",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "säker CI/CD-pipeline",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "säkerhet i GitHub Actions",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "åtkomstkontroll i AI-applikationer",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "beroenden i AI-kod",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "AI-kod redo för produktion",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "code",
+      "queryCandidate": "checklista före AI-release",
+      "target": "/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "kostnad för AI-automatisering",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "ROI för säker AI-automatisering",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "affärsnytta med AI",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "budget för AI-implementering",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "kostnad för AI-granskning",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "återbetalning av AI-investering",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "total kostnad för AI",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "AI-beslutsgranskning",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "acceptanskriterier för AI-pilot",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    },
+    {
+      "language": "sv",
+      "intentCluster": "value",
+      "queryCandidate": "AI eller regelbaserad automatisering",
+      "target": "/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+      "basis": "Qualitative search and buyer-intent synthesis; not measured volume",
+      "volume": null
+    }
+  ]
+}

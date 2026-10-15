@@ -70,6 +70,7 @@ jobs:
           node --check site/assets/testimonials.js
           node --check site/assets/scroll-reveal.js
           node --check scripts/home-experience.mjs
+          node --check scripts/editorial.mjs
           node --check scripts/testimonials.mjs
           node --check site/functions/api/leads.js
           node --check site/functions/_shared/lead-flow.js
@@ -103,7 +104,7 @@ jobs:
       - name: Validate insights and multilingual content
         run: node site/tests/check-growth.mjs
       - name: Exercise contact API security controls and delivery routing
-        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs site/tests/contact-client.test.mjs site/tests/upgrade-forms.test.mjs site/tests/upgrade-pricing.test.mjs site/tests/review-body.test.mjs site/tests/seo-discovery.test.mjs site/tests/ai-visibility.test.mjs site/tests/canonical-origin.test.mjs site/tests/insights-layout.test.mjs site/tests/mobile-polish.test.mjs site/tests/lead-flow.test.mjs site/tests/lead-client.test.mjs site/tests/testimonials.test.mjs site/tests/home-experience.test.mjs
+        run: node --test site/tests/contact-security.test.mjs site/tests/contact-delivery.test.mjs site/tests/contact-client.test.mjs site/tests/upgrade-forms.test.mjs site/tests/upgrade-pricing.test.mjs site/tests/review-body.test.mjs site/tests/seo-discovery.test.mjs site/tests/ai-visibility.test.mjs site/tests/canonical-origin.test.mjs site/tests/insights-layout.test.mjs site/tests/mobile-polish.test.mjs site/tests/lead-flow.test.mjs site/tests/lead-client.test.mjs site/tests/testimonials.test.mjs site/tests/home-experience.test.mjs site/tests/editorial.test.mjs
       - name: Validate security and performance budgets
         run: node site/tests/check-security.mjs
       - name: Validate GEO authority and AI readiness

@@ -6,6 +6,7 @@ import {seoKeywords} from '../../scripts/seo-keywords.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
 import {faqHubCopy,serviceSeo} from '../../scripts/seo-content.mjs';
 import {visibleFaqPairs} from '../../scripts/seo-render.mjs';
+import {articlePaths} from '../../scripts/editorial.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
 const mapping=JSON.parse(await readFile(path.join(root,'../docs/upgrade-route-map.json'),'utf8'));
@@ -83,7 +84,8 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
    assert.equal(new URL(url).origin,'https://sundaibot.com');
    const pathname=new URL(url).pathname;
    const feedbackUpdate=/^\/(?:da\/|sv\/)?free-guides\/$/.test(pathname)||/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
-   assert.equal(date,feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
+   const editorialUpdate=articlePaths.includes(pathname)||/^\/(?:da\/|sv\/)?insights\/$/.test(pathname);
+   assert.equal(date,editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
    const html=await readPage(new URL(url).pathname);
    assert(html.includes(`rel="canonical" href="${url}"`));
    assert(!html.includes('content="noindex'));

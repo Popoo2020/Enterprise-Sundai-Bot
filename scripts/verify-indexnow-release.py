@@ -41,10 +41,14 @@ while time.monotonic() < deadline:
         if current.get("contentDigest") != expected["contentDigest"]:
             raise RuntimeError("Waiting for current service and Q&A content")
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-            list(pool.map(verify_page, [*expected["questionsAndAnswers"].values(), *expected["buyerGuides"].values()]))
+            article_urls = [entry["hub"] for entry in expected.get("articles", {}).values()]
+            article_urls.extend(page["url"] for entry in expected.get("articles", {}).values()
+                                for page in entry["pages"] if page["published"] == "2026-10-16")
+            list(pool.map(verify_page, [*expected["questionsAndAnswers"].values(),
+                                       *expected["buyerGuides"].values(), *article_urls]))
         if read_public(payload["keyLocation"]).strip() != payload["key"]:
             raise RuntimeError("Public IndexNow key does not match")
-        print("Public content digest, three canonical Q&A pages and three buyer guides and IndexNow key verified. Notification may proceed.")
+        print("Public content digest, Q&A, buyer guides, article hubs, new articles and IndexNow key verified. Notification may proceed.")
         break
     except (OSError, ValueError, RuntimeError) as error:
         print("Publication not yet verified:", type(error).__name__, flush=True)

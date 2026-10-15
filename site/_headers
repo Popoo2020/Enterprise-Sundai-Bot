@@ -22,6 +22,15 @@
   Cache-Control: no-store, max-age=0
   X-Robots-Tag: noindex, nofollow
 
+/insights/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
+/da/insights/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
+/sv/insights/feed.xml
+  Content-Type: application/rss+xml; charset=utf-8
+
 /assets/*.css
   Cache-Control: public, max-age=0, must-revalidate
 

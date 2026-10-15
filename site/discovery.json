@@ -1,7 +1,7 @@
 {
   "version": "2026-10-13",
-  "release": "motion-guides-2026-10-15",
-  "contentDigest": "a4a5fc42766030fba8e4db4c6cdea3364f947e89a335718049098bf6b642e719",
+  "release": "articles-discovery-2026-10-16",
+  "contentDigest": "978fdce49dcf57706a07e44d5a482a82561e59b6ec7487d4b4e9f79a5237cc16",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",
@@ -15,6 +15,251 @@
     "da",
     "sv"
   ],
+  "articles": {
+    "en": {
+      "hub": "https://sundaibot.com/insights/",
+      "feed": "https://sundaibot.com/insights/feed.xml",
+      "pages": [
+        {
+          "url": "https://sundaibot.com/insights/ai-generated-code-security-review.html",
+          "title": "AI-generated code: a security review before you ship",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/insights/ai-security-assessment-vs-pentest.html",
+          "title": "AI security assessment or penetration test: what should you buy?",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/insights/mcp-security-review-business.html",
+          "title": "MCP security: seven questions before connecting an AI agent",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/insights/secure-ai-automation-cost-roi.html",
+          "title": "What does secure AI automation cost? Build a useful ROI case",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/insights/denmark-cpr-access-security.html",
+          "title": "Denmark’s CPR case: what product teams should check before granting access",
+          "published": "2026-10-14"
+        },
+        {
+          "url": "https://sundaibot.com/insights/ai-agent-security-checklist-2026.html",
+          "title": "Before your AI agent gets access: seven decisions to make",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/insights/ai-future-ready-business-90-day-plan.html",
+          "title": "Will AI replace your team? Start with a 90-day plan.",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/insights/prompt-injection-business-guide.html",
+          "title": "A document can redirect your AI. What should stop it?",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/insights/ai-framework-comparison.html",
+          "title": "EU AI Act vs ISO/IEC 42001 vs ISO/IEC 27001 vs NIST AI RMF",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/ai-vendor-security-review.html",
+          "title": "AI vendor security review: 30 questions before you buy",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/article-50-transparency-checklist.html",
+          "title": "Article 50 transparency: a practical implementation checklist",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/eu-ai-act-2026-what-applies-now.html",
+          "title": "EU AI Act 2026: what applies now — and what comes next",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/secure-rag-ai-assistants.html",
+          "title": "Secure RAG and AI assistants: a 2026 security baseline",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/shadow-ai-governance.html",
+          "title": "Shadow AI governance: control risk without banning useful AI",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/insights/why-ai-pilots-fail.html",
+          "title": "Why AI pilots fail after the demo",
+          "published": ""
+        }
+      ]
+    },
+    "da": {
+      "hub": "https://sundaibot.com/da/insights/",
+      "feed": "https://sundaibot.com/da/insights/feed.xml",
+      "pages": [
+        {
+          "url": "https://sundaibot.com/da/insights/ai-genereret-kode-sikkerhed.html",
+          "title": "AI-genereret kode: sikkerhedsgennemgang før idriftsættelse",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/ai-sikkerhedsvurdering-eller-penetrationstest.html",
+          "title": "AI-sikkerhedsvurdering eller penetrationstest: hvad skal I købe?",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/mcp-sikkerhed-virksomheder.html",
+          "title": "MCP-sikkerhed: syv spørgsmål før I forbinder en AI-agent",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/sikker-ai-automatisering-pris-roi.html",
+          "title": "Hvad koster sikker AI-automatisering? Beregn værdien før køb",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/denmark-cpr-access-security.html",
+          "title": "CPR-sagen i Danmark: Hvad produktteams bør kontrollere før adgang gives",
+          "published": "2026-10-14"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/ai-agenter-sikkerhed-tjekliste-2026.html",
+          "title": "Før AI-agenten får adgang: syv beslutninger",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/ai-fremtid-90-dages-plan.html",
+          "title": "Erstatter AI jeres team? Start med en 90-dages plan.",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/prompt-injection-guide-virksomheder.html",
+          "title": "Et dokument kan omdirigere jeres AI. Hvad stopper det?",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/ai-framework-sammenligning.html",
+          "title": "EU AI Act vs ISO/IEC 42001 vs ISO/IEC 27001 vs NIST AI RMF",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/ai-leverandoer-sikkerhedsreview.html",
+          "title": "AI-leverandørreview: 30 spørgsmål før I køber",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/artikel-50-transparens-tjekliste.html",
+          "title": "Artikel 50-transparens: en praktisk implementeringstjekliste",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/eu-ai-act-2026-hvad-gaelder-nu.html",
+          "title": "EU AI Act 2026: hvad gælder nu — og hvad kommer bagefter?",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/shadow-ai-governance.html",
+          "title": "Shadow AI governance: kontrollér risiko uden at forbyde nyttig AI",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/sikre-rag-ai-assistenter.html",
+          "title": "Sikker RAG og AI-assistenter: en 2026-sikkerhedsbaseline",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/da/insights/hvorfor-ai-piloter-fejler.html",
+          "title": "Hvorfor AI-piloter fejler efter demoen",
+          "published": ""
+        }
+      ]
+    },
+    "sv": {
+      "hub": "https://sundaibot.com/sv/insights/",
+      "feed": "https://sundaibot.com/sv/insights/feed.xml",
+      "pages": [
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-genererad-kod-sakerhetsgranskning.html",
+          "title": "AI-genererad kod: säkerhetsgranskning före lansering",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-sakerhetsgranskning-eller-penetrationstest.html",
+          "title": "AI-säkerhetsgranskning eller penetrationstest: vad ska ni köpa?",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/mcp-sakerhet-foretag.html",
+          "title": "MCP-säkerhet: sju frågor innan ni ansluter en AI-agent",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/saker-ai-automatisering-kostnad-roi.html",
+          "title": "Vad kostar säker AI-automatisering? Räkna på nyttan före köp",
+          "published": "2026-10-16"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/denmark-cpr-access-security.html",
+          "title": "CPR-fallet i Danmark: Vad produktteam bör kontrollera innan åtkomst ges",
+          "published": "2026-10-14"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-agenter-sakerhet-checklista-2026.html",
+          "title": "Innan AI-agenten får åtkomst: sju beslut",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-framtid-90-dagars-plan.html",
+          "title": "Ersätter AI ert team? Börja med en 90-dagarsplan.",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/prompt-injection-guide-foretag.html",
+          "title": "Ett dokument kan styra om er AI. Vad stoppar det?",
+          "published": "2026-09-18"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-leverantor-sakerhetsgranskning.html",
+          "title": "AI-leverantörsgranskning: 30 frågor innan ni köper",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/ai-ramverk-jamforelse.html",
+          "title": "EU AI Act vs ISO/IEC 42001 vs ISO/IEC 27001 vs NIST AI RMF",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/artikel-50-transparens-checklista.html",
+          "title": "Artikel 50-transparens: en praktisk implementeringschecklista",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/eu-ai-act-2026-vad-galler-nu.html",
+          "title": "EU AI Act 2026: vad gäller nu — och vad kommer härnäst?",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/saker-rag-ai-assistenter.html",
+          "title": "Säker RAG och AI-assistenter: en 2026-säkerhetsbaseline",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/shadow-ai-styrning.html",
+          "title": "Shadow AI-styrning: kontrollera risk utan att förbjuda användbar AI",
+          "published": "2026-09-04"
+        },
+        {
+          "url": "https://sundaibot.com/sv/insights/varfor-ai-piloter-misslyckas.html",
+          "title": "Varför AI-piloter misslyckas efter demon",
+          "published": ""
+        }
+      ]
+    }
+  },
   "serviceDirectories": {
     "en": "https://sundaibot.com/services/",
     "da": "https://sundaibot.com/da/ydelser/",
