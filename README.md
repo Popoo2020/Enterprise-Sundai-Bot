@@ -1,25 +1,40 @@
-# Enterprise-Sundai-Bot
+# SundAI — website APIs and RAG ingestion baseline
 
-[![CI](https://github.com/Popoo2020/Enterprise-Sundai-Bot/actions/workflows/ci.yml/badge.svg)](https://github.com/Popoo2020/Enterprise-Sundai-Bot/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+This repository contains the [SundAI website](https://sundaibot.com/), its Cloudflare Worker APIs, and a separate Python document-ingestion baseline. The website work demonstrates API integration, input validation, error handling, consent flows and automated checks.
 
-**Enterprise-Sundai-Bot** is a secure RAG-assistant blueprint that now includes a working **document normalisation and chunking layer** as the first practical building block for ingestion pipelines.  
-The repository is intentionally developed in transparent stages: implemented modules are clearly separated from future architecture work such as retrieval adapters, API endpoints, authentication and audit logging.
+**For recruiters and technical reviewers:** start with the contact API and its tests. They show concrete implementation decisions and failure cases that can be reviewed and exercised locally.
 
-> **Status:** working RAG-ingestion baseline / active expansion.
+[My profile and project guide](https://github.com/Popoo2020) · [Website source](site/) · [Website CI](.github/workflows/site-ci.yml)
 
-## SundAI public governance resources
+## Start with the implemented website work
 
-This repository also contains the source for selected public materials from [SundAI](https://sundaibot.com/), an independent European initiative focused on practical AI governance, AI security, responsible adoption and training.
+| What to review | Source | Evidence |
+|---|---|---|
+| Validate a form before contacting providers: allowed fields, bounded streamed JSON, field lengths and origin checks | [Contact API](site/functions/api/contact.js) | [Validation and abuse-control tests](site/tests/contact-security.test.mjs) |
+| Verify Turnstile results against the expected hostname and action; handle provider failures | [Contact API](site/functions/api/contact.js) | [Challenge and failure cases](site/tests/contact-security.test.mjs) |
+| Route enquiries to the configured recipient, escape HTML, retry with a stable idempotency key and require a provider receipt | [Email integration](site/functions/api/contact.js) | [Routing, retry and receipt tests](site/tests/contact-delivery.test.mjs) |
+| Queue requested guides and require confirmation before follow-up emails; support unsubscribe | [Lead API](site/functions/api/leads.js), [Durable Object workflow](site/functions/_shared/lead-flow.js) | [Consent and workflow tests](site/tests/lead-flow.test.mjs) |
+| Keep browser validation and feedback aligned with the API | [Form client](site/assets/upgrade-forms.js) | [Form tests](site/tests/upgrade-forms.test.mjs), [client tests](site/tests/contact-client.test.mjs) |
 
-- [European AI Governance Readiness Brief 2026](https://sundaibot.com/resources/european-ai-governance-readiness-2026/) — a dated, source-backed synthesis and 12-question evidence-readiness rubric. It is not a market survey, legal opinion or compliance score.
-- [SundAI AI Control Matrix](https://sundaibot.com/resources/ai-control-matrix/) — a practical thematic mapping aid across the EU AI Act, ISO/IEC 42001, ISO/IEC 27001 and NIST AI RMF. It is not an official legal or standards crosswalk.
-- [AI governance resources](https://sundaibot.com/resources/) — editable inventory, supplier-review, impact-assessment and readiness artifacts.
-- [Evidence & trust policy](https://sundaibot.com/trust/) — how SundAI separates verified facts, source-backed guidance, illustrative scenarios and measured outcomes.
+The contact API also applies local and edge-cache rate checks. It supports an optional native rate-limiter binding, which is not declared in the checked-in deployment configuration; this is not a globally atomic rate-limit guarantee.
 
-Localised versions are published in [Danish](https://sundaibot.com/da/ressourcer/) and [Swedish](https://sundaibot.com/sv/resurser/).
+## Run the website tests
 
-## What is implemented
+With Node.js 22 or later, from the repository root:
+
+```bash
+node --test site/tests/*.test.mjs
+```
+
+**Verified result: 114 passed, zero failed or skipped** at [commit `2fde43b`](https://github.com/Popoo2020/Enterprise-Sundai-Bot/commit/2fde43b61379b57ee9d6a2b744301acf0d38377f). [GitHub CI](https://github.com/Popoo2020/Enterprise-Sundai-Bot/actions/runs/38821188605) recorded this on 15 October 2026 with Node 22; a local rerun on 19 October with Node 24 produced the same count. The [website workflow](.github/workflows/site-ci.yml) additionally checks syntax, pages, assets, multilingual content and security configuration.
+
+These are offline tests with synthetic data and mocked external providers. They establish behavior under the tested conditions, not live email delivery, production uptime, conversion gains or a comprehensive security assessment. No live form submission is needed to run them.
+
+## Separate Python RAG ingestion baseline
+
+The Python module implements text normalisation, overlapping chunks, deterministic IDs and chunk metadata. Retrieval, a vector-store adapter, RAG authentication and a query API remain planned. The implemented website contact/lead APIs above are separate from those future RAG layers.
+
+### RAG baseline status
 
 | Capability | Status |
 |---|---|
@@ -34,7 +49,7 @@ Localised versions are published in [Danish](https://sundaibot.com/da/ressourcer
 | Authentication / RBAC | 🟡 Planned |
 | Audit logging | 🟡 Planned |
 
-## Repository structure
+### RAG baseline files
 
 ```text
 src/
@@ -47,24 +62,13 @@ requirements.txt
 .github/workflows/ci.yml
 ```
 
-## Current implemented workflow
+### Ingestion flow
 
-```text
-Raw text document
-        │
-        ▼
-Whitespace normalisation
-        │
-        ▼
-Overlapping chunk generation
-        │
-        ▼
-Metadata-rich chunk objects
-```
+Raw document → whitespace normalisation → overlapping chunks → chunks with metadata.
 
-## Implemented module
+### Ingestion module
 
-### `src/rag_ingestion.py`
+`src/rag_ingestion.py`
 
 Provides:
 
@@ -77,9 +81,9 @@ Provides:
   - `index`
   - `total_chunks`
 
-This creates a credible ingestion foundation for a future secure RAG pipeline.
+The module prepares documents for a future retrieval layer.
 
-## Quickstart
+### Run the Python ingestion tests
 
 ```bash
 git clone https://github.com/Popoo2020/Enterprise-Sundai-Bot.git
@@ -92,7 +96,7 @@ pip install -r requirements.txt
 pytest -q
 ```
 
-## Example
+### Ingestion example
 
 ```python
 from src.rag_ingestion import chunk_text
@@ -106,9 +110,9 @@ for chunk in chunks:
     print(chunk.chunk_id, chunk.index, chunk.text)
 ```
 
-## Security-oriented development path
+### RAG security development path
 
-The next layers should be implemented with explicit enterprise controls:
+Future RAG layers need their own controls; the website contact API does not provide these for retrieval:
 
 1. retrieval restricted by user/role context
 2. source metadata validation
@@ -116,7 +120,7 @@ The next layers should be implemented with explicit enterprise controls:
 4. auditability for ingestion and retrieval events
 5. rate limiting and abuse prevention at the API layer
 
-## Roadmap
+### RAG roadmap
 
 1. Add vector-store adapter interface
 2. Add retrieval helper with metadata filtering
@@ -126,9 +130,20 @@ The next layers should be implemented with explicit enterprise controls:
 6. Add threat model and architecture diagrams
 7. Add safe prompt assembly patterns for retrieved content
 
-## Limitations
+### RAG baseline limitations
 
-- This is not yet a running chatbot service
+- The RAG baseline is not yet a running chatbot service
 - There is no vector database integration yet
-- There is no authentication layer yet
-- The current value is a tested and documented ingestion baseline that can be expanded safely
+- There is no RAG authentication layer yet
+- Its implemented scope is document normalisation and chunking with metadata
+
+## SundAI public governance resources
+
+This repository also contains the source for selected public materials from [SundAI](https://sundaibot.com/), an independent European initiative focused on practical AI governance, AI security, responsible adoption and training.
+
+- [European AI Governance Readiness Brief 2026](https://sundaibot.com/resources/european-ai-governance-readiness-2026/) — a dated, source-backed synthesis and 12-question evidence-readiness rubric. It is not a market survey, legal opinion or compliance score.
+- [SundAI AI Control Matrix](https://sundaibot.com/resources/ai-control-matrix/) — a practical thematic mapping aid across the EU AI Act, ISO/IEC 42001, ISO/IEC 27001 and NIST AI RMF. It is not an official legal or standards crosswalk.
+- [AI governance resources](https://sundaibot.com/resources/) — editable inventory, supplier-review, impact-assessment and readiness artifacts.
+- [Evidence & trust policy](https://sundaibot.com/trust/) — how SundAI separates verified facts, source-backed guidance, illustrative scenarios and measured outcomes.
+
+Localised versions are published in [Danish](https://sundaibot.com/da/ressourcer/) and [Swedish](https://sundaibot.com/sv/resurser/).
