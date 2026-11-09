@@ -33,10 +33,10 @@ function harness({reduced=false,observer=true,animated=true}={}) {
   current:()=>slides.findIndex(s=>s.classList.contains('is-current'))};
 }
 
-test('all 27 replacement pages contain the four complete attributed quotes and no fictional client section',async()=>{
+test('all 24 detailed feedback and service pages contain the four complete attributed quotes and no fictional client section',async()=>{
  for(const lang of ['en','da','sv']){
   const prefix=lang==='en'?'':lang+'/';const hub=lang==='en'?'services':lang==='da'?'ydelser':'tjanster';
-  for(const relative of ['index.html',hub+'/index.html','customer-scenarios/index.html',...services.map(s=>hub+'/'+s.id+'/index.html')]){
+  for(const relative of [hub+'/index.html','customer-scenarios/index.html',...services.map(s=>hub+'/'+s.id+'/index.html')]){
    const html=await readFile(new URL('../'+prefix+relative,import.meta.url),'utf8');
    assert.equal((html.match(/class="testimonial-slide"/g)||[]).length,4,relative);
    assert.equal((html.match(/id="testimonials-heading"/g)||[]).length,1);

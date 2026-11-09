@@ -4,6 +4,7 @@ import path from 'node:path';
 import {packages,launch,isLaunch,priceFor,bundleQuote} from '../functions/_shared/catalog.js';
 import {articlePath} from '../../scripts/editorial.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
+import {storyCopy} from '../../scripts/home-story.mjs';
 import {categories} from '../../scripts/service-categories.mjs';
 import {labels} from '../../scripts/upgrade-labels.mjs';
 import {ecosystem} from '../../scripts/upgrade-ecosystem.mjs';
@@ -59,6 +60,14 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
    assert.ok(card.includes(`id="service-${category.id}"`),`${lang}/${page}: category entry anchor ${category.id}`);
    assert.ok(card.includes(esc(category.names[lang])),`${lang}/${page}: category name ${category.id}`);
    assert.ok(card.includes(esc(category.benefits[lang])),`${lang}/${page}: category-level benefit ${category.id}`);
+   if(page==='index.html'){
+    const compact=card.match(/<ul class="compact-offers">([\s\S]*?)<\/ul>/)?.[1];
+    assert.ok(compact,`${lang}: visible compact offering list`);
+    assert.equal((compact.match(/<li\b/g)||[]).length,3);
+    for(const item of storyCopy[lang].short[categories.indexOf(category)])assert.ok(compact.includes(esc(item)));
+    assert.equal((card.match(/<a\b/g)||[]).length,1,`${lang}: one clear destination per home card`);
+    continue;
+   }
    const offerings=card.match(/<ul class="category-offer-list">([\s\S]*?)<\/ul>/)?.[1];
    assert.ok(offerings,`${lang}/${page}: visible sub-offerings ${category.id}`);
    assert.equal((offerings.match(/<li\b/g)||[]).length,category.offerings[lang].length,`${lang}/${page}: complete sub-offering list ${category.id}`);
@@ -119,21 +128,11 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(item.potentialAction,`${lang}/${service.id}: quote action schema`);
  }
  const home=await readFile(path.join(root,prefix+'index.html'),'utf8');
- const network=home.match(/<section\b[^>]*class="[^"]*network-section[^>]*>([\s\S]*?)<\/section>/)?.[0];
- assert.ok(network,`${lang}: prominent freelancer banner`);assert.ok(network.includes(`href="${r.join}"`),`${lang}: apply link`);
- assert.ok(network.includes('class="network-banner"'),`${lang}: freelancer visual banner`);
- assert.ok(home.indexOf('id="services"')<home.indexOf(network),`${lang}: network banner follows products`);
- assert.ok(home.indexOf(network)<home.indexOf(`href="${r.usecases}"`),`${lang}: network banner precedes use cases`);
- const header=home.match(/<header\b[\s\S]*?<\/header>/)?.[0];assert.ok(header.includes(`href="${r.join}"`),`${lang}: network link in header`);
- const technology=home.match(/<section\b[^>]*class="[^"]*technology-section[^>]*>([\s\S]*?)(?=<section class="section training-note")/)?.[0];assert.ok(technology,`${lang}: technology ecosystem`);
- assert.ok(technology.includes(esc(t.techNote)),`${lang}: honest relationship label`);
- assert.doesNotMatch(technology,/>\s*(?:Our partners|Trusted by|Vores partnere|Våra partners)\s*</i,`${lang}: no invented client or partnership claim`);
- for(const item of ecosystem){
-  const card=[...technology.matchAll(/<a\b[^>]*class="brand-mark[^>]*>[\s\S]*?<\/a>/g)].map(m=>m[0]).find(c=>c.includes(`href="${esc(item.url)}"`));
-  assert.ok(card,`${lang}: official technology link for ${item.name}`);
-  assert.equal(card.includes('light-plate'),Boolean(item.plate),`${lang}: ${item.name} brand artwork contrast plate`);
-  if(item.src){assert.ok(card.includes(`src="${item.src}"`));assert.ok(card.includes(`alt="${esc(item.name)}"`));assert.ok(card.includes('width="180" height="64"'),`${lang}: larger logo dimensions`);}else assert.ok(card.includes(`<strong class="brand-wordmark">${esc(item.name)}</strong>`),`${lang}: readable text fallback for ${item.name}`);
- }
+ assert.doesNotMatch(home.match(/<main[\s\S]*?<\/main>/)[0],/network-section|technology-section/);
+ assert.ok(home.includes(`href="${r.join}"`),`${lang}: freelancer route remains in footer`);
+ const how=await readFile(path.join(root,r.how,'index.html'),'utf8');
+ assert.ok(how.includes(esc(t.techNote)),`${lang}: technology relationship explanation retained on delivery page`);
+ for(const item of ecosystem){assert.ok(how.includes(`href="${esc(item.url)}"`));if(item.src)assert.ok(how.includes(`src="${item.src}"`));}
  for(const [route,kind,fields] of [[r.book,'booking',['interest','timezone','preferredTime','language']],[r.join,'join',['country','language','expertise','experience','availability','portfolio']],[r.training,'training',['audience','groupSize','ages','topic','format','dates','goal']]]){
   const html=await readFile(path.join(root,route,'index.html'),'utf8');
   for(const token of [`data-kind="${kind}"`,'action="/api/contact"','method="post"','data-upgrade-form','data-form-status','/assets/upgrade-forms.js','name="name"','name="email"','name="message"',...fields.map(f=>`name="${f}"`)])assert.ok(html.includes(token),`${lang}${route}: ${token}`);
@@ -166,4 +165,4 @@ assert.ok(js.includes("new URLSearchParams(window.location.search).get('interest
 assert.ok(js.includes('interest.options].some(option=>option.value===requestedInterest)'),'Interest query only accepts a published option');
 assert.doesNotMatch(js,/\.total\b|\.included\b|\.currentPrice\b|\.basePrice\b|\.launchPrice\b/, 'Public client must not render private prices');
 await access(path.join(root,'assets/upgrade-mobile.css'));
-console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas preserving all six specialist scopes and deliverables, training and meeting links in three languages, prominent freelancer funnel and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
+console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas preserving all six specialist scopes and deliverables, training and meeting links in three languages, retained freelancer route and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);

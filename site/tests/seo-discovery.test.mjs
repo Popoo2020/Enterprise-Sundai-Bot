@@ -7,6 +7,7 @@ import {services} from '../../scripts/upgrade-content.mjs';
 import {categories} from '../../scripts/service-categories.mjs';
 import {faqHubCopy,serviceSeo} from '../../scripts/seo-content.mjs';
 import {visibleFaqPairs} from '../../scripts/seo-render.mjs';
+import {projectPaths,caseHubs} from '../../scripts/home-story.mjs';
 import {articlePaths} from '../../scripts/editorial.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
@@ -98,7 +99,7 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
   for(const [,url,date]of rows){
    assert.equal(new URL(url).origin,'https://sundaibot.com');
    const pathname=new URL(url).pathname;
-   const categoriesUpdate=Object.values(mapping.routes).some(r=>[r.home,r.services,r.pricing,r.faq].includes(pathname));
+   const categoriesUpdate=[...Object.values(projectPaths),...Object.values(caseHubs)].includes(pathname)||Object.values(mapping.routes).some(r=>[r.home,r.services,r.pricing,r.faq,r.how].includes(pathname));
    const feedbackUpdate=/^\/(?:da\/|sv\/)?free-guides\/$/.test(pathname)||/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
    const editorialUpdate=articlePaths.includes(pathname)||/^\/(?:da\/|sv\/)?insights\/$/.test(pathname);
    assert.equal(date,categoriesUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
