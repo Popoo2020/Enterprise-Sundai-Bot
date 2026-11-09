@@ -8,19 +8,18 @@ import {htmlEscape as esc} from '../../scripts/seo-render.mjs';
 const motionScript=await readFile(new URL('../assets/scroll-reveal.js',import.meta.url),'utf8');
 const page=route=>readFile(new URL('../'+route.replace(/^\//,'')+(route.endsWith('/')?'index.html':''),import.meta.url),'utf8');
 
-test('each homepage offers one guide invitation and six buying reasons before client feedback',async()=>{
+test('homepages keep a concise buyer journey and one approved quote with access to all feedback',async()=>{
  for(const lang of ['en','da','sv']){
   const base=lang==='en'?'/':`/${lang}/`,html=await page(base),t=experienceCopy[lang];
   const main=html.match(/<main[^>]*>([\s\S]*?)<\/main>/)[1];
-  assert.equal((main.match(/class="section guide-promo"/g)||[]).length,1);
-  assert.equal((main.match(/class="why-reason"/g)||[]).length,6);
-  assert(main.indexOf('id="services"')<main.indexOf('id="why-sundai"'));
-  assert(main.indexOf('id="why-sundai"')<main.indexOf('id="project-examples"'));
+  assert.equal((main.match(/class="home-guide"/g)||[]).length,1);
+  assert.equal((main.match(/class="home-quote"/g)||[]).length,1);
+  const order=['id="services"','id="our-work"','id="process"','id="why-sundai"','id="project-examples"','class="cta"','id="free-knowledge"'].map(s=>main.indexOf(s));
+  assert(order.every((n,i)=>n>=0&&(i===0||n>order[i-1])));
   assert(main.includes(esc(t.guideTitle)));assert(main.includes(`href="${guideHubPath(lang)}"`));
-  for(const [title,body]of t.reasons){assert(main.includes(esc(title)));assert(main.includes(esc(body)))}
-  for(const title of guideTitles[lang])assert(!main.includes(esc(title)),'individual brochures live off the homepage');
-  assert.doesNotMatch(main,/data-lead-form|class="guide-library-card"|class="growth-card"/);
-  assert.equal((main.match(/class="testimonial-slide"/g)||[]).length,4);
+  for(const [title,body]of t.reasons.slice(0,3)){assert(main.includes(esc(title)));assert(main.includes(esc(body)))}
+  assert(main.includes(`href="${base}customer-scenarios/"`));
+  assert.doesNotMatch(main,/data-lead-form|class="guide-library-card"|class="growth-card"|network-section|technology-section|training-note|data-testimonials/);
  }
 });
 

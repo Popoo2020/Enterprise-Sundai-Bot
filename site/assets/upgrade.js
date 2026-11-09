@@ -1,7 +1,7 @@
 (() => {
  const menu=document.querySelector('.mobile-menu');
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu?.open){menu.open=false;menu.querySelector('summary')?.focus();}});
- document.addEventListener('click',e=>{if(menu?.open&&!menu.contains(e.target))menu.open=false;});
+ document.addEventListener('click',e=>{if(menu?.open&&(!menu.contains(e.target)||e.target.closest?.('a[href]')))menu.open=false;});
  // Keep footer navigation available without JS; collapse it only on small screens.
  const footerGroups=[...document.querySelectorAll('.footer-nav')];
  const footerViewport=window.matchMedia('(max-width:600px)');
