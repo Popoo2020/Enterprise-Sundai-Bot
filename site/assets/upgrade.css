@@ -1,4 +1,4 @@
-/* SundAI · secure AI, with a little attitude. One design system. */
+/* SundAI · practical automation, AI and security. */
 @font-face{font-family:Sora;src:url('/assets/fonts/sora-latin.woff2') format('woff2');font-weight:100 800;font-style:normal;font-display:swap}
 @font-face{font-family:Manrope;src:url('/assets/fonts/manrope-latin.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
 :root{color-scheme:dark;--bg:#050607;--surface:#101419;--lime:#b9ff66;--blue:#358bff;--text:#f5f7fa;--muted:#b8c0cc;--border:#26303a;--radius:22px}
@@ -186,3 +186,36 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .editorial-service-links h3 {font-size:1rem;margin-bottom:14px}
 .editorial-service-links p {margin:0 0 12px}
 .editorial-service-links a {display:inline-block;padding-block:8px;color:#87b9ff;text-underline-offset:4px;line-height:1.6}
+
+/* Four service areas, real project evidence and founder introduction. */
+.clarity-hero .hero-lead{font-size:1.13rem;max-width:58ch;line-height:1.75}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.category-card{padding:32px;min-height:300px}
+.category-card h2,.category-card h3{font-size:clamp(1.35rem,2.4vw,1.8rem);line-height:1.25;min-height:0;margin:16px 0}
+.category-card p.category-benefit{color:var(--lime);font-weight:600}
+.category-card .card-link{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center}
+.category-detail{scroll-margin-top:110px}
+.category-subservices article{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid var(--border)}
+.category-subservices h3{font-size:1.25rem;line-height:1.4;margin-top:0}
+.category-subservices p{color:var(--muted);font-size:.95rem}
+.founder-layout{display:grid;grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:70px;align-items:center}
+.founder-layout h2{font-size:clamp(1.8rem,3vw,2.8rem)}
+.founder-layout p{max-width:65ch;color:var(--muted)}
+.founder-layout .eyebrow{color:var(--lime)}
+.founder-portrait{margin:0;max-width:330px;width:100%}
+.founder-portrait img{display:block;width:100%;height:auto;aspect-ratio:1451/2048;border-radius:18px}
+.founder-portrait figcaption{font-weight:700;margin-top:18px}
+.founder-portrait figcaption span{display:block;color:var(--muted);font-size:.8rem;font-weight:400;margin-top:4px}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.case-card{border-top:2px solid var(--lime);background:var(--surface);padding:32px;border-radius:0 0 18px 18px;min-width:0}
+.case-card h3{font-size:clamp(1.3rem,2.3vw,1.7rem);line-height:1.3;margin:0 0 20px}
+.case-card p,.case-card dd{color:var(--muted);font-size:.95rem}
+.case-card .eyebrow{font-size:.65rem;line-height:1.5;color:var(--lime)}
+.case-card dl{margin:0}
+.case-card dt{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.case-card dd{margin:0 0 24px}
+.case-card summary{cursor:pointer;min-height:44px;display:flex;align-items:center;text-decoration:underline;font-size:.82rem}
+.case-card details p{font-size:.83rem;margin-top:12px}
+.case-card .text-link{display:inline-flex;min-height:44px;align-items:center;margin-top:14px;font-size:.85rem}
+@media(max-width:800px){.category-grid,.case-grid{grid-template-columns:1fr;gap:20px}.category-card{min-height:0;padding:24px}.founder-layout{grid-template-columns:minmax(0,1fr);gap:32px}.founder-portrait{max-width:240px}.case-card{padding:24px}.clarity-hero .hero-lead{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){.category-card{transition:none}.category-card:hover{transform:none}}

@@ -1,3 +1,4 @@
+import {categories} from '../../scripts/business-clarity.mjs';
 import assert from 'node:assert/strict';
 import {readFile,readdir,access} from 'node:fs/promises';
 import path from 'node:path';
@@ -40,8 +41,9 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
  const t=labels[lang],r=routes[lang];
  for(const page of ['index.html',hub+'/index.html','pricing/index.html']){
   const html=await readFile(path.join(root,prefix+page),'utf8');
-  assert.equal((html.match(/class="service-card"/g)||[]).length,6,`${prefix+page}: core services`);
-  for(const service of services){const card=[...html.matchAll(/<article class="service-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]).find(c=>c.includes(`href="${r.services+service.id}/"`));assert.ok(card,`${lang}/${page}: service landing page ${service.id}`);assert.ok(card.includes(esc(t.learn)),`${lang}/${page}: product CTA ${service.id}`);}
+  assert.equal((html.match(/class="service-card category-card"/g)||[]).length,4,`${prefix+page}: service categories`);
+  for(const category of categories)assert.ok(html.includes(`href="${r.services}#${category.id}"`),`${lang}/${page}: category ${category.id}`);
+  if(page===hub+'/index.html')for(const service of services)assert.ok(html.includes(`href="${r.services+service.id}/"`),`${lang}: retained specialist URL ${service.id}`);
  }
  for(const service of services){
   const html=await readFile(path.join(root,prefix+hub,service.id,'index.html'),'utf8');
@@ -67,13 +69,13 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(item.potentialAction,`${lang}/${service.id}: quote action schema`);
  }
  const home=await readFile(path.join(root,prefix+'index.html'),'utf8');
- const network=home.match(/<section\b[^>]*class="[^"]*network-section[^>]*>([\s\S]*?)<\/section>/)?.[0];
- assert.ok(network,`${lang}: prominent freelancer banner`);assert.ok(network.includes(`href="${r.join}"`),`${lang}: apply link`);
- assert.ok(network.includes('class="network-banner"'),`${lang}: freelancer visual banner`);
- assert.ok(home.indexOf('id="services"')<home.indexOf(network),`${lang}: network banner follows products`);
- assert.ok(home.indexOf(network)<home.indexOf(`href="${r.usecases}"`),`${lang}: network banner precedes use cases`);
- const header=home.match(/<header\b[\s\S]*?<\/header>/)?.[0];assert.ok(header.includes(`href="${r.join}"`),`${lang}: network link in header`);
- const technology=home.match(/<section\b[^>]*class="[^"]*technology-section[^>]*>([\s\S]*?)(?=<section class="section training-note")/)?.[0];assert.ok(technology,`${lang}: technology ecosystem`);
+ const header=home.match(/<header\b[\s\S]*?<\/header>/)?.[0];
+ const main=home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
+ assert.ok(!header.includes(`href="${r.join}"`),`${lang}: customer navigation has no recruitment link`);
+ assert.ok(!main.includes('network-section'),`${lang}: customer journey has no recruitment banner`);
+ const footer=home.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];assert.ok(footer.includes(`href="${r.join}"`),`${lang}: recruitment remains reachable`);
+ const trustPage=await readFile(path.join(root,r.trust,'index.html'),'utf8');
+ const technology=trustPage.match(/<section\b[^>]*class="[^"]*technology-section[^>]*>([\s\S]*?)(?=<section class="cta")/)?.[0];assert.ok(technology,`${lang}: technology ecosystem remains on trust page`);
  assert.ok(technology.includes(esc(t.techNote)),`${lang}: honest relationship label`);
  assert.doesNotMatch(technology,/>\s*(?:Our partners|Trusted by|Vores partnere|Våra partners)\s*</i,`${lang}: no invented client or partnership claim`);
  for(const item of ecosystem){
@@ -114,4 +116,4 @@ assert.ok(js.includes("new URLSearchParams(window.location.search).get('interest
 assert.ok(js.includes('interest.options].some(option=>option.value===requestedInterest)'),'Interest query only accepts a published option');
 assert.doesNotMatch(js,/\.total\b|\.included\b|\.currentPrice\b|\.basePrice\b|\.launchPrice\b/, 'Public client must not render private prices');
 await access(path.join(root,'assets/upgrade-mobile.css'));
-console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, six product CTAs in three languages, prominent freelancer funnel and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
+console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas in three languages, retained specialist routes and footer recruitment and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);

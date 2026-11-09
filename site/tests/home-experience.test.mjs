@@ -5,19 +5,24 @@ import {readFile,readdir} from 'node:fs/promises';
 import {experienceCopy,guideHubPath} from '../../scripts/home-experience.mjs';
 import {guideIds,guideTitles} from '../../scripts/lead-content.mjs';
 import {htmlEscape as esc} from '../../scripts/seo-render.mjs';
+import {categories} from '../../scripts/business-clarity.mjs';
 const motionScript=await readFile(new URL('../assets/scroll-reveal.js',import.meta.url),'utf8');
 const page=route=>readFile(new URL('../'+route.replace(/^\//,'')+(route.endsWith('/')?'index.html':''),import.meta.url),'utf8');
 
-test('each homepage offers one guide invitation and six buying reasons before client feedback',async()=>{
+test('each homepage keeps four buying areas, project evidence, a founder and one guide invitation',async()=>{
  for(const lang of ['en','da','sv']){
   const base=lang==='en'?'/':`/${lang}/`,html=await page(base),t=experienceCopy[lang];
   const main=html.match(/<main[^>]*>([\s\S]*?)<\/main>/)[1];
   assert.equal((main.match(/class="section guide-promo"/g)||[]).length,1);
-  assert.equal((main.match(/class="why-reason"/g)||[]).length,6);
-  assert(main.indexOf('id="services"')<main.indexOf('id="why-sundai"'));
-  assert(main.indexOf('id="why-sundai"')<main.indexOf('id="project-examples"'));
+  assert.equal((main.match(/class="service-card category-card"/g)||[]).length,4);
+  assert(main.indexOf('id="selected-work"')<main.indexOf('id="services"'));
+  assert(main.includes('id="founder"'));
+  assert(main.includes('/assets/founder-ariel.jpg'));
+  const hub=lang==='en'?'/services/':lang==='da'?'/da/ydelser/':'/sv/tjanster/';
+  const serviceHtml=await page(hub);
+  for(const c of categories){assert(main.includes(`href="${hub}#${c.id}"`));assert(serviceHtml.includes(`id="${c.id}"`));for(const id of c.services)assert(serviceHtml.includes(`href="${hub}${id}/"`));}
+  assert.doesNotMatch(main,/network-section|join-quick|Half of our expert team/);
   assert(main.includes(esc(t.guideTitle)));assert(main.includes(`href="${guideHubPath(lang)}"`));
-  for(const [title,body]of t.reasons){assert(main.includes(esc(title)));assert(main.includes(esc(body)))}
   for(const title of guideTitles[lang])assert(!main.includes(esc(title)),'individual brochures live off the homepage');
   assert.doesNotMatch(main,/data-lead-form|class="guide-library-card"|class="growth-card"/);
   assert.equal((main.match(/class="testimonial-slide"/g)||[]).length,4);

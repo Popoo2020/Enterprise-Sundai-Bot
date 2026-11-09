@@ -48,7 +48,7 @@ for (const file of htmlFiles) {
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
   if (homePages.has(rel) || /data-page-kind="(?:services|pricing)"/.test(html)) {
-    if ((html.match(/class="service-card"/g)||[]).length!==6) errors.push(`${rel}: expected six static core service cards`);
+    if ((html.match(/class="service-card category-card"/g)||[]).length!==4) errors.push(`${rel}: expected four static service categories`);
   }
   const canonical=html.match(/rel="canonical" href="([^"]+)"/)?.[1];
   for(const alternate of (redirectsByPath.has('/'+rel.replace(/index\.html$/,'')) ? [] : html.matchAll(/<link rel="alternate" hreflang="(en|da|sv)" href="https:\/\/sundaibot.com([^"]+)"/g))){
