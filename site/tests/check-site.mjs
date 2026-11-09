@@ -24,12 +24,13 @@ async function walk(dir) {
 }
 
 const htmlFiles = await walk(root);
+const htmlByFile = new Map(await Promise.all(htmlFiles.map(async file => [file, await readFile(file, 'utf8')])));
 if (htmlFiles.length < 61) errors.push(`Expected at least 61 HTML pages, found ${htmlFiles.length}`);
 const homePages = new Set(['index.html', path.join('da','index.html'), path.join('sv','index.html')]);
 
 for (const file of htmlFiles) {
   const rel = path.relative(root, file);
-  const html = await readFile(file, 'utf8');
+  const html = htmlByFile.get(file);
   const currentPath='/'+rel.replace(/index\.html$/,'');
   if(/\s(?:on[a-z]+|style)="/i.test(html))errors.push(`${rel}: inline execution/style conflicts with CSP`);
   for(const script of html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g))if(!/type="application\/ld\+json"/.test(script[1])&&!/src=/.test(script[1])&&script[2].trim())errors.push(`${rel}: inline executable script conflicts with CSP`);
@@ -47,8 +48,12 @@ for (const file of htmlFiles) {
   for(const m of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)){const url=m[1];if(url.startsWith('//')||url.startsWith('/api/'))continue;const [pathname]=url.split(/[?#]/);if(!pathname)continue;const target=path.join(root,pathname,pathname.endsWith('/')?'index.html':'');try{await access(target);}catch{errors.push(`${rel}: broken local URL ${url}`);}}
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
-  if (homePages.has(rel) || /data-page-kind="(?:services|proposals)"/.test(html)) {
+  if (homePages.has(rel) || /data-page-kind="proposals"/.test(html)) {
     if ((html.match(/class="service-card category-card"/g)||[]).length!==4) errors.push(`${rel}: expected four static service category cards`);
+  }
+  if (/data-page-kind="services"/.test(html)) {
+    if ((html.match(/class="category-nav-link"/g)||[]).length!==4) errors.push(`${rel}: expected four service category navigation links`);
+    if ((html.match(/class="section category-detail"/g)||[]).length!==4) errors.push(`${rel}: expected four complete service category sections`);
   }
   const canonical=html.match(/rel="canonical" href="([^"]+)"/)?.[1];
   for(const alternate of (redirectsByPath.has('/'+rel.replace(/index\.html$/,'')) ? [] : html.matchAll(/<link rel="alternate" hreflang="(en|da|sv)" href="https:\/\/sundaibot.com([^"]+)"/g))){
@@ -57,6 +62,32 @@ for (const file of htmlFiles) {
   }
   if (html.includes('<form') && (!html.includes('<label') || !html.includes('data-form-status'))) errors.push(`${rel}: form accessibility hooks missing`);
   for(const m of html.matchAll(/href="(#[^"]+)"/g))if(!html.includes('id="'+m[1].slice(1)+'"'))errors.push(`${rel}: missing local anchor ${m[1]}`);
+  // A valid page URL can still lose the visitor when its fragment no longer exists.
+  for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+    const href = match[1].replaceAll('&amp;', '&');
+    if (!href.includes('#') || href.startsWith('#')) continue;
+    let destination;
+    try { destination = new URL(href, 'https://sundaibot.com' + currentPath); }
+    catch { continue; }
+    if (destination.origin !== 'https://sundaibot.com' || !destination.hash) continue;
+    const visited = new Set();
+    while (redirectsByPath.has(destination.pathname) && !visited.has(destination.pathname)) {
+      visited.add(destination.pathname);
+      const next = new URL(redirectsByPath.get(destination.pathname), destination);
+      if (!next.hash) next.hash = destination.hash;
+      destination = next;
+    }
+    if (destination.origin !== 'https://sundaibot.com') continue;
+    const target = path.join(root, destination.pathname, destination.pathname.endsWith('/') ? 'index.html' : '');
+    const targetHtml = htmlByFile.get(target);
+    if (!targetHtml) continue; // Missing pages are reported by the local URL check above.
+    let fragment;
+    try { fragment = decodeURIComponent(destination.hash.slice(1)); }
+    catch { errors.push(`${rel}: invalid fragment encoding ${href}`); continue; }
+    // Text fragments do not require an element ID; a preceding ID still does.
+    fragment = fragment.split(':~:text=')[0];
+    if (fragment && !targetHtml.includes('id="' + fragment + '"')) errors.push(`${rel}: missing destination anchor ${href}`);
+  }
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   if (new Set(ids).size !== ids.length) errors.push(`${rel}: duplicate id found`);
   const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1].split('?')[0]);

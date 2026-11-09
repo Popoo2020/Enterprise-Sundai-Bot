@@ -22,3 +22,20 @@ The original hero, subtitle, calls to action, process, About content, guide head
 - Form/API behavior is tested using mocks. No new real enquiry or inbox-delivery test was performed.
 
 The source for the new grouping is `scripts/service-categories.mjs`; existing specialist scopes remain in `scripts/upgrade-content.mjs`.
+
+## Service presentation and funnel review — 9 November 2026
+
+A second review focused on making the four areas easier to understand and buy:
+
+- **Business AI Automation:** operations/admin, CRM/system integrations and controlled AI workflows.
+- **AI Assistants & RAG:** company knowledge, support/onboarding and scoped agents. RAG is explained in plain language.
+- **Cybersecurity & Cloud:** pentesting/AI security, cloud identities/access and DevSecOps.
+- **AI Governance & Training:** governance/risk, readiness/documentation and team/leadership workshops.
+
+Each home/proposal card now has a category-level benefit, three named offerings, a clearly labelled illustrative example, and distinct exploration/meeting links. No example is presented as a measured client outcome. The approved hero and specialist copy remain intact. Four shortcuts in the hero orient visitors immediately. The hub replaces the duplicated decision/card layers with four compact section links while preserving every specialist scope and deliverable.
+
+Category meeting links now select the matching category in the existing form; all specialist options remain available. Generic enquiries start with an empty required choice instead of silently choosing automation. No contact endpoint, pricing, security control, email routing or external integration changed. A contradictory staffing-ratio sentence was replaced with the existing project-based senior oversight commitment.
+
+Six stale use-case links were repaired. Page validation now checks cross-page fragments as well as same-page anchors, preventing this navigation regression from recurring. Pricing cards now use H2 under the page H1.
+
+Validation: 198 pages rebuilt; 114 Node tests and all 60 other website CI commands passed. Browser inspection covered EN desktop, DA mobile and SV tablet, with iframe viewport checks at widths 360, 390, 768, 900, 1000 and 1440 (content widths exclude scrollbar). A mobile-grid collision found during review was fixed and rechecked. Service selection correctly prefilled the Danish governance meeting request. Final CI and live deployment verification are recorded in the publishing pull request. No real enquiry was sent; actual email receipt and conversion uplift were not measured.

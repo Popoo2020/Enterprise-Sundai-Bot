@@ -22,7 +22,7 @@ export const experienceCopy = {
       ['Expertise that connects the dots.','Cybersecurity, AI and economics expertise connects technical decisions to how your business actually works.'],
       ['Your scope. Your deadline. Your budget.','We agree milestones, acceptance criteria and costs up front, then track delivery against them. Scope changes need your approval.'],
       ['Quality you can examine.','Documented reviews and quality checks follow the regulations and security frameworks relevant to your project.'],
-      ['Senior judgement, built in.','Half of our expert team are senior specialists. We match contributors and oversight to the demands of your project.'],
+      ['Senior judgement, built in.','We match contributors and senior oversight to the demands of your project.'],
       ['Value beyond the day rate.','You invest in the quality of the work and your project’s potential. We prioritise sound decisions and useful outcomes.'],
       ['Capability, demonstrated.','Our specialists have practical lab training, relevant certifications and academic qualifications. Every deliverable faces the same quality bar, regardless of seniority.']
     ]
@@ -47,7 +47,7 @@ export const experienceCopy = {
       ['Ekspertise, der forbinder det hele.','Viden om cybersikkerhed, AI og økonomi kobler tekniske beslutninger til den måde, din virksomhed fungerer på.'],
       ['Dit omfang. Din deadline. Dit budget.','Vi aftaler milepæle, acceptkriterier og omkostninger på forhånd og følger leverancen op imod dem. Ændringer kræver din godkendelse.'],
       ['Kvalitet, du kan efterprøve.','Dokumenterede gennemgange og kvalitetstjek følger de regler og sikkerhedsrammer, der er relevante for dit projekt.'],
-      ['Seniorerfaring fra start.','Halvdelen af vores ekspertteam er seniorspecialister. Vi tilpasser bidragydere og faglig gennemgang til projektets krav.'],
+      ['Seniorerfaring fra start.','Vi tilpasser bidragydere og seniorfaglig gennemgang til projektets krav.'],
       ['Værdi ud over timeprisen.','Du investerer i arbejdets kvalitet og projektets potentiale. Vi prioriterer velbegrundede beslutninger og brugbare resultater.'],
       ['Kompetencer, der er afprøvet.','Vores specialister har praktisk laboratorietræning, relevante certificeringer og akademiske kvalifikationer. Alle leverancer møder samme kvalitetskrav uanset anciennitet.']
     ]
@@ -72,7 +72,7 @@ export const experienceCopy = {
       ['Expertis som knyter ihop helheten.','Kunskap om cybersäkerhet, AI och ekonomi kopplar tekniska beslut till hur din verksamhet faktiskt fungerar.'],
       ['Din omfattning. Din deadline. Din budget.','Vi avtalar milstolpar, acceptanskriterier och kostnader i förväg och följer leveransen mot dem. Ändringar kräver ditt godkännande.'],
       ['Kvalitet du kan granska.','Dokumenterade granskningar och kvalitetskontroller följer de regler och säkerhetsramverk som är relevanta för ditt projekt.'],
-      ['Senior erfarenhet från början.','Hälften av vårt expertteam är seniora specialister. Vi anpassar medverkande och granskning efter projektets krav.'],
+      ['Senior erfarenhet från början.','Vi anpassar medverkande och seniorgranskning efter projektets krav.'],
       ['Värde utöver timpriset.','Du investerar i arbetets kvalitet och projektets potential. Vi prioriterar välgrundade beslut och användbara resultat.'],
       ['Kompetens som har prövats.','Våra specialister har praktisk labbträning, relevanta certifieringar och akademiska kvalifikationer. Varje leverans möter samma kvalitetskrav oavsett erfarenhetsnivå.']
     ]

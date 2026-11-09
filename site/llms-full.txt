@@ -242,7 +242,7 @@ Provide authorised access, an accurate asset inventory, a technical owner and a 
 Source: https://sundaibot.com/faq/
 
 ### What does SundAI help a business do?
-SundAI brings six specialist services into four areas: Business Automation, AI Assistants, Cybersecurity, and AI Governance & Training. Cybersecurity brings together pentesting, DevSecOps and cloud security. Explore the services, bring your idea and let’s shape the next move.
+SundAI brings six specialist services into four areas: Business AI Automation, AI Assistants & RAG, Cybersecurity & Cloud, and AI Governance & Training. Cybersecurity brings together pentesting, DevSecOps and cloud security. Explore the services, bring your idea and let’s shape the next move.
 
 ### Which service should we choose first?
 Choose automation for repeated operational work, private AI and RAG for approved knowledge retrieval, governance for requirements and ownership, pentesting for defined attack paths, DevSecOps for delivery controls, or cloud security for identities and configuration. We can discuss the fit before preparing a proposal.
