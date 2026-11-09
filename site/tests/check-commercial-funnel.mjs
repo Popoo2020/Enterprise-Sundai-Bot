@@ -41,28 +41,54 @@ for(const item of ecosystem){assert.ok(item.name&&item.url);assert.equal(new URL
 
 for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv','sv/','tjanster']]){
  const t=labels[lang],r=routes[lang];
- for(const page of ['index.html',hub+'/index.html','pricing/index.html']){
+ const booking=await readFile(path.join(root,r.book,'index.html'),'utf8');
+ const bookingInterests=booking.match(/<select\b[^>]*name="interest"[^>]*>([\s\S]*?)<\/select>/)?.[1];
+ assert.ok(bookingInterests,`${lang}: booking interest selector`);
+ for(const category of categories){
+  const options=[...bookingInterests.matchAll(new RegExp(`<option\\b[^>]*value="${category.id}"[^>]*>([\\s\\S]*?)<\\/option>`,'g'))];
+  assert.equal(options.length,1,`${lang}/${category.id}: one booking option for the category meeting link`);
+  assert.equal(options[0][1],esc(category.names[lang]),`${lang}/${category.id}: booking label matches the selected service area`);
+ }
+ for(const page of ['index.html','pricing/index.html']){
   const html=await readFile(path.join(root,prefix+page),'utf8');
-  const cards=[...html.matchAll(/<article class="service-card category-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
+  const cards=[...html.matchAll(/<article class="service-card category-card"[^>]*>[\s\S]*?<\/article>/g)].map(m=>m[0]);
   assert.equal(cards.length,4,`${prefix+page}: service categories`);
   for(const category of categories){
    const card=cards.find(c=>c.includes(`href="${r.services}#${category.id}"`));
    assert.ok(card,`${lang}/${page}: category destination ${category.id}`);
+   assert.ok(card.includes(`id="service-${category.id}"`),`${lang}/${page}: category entry anchor ${category.id}`);
    assert.ok(card.includes(esc(category.names[lang])),`${lang}/${page}: category name ${category.id}`);
-   for(const offer of category.bullets[lang])assert.ok(card.includes(esc(offer)),`${lang}/${page}: visible offering in ${category.id}`);
-   assert.ok(card.includes(`href="${r.book}"`),`${lang}/${page}: direct meeting link in ${category.id}`);
+   assert.ok(card.includes(esc(category.benefits[lang])),`${lang}/${page}: category-level benefit ${category.id}`);
+   const offerings=card.match(/<ul class="category-offer-list">([\s\S]*?)<\/ul>/)?.[1];
+   assert.ok(offerings,`${lang}/${page}: visible sub-offerings ${category.id}`);
+   assert.equal((offerings.match(/<li\b/g)||[]).length,category.offerings[lang].length,`${lang}/${page}: complete sub-offering list ${category.id}`);
+   for(const [title,body] of category.offerings[lang]){
+    assert.ok(offerings.includes(`<strong>${esc(title)}</strong>`),`${lang}/${page}: scannable offering title ${title}`);
+    assert.ok(offerings.includes(`<span>${esc(body)}</span>`),`${lang}/${page}: offering explanation ${title}`);
+   }
+   assert.ok(card.includes(esc(category.examples[lang])),`${lang}/${page}: practical example ${category.id}`);
+   assert.ok(card.includes(`href="${r.book}?interest=${category.id}"`),`${lang}/${page}: meeting link preserves ${category.id}`);
+   assert.ok(card.includes(esc(category.cta[lang])),`${lang}/${page}: specific meeting invitation ${category.id}`);
   }
  }
  const serviceHub=await readFile(path.join(root,prefix+hub,'index.html'),'utf8');
+ assert.doesNotMatch(serviceHub,/<article class="service-card category-card"/,`${lang}: hub does not repeat the full marketing cards`);
+ const categoryNav=serviceHub.match(/<nav class="category-nav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+ assert.ok(categoryNav,`${lang}: accessible service category navigation`);
+ assert.equal((categoryNav.match(/<a\b/g)||[]).length,4,`${lang}: four compact category links`);
+ assert.equal((serviceHub.match(/<article class="category-offering">/g)||[]).length,7,`${lang}: six specialist offerings and training remain visible`);
  for(const category of categories){
-  const section=serviceHub.match(new RegExp(`<section class="section category-detail" id="${category.id}">([\\s\\S]*?)<\\/section>`))?.[1];
+  assert.ok(categoryNav.includes(`href="#${category.id}"`),`${lang}: category navigation destination ${category.id}`);
+  assert.ok(categoryNav.includes(esc(category.names[lang])),`${lang}: category navigation label ${category.id}`);
+  const section=serviceHub.match(new RegExp(`<section class="section category-detail" id="${category.id}"[^>]*>([\\s\\S]*?)<\\/section>`))?.[1];
   assert.ok(section,`${lang}: category detail ${category.id}`);
+  assert.ok(section.includes(esc(category.benefits[lang])),`${lang}: complete category benefit ${category.id}`);
   for(const id of category.services){
    const service=services.find(s=>s.id===id).copy[lang];
    assert.ok(section.includes(`href="${r.services+id}/"`),`${lang}: retained specialist URL ${id}`);
    for(const value of [service.name,service.description,service.scope,...service.deliverables])assert.ok(section.includes(esc(value)),`${lang}/${id}: original scope and deliverables in category hub`);
   }
-  assert.ok(section.includes(`href="${r.book}"`),`${lang}/${category.id}: direct meeting link`);
+  assert.ok(section.includes(`href="${r.book}?interest=${category.id}"`),`${lang}/${category.id}: meeting link preserves the category`);
   assert.ok(section.includes(esc(t.call)),`${lang}/${category.id}: original meeting invitation`);
   if(category.training){
    assert.ok(section.includes(`href="${r.training}"`),`${lang}: training remains discoverable under governance`);

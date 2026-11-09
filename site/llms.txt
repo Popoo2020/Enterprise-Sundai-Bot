@@ -2,9 +2,9 @@
 Less manual work. More room to grow. AI workflows, assistants and cyber services built around your business—with control designed in.
 
 ## Four service areas
-- [Business Automation](https://sundaibot.com/services/#business-automation): Secure AI Business Automation
-- [AI Assistants](https://sundaibot.com/services/#ai-assistants): Private AI Assistants, Agents & RAG
-- [Cybersecurity](https://sundaibot.com/services/#cybersecurity): OSINT, Pentesting & Red Teaming; DevSecOps & Secure Delivery Pipelines; Cloud Security Engineering, Automation & Maintenance
+- [Business AI Automation](https://sundaibot.com/services/#business-automation): Secure AI Business Automation
+- [AI Assistants & RAG](https://sundaibot.com/services/#ai-assistants): Private AI Assistants, Agents & RAG
+- [Cybersecurity & Cloud](https://sundaibot.com/services/#cybersecurity): OSINT, Pentesting & Red Teaming; DevSecOps & Secure Delivery Pipelines; Cloud Security Engineering, Automation & Maintenance
 - [AI Governance & Training](https://sundaibot.com/services/#ai-governance-training): Compliance, GRC & AI Governance; workshops and training
 
 ## Specialist services

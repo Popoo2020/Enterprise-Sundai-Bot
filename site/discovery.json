@@ -5,9 +5,9 @@
     {
       "id": "business-automation",
       "names": {
-        "en": "Business Automation",
-        "da": "Automatisering",
-        "sv": "Automatisering"
+        "en": "Business AI Automation",
+        "da": "AI-automatisering til virksomheder",
+        "sv": "AI-automation för företag"
       },
       "services": [
         "secure-ai-automation"
@@ -17,25 +17,25 @@
         "en": {
           "url": "https://sundaibot.com/services/#business-automation",
           "offers": [
-            "Connect orders, stock, CRM, scheduling and reports.",
-            "Build workflows with Python, APIs and AI where it adds value.",
-            "Keep approvals, error handling and handover built in."
+            "Operations & admin: Connect orders, stock, scheduling and reporting.",
+            "CRM & system integrations: Move information between approved tools without repeated manual entry.",
+            "Controlled AI workflows: Add AI where it helps, with approvals, error handling and handover."
           ]
         },
         "da": {
           "url": "https://sundaibot.com/da/ydelser/#business-automation",
           "offers": [
-            "Forbind ordrer, lager, CRM, planlægning og rapporter.",
-            "Byg arbejdsgange med Python, API’er og AI, hvor det giver værdi.",
-            "Få godkendelser, fejlhåndtering og overdragelse med fra starten."
+            "Drift og administration: Forbind ordrer, lager, planlægning og rapporter.",
+            "CRM og systemintegrationer: Flyt oplysninger mellem godkendte værktøjer uden gentagen manuel indtastning.",
+            "AI-workflows med kontrol: Brug AI, hvor det hjælper, med godkendelser, fejlhåndtering og overdragelse."
           ]
         },
         "sv": {
           "url": "https://sundaibot.com/sv/tjanster/#business-automation",
           "offers": [
-            "Koppla ihop beställningar, lager, CRM, planering och rapporter.",
-            "Bygg arbetsflöden med Python, API:er och AI där det gör nytta.",
-            "Få godkännanden, felhantering och överlämning med från början."
+            "Drift och administration: Koppla ihop beställningar, lager, planering och rapporter.",
+            "CRM och systemintegrationer: Flytta information mellan godkända verktyg utan upprepad manuell inmatning.",
+            "AI-arbetsflöden med kontroll: Använd AI där det hjälper, med godkännanden, felhantering och överlämning."
           ]
         }
       }
@@ -43,9 +43,9 @@
     {
       "id": "ai-assistants",
       "names": {
-        "en": "AI Assistants",
-        "da": "AI-assistenter",
-        "sv": "AI-assistenter"
+        "en": "AI Assistants & RAG",
+        "da": "AI-assistenter og RAG",
+        "sv": "AI-assistenter & RAG"
       },
       "services": [
         "private-ai-agents-rag"
@@ -55,25 +55,25 @@
         "en": {
           "url": "https://sundaibot.com/services/#ai-assistants",
           "offers": [
-            "Turn company knowledge into an assistant with source-linked answers.",
-            "Give each user access to the information they are allowed to see.",
-            "Add agreed agent tools, supervised actions and security tests."
+            "Company knowledge assistants: Find answers in approved documents, with citations and permission-aware search.",
+            "Support & onboarding: Help people find instructions and guidance without interrupting the same experts.",
+            "Scoped AI agents: Add agreed tools and supervised actions, with security and acceptance tests."
           ]
         },
         "da": {
           "url": "https://sundaibot.com/da/ydelser/#ai-assistants",
           "offers": [
-            "Gør virksomhedens viden til en assistent med kildehenvisninger i svarene.",
-            "Giv hver bruger adgang til den viden, de må se.",
-            "Tilføj aftalte agentværktøjer, kontrollerede handlinger og sikkerhedstest."
+            "Assistenter til virksomhedens viden: Find svar i godkendte dokumenter med kildehenvisninger og søgning, der respekterer adgangsrettigheder.",
+            "Support og onboarding: Hjælp medarbejderne med at finde vejledning uden at afbryde de samme eksperter.",
+            "AI-agenter med afgrænset mandat: Tilføj aftalte værktøjer og kontrollerede handlinger med sikkerheds- og accepttests."
           ]
         },
         "sv": {
           "url": "https://sundaibot.com/sv/tjanster/#ai-assistants",
           "offers": [
-            "Gör företagets kunskap till en assistent med källhänvisningar i svaren.",
-            "Ge varje användare tillgång till informationen de får se.",
-            "Lägg till avtalade agentverktyg, granskade åtgärder och säkerhetstester."
+            "Assistenter för företagets kunskap: Hitta svar i godkända dokument med källhänvisningar och sökning som respekterar behörigheter.",
+            "Support och introduktion: Hjälp medarbetarna att hitta instruktioner utan att avbryta samma experter.",
+            "AI-agenter med avgränsat mandat: Lägg till avtalade verktyg och granskade åtgärder med säkerhets- och acceptanstester."
           ]
         }
       }
@@ -81,9 +81,9 @@
     {
       "id": "cybersecurity",
       "names": {
-        "en": "Cybersecurity",
-        "da": "Cybersikkerhed",
-        "sv": "Cybersäkerhet"
+        "en": "Cybersecurity & Cloud",
+        "da": "Cybersikkerhed og cloud",
+        "sv": "Cybersäkerhet & moln"
       },
       "services": [
         "pentesting-red-teaming",
@@ -95,25 +95,25 @@
         "en": {
           "url": "https://sundaibot.com/services/#cybersecurity",
           "offers": [
-            "Test web apps, APIs and agreed AI attack paths.",
-            "Secure cloud access, identities, permissions and alerts.",
-            "Build code, dependency and secret checks into your delivery pipeline."
+            "Pentesting & AI security: Test agreed web, API and AI attack paths. Get prioritised findings and fixes.",
+            "Cloud identities & access: Review permissions, privileged access, configuration and security alerts.",
+            "DevSecOps & secure delivery: Build code, dependency and secret checks into your release pipeline."
           ]
         },
         "da": {
           "url": "https://sundaibot.com/da/ydelser/#cybersecurity",
           "offers": [
-            "Test webapps, API’er og aftalte angrebsveje mod AI.",
-            "Styrk cloudadgang, identiteter, rettigheder og alarmer.",
-            "Byg kontrol af kode, afhængigheder og hemmeligheder ind i din pipeline."
+            "Pentest og AI-sikkerhed: Test aftalte angrebsveje i webapps, API’er og AI. Få prioriterede fund og forslag til rettelser.",
+            "Cloudidentiteter og adgang: Gennemgå rettigheder, privilegeret adgang, konfiguration og sikkerhedsalarmer.",
+            "DevSecOps og sikker levering: Byg kontrol af kode, afhængigheder og hemmeligheder ind i jeres release-pipeline."
           ]
         },
         "sv": {
           "url": "https://sundaibot.com/sv/tjanster/#cybersecurity",
           "offers": [
-            "Testa webbappar, API:er och avtalade angreppsvägar mot AI.",
-            "Säkra molnåkomst, identiteter, behörigheter och larm.",
-            "Bygg in kontroller av kod, beroenden och hemligheter i din pipeline."
+            "Pentest och AI-säkerhet: Testa avtalade angreppsvägar i webbappar, API:er och AI. Få prioriterade fynd och åtgärdsförslag.",
+            "Molnidentiteter och åtkomst: Granska behörigheter, privilegierad åtkomst, konfiguration och säkerhetslarm.",
+            "DevSecOps och säker leverans: Bygg in kontroller av kod, beroenden och hemligheter i er leveranspipeline."
           ]
         }
       }
@@ -123,7 +123,7 @@
       "names": {
         "en": "AI Governance & Training",
         "da": "AI-governance og undervisning",
-        "sv": "AI-styrning och utbildning"
+        "sv": "AI-styrning & utbildning"
       },
       "services": [
         "compliance-ai-governance"
@@ -133,34 +133,34 @@
         "en": {
           "url": "https://sundaibot.com/services/#ai-governance-training",
           "offers": [
-            "Map AI use, suppliers, data flows, risks and responsibilities.",
-            "Turn relevant compliance gaps into an action plan and useful documents.",
-            "Book hands-on AI and cybersecurity workshops for your team or group."
+            "AI governance & risk: Map AI use, suppliers, data flows, responsibilities and risks.",
+            "Readiness & documentation: Turn gaps against an agreed framework into an action plan and useful drafts.",
+            "Team & leadership workshops: Practical AI literacy, automation and cybersecurity sessions shaped around your audience."
           ],
           "trainingUrl": "https://sundaibot.com/training/"
         },
         "da": {
           "url": "https://sundaibot.com/da/ydelser/#ai-governance-training",
           "offers": [
-            "Kortlæg AI-brug, leverandører, datastrømme, risici og ansvar.",
-            "Gør relevante compliancemangler til en handlingsplan og brugbar dokumentation.",
-            "Book praktiske AI- og cybersikkerhedsworkshops til dit team eller din gruppe."
+            "AI-governance og risiko: Kortlæg AI-brug, leverandører, datastrømme, ansvar og risici.",
+            "Parathed og dokumentation: Gør mangler i forhold til en aftalt standard eller ramme til en handlingsplan og brugbare udkast.",
+            "Workshops for teams og ledere: Praktiske sessioner om AI-forståelse, automatisering og cybersikkerhed tilpasset målgruppen."
           ],
           "trainingUrl": "https://sundaibot.com/da/kurser-foredrag/"
         },
         "sv": {
           "url": "https://sundaibot.com/sv/tjanster/#ai-governance-training",
           "offers": [
-            "Kartlägg AI-användning, leverantörer, dataflöden, risker och ansvar.",
-            "Gör relevanta efterlevnadsbrister till en åtgärdsplan och användbara dokument.",
-            "Boka praktiska AI- och cybersäkerhetsworkshoppar för ditt team eller din grupp."
+            "AI-styrning och risk: Kartlägg AI-användning, leverantörer, dataflöden, ansvar och risker.",
+            "Beredskap och dokumentation: Gör brister mot ett avtalat ramverk till en åtgärdsplan och användbara utkast.",
+            "Workshoppar för team och ledare: Praktiska pass om AI-kunnighet, automation och cybersäkerhet anpassade till målgruppen."
           ],
           "trainingUrl": "https://sundaibot.com/sv/utbildning-forelasningar/"
         }
       }
     }
   ],
-  "contentDigest": "b8a0a26b1b8cfd4311b5f661ea80ec6e9fbc10ad128daa869ae5bf3b7e237dd0",
+  "contentDigest": "94c9a77c6f55ee273cb653e021ce34dd31e9eec1af8233bdec4385e9b8378cdc",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",

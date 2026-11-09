@@ -187,31 +187,66 @@ body{font-family:Manrope,Arial,sans-serif;font-weight:450;line-height:1.65}h1,h2
 .editorial-service-links p {margin:0 0 12px}
 .editorial-service-links a {display:inline-block;padding-block:8px;color:#87b9ff;text-underline-offset:4px;line-height:1.6}
 
-/* Four buying areas; original brand voice and specialist products retained. */
-.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.category-card{padding:32px;min-width:0}
-.category-card h2,.category-card h3{font-size:clamp(1.4rem,2.5vw,1.9rem);min-height:0;line-height:1.25}
-.category-card .service-benefit{min-height:0;color:var(--lime)}
-.category-card .category-list-label{font-size:.8rem;font-weight:700;color:var(--text);margin-top:24px}
-.category-card ul,.category-offering ul{padding-left:1.2em;color:var(--muted);font-size:.93rem;line-height:1.65}
-.category-card li,.category-offering li{margin-bottom:10px}
-.category-actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:20px}
-.category-actions .card-link{margin-top:0}
-.category-actions .text-link{display:inline-flex;align-items:center;min-height:44px}
-.category-scope-note{max-width:80ch;color:var(--muted);margin-top:24px}
-.category-detail{scroll-margin-top:110px}
+/* Four buying areas: a clear promise, named options and a concrete example. */
+[data-category]{--category-accent:#b9ff66}
+[data-category="ai-assistants"]{--category-accent:#79b6ff}
+[data-category="cybersecurity"]{--category-accent:#71ddd2}
+[data-category="ai-governance-training"]{--category-accent:#c6b1ff}
+.hero-service-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;margin:24px 0 28px;max-width:620px}
+.hero-service-links a{display:flex;text-decoration:none;align-items:center;gap:8px;min-height:44px;padding:10px 0;border-bottom:1px solid var(--border);font-size:.78rem;font-weight:700;color:var(--text);line-height:1.45}
+.hero-service-links a span:first-child{color:var(--blue);font-size:.68rem;font-weight:500}
+.hero-service-links a span:last-child{color:var(--lime);margin-left:auto}
+.hero-service-links a:hover{color:var(--lime);border-color:var(--lime)}
+.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.upgrade-site .category-card{position:relative;display:flex;flex-direction:column;gap:0;padding:32px;min-width:0;border:1px solid var(--border);border-top:3px solid var(--category-accent);border-radius:0 0 18px 18px;background:linear-gradient(145deg,#151b23,var(--surface) 55%);scroll-margin-top:110px}
+.category-card-heading{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+.category-card-heading>div{min-width:0}
+.category-card-heading .card-number{flex:0 0 auto;display:grid;place-items:center;width:34px;height:34px;margin:0;border:1px solid var(--category-accent);border-radius:50%;font:500 .7rem Manrope,sans-serif;color:var(--category-accent)}
+.upgrade-site .category-card h2,.upgrade-site .category-card h3{font-size:clamp(1.35rem,2.05vw,1.8rem);min-height:0;line-height:1.25;letter-spacing:-.035em;margin:0;text-wrap:balance}
+.upgrade-site .category-card .service-benefit{min-height:0;color:var(--category-accent);font-size:.95rem;font-weight:700;margin:10px 0 0;line-height:1.5}
+.category-card .service-copy{display:flex;flex-direction:column;flex:1}
+.category-card .category-summary{font-size:.95rem;line-height:1.7;margin:0;color:var(--muted)}
+.category-card .category-list-label{font-size:.69rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:24px 0 10px}
+.upgrade-site .category-card .category-offer-list{list-style:none;padding:0;margin:0 0 22px}
+.category-offer-list li{display:grid;grid-template-columns:minmax(0,1fr);gap:5px;border-top:1px solid var(--border);padding:13px 0;margin:0}
+.category-offer-list strong{font-size:.92rem;color:var(--text);font-weight:700;line-height:1.5}
+.category-offer-list span{font-size:.88rem;line-height:1.65;color:var(--muted)}
+.category-example{border-left:2px solid var(--category-accent);padding:5px 0 5px 14px;margin-top:auto;background:transparent}
+.category-example-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.09em;color:var(--category-accent);font-weight:700}
+.category-example p{font-size:.85rem;line-height:1.6;color:var(--muted);margin:7px 0 0}
+.category-actions{display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;padding-top:24px;margin-top:auto}
+.category-actions .card-link{margin-top:0;font-size:.8rem;min-height:48px}
+.category-actions .text-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:.8rem;color:var(--category-accent)}
+.category-actions .text-link:hover{text-decoration:underline}
+.category-scope-note{max-width:80ch;color:var(--muted);margin-top:24px;font-size:.85rem}
+.category-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--border)}
+.category-nav-link{display:flex;text-decoration:none;align-items:flex-start;gap:16px;border-bottom:1px solid var(--border);padding:24px 0;min-width:0;color:var(--text)}
+.category-nav-number{font-size:.75rem;color:var(--lime);padding-top:5px}
+.category-nav-copy{display:grid;gap:8px;flex:1;min-width:0}
+.category-nav-copy strong{font-family:Sora,sans-serif;font-size:1.15rem;line-height:1.4}
+.category-nav-copy>span{color:var(--muted);font-size:.88rem;line-height:1.5}
+.category-nav-link>span:last-child{color:var(--lime);font-size:1.2rem}
+.category-nav-link:hover .category-nav-copy strong{color:var(--lime)}
+.category-chooser-heading{margin-bottom:24px}.category-chooser-heading h2{font-size:1.4rem;line-height:1.4;margin:8px 0}.category-chooser-heading .eyebrow{font-size:.7rem}
+.service-chooser{padding-top:24px;padding-bottom:40px}
+.service-chooser .guide-invitation{margin-top:24px}
+.category-detail{scroll-margin-top:100px;border-top:1px solid var(--border)}
+.category-detail .eyebrow{color:var(--category-accent)}
 .category-detail .section-heading h2{font-size:clamp(1.8rem,3.5vw,3rem)}
 .category-offerings{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px}
-.category-offering{padding:28px;border:1px solid var(--border);border-top:2px solid var(--lime);border-radius:0 0 18px 18px;background:var(--surface);min-width:0;display:flex;flex-direction:column}
+.category-offering{padding:28px;border:1px solid var(--border);border-top:2px solid var(--category-accent);border-radius:0 0 18px 18px;background:var(--surface);min-width:0;display:flex;flex-direction:column}
 .category-offering h3{font-size:1.3rem;line-height:1.4;margin:0 0 14px}
 .category-offering h4{font-size:.85rem;margin:20px 0 4px}
 .category-offering p{font-size:.95rem;color:var(--muted)}
+.category-offering ul{padding-left:1.2em;color:var(--muted);font-size:.93rem;line-height:1.65}
+.category-offering li{margin-bottom:10px}
 .category-offering details{margin:8px 0 24px}
 .category-offering summary{min-height:44px;cursor:pointer;font-weight:600}
 .category-offering .button{margin-top:auto;align-self:flex-start}
 .category-meeting{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--border);margin-top:32px;padding-top:24px}
 .category-meeting h3{font-size:1.2rem;margin:0 0 8px}.category-meeting p{margin:0;color:var(--muted);font-size:.9rem}
-@media(max-width:800px){.category-grid{grid-template-columns:1fr}.category-card,.category-offering{padding:24px}.category-actions{gap:16px}.category-meeting{align-items:flex-start}.category-meeting .button{max-width:100%;white-space:normal}.category-offerings{grid-template-columns:1fr}}
+@media(max-width:800px){.category-grid{grid-template-columns:1fr}.upgrade-site .category-card,.category-offering{padding:24px}.category-actions{gap:12px}.category-meeting{align-items:flex-start}.category-meeting .button{max-width:100%;white-space:normal}.category-offerings{grid-template-columns:1fr}.hero-service-links{max-width:620px}.category-nav{gap:0 24px}}
+@media(max-width:600px){.category-nav{grid-template-columns:1fr}.category-nav-link{padding:20px 0}.hero-service-links{gap:0 14px;margin:20px 0}.hero-service-links a{font-size:.72rem;gap:6px}.hero-service-links a span:first-child{display:none}.upgrade-site .category-card h2,.upgrade-site .category-card h3{font-size:1.4rem}.category-card-heading{gap:12px}.category-actions{align-items:stretch;flex-direction:column}.category-actions .card-link{justify-content:center}.category-actions .text-link{justify-content:center}.category-card .category-summary{font-size:.92rem}.category-card-heading .card-number{width:28px;height:28px}}
 @media(prefers-reduced-motion:reduce){.category-card{transition:none}.category-card:hover{transform:none}}
 
 /* A quiet data-flow backdrop. All copy stays on its original, readable surface. */
@@ -237,3 +272,10 @@ body[data-page-kind="home"] .hero-art .workflow li:last-child .step-dot{--flow-a
 @media(max-width:800px){body[data-page-kind="home"] .hero-art::after{top:-20px;right:4px;width:250px;height:170px}body[data-page-kind="home"] .hero::before{opacity:.55;background-size:48px 48px}}
 @media(max-width:600px){body[data-page-kind="home"] .hero{background:radial-gradient(ellipse at 100% 0,#16488428,transparent 55%)}body[data-page-kind="home"] .hero::before{mask-image:radial-gradient(ellipse at 100% 0,#000,transparent 55%)}}
 @media print{body[data-page-kind="home"] .hero{background:none}body[data-page-kind="home"] .hero::before,body[data-page-kind="home"] .hero-art::before,body[data-page-kind="home"] .hero-art::after,body[data-page-kind="home"] .hero-art .workflow ol::before{display:none}body[data-page-kind="home"] .hero-monogram{text-shadow:none}}
+
+/* Place the new service shortcuts explicitly in the existing mobile hero grid. */
+@media(max-width:600px){
+ .sundai-site.upgrade-site[data-page-kind="home"] .hero-copy{grid-template-areas:"eyebrow eyebrow" "title title" "subtitle subtitle" "lead lead" "service-links service-links" "call call" "reassurance reassurance" "solutions freelancers" "europe europe"}
+ .sundai-site.upgrade-site[data-page-kind="home"] .hero-copy>.hero-service-links{grid-area:service-links;width:100%;min-width:0;margin:18px 0 0}
+ .sundai-site.upgrade-site .hero-service-links a{font-size:.78rem;min-width:0}
+}
