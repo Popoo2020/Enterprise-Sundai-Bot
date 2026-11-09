@@ -85,7 +85,8 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
    const pathname=new URL(url).pathname;
    const feedbackUpdate=/^\/(?:da\/|sv\/)?free-guides\/$/.test(pathname)||/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
    const editorialUpdate=articlePaths.includes(pathname)||/^\/(?:da\/|sv\/)?insights\/$/.test(pathname);
-   assert.equal(date,editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
+   const clarityUpdate=Object.values(mapping.routes).some(r=>[r.home,r.services,r.about,r.how,r.pricing,r.faq,r.buyer].includes(pathname));
+   assert.equal(date,clarityUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
    const html=await readPage(new URL(url).pathname);
    assert(html.includes(`rel="canonical" href="${url}"`));
    assert(!html.includes('content="noindex'));

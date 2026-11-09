@@ -4,7 +4,7 @@ import {htmlEscape as esc} from './seo-render.mjs';
 export const experienceCopy = {
   en:{
     guideNav:'Free guides',guideEyebrow:'FREE / PRACTICAL KNOW-HOW',
-    guideTitle:'Kick-ass know‑how. Yours for free.',
+    guideTitle:'Practical guides for your next decision.',
     guideIntro:'Spot the AI and security risks worth fixing before you commit your data, budget or team.',
     guideCta:'Choose your free guide',guideNote:'Practical PDFs. No payment required.',
     libraryTitle:'A smarter first step. A safer next move.',
@@ -29,7 +29,7 @@ export const experienceCopy = {
   },
   da:{
     guideNav:'Gratis guider',guideEyebrow:'GRATIS / PRAKTISK VIDEN',
-    guideTitle:'Skarp viden. Helt gratis.',
+    guideTitle:'Praktiske guider til din næste beslutning.',
     guideIntro:'Find de AI- og sikkerhedsrisici, der er værd at løse, før du sætter data, budget eller team på spil.',
     guideCta:'Vælg din gratis guide',guideNote:'Praktiske PDF-guider. Ingen betaling.',
     libraryTitle:'Et klogere første skridt. Et sikrere næste træk.',
@@ -54,7 +54,7 @@ export const experienceCopy = {
   },
   sv:{
     guideNav:'Gratis guider',guideEyebrow:'GRATIS / PRAKTISK KUNSKAP',
-    guideTitle:'Vass kunskap. Helt gratis.',
+    guideTitle:'Praktiska guider inför nästa beslut.',
     guideIntro:'Hitta AI- och säkerhetsriskerna som är värda att åtgärda innan du sätter data, budget eller team på spel.',
     guideCta:'Välj din gratis guide',guideNote:'Praktiska PDF-guider. Ingen betalning.',
     libraryTitle:'Ett smartare första steg. Ett säkrare nästa drag.',

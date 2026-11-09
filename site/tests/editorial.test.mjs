@@ -53,7 +53,7 @@ test('article navigation is localized and homepage body does not acquire an arti
   const home=await read(lang==='en'?'/':`/${lang}/`),label=editorialUi[lang].nav;
   assert(home.includes(`/insights/">${label}</a>`));
   const body=home.match(/<main[^>]*>([\s\S]*?)<\/main>/)[1];assert(!body.includes('insight-card'));assert(!body.includes('article-latest-grid'));
-  assert(body.includes('Kick-ass know')||body.includes('Skarp viden')||body.includes('Vass kunskap'));
+  assert(body.includes('Practical guides')||body.includes('Praktiske guider')||body.includes('Praktiska guider'));
  }
 });
 

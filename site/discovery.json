@@ -1,7 +1,59 @@
 {
-  "version": "2026-10-13",
-  "release": "articles-discovery-2026-10-16",
-  "contentDigest": "978fdce49dcf57706a07e44d5a482a82561e59b6ec7487d4b4e9f79a5237cc16",
+  "version": "2026-11-09",
+  "release": "business-clarity-2026-11-09",
+  "categories": [
+    {
+      "id": "business-automation",
+      "names": {
+        "en": "Business Automation",
+        "da": "Automatisering",
+        "sv": "Automatisering"
+      },
+      "services": [
+        "secure-ai-automation"
+      ],
+      "includesTraining": false
+    },
+    {
+      "id": "ai-assistants",
+      "names": {
+        "en": "AI Assistants",
+        "da": "AI-assistenter",
+        "sv": "AI-assistenter"
+      },
+      "services": [
+        "private-ai-agents-rag"
+      ],
+      "includesTraining": false
+    },
+    {
+      "id": "cybersecurity",
+      "names": {
+        "en": "Cybersecurity",
+        "da": "Cybersikkerhed",
+        "sv": "Cybersäkerhet"
+      },
+      "services": [
+        "pentesting-red-teaming",
+        "devsecops",
+        "cloud-security"
+      ],
+      "includesTraining": false
+    },
+    {
+      "id": "ai-governance-training",
+      "names": {
+        "en": "AI Governance & Training",
+        "da": "AI-governance og undervisning",
+        "sv": "AI-styrning och utbildning"
+      },
+      "services": [
+        "compliance-ai-governance"
+      ],
+      "includesTraining": true
+    }
+  ],
+  "contentDigest": "4e913880ea173351455cba1d2f4eaa38cba8bebdd6f3ee1316a91aa1e2c59ab2",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",

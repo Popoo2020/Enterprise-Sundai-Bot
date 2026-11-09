@@ -242,7 +242,7 @@ Provide authorised access, an accurate asset inventory, a technical owner and a 
 Source: https://sundaibot.com/faq/
 
 ### What does SundAI help a business do?
-SundAI offers six scoped services: compliance and AI governance, secure business automation, private AI assistants and RAG, authorised security testing, DevSecOps, and cloud security. Training and talks can be booked separately. Start with one process, product or risk you want to address.
+SundAI helps with business automation, AI assistants, cybersecurity, and AI governance and training. Security testing, cloud security and DevSecOps are specialist services within cybersecurity. Start with one process, system or question.
 
 ### Which service should we choose first?
 Choose automation for repeated operational work, private AI and RAG for approved knowledge retrieval, governance for requirements and ownership, pentesting for defined attack paths, DevSecOps for delivery controls, or cloud security for identities and configuration. We can discuss the fit before preparing a proposal.
