@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {seoKeywords} from '../../scripts/seo-keywords.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
+import {categories} from '../../scripts/service-categories.mjs';
 import {faqHubCopy,serviceSeo} from '../../scripts/seo-content.mjs';
 import {visibleFaqPairs} from '../../scripts/seo-render.mjs';
 import {articlePaths} from '../../scripts/editorial.mjs';
@@ -71,6 +72,20 @@ test('every product preserves scope, supports buyer decisions and links directly
 test('machine-readable service facts and sitemaps describe the same canonical public pages',async()=>{
  const discovery=JSON.parse(await readFile(path.join(root,'discovery.json'),'utf8'));
  assert.equal(discovery.services.length,6);
+ assert.equal(discovery.categories.length,4);
+ assert.deepEqual(discovery.categories.flatMap(c=>c.services).sort(),services.map(s=>s.id).sort());
+ for(const category of categories){
+  const published=discovery.categories.find(c=>c.id===category.id);
+  assert(published,`Discovery category ${category.id}`);
+  for(const lang of ['en','da','sv']){
+   const r=mapping.routes[lang],target=published.locales[lang];
+   assert.equal(target.url,'https://sundaibot.com'+r.services+'#'+category.id);
+   assert.deepEqual(target.offers,category.bullets[lang]);
+   const html=await readPage(r.services);
+   assert(html.includes(`id="${category.id}"`),`${lang}: category anchor is published`);
+   if(category.training)assert.equal(target.trainingUrl,'https://sundaibot.com'+r.training);
+  }
+ }
  assert.match(discovery.contentDigest,/^[a-f0-9]{64}$/);
  for(const item of discovery.services)for(const lang of ['en','da','sv']){
   const html=await readPage(new URL(item.locales[lang].url).pathname);
@@ -83,10 +98,10 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
   for(const [,url,date]of rows){
    assert.equal(new URL(url).origin,'https://sundaibot.com');
    const pathname=new URL(url).pathname;
+   const categoriesUpdate=Object.values(mapping.routes).some(r=>[r.home,r.services,r.pricing,r.faq].includes(pathname));
    const feedbackUpdate=/^\/(?:da\/|sv\/)?free-guides\/$/.test(pathname)||/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
    const editorialUpdate=articlePaths.includes(pathname)||/^\/(?:da\/|sv\/)?insights\/$/.test(pathname);
-   const clarityUpdate=Object.values(mapping.routes).some(r=>[r.home,r.services,r.about,r.how,r.pricing,r.faq,r.buyer].includes(pathname));
-   assert.equal(date,clarityUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
+   assert.equal(date,categoriesUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
    const html=await readPage(new URL(url).pathname);
    assert(html.includes(`rel="canonical" href="${url}"`));
    assert(!html.includes('content="noindex'));
