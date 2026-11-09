@@ -3,8 +3,8 @@ import path from 'node:path';
 const root=path.resolve(import.meta.dirname,'..');
 for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da/'],['sv/index.html','sv','sv/']]){
  const html=await readFile(path.join(root,page),'utf8');
- for(const token of [`<html lang="${lang}"`,'data-page-kind="home"','class="container hero-grid"','class="workflow"','class="hero-lead"',`href="/${prefix}book/"`,`href="/${prefix}pricing/"`,`href="/${prefix}join/"`,'/assets/upgrade.css','/assets/upgrade-mobile.css','/assets/eu-flag.svg'])if(!html.includes(token))throw Error(`${page}: missing ${token}`);
- const hero=html.match(/<section class="hero clarity-hero">([\s\S]*?)<\/section>/)?.[1];
+ for(const token of [`<html lang="${lang}"`,'data-page-kind="home"','class="container hero-grid"','class="workflow"','class="hero-subtitle"',`href="/${prefix}book/"`,`href="/${prefix}pricing/"`,`href="/${prefix}join/"`,'/assets/upgrade.css','/assets/upgrade-mobile.css','/assets/eu-flag.svg'])if(!html.includes(token))throw Error(`${page}: missing ${token}`);
+ const hero=html.match(/<section class="hero">([\s\S]*?)<\/section>/)?.[1];
  if(!hero)throw Error(`${page}: semantic hero missing`);
  if((hero.match(/<h1\b/g)||[]).length!==1)throw Error(`${page}: one static hero H1 required`);
  const heading=hero.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1].replace(/<[^>]*>/g,'');
@@ -18,4 +18,4 @@ for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da
  const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
  if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css']))throw Error(`${page}: coherent base and mobile design required`);
 }
-console.log('Static hero QA passed: EN/DA/SV concise value proposition, call and service links, base/mobile styling and four-step textual workflow. NO browser visual or viewport rendering was performed.');
+console.log('Static hero QA passed: EN/DA/SV concise value proposition, request/product/network links, base/mobile styling and four-step textual workflow. NO browser visual or viewport rendering was performed.');

@@ -47,8 +47,8 @@ for (const file of htmlFiles) {
   for(const m of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)){const url=m[1];if(url.startsWith('//')||url.startsWith('/api/'))continue;const [pathname]=url.split(/[?#]/);if(!pathname)continue;const target=path.join(root,pathname,pathname.endsWith('/')?'index.html':'');try{await access(target);}catch{errors.push(`${rel}: broken local URL ${url}`);}}
   if (html.includes('href="#"')) errors.push(`${rel}: placeholder href found`);
   if (html.includes('target="_blank"') && !html.includes('rel="noopener')) errors.push(`${rel}: unsafe target=_blank`);
-  if (homePages.has(rel) || /data-page-kind="(?:services|pricing)"/.test(html)) {
-    if ((html.match(/class="service-card category-card"/g)||[]).length!==4) errors.push(`${rel}: expected four static service categories`);
+  if (homePages.has(rel) || /data-page-kind="(?:services|proposals)"/.test(html)) {
+    if ((html.match(/class="service-card category-card"/g)||[]).length!==4) errors.push(`${rel}: expected four static service category cards`);
   }
   const canonical=html.match(/rel="canonical" href="([^"]+)"/)?.[1];
   for(const alternate of (redirectsByPath.has('/'+rel.replace(/index\.html$/,'')) ? [] : html.matchAll(/<link rel="alternate" hreflang="(en|da|sv)" href="https:\/\/sundaibot.com([^"]+)"/g))){

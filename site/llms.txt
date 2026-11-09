@@ -1,13 +1,13 @@
 # SundAI
-Connect your tools, reduce repetitive tasks and help your team find useful answers. SundAI helps you choose, build and secure a solution that fits the way your business works.
+Less manual work. More room to grow. AI workflows, assistants and cyber services built around your business—with control designed in.
 
 ## Four service areas
-- [Business Automation](https://sundaibot.com/services/#business-automation): Move information between your tools and reduce repetitive work, with clear approvals for important actions.
-- [AI Assistants](https://sundaibot.com/services/#ai-assistants): Help your team find answers in approved company information and check where those answers come from.
-- [Cybersecurity](https://sundaibot.com/services/#cybersecurity): Understand important weaknesses, tighten access and give your team a clear order for improvements.
-- [AI Governance & Training](https://sundaibot.com/services/#ai-governance-training): Give your people practical rules, responsibilities and skills for using AI in their work.
+- [Business Automation](https://sundaibot.com/services/#business-automation): Secure AI Business Automation
+- [AI Assistants](https://sundaibot.com/services/#ai-assistants): Private AI Assistants, Agents & RAG
+- [Cybersecurity](https://sundaibot.com/services/#cybersecurity): OSINT, Pentesting & Red Teaming; DevSecOps & Secure Delivery Pipelines; Cloud Security Engineering, Automation & Maintenance
+- [AI Governance & Training](https://sundaibot.com/services/#ai-governance-training): Compliance, GRC & AI Governance; workshops and training
 
-## Specialist service details
+## Specialist services
 - [Compliance, GRC & AI Governance](https://sundaibot.com/services/compliance-ai-governance/): Turn regulatory complexity into a clear plan—with risks, owners and evidence your team can actually use.
 - [Secure AI Business Automation](https://sundaibot.com/services/secure-ai-automation/): Turn repetitive tasks into secure workflows built around your product, your people and the systems you already use.
 - [Private AI Assistants, Agents & RAG](https://sundaibot.com/services/private-ai-agents-rag/): Custom assistants and agents connected to your knowledge—with permission-aware retrieval, scoped tools and auditable actions.

@@ -1,10 +1,10 @@
-import {categories} from '../../scripts/business-clarity.mjs';
 import assert from 'node:assert/strict';
 import {readFile,readdir,access} from 'node:fs/promises';
 import path from 'node:path';
 import {packages,launch,isLaunch,priceFor,bundleQuote} from '../functions/_shared/catalog.js';
 import {articlePath} from '../../scripts/editorial.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
+import {categories} from '../../scripts/service-categories.mjs';
 import {labels} from '../../scripts/upgrade-labels.mjs';
 import {ecosystem} from '../../scripts/upgrade-ecosystem.mjs';
 
@@ -23,6 +23,8 @@ async function pages(dir=root){const out=[];for(const entry of await readdir(dir
 // Prices remain private business configuration, never published in the funnel.
 assert.deepEqual(services.map(s=>s.price),[1350,2250,10300,4250,4650,3500]);
 assert.equal(services.length,6);assert.equal(packages.length,10);
+assert.equal(categories.length,4);
+assert.deepEqual(categories.flatMap(c=>c.services).sort(),services.map(s=>s.id).sort(),'Four areas preserve every original service exactly once');
 assert.deepEqual(packages.slice(6).map(p=>p.price),[2350,1150,850,2000]);
 assert.equal(launch.timezone,'Europe/Copenhagen');assert.equal(launch.monthlyCycles,2);
 assert.equal(isLaunch('2026-10-11T21:59:59Z'),false);assert.equal(isLaunch('2026-10-11T22:00:00Z'),true);
@@ -41,9 +43,31 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
  const t=labels[lang],r=routes[lang];
  for(const page of ['index.html',hub+'/index.html','pricing/index.html']){
   const html=await readFile(path.join(root,prefix+page),'utf8');
-  assert.equal((html.match(/class="service-card category-card"/g)||[]).length,4,`${prefix+page}: service categories`);
-  for(const category of categories)assert.ok(html.includes(`href="${r.services}#${category.id}"`),`${lang}/${page}: category ${category.id}`);
-  if(page===hub+'/index.html')for(const service of services)assert.ok(html.includes(`href="${r.services+service.id}/"`),`${lang}: retained specialist URL ${service.id}`);
+  const cards=[...html.matchAll(/<article class="service-card category-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
+  assert.equal(cards.length,4,`${prefix+page}: service categories`);
+  for(const category of categories){
+   const card=cards.find(c=>c.includes(`href="${r.services}#${category.id}"`));
+   assert.ok(card,`${lang}/${page}: category destination ${category.id}`);
+   assert.ok(card.includes(esc(category.names[lang])),`${lang}/${page}: category name ${category.id}`);
+   for(const offer of category.bullets[lang])assert.ok(card.includes(esc(offer)),`${lang}/${page}: visible offering in ${category.id}`);
+   assert.ok(card.includes(`href="${r.book}"`),`${lang}/${page}: direct meeting link in ${category.id}`);
+  }
+ }
+ const serviceHub=await readFile(path.join(root,prefix+hub,'index.html'),'utf8');
+ for(const category of categories){
+  const section=serviceHub.match(new RegExp(`<section class="section category-detail" id="${category.id}">([\\s\\S]*?)<\\/section>`))?.[1];
+  assert.ok(section,`${lang}: category detail ${category.id}`);
+  for(const id of category.services){
+   const service=services.find(s=>s.id===id).copy[lang];
+   assert.ok(section.includes(`href="${r.services+id}/"`),`${lang}: retained specialist URL ${id}`);
+   for(const value of [service.name,service.description,service.scope,...service.deliverables])assert.ok(section.includes(esc(value)),`${lang}/${id}: original scope and deliverables in category hub`);
+  }
+  assert.ok(section.includes(`href="${r.book}"`),`${lang}/${category.id}: direct meeting link`);
+  assert.ok(section.includes(esc(t.call)),`${lang}/${category.id}: original meeting invitation`);
+  if(category.training){
+   assert.ok(section.includes(`href="${r.training}"`),`${lang}: training remains discoverable under governance`);
+   for(const value of [t.trainingTitle,t.trainingIntro,t.requestWorkshop])assert.ok(section.includes(esc(value)),`${lang}: original training offer and CTA`);
+  }
  }
  for(const service of services){
   const html=await readFile(path.join(root,prefix+hub,service.id,'index.html'),'utf8');
@@ -69,13 +93,13 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(item.potentialAction,`${lang}/${service.id}: quote action schema`);
  }
  const home=await readFile(path.join(root,prefix+'index.html'),'utf8');
- const header=home.match(/<header\b[\s\S]*?<\/header>/)?.[0];
- const main=home.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
- assert.ok(!header.includes(`href="${r.join}"`),`${lang}: customer navigation has no recruitment link`);
- assert.ok(!main.includes('network-section'),`${lang}: customer journey has no recruitment banner`);
- const footer=home.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];assert.ok(footer.includes(`href="${r.join}"`),`${lang}: recruitment remains reachable`);
- const trustPage=await readFile(path.join(root,r.trust,'index.html'),'utf8');
- const technology=trustPage.match(/<section\b[^>]*class="[^"]*technology-section[^>]*>([\s\S]*?)(?=<section class="cta")/)?.[0];assert.ok(technology,`${lang}: technology ecosystem remains on trust page`);
+ const network=home.match(/<section\b[^>]*class="[^"]*network-section[^>]*>([\s\S]*?)<\/section>/)?.[0];
+ assert.ok(network,`${lang}: prominent freelancer banner`);assert.ok(network.includes(`href="${r.join}"`),`${lang}: apply link`);
+ assert.ok(network.includes('class="network-banner"'),`${lang}: freelancer visual banner`);
+ assert.ok(home.indexOf('id="services"')<home.indexOf(network),`${lang}: network banner follows products`);
+ assert.ok(home.indexOf(network)<home.indexOf(`href="${r.usecases}"`),`${lang}: network banner precedes use cases`);
+ const header=home.match(/<header\b[\s\S]*?<\/header>/)?.[0];assert.ok(header.includes(`href="${r.join}"`),`${lang}: network link in header`);
+ const technology=home.match(/<section\b[^>]*class="[^"]*technology-section[^>]*>([\s\S]*?)(?=<section class="section training-note")/)?.[0];assert.ok(technology,`${lang}: technology ecosystem`);
  assert.ok(technology.includes(esc(t.techNote)),`${lang}: honest relationship label`);
  assert.doesNotMatch(technology,/>\s*(?:Our partners|Trusted by|Vores partnere|Våra partners)\s*</i,`${lang}: no invented client or partnership claim`);
  for(const item of ecosystem){
@@ -116,4 +140,4 @@ assert.ok(js.includes("new URLSearchParams(window.location.search).get('interest
 assert.ok(js.includes('interest.options].some(option=>option.value===requestedInterest)'),'Interest query only accepts a published option');
 assert.doesNotMatch(js,/\.total\b|\.included\b|\.currentPrice\b|\.basePrice\b|\.launchPrice\b/, 'Public client must not render private prices');
 await access(path.join(root,'assets/upgrade-mobile.css'));
-console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas in three languages, retained specialist routes and footer recruitment and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
+console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas preserving all six specialist scopes and deliverables, training and meeting links in three languages, prominent freelancer funnel and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
