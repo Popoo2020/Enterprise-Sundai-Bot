@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {services} from '../../scripts/upgrade-content.mjs';
@@ -97,4 +97,32 @@ test('discovery points to indexable buyer guides without weakening public access
  const headers=await readFile(path.join(root,'_headers'),'utf8');
  assert(headers.includes("form-action 'self'"));
  assert(!headers.includes("'unsafe-inline'"));
+});
+
+// Both production smoke checks compare public pages with discovery.release.
+// Cover the complete generated site locally so a stale growth, Q&A or article
+// marker cannot pass PR checks and leave deployment verification waiting.
+test('every generated HTML page has the same single release marker as discovery',async()=>{
+ const discovery=JSON.parse(await readFile(path.join(root,'discovery.json'),'utf8'));
+ assert.equal(typeof discovery.release,'string');
+ assert.ok(discovery.release.trim(),'Discovery must identify a nonempty release');
+ async function htmlFiles(dir){
+  const files=[];
+  for(const entry of await readdir(dir,{withFileTypes:true})){
+   if(entry.isDirectory()&&['assets','functions','tests'].includes(entry.name))continue;
+   const file=path.join(dir,entry.name);
+   if(entry.isDirectory())files.push(...await htmlFiles(file));
+   else if(entry.isFile()&&entry.name.endsWith('.html'))files.push(file);
+  }
+  return files;
+ }
+ const files=await htmlFiles(root);
+ assert.ok(files.length>=201,'Cover the complete generated site, including retained articles and error page');
+ const mismatches=[];
+ for(const file of files){
+  const html=await readFile(file,'utf8');
+  const markers=[...html.matchAll(/<meta\b[^>]*name="sundai-content-release"[^>]*>/g)].map(match=>match[0].match(/\bcontent="([^"]*)"/)?.[1]);
+  if(markers.length!==1||markers[0]!==discovery.release)mismatches.push({page:path.relative(root,file),markers});
+ }
+ assert.deepEqual(mismatches,[],'Every public HTML page must belong to the discovery release before publishing');
 });

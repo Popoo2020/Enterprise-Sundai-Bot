@@ -46,10 +46,16 @@
         const base = getComputedStyle(node).transform;
         const offset = small.matches ? 14 : 28;
         const transform = base === 'none' ? '' : ` ${base}`;
-        const animation = node.animate([
+        // Moving a link's ancestor while focus cancels the reveal can move the
+        // target between pointer-down and pointer-up. Keep controls stationary.
+        const interactive = 'a,button,input,select,textarea,[tabindex]';
+        const frames = node.matches(interactive) || node.querySelector(interactive)
+          ? [{opacity:0},{opacity:1}]
+          : [
           {opacity:0,transform:`translateY(${offset}px)${transform}`},
           {opacity:1,transform:base}
-        ], {duration:small.matches?460:680,delay:Math.min(order++,3)*(small.matches?45:70),easing:'cubic-bezier(.22,.61,.36,1)',fill:'backwards'});
+        ];
+        const animation = node.animate(frames, {duration:small.matches?460:680,delay:Math.min(order++,3)*(small.matches?45:70),easing:'cubic-bezier(.22,.61,.36,1)',fill:'backwards'});
         running.set(node,animation);
         node.dataset.motionState = 'running';
         animation.finished.then(() => finish(node), () => finish(node));
