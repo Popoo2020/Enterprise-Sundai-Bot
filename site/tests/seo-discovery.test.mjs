@@ -99,10 +99,11 @@ test('machine-readable service facts and sitemaps describe the same canonical pu
   for(const [,url,date]of rows){
    assert.equal(new URL(url).origin,'https://sundaibot.com');
    const pathname=new URL(url).pathname;
+   const plannerUpdate=Object.values(mapping.routes).some(r=>[r.home,r.services,r.training,r.privacy,r.pricing,...services.map(s=>r.services+s.id+'/')].includes(pathname));
    const categoriesUpdate=[...Object.values(projectPaths),...Object.values(caseHubs)].includes(pathname)||Object.values(mapping.routes).some(r=>[r.home,r.services,r.pricing,r.faq,r.how].includes(pathname));
    const feedbackUpdate=/^\/(?:da\/|sv\/)?free-guides\/$/.test(pathname)||/^\/(?:da\/|sv\/)?$/.test(pathname)||/^\/(?:da\/|sv\/)?(?:services|ydelser|tjanster|customer-scenarios)(?:\/|$)/.test(pathname);
    const editorialUpdate=articlePaths.includes(pathname)||/^\/(?:da\/|sv\/)?insights\/$/.test(pathname);
-   assert.equal(date,categoriesUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
+   assert.equal(date,plannerUpdate?'2026-11-10':categoriesUpdate?'2026-11-09':editorialUpdate?'2026-10-16':feedbackUpdate?'2026-10-15':/free-guides|ai-decision-review|ai-security-check|denmark-cpr/.test(url)?'2026-10-14':'2026-10-13');
    const html=await readPage(new URL(url).pathname);
    assert(html.includes(`rel="canonical" href="${url}"`));
    assert(!html.includes('content="noindex'));

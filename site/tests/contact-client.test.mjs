@@ -37,25 +37,25 @@ test('all thirty-six request forms share the protected endpoint and native field
     const kind = tag.match(/data-kind="(booking|join|training|enquiry)"/)?.[1];
     assert.ok(lang && kind, url.pathname);
     const service = html.includes('data-page-kind="service"');
-    const selectedInterest = form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
+    const selectedInterest = form.match(/<input\b[^>]*name="interest"[^>]*value="([^"]+)"/)?.[1] || form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
+    const trainingPlanner = html.includes('data-page-kind="training"');
     const growth = html.match(/data-page-kind="(decision-review|security-assessment)"/)?.[1];
-    const key = `${lang}:${kind}${service ? ':' + selectedInterest : growth ? ':growth-' + growth : ''}`;
+    const key = `${lang}:${kind}${service ? ':' + selectedInterest : trainingPlanner ? ':training-planner' : growth ? ':growth-' + growth : ''}`;
     if (service) {
       assert.equal(kind, 'enquiry', url.pathname);
       assert.ok(selectedInterest, `${url.pathname}: service selection required`);
-      assert.match(form, /<input\b[^>]*name="organisation"[^>]*required/);
-      assert.match(form, /<(?:input|textarea)\b[^>]*name="product"[^>]*required/);
-      const team = form.match(/<(?:input|textarea)\b[^>]*name="team"[^>]*>/)?.[0];
-      assert.ok(team, `${url.pathname}: team context`);
-      assert.doesNotMatch(team, /\brequired\b/);
+      const company = form.match(/<input\b[^>]*name="organisation"[^>]*>/)?.[0];
+      assert.ok(company, `${url.pathname}: company context is available`);
+      assert.doesNotMatch(company, /\brequired\b/);
+      assert.doesNotMatch(form, /<(?:input|textarea)\b[^>]*name="(?:product|team)"/);
     }
     assert.ok(!coverage.has(key), url.pathname);
     coverage.add(key);
   }
   assert.equal(coverage.size, 36);
   for (const lang of ['en', 'da', 'sv']) {
-    for (const kind of ['booking', 'join', 'training', 'enquiry']) assert.ok(coverage.has(`${lang}:${kind}`));
-    assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-')).length, 6);
+    for (const kind of ['booking', 'join', 'enquiry', 'enquiry:training-planner']) assert.ok(coverage.has(`${lang}:${kind}`));
+    assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-') && !key.endsWith(':training-planner')).length, 6);
   }
 });
 
@@ -63,6 +63,7 @@ test('request fields have visible labels, accessible statuses and a no-script em
   for (const { url, form } of shipped) {
     const labels = [...form.matchAll(/<label\b[^>]*>([\s\S]*?)<\/label>/g)].map(match => match[1]);
     for (const [field] of form.matchAll(/<(?:input|select|textarea)\b[^>]*>/g)) {
+      if (/type="hidden"/.test(field)) continue;
       const name = field.match(/name="([^"]+)"/)?.[1];
       assert.ok(name && labels.some(label => label.includes(field) && label.replace(/<[^>]+>[\s\S]*/, '').trim()), `${url.pathname}: ${name} needs a visible label`);
     }
@@ -76,11 +77,11 @@ test('request fields have visible labels, accessible statuses and a no-script em
   }
 });
 
-test('application, training and product forms collect the advertised professional and group context', () => {
+test('applications and booking retain context while planner forms preserve the selected service', () => {
   for (const { html, form } of shipped) {
     if (form.includes('data-kind="join"')) for (const field of ['country', 'language', 'expertise', 'experience', 'availability', 'portfolio']) assert.ok(form.includes(`name="${field}"`), `Application field missing: ${field}`);
-    if (form.includes('data-kind="training"')) for (const field of ['audience', 'groupSize', 'ages', 'language', 'topic', 'format', 'dates', 'goal']) assert.ok(form.includes(`name="${field}"`));
+    if (html.includes('data-page-kind="training"')) assert.match(form, /name="interest" value="ai-governance-training"/);
     if (form.includes('data-kind="booking"')) for (const field of ['interest', 'language', 'timezone', 'preferredTime']) assert.ok(form.includes(`name="${field}"`));
-    if (html.includes('data-page-kind="service"')) for (const field of ['interest', 'team', 'product']) assert.ok(form.includes(`name="${field}"`), `Proposal field missing: ${field}`);
+    if (html.includes('data-page-kind="service"')) for (const field of ['interest', 'language', 'message']) assert.ok(form.includes(`name="${field}"`), `Proposal field missing: ${field}`);
   }
 });

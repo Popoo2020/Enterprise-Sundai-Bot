@@ -61,9 +61,9 @@ for (const asset of ['openai.svg','azure.svg','gemini.svg','github.svg','shopify
   catch { errors.push(`Missing local brand asset: ${asset}`); }
 }
 
-let jsBytes=0;for(const file of ['upgrade.js','upgrade-forms.js','lead-growth.js','testimonials.js','scroll-reveal.js','workflow-demo.js'])jsBytes+=(await stat(path.join(siteRoot,'assets',file))).size;
+let jsBytes=0;for(const file of ['upgrade.js','upgrade-forms.js','lead-growth.js','testimonials.js','scroll-reveal.js','workflow-demo.js','service-planner.js'])jsBytes+=(await stat(path.join(siteRoot,'assets',file))).size;
 if (jsBytes > 85_000) errors.push(`Active JS exceeds 85 KB performance budget: ${jsBytes}`);
-const cssFiles = ['upgrade.css','upgrade-mobile.css','insights-layout.css','home-story.css'];
+const cssFiles = ['upgrade.css','upgrade-mobile.css','insights-layout.css','home-story.css','service-planner.css'];
 let cssBytes = 0;
 for (const name of cssFiles) cssBytes += (await stat(path.join(siteRoot, 'assets', name))).size;
 if (cssBytes > 250_000) errors.push(`Active CSS exceeds 250 KB performance budget: ${cssBytes}`);

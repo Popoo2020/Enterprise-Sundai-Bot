@@ -5,7 +5,7 @@ import {packages,launch,isLaunch,priceFor,bundleQuote} from '../functions/_share
 import {articlePath} from '../../scripts/editorial.mjs';
 import {services} from '../../scripts/upgrade-content.mjs';
 import {storyCopy} from '../../scripts/home-story.mjs';
-import {categories} from '../../scripts/service-categories.mjs';
+import {categories,categoryPlannerPath} from '../../scripts/service-categories.mjs';
 import {labels} from '../../scripts/upgrade-labels.mjs';
 import {ecosystem} from '../../scripts/upgrade-ecosystem.mjs';
 
@@ -55,7 +55,8 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   const cards=[...html.matchAll(/<article class="service-card category-card"[^>]*>[\s\S]*?<\/article>/g)].map(m=>m[0]);
   assert.equal(cards.length,4,`${prefix+page}: service categories`);
   for(const category of categories){
-   const card=cards.find(c=>c.includes(`href="${r.services}#${category.id}"`));
+   const destination=page==='index.html'?categoryPlannerPath(category,r):`${r.services}#${category.id}`;
+   const card=cards.find(c=>c.includes(`href="${destination}"`));
    assert.ok(card,`${lang}/${page}: category destination ${category.id}`);
    assert.ok(card.includes(`id="service-${category.id}"`),`${lang}/${page}: category entry anchor ${category.id}`);
    assert.ok(card.includes(esc(category.names[lang])),`${lang}/${page}: category name ${category.id}`);
@@ -76,8 +77,8 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
     assert.ok(offerings.includes(`<span>${esc(body)}</span>`),`${lang}/${page}: offering explanation ${title}`);
    }
    assert.ok(card.includes(esc(category.examples[lang])),`${lang}/${page}: practical example ${category.id}`);
-   assert.ok(card.includes(`href="${r.book}?interest=${category.id}"`),`${lang}/${page}: meeting link preserves ${category.id}`);
-   assert.ok(card.includes(esc(category.cta[lang])),`${lang}/${page}: specific meeting invitation ${category.id}`);
+   assert.ok(card.includes(`href="${categoryPlannerPath(category,r)}"`),`${lang}/${page}: planner link preserves ${category.id}`);
+   assert.ok(card.includes(esc(category.planCta[lang])),`${lang}/${page}: specific planning invitation ${category.id}`);
   }
  }
  const serviceHub=await readFile(path.join(root,prefix+hub,'index.html'),'utf8');
@@ -97,8 +98,8 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
    assert.ok(section.includes(`href="${r.services+id}/"`),`${lang}: retained specialist URL ${id}`);
    for(const value of [service.name,service.description,service.scope,...service.deliverables])assert.ok(section.includes(esc(value)),`${lang}/${id}: original scope and deliverables in category hub`);
   }
-  assert.ok(section.includes(`href="${r.book}?interest=${category.id}"`),`${lang}/${category.id}: meeting link preserves the category`);
-  assert.ok(section.includes(esc(t.call)),`${lang}/${category.id}: original meeting invitation`);
+  assert.ok(section.includes(`href="${categoryPlannerPath(category,r)}"`),`${lang}/${category.id}: planner entry preserves the category`);
+  assert.ok(section.includes(esc(category.planCta[lang])),`${lang}/${category.id}: tailored planning invitation`);
   if(category.training){
    assert.ok(section.includes(`href="${r.training}"`),`${lang}: training remains discoverable under governance`);
    for(const value of [t.trainingTitle,t.trainingIntro,t.requestWorkshop])assert.ok(section.includes(esc(value)),`${lang}: original training offer and CTA`);
@@ -109,7 +110,7 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(html.includes(esc(service.copy[lang].scope)),`${lang}: static scope ${service.id}`);
   assert.ok(html.includes('data-page-kind="service"'));
   assert.equal((html.match(/<h1\b/g)||[]).length,1,`${lang}/${service.id}: one H1`);
-  for(const className of ['sales-hero','sales-fit','sales-benefits','service-facts','testimonials'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
+  for(const className of ['sales-hero','sales-fit','sales-benefits','service-facts','service-planner'])assert.match(html,new RegExp(`class="[^"]*\\b${className}\\b`),`${lang}/${service.id}: ${className}`);
   const body=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
   assert.equal(body.split(esc(service.copy[lang].scope)).length-1,1,`${lang}/${service.id}: scope appears once before enquiry`);
   for(const value of service.copy[lang].deliverables)assert.equal(body.split(esc(value)).length-1,1,`${lang}/${service.id}: deliverable appears once`);
@@ -119,10 +120,12 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
   assert.ok(html.includes('href="#proposal"'),`${lang}/${service.id}: direct proposal CTA`);
   const forms=[...html.matchAll(/<form\b[^>]*data-upgrade-form[\s\S]*?<\/form>/g)];assert.equal(forms.length,1,`${lang}/${service.id}: one protected proposal form`);
   const form=forms[0][0];
-  assert.match(form,/<input\b[^>]*name="organisation"[^>]*required/);
-  assert.match(form,/<(?:input|textarea)\b[^>]*name="product"[^>]*required/);
-  const team=form.match(/<(?:input|textarea)\b[^>]*name="team"[^>]*>/)?.[0];assert.ok(team,`${lang}/${service.id}: team context`);assert.doesNotMatch(team,/\brequired\b/);
-  assert.match(form,new RegExp(`<option\\b[^>]*value="${service.id}"[^>]*selected`),`${lang}/${service.id}: preselected interest`);
+  const organisation=form.match(/<input\b[^>]*name="organisation"[^>]*>/)?.[0];
+  assert.ok(organisation,`${lang}/${service.id}: optional company context`);
+  assert.doesNotMatch(organisation,/\brequired\b/);
+  assert.doesNotMatch(form,/<(?:input|textarea)\b[^>]*name="(?:product|team)"/,`${lang}/${service.id}: planner context does not need retyping`);
+  assert.match(form,new RegExp(`(?:<option\\b[^>]*value="${service.id}"[^>]*selected|<input\\b[^>]*name="interest"[^>]*value="${service.id}")`),`${lang}/${service.id}: fixed service interest`);
+  assert.ok(body.indexOf('id="planner"')<body.indexOf('id="service-facts"'),`${lang}/${service.id}: plan before complete scope`);
   const schemas=[...html.matchAll(/type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
   const item=schemas.flatMap(x=>x['@graph']||[x]).find(x=>x['@type']==='Service');assert.ok(item,`${lang}/${service.id}: service schema retained`);assert.ok(item.name);
   assert.ok(item.potentialAction,`${lang}/${service.id}: quote action schema`);
@@ -133,9 +136,10 @@ for(const [lang,prefix,hub]of [['en','','services'],['da','da/','ydelser'],['sv'
  const how=await readFile(path.join(root,r.how,'index.html'),'utf8');
  assert.ok(how.includes(esc(t.techNote)),`${lang}: technology relationship explanation retained on delivery page`);
  for(const item of ecosystem){assert.ok(how.includes(`href="${esc(item.url)}"`));if(item.src)assert.ok(how.includes(`src="${item.src}"`));}
- for(const [route,kind,fields] of [[r.book,'booking',['interest','timezone','preferredTime','language']],[r.join,'join',['country','language','expertise','experience','availability','portfolio']],[r.training,'training',['audience','groupSize','ages','topic','format','dates','goal']]]){
+ for(const [route,kind,fields] of [[r.book,'booking',['interest','timezone','preferredTime','language']],[r.join,'join',['country','language','expertise','experience','availability','portfolio']],[r.training,'enquiry',['interest','language']]]){
   const html=await readFile(path.join(root,route,'index.html'),'utf8');
   for(const token of [`data-kind="${kind}"`,'action="/api/contact"','method="post"','data-upgrade-form','data-form-status','/assets/upgrade-forms.js','name="name"','name="email"','name="message"',...fields.map(f=>`name="${f}"`)])assert.ok(html.includes(token),`${lang}${route}: ${token}`);
+  if(route===r.training){assert.match(html,/data-service-planner/);assert.match(html,/name="interest" value="ai-governance-training"/);assert.doesNotMatch(html,/<(?:input|textarea)\b[^>]*name="(?:groupSize|ages|dates)"/);}
   if(kind==='join'){assert.match(html,/12[.,]5/);assert.ok(html.includes(esc(t.commissionText)));assert.ok(html.includes(esc(t.commissionBasis)));}
   if(kind==='booking')assert.match(html,/awaiting confirmation|afventer bekræftelse|inväntar bekräftelse/i);
  }
@@ -165,4 +169,4 @@ assert.ok(js.includes("new URLSearchParams(window.location.search).get('interest
 assert.ok(js.includes('interest.options].some(option=>option.value===requestedInterest)'),'Interest query only accepts a published option');
 assert.doesNotMatch(js,/\.total\b|\.included\b|\.currentPrice\b|\.basePrice\b|\.launchPrice\b/, 'Public client must not render private prices');
 await access(path.join(root,'assets/upgrade-mobile.css'));
-console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with company/team/product proposals, four service areas preserving all six specialist scopes and deliverables, training and meeting links in three languages, retained freelancer route and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);
+console.log(`Commercial QA passed: ${checked} HTML pages with only the explicitly scoped €490 entry offer, 18 sales pages with short protected enquiries and visible service planners, four service areas preserving all six specialist scopes and deliverables, training and meeting links in three languages, retained freelancer route and private catalog math. External delivery, browser rendering and calendar booking were not verified.`);

@@ -19,7 +19,7 @@
  if(kind==='service')emit('service_view');if(kind==='pricing')emit('pricing_view');
  const bookingForm=document.querySelector('[data-kind="booking"]');bookingForm?.addEventListener('focusin',()=>emit('booking_start'),{once:true});
  const timezone=document.querySelector('[name="timezone"]');if(timezone&&!timezone.value)timezone.value=Intl.DateTimeFormat().resolvedOptions().timeZone||'Europe/Copenhagen';
- const interest=document.querySelector('[name="interest"]');
+ const interest=document.querySelector('select[name="interest"]');
  const requestedInterest=new URLSearchParams(window.location.search).get('interest');
  if(interest&&requestedInterest&&[...interest.options].some(option=>option.value===requestedInterest))interest.value=requestedInterest;
 })();

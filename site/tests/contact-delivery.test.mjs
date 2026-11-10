@@ -256,15 +256,17 @@ test('all thirty-six shipped request forms load the protected client and provide
             const kind = form.match(/data-kind="(booking|join|training|enquiry)"/)?.[1];
             assert.ok(lang && kind, file);
             const service = html.includes('data-page-kind="service"');
-            const selectedInterest = form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
+            const selectedInterest = form.match(/<input\b[^>]*name="interest"[^>]*value="([^"]+)"/)?.[1] || form.match(/<option\b[^>]*value="([^"]+)"[^>]*selected/)?.[1];
+            const trainingPlanner = html.includes('data-page-kind="training"');
             const growth = html.match(/data-page-kind="(decision-review|security-assessment)"/)?.[1];
-    const key = `${lang}:${kind}${service ? ':' + selectedInterest : growth ? ':growth-' + growth : ''}`;
+            const key = `${lang}:${kind}${service ? ':' + selectedInterest : trainingPlanner ? ':training-planner' : growth ? ':growth-' + growth : ''}`;
             if (service) {
               assert.equal(kind, 'enquiry', file);
               assert.ok(selectedInterest, `${file}: selected product`);
-              assert.match(form, /<input\b[^>]*name="organisation"[^>]*required/);
-              assert.match(form, /<(?:input|textarea)\b[^>]*name="product"[^>]*required/);
-              assert.match(form, /name="team"/);
+              const company = form.match(/<input\b[^>]*name="organisation"[^>]*>/)?.[0];
+              assert.ok(company, `${file}: company context is available`);
+              assert.doesNotMatch(company, /\brequired\b/);
+              assert.doesNotMatch(form, /<(?:input|textarea)\b[^>]*name="(?:product|team)"/);
             }
             assert.ok(!coverage.has(key), `Duplicate form ${key}`);
             coverage.add(key);
@@ -280,8 +282,8 @@ test('all thirty-six shipped request forms load the protected client and provide
   await walk(path.join(root, 'site'));
   assert.equal(pages.length, 36);
   assert.equal(coverage.size, 36);
-  for (const lang of ['en', 'da', 'sv']) for (const kind of ['booking', 'join', 'training', 'enquiry']) assert.ok(coverage.has(`${lang}:${kind}`));
-  for (const lang of ['en', 'da', 'sv']) assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-')).length, 6);
+  for (const lang of ['en', 'da', 'sv']) for (const kind of ['booking', 'join', 'enquiry', 'enquiry:training-planner']) assert.ok(coverage.has(`${lang}:${kind}`));
+  for (const lang of ['en', 'da', 'sv']) assert.equal([...coverage].filter(key => key.startsWith(`${lang}:enquiry:`) && !key.includes(':growth-') && !key.endsWith(':training-planner')).length, 6);
 });
 
 test('company, team and product context survives delivery and HTML-like content is escaped', async t => {
