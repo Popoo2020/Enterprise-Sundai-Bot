@@ -28,4 +28,6 @@ Temporary responsive QA files were removed before packaging. Production status a
 
 ## Post-publication refinement
 
-A first-click navigation check prompted a refinement to the shared scroll reveal: containers with interactive controls now fade without translation, so focus cancellation cannot move their click targets. A regression test covers the frame geometry and focus cancellation. The final local suite has 130 tests. Browser rechecks reached both the automation and assistant planners from their homepage links.
+A first-click navigation check prompted a refinement to the shared scroll reveal: containers with interactive controls now fade without translation, so focus cancellation cannot move their click targets. A regression test covers the frame geometry and focus cancellation. The final local suite has 131 tests. Browser rechecks reached both the automation and assistant planners from their homepage links.
+
+Public smoke checks also require the global release marker to match discovery metadata across unchanged content pages. All generated pages now carry the same release marker; individual editorial modification dates remain accurate. A regression guard checks every generated page against that marker.
