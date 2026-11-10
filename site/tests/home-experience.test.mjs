@@ -56,7 +56,7 @@ function harness({reduced=false,mobile=false,observer=true,waapi=true}={}){
  class E{
   constructor(classes='',top=1200,children=[]){this.classes=classes.split(' ');this.children=children;this.dataset={};this.hidden=false;this.top=top;this.textContent='Visible content';this.base='none'}
   matches(selector){return selector.split(',').some(s=>s.startsWith('.')?this.classes.includes(s.slice(1)):this.classes.includes(s))}
-  querySelector(selector){if(selector===':scope > .container')return this.children.find(n=>n.classes.includes('container'));if(selector==='form')return this.children.find(n=>n.classes.includes('form')||n.querySelector('form'))||null;return null}
+  querySelector(selector){if(selector===':scope > .container')return this.children.find(n=>n.classes.includes('container'));return this.children.find(n=>n.matches(selector)||n.querySelector(selector))||null}
   contains(node){return this===node||this.children.some(child=>child.contains(node))}
   getBoundingClientRect(){return {top:this.top,bottom:this.top+120,width:500,height:120}}
   animate(frames,options){let resolve,reject;const finished=new Promise((yes,no)=>{resolve=yes;reject=no});const animation={frames,options,finished,cancelled:false,finish:resolve,cancel(){this.cancelled=true;reject(new Error('cancelled'))}};animations.push(animation);return animation}
@@ -83,14 +83,22 @@ test('scroll reveals start on entry, stagger briefly and play once without hidin
  assert(!h.observers[0].observed.has(h.formPanel));assert(!h.observers[0].observed.has(h.controls));
  h.enter();assert.equal(h.animations.length,5);
  assert.deepEqual(h.animations.map(a=>a.options.delay),[0,70,140,210,210]);
- assert.equal(h.animations[0].options.duration,680);assert.equal(h.animations[0].frames[0].transform,'translateY(28px)');
+ assert.equal(h.animations[0].options.duration,680);assert.equal(h.animations[2].frames[0].transform,'translateY(28px)');
  assert(h.animations[1].frames[0].transform.endsWith(h.cards[1].base));
  h.animations.forEach(a=>a.finish());await h.flush();assert(h.cards.every(c=>c.dataset.motionState==='done'));
  h.enter();assert.equal(h.animations.length,5);assert(!('scroll' in h.listeners));assert(!('wheel' in h.listeners));
 });
 
 test('mobile reveals use a shorter distance, duration and stagger',()=>{
- const h=harness({mobile:true});h.enter();assert.equal(h.animations[0].frames[0].transform,'translateY(14px)');assert.equal(h.animations[0].options.duration,460);assert.equal(h.animations[4].options.delay,135);
+ const h=harness({mobile:true});h.enter();assert.equal(h.animations[2].frames[0].transform,'translateY(14px)');assert.equal(h.animations[0].options.duration,460);assert.equal(h.animations[4].options.delay,135);
+});
+
+test('revealing a card with a link never moves its pointer target when focus stops motion',async()=>{
+ const h=harness();h.enter([h.cards[0]]);
+ assert(h.animations[0].frames.every(frame=>!Object.hasOwn(frame,'transform')));
+ h.listeners.focusin({target:h.focusLink});await h.flush();
+ assert(h.animations[0].cancelled);
+ assert.equal(h.cards[0].dataset.motionState,'done');
 });
 
 test('reduced motion and missing APIs leave all text readable; enabling reduction stops active and pending motion',async()=>{

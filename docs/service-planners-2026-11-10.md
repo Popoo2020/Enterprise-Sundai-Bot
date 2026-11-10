@@ -25,3 +25,7 @@ Visitors can shape a service in three choices, see a useful starting plan and ca
 - No real contact email was submitted in these checks; inbox delivery is not verified. No claim of conversion improvement is made before measurement.
 
 Temporary responsive QA files were removed before packaging. Production status and deployment checks are recorded by the associated GitHub pull request.
+
+## Post-publication refinement
+
+A first-click navigation check prompted a refinement to the shared scroll reveal: containers with interactive controls now fade without translation, so focus cancellation cannot move their click targets. A regression test covers the frame geometry and focus cancellation. The final local suite has 130 tests. Browser rechecks reached both the automation and assistant planners from their homepage links.
