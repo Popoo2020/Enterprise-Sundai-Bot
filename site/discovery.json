@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-09",
-  "release": "original-voice-four-areas-2026-11-09",
+  "version": "2026-11-10",
+  "release": "interactive-service-planners-20261110",
   "categories": [
     {
       "id": "business-automation",
@@ -160,7 +160,7 @@
       }
     }
   ],
-  "contentDigest": "966dc76a4c917eff367f7fe18643d9555396a401d3a1b47e83cb447925c56354",
+  "contentDigest": "4afb8e4b09d20f5a8032cd0447624d1df96994548551fb1a425268ee5db661ca",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",

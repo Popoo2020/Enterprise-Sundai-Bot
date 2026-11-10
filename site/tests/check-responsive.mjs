@@ -39,6 +39,7 @@ if(run('legacy')||run('secondary'))for(const file of await pages()){
  const expectedSheets=['/assets/upgrade.css','/assets/upgrade-mobile.css'];
  if(/^(?:da\/|sv\/)?insights\//.test(label))expectedSheets.push('/assets/insights-layout.css');
  if(/^(?:(?:da\/|sv\/)?index\.html|(?:services|da\/ydelser|sv\/tjanster)\/index\.html|(?:case-studies|da\/cases|sv\/fallstudier)\/ariels-pizza\/index\.html)$/.test(label))expectedSheets.push('/assets/home-story.css');
+ if(html.includes('data-service-planner'))expectedSheets.push('/assets/service-planner.css');
  if(JSON.stringify(sheets)!==JSON.stringify(expectedSheets))throw Error(`${label}: shared and route-scoped styles required in cascade order`);
 }
 if(run('legaljs')){const js=await readFile(path.join(root,'assets/upgrade.js'),'utf8');requireTokens(js,["e.key==='Escape'","menu.open=false","querySelector('summary')?.focus()","!menu.contains(e.target)"],'mobile menu keyboard/dismissal');}

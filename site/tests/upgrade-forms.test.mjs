@@ -215,3 +215,38 @@ test('product and team metadata count toward the complete request bound before a
   assert.equal(h.fields.team.length, 800);
   assert.equal(h.fields.product.length, 800);
 });
+
+test('planner briefs and visitor edits reach the protected payload verbatim without repeated fields or premature sending', async () => {
+  const {plannerDefinitions,plannerUi}=await import('../../scripts/service-planner.mjs');
+  const plannerModule={exports:{}};
+  vm.runInNewContext(await readFile(new URL('../assets/service-planner.js',import.meta.url),'utf8'),{module:plannerModule});
+  const {buildPlannerBrief}=plannerModule.exports;
+  const languageNames={en:'English',da:'Dansk',sv:'Svenska'};
+  for(const lang of ['en','da','sv'])for(const [category,d]of Object.entries(plannerDefinitions)){
+    const u=plannerUi[lang];
+    const choices=d.questions.map(q=>{
+      const o=q.options.reduce((longest,item)=>item.title[lang].length+item.detail[lang].length>longest.title[lang].length+longest.detail[lang].length?item:longest);
+      return {label:q.label[lang],title:o.title[lang],detail:o.detail[lang]};
+    });
+    const brief=buildPlannerBrief({briefLabel:u.brief,serviceName:d.name[lang],scopeLabel:u.scope,scope:d.scope[lang],nextLabel:u.nextStep,nextDetail:d.nextStep[lang]},choices);
+    assert.ok(brief.length<=1500,`${lang}/${category}: editable room remains`);
+    const h=harness({lang,kind:'enquiry'});
+    for(const field of ['timezone','portfolio','team','product'])delete h.fields[field];
+    h.fields.organisation='';
+    h.fields.interest=category;
+    h.fields.language=languageNames[lang];
+    h.fields.message=(brief+'\nVisitor note: Å, ø, & <example> are intentional. ').padEnd(1800,'x');
+    assert.equal(h.fields.message.length,1800,'Exercise the full textarea allowance');
+    assert.equal(h.calls.length,0,'Building or editing a plan must not send it');
+    await h.submit();
+    const posts=h.calls.filter(call=>call.options.method==='POST');
+    assert.equal(posts.length,1,`${lang}/${category}: one explicit mocked submission`);
+    const payload=JSON.parse(posts[0].options.body);
+    assert.equal(payload.organisation,'');
+    assert.ok(payload.message.endsWith(h.fields.message),`${lang}/${category}: exact brief and edits survive`);
+    assert.ok(payload.message.includes(category));
+    assert.ok(payload.message.length<3000,`${lang}/${category}: complete server-bound request fits`);
+    assert.equal(h.metrics.length,1);
+    assert.deepEqual(JSON.parse(JSON.stringify(h.metrics[0].detail)),{event:'enquiry_submitted'});
+  }
+});

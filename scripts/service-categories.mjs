@@ -5,7 +5,8 @@ import {labels} from './upgrade-labels.mjs';
 // Four buying paths. Existing specialist scopes remain the source of delivery commitments.
 export const categories = [
   {
-    id:'business-automation',services:['secure-ai-automation'],
+    id:'business-automation',services:['secure-ai-automation'],plannerService:'secure-ai-automation',
+    planCta:{en:'Build your workflow',da:'Byg jeres arbejdsgang',sv:'Bygg ert arbetsflöde'},
     names:{en:'Business AI Automation',da:'AI-automatisering til virksomheder',sv:'AI-automation för företag'},
     benefits:{en:'Kill the busywork. Keep the control.',da:'Drop rutinearbejdet. Behold kontrollen.',sv:'Slipp rutinjobbet. Behåll kontrollen.'},
     summary:{
@@ -21,7 +22,8 @@ export const categories = [
     cta:{en:'Plan my automation',da:'Planlæg min automatisering',sv:'Planera min automation'}
   },
   {
-    id:'ai-assistants',services:['private-ai-agents-rag'],
+    id:'ai-assistants',services:['private-ai-agents-rag'],plannerService:'private-ai-agents-rag',
+    planCta:{en:'Shape your assistant',da:'Form jeres AI-assistent',sv:'Forma er AI-assistent'},
     names:{en:'AI Assistants & RAG',da:'AI-assistenter og RAG',sv:'AI-assistenter & RAG'},
     benefits:{en:'Your business brain. Your rules.',da:'Din virksomheds viden. Dine regler.',sv:'Ditt företags kunskap. Dina regler.'},
     summary:{
@@ -37,7 +39,8 @@ export const categories = [
     cta:{en:'Plan my AI assistant',da:'Planlæg min AI-assistent',sv:'Planera min AI-assistent'}
   },
   {
-    id:'cybersecurity',services:['pentesting-red-teaming','devsecops','cloud-security'],
+    id:'cybersecurity',services:['pentesting-red-teaming','devsecops','cloud-security'],plannerService:'cloud-security',
+    planCta:{en:'Map your security priorities',da:'Kortlæg jeres sikkerhedsprioriteter',sv:'Kartlägg era säkerhetsprioriteringar'},
     names:{en:'Cybersecurity & Cloud',da:'Cybersikkerhed og cloud',sv:'Cybersäkerhet & moln'},
     benefits:{en:'Find the weak spots. Build a stronger system.',da:'Find svaghederne. Byg et stærkere system.',sv:'Hitta svagheterna. Bygg ett starkare system.'},
     summary:{
@@ -53,7 +56,8 @@ export const categories = [
     cta:{en:'Discuss my security priorities',da:'Tal om mine sikkerhedsprioriteter',sv:'Diskutera mina säkerhetsprioriteringar'}
   },
   {
-    id:'ai-governance-training',services:['compliance-ai-governance'],training:true,
+    id:'ai-governance-training',services:['compliance-ai-governance'],training:true,plannerService:'compliance-ai-governance',
+    planCta:{en:'Plan your AI next step',da:'Planlæg jeres næste AI-skridt',sv:'Planera ert nästa AI-steg'},
     names:{en:'AI Governance & Training',da:'AI-governance og undervisning',sv:'AI-styrning & utbildning'},
     benefits:{en:'Clear rules. Confident people.',da:'Klare rammer. Trygge medarbejdere.',sv:'Tydliga ramar. Trygga medarbetare.'},
     summary:{
@@ -74,12 +78,12 @@ export const categories = [
 for (const category of categories) category.bullets=Object.fromEntries(Object.entries(category.offerings).map(([lang,items])=>[lang,items.map(([title,body])=>`${title}: ${body}`)]));
 
 const ui = {
-  en:{offers:'What we can build together',details:'What you get',scope:'Your scope. Your proposal.',note:'Choose a starting point. We agree the deliverables, timing and price for your project before we start.',example:'Illustrative example',navigation:'Choose your service',training:['AI literacy and governance for teams and leaders.','Hands-on sessions on automation, prompt injection, privacy and permissions.','Workshops for businesses, schools and groups, shaped around your learning goals.']},
-  da:{offers:'Det kan vi bygge sammen',details:'Det får du',scope:'Dit omfang. Dit tilbud.',note:'Vælg et udgangspunkt. Vi aftaler leverancer, tid og pris for dit projekt, før vi går i gang.',example:'Illustrativt eksempel',navigation:'Vælg din ydelse',training:['AI-forståelse og governance for teams og ledere.','Praktiske sessioner om automatisering, prompt injection, privatliv og rettigheder.','Workshops for virksomheder, skoler og grupper tilpasset jeres læringsmål.']},
-  sv:{offers:'Det kan vi bygga tillsammans',details:'Det här får du',scope:'Din omfattning. Din offert.',note:'Välj en startpunkt. Vi avtalar leveranser, tid och pris för ditt projekt innan vi börjar.',example:'Illustrativt exempel',navigation:'Välj din tjänst',training:['AI-kunnighet och styrning för team och ledare.','Praktiska pass om automatisering, prompt injection, integritet och behörigheter.','Workshoppar för företag, skolor och grupper utifrån era lärandemål.']}
+  en:{offers:'What we can build together',details:'What you get',scope:'Your scope. Your proposal.',note:'Choose a starting point. We agree the deliverables, timing and price for your project before we start.',example:'Illustrative example',navigation:'Choose your service',plannerNote:'Three choices. A starting plan you can see before sharing your details.',training:['AI literacy and governance for teams and leaders.','Hands-on sessions on automation, prompt injection, privacy and permissions.','Workshops for businesses, schools and groups, shaped around your learning goals.']},
+  da:{offers:'Det kan vi bygge sammen',details:'Det får du',scope:'Dit omfang. Dit tilbud.',note:'Vælg et udgangspunkt. Vi aftaler leverancer, tid og pris for dit projekt, før vi går i gang.',example:'Illustrativt eksempel',navigation:'Vælg din ydelse',plannerNote:'Tre valg. Se en første plan, før I deler jeres kontaktoplysninger.',training:['AI-forståelse og governance for teams og ledere.','Praktiske sessioner om automatisering, prompt injection, privatliv og rettigheder.','Workshops for virksomheder, skoler og grupper tilpasset jeres læringsmål.']},
+  sv:{offers:'Det kan vi bygga tillsammans',details:'Det här får du',scope:'Din omfattning. Din offert.',note:'Välj en startpunkt. Vi avtalar leveranser, tid och pris för ditt projekt innan vi börjar.',example:'Illustrativt exempel',navigation:'Välj din tjänst',plannerNote:'Tre val. Se en första plan innan ni delar era kontaktuppgifter.',training:['AI-kunnighet och styrning för team och ledare.','Praktiska pass om automatisering, prompt injection, integritet och behörigheter.','Workshoppar för företag, skolor och grupper utifrån era lärandemål.']}
 };
 const list=items=>`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
-const meetingPath=(c,r)=>`${r.book}?interest=${c.id}`;
+export const categoryPlannerPath=(c,r)=>`${r.services}${c.plannerService}/#planner`;
 const specialistCta={
   en:{'secure-ai-automation':'Explore automation','private-ai-agents-rag':'Explore AI assistants','pentesting-red-teaming':'Explore security testing',devsecops:'Explore DevSecOps','cloud-security':'Explore cloud security','compliance-ai-governance':'Explore AI governance'},
   da:{'secure-ai-automation':'Se automatisering','private-ai-agents-rag':'Se AI-assistenter','pentesting-red-teaming':'Se sikkerhedstest',devsecops:'Se DevSecOps','cloud-security':'Se cloudsikkerhed','compliance-ai-governance':'Se AI-governance'},
@@ -88,7 +92,7 @@ const specialistCta={
 
 export function categoryCards(lang,r,heading='h3') {
   const u=ui[lang];
-  return `<div class="category-grid">${categories.map((c,i)=>`<article class="service-card category-card" data-category="${c.id}" id="service-${c.id}"><div class="category-card-heading"><span class="card-number" aria-hidden="true">0${i+1}</span><div><${heading}>${esc(c.names[lang])}</${heading}><p class="service-benefit">${esc(c.benefits[lang])}</p></div></div><div class="service-copy"><p class="category-summary">${esc(c.summary[lang])}</p><p class="category-list-label">${esc(u.offers)}</p><ul class="category-offer-list">${c.offerings[lang].map(([title,body])=>`<li><strong>${esc(title)}</strong><span>${esc(body)}</span></li>`).join('')}</ul><div class="category-example"><span class="category-example-label">${esc(u.example)}</span><p>${esc(c.examples[lang])}</p></div></div><div class="category-actions"><a class="card-link button secondary" href="${r.services}#${c.id}">${esc(c.explore[lang])} <span aria-hidden="true">↗</span></a><a class="text-link" href="${meetingPath(c,r)}">${esc(c.cta[lang])} <span aria-hidden="true">↗</span></a></div></article>`).join('')}</div><p class="small category-scope-note">${esc(u.note)}</p>`;
+  return `<div class="category-grid">${categories.map((c,i)=>`<article class="service-card category-card" data-category="${c.id}" id="service-${c.id}"><div class="category-card-heading"><span class="card-number" aria-hidden="true">0${i+1}</span><div><${heading}>${esc(c.names[lang])}</${heading}><p class="service-benefit">${esc(c.benefits[lang])}</p></div></div><div class="service-copy"><p class="category-summary">${esc(c.summary[lang])}</p><p class="category-list-label">${esc(u.offers)}</p><ul class="category-offer-list">${c.offerings[lang].map(([title,body])=>`<li><strong>${esc(title)}</strong><span>${esc(body)}</span></li>`).join('')}</ul><div class="category-example"><span class="category-example-label">${esc(u.example)}</span><p>${esc(c.examples[lang])}</p></div></div><div class="category-actions"><a class="card-link button secondary" href="${categoryPlannerPath(c,r)}">${esc(c.planCta[lang])} <span aria-hidden="true">↗</span></a><a class="text-link" href="${r.services}#${c.id}">${esc(c.explore[lang])} <span aria-hidden="true">↗</span></a></div></article>`).join('')}</div><p class="small category-scope-note">${esc(u.note)}</p>`;
 }
 
 export function categoryNavigator(lang,r) {
@@ -97,5 +101,5 @@ export function categoryNavigator(lang,r) {
 
 export function categoryDetails(lang,r,servicePath) {
   const t=labels[lang],u=ui[lang];
-  return categories.map((c,i)=>`<section class="section category-detail" id="${c.id}" data-category="${c.id}"><div class="container"><div class="section-heading"><div><p class="eyebrow">0${i+1} / ${esc(c.names[lang])}</p><h2>${esc(c.benefits[lang])}</h2></div><p>${esc(c.summary[lang])}</p></div><div class="category-offerings">${c.services.map(id=>{const s=services.find(s=>s.id===id).copy[lang];return `<article class="category-offering"><h3><a href="${servicePath(lang,id)}">${esc(s.name)} ↗</a></h3><p>${esc(s.description)}</p><details class="offering-details"><summary>${esc(u.details)}</summary>${list(s.deliverables)}<h4>${esc(u.scope)}</h4><p>${esc(s.scope)}</p></details><a class="button secondary" href="${servicePath(lang,id)}">${esc(specialistCta[lang][id])} ↗</a></article>`;}).join('')}${c.training?`<article class="category-offering"><h3><a href="${r.training}">${esc(t.trainingTitle)} ↗</a></h3><p>${esc(t.trainingIntro)}</p><details class="offering-details"><summary>${esc(u.details)}</summary>${list(u.training)}</details><a class="button secondary" href="${r.training}">${esc(t.requestWorkshop)} ↗</a></article>`:''}</div><div class="category-meeting"><div><h3>${esc(c.cta[lang])}</h3><p>${esc(t.micro)}</p></div><a class="button primary" href="${meetingPath(c,r)}">${esc(t.call)} ↗</a></div></div></section>`).join('');
+  return categories.map((c,i)=>`<section class="section category-detail" id="${c.id}" data-category="${c.id}"><div class="container"><div class="section-heading"><div><p class="eyebrow">0${i+1} / ${esc(c.names[lang])}</p><h2>${esc(c.benefits[lang])}</h2></div><p>${esc(c.summary[lang])}</p></div><div class="category-offerings">${c.services.map(id=>{const s=services.find(s=>s.id===id).copy[lang];return `<article class="category-offering"><h3><a href="${servicePath(lang,id)}">${esc(s.name)} ↗</a></h3><p>${esc(s.description)}</p><details class="offering-details"><summary>${esc(u.details)}</summary>${list(s.deliverables)}<h4>${esc(u.scope)}</h4><p>${esc(s.scope)}</p></details><a class="button secondary" href="${servicePath(lang,id)}">${esc(specialistCta[lang][id])} ↗</a></article>`;}).join('')}${c.training?`<article class="category-offering"><h3><a href="${r.training}">${esc(t.trainingTitle)} ↗</a></h3><p>${esc(t.trainingIntro)}</p><details class="offering-details"><summary>${esc(u.details)}</summary>${list(u.training)}</details><a class="button secondary" href="${r.training}">${esc(t.requestWorkshop)} ↗</a></article>`:''}</div><div class="category-meeting"><div><h3>${esc(c.cta[lang])}</h3><p>${esc(u.plannerNote)}</p></div><a class="button primary" href="${categoryPlannerPath(c,r)}">${esc(c.planCta[lang])} ↗</a></div></div></section>`).join('');
 }
