@@ -3,10 +3,10 @@
 .kn-section h2,.kn-reading h1{font-size:clamp(2.5rem,5.2vw,5rem);line-height:1.04;letter-spacing:-.045em;margin:0;text-wrap:balance}
 .kn-section header p,.kn-articles p,.kn-faq details p,.kn-reading p{font-size:1.05rem;line-height:1.65}
 .kn-articles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,45px);margin:2rem 0}
-.kn-articles article{border-top:3px solid #506cc7;padding-top:1rem}
+.kn-articles article{border-top:3px solid var(--brand-blue);padding-top:1rem}
 .kn-articles h3{margin:0;font-size:clamp(1.3rem,2.1vw,1.9rem);line-height:1.25}
 .kn-articles a{color:inherit;text-decoration:none}.kn-home a:hover,.kn-reading a:hover{text-decoration:underline}
-.kn-archive,.kn-back,.kn-reading nav a{color:#2646ae;font-weight:650;text-underline-offset:.2em}
+.kn-archive,.kn-back,.kn-reading nav a{color:var(--brand-ink);font-weight:650;text-underline-offset:.2em}
 .kn-faq{display:grid;grid-template-columns:1fr 1.55fr;gap:3rem;border-top:1px solid #cbcbd3}
 .kn-faq details{border-bottom:1px solid #cacad0}.kn-faq summary{cursor:pointer;font-weight:650;padding:1.1rem 0;font-size:1.1rem;line-height:1.4}
 .kn-faq details p{margin:0 0 1.25rem;max-width:60ch}
@@ -14,12 +14,12 @@
 .kn-reading article{width:min(100%,750px);margin:auto}.kn-reading h1{margin:1.55rem 0 1rem}
 .kn-reading .kn-lead{font-size:1.27rem;color:#50505a;margin:0 0 2.5rem}
 .kn-reading h2{font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.2;margin:0 0 .65rem}.kn-reading section{margin:2rem 0}
-.kn-reading p{margin:0}.kn-reading aside{background:#e2e9ff;border-inline-start:4px solid #4564c9;padding:1.4rem 1.55rem;margin:2rem 0}.kn-reading nav a{display:block;width:fit-content;padding:.45rem 0}
+.kn-reading p{margin:0}.kn-reading aside{background:var(--brand-pale);border-inline-start:4px solid var(--brand-blue);padding:1.4rem 1.55rem;margin:2rem 0}.kn-reading nav a{display:block;width:fit-content;padding:.45rem 0}
 @media(max-width:700px){.kn-section{width:calc(100% - 36px)}.kn-articles,.kn-faq{grid-template-columns:1fr;gap:1.2rem}.kn-faq{padding-block:48px}}
 .kn-hub h1{max-width:19ch;margin:1.5rem 0 1rem;font-size:clamp(2.6rem,5.5vw,5.5rem);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
 .kn-hub header p{max-width:66ch}
 .kn-topics{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:1.5rem 0 0}
-.kn-topics a,.kn-sources a{color:var(--brand-ink,#2646ae);text-underline-offset:.2em}
+.kn-topics a,.kn-sources a{color:var(--brand-ink);text-underline-offset:.2em}
 .kn-topics a{padding-block:.4rem;font-weight:650}
 .kn-hub-group{padding-top:clamp(2.6rem,5vw,4.5rem);scroll-margin-top:4rem}
 .kn-hub-group h2{font-size:clamp(1.75rem,3.4vw,3.15rem);line-height:1.1}
@@ -30,10 +30,10 @@
 .kn-sources a,.kn-hub article,.kn-reading article{overflow-wrap:break-word}
 .kn-reading .kn-checks,.kn-collection ul{padding-inline-start:1.35rem;font-size:1.05rem;line-height:1.65}
 .kn-checks li,.kn-collection li{margin-block:.5rem}
-.kn-checks li::marker,.kn-collection li::marker{color:#506cc7}
+.kn-checks li::marker,.kn-collection li::marker{color:var(--brand-blue)}
 .kn-collection ul{columns:2;column-gap:3rem}
 .kn-collection li{break-inside:avoid}
-.kn-collection a,.kn-article-call a{color:#2646ae;text-underline-offset:.2em}
+.kn-collection a,.kn-article-call a{color:var(--brand-ink);text-underline-offset:.2em}
 .kn-collection .kn-archive{margin-top:.3rem}
 .kn-article-call a{font-weight:650}
 @media(max-width:700px){.kn-collection ul{columns:1}}

@@ -38,8 +38,8 @@
 .lr-reading .status-pill { color: #50505a; }
 .lr-reading :is(.notice,.answer-first,.geo-answer,.commercial-cta,.geo-cta-box,.ar-update) {
   margin-block: 1.6rem;
-  border-inline-start: 4px solid #4564c9;
-  background: #e9efff;
+  border-inline-start: 4px solid var(--brand-blue);
+  background: var(--brand-pale);
   padding: 1rem 1.3rem;
 }
 .lr-reading :is(.commercial-cta,.geo-cta-box) h2 { font-size: 1.6rem; }
@@ -58,7 +58,7 @@
 .lr-reading .lr-table-scroll { max-width: 100%; overflow-x: auto; margin: 1.25rem 0; }
 .lr-reading table { width: 100%; border-collapse: collapse; font-size: 1rem; }
 .lr-reading th, .lr-reading td { padding: .7rem .85rem; border-block-end: 1px solid var(--line); text-align: start; vertical-align: top; min-width: 7rem; }
-.lr-reading thead { background: #e3eafa; color: #172853; }
+.lr-reading thead { background: var(--brand-pale); color: #172853; }
 .lr-reading table caption { text-align: start; padding: 0 0 .7rem; }
 .lr-reading :is(.source-box,.buyer-sources,.lr-other) { border-block-start: 1px solid var(--line); padding-block-start: 1.4rem; }
 .lr-reading .procurement-list { list-style: none; padding: 0; }

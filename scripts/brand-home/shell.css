@@ -1,6 +1,4 @@
-@font-face{font-family:Field;src:url("/assets/brand-home/outfit-latin.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
-@font-face{font-family:RubikHE;src:url("/assets/brand-home/rubik-hebrew.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
-:root{--ink:#0a0b0d;--violet:#2563ec;--mint:#3fc99c;--azure:#318ae2;--paper:#fff;--sans:Field,RubikHE,"Arial",sans-serif;color:var(--ink);background:var(--paper);font-family:var(--sans)}
+:root{--ink:#0a0b0d;--violet:#2563ec;--mint:#3fc99c;--azure:#318ae2;--paper:#fff;color:var(--ink);background:var(--paper);font-family:var(--sans)}
 *{box-sizing:border-box}
 body{margin:0;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit}

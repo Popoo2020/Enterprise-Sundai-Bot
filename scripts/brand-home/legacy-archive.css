@@ -50,7 +50,7 @@
 .ar-reading :is(.guide-table-wrap,.authority-table-wrap) { overflow-x: auto; max-width: 100%; margin-block: 1rem 1.8rem; border: 1px solid var(--article-line); }
 .ar-reading table { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.5; background: #fff; }
 .ar-reading :is(th,td) { padding: .7rem .9rem; text-align: start; vertical-align: top; border-block-end: 1px solid var(--article-line); overflow-wrap: normal; }
-.ar-reading thead { background: #e8edfa; }
+.ar-reading thead { background: var(--brand-pale); }
 .ar-reading :is(.faq details,.guide-toc-mobile,.faq-list details) { border-block-end: 1px solid var(--article-line); padding-block: .6rem; }
 .ar-reading summary { cursor: pointer; font-weight: 600; }
 .ar-reading .guide-toc-mobile { padding: .8rem 1rem; margin: .4rem 0 1.5rem; border: 1px solid var(--article-line); }

@@ -29,6 +29,7 @@ export function optimisePage(html, route, isPublic = false) {
   if (pageType==='CollectionPage') Object.assign(entity,{inLanguage:lang,publisher:org});
   if(pageType==='WebPage') Object.assign(entity,{inLanguage:lang,publisher:org});
   if(pageType==='Course'||pageType==='Service') entity.provider=org;
+  if(pageType==='Service') entity.mainEntityOfPage = {'@type':'WebPage','@id':canonical,inLanguage:lang};
   const alternatives = [...locales,'x-default'].map(l=>'<link rel="alternate" hreflang="'+l+'" href="'+urlFor(l==='x-default'?'en':l,parts)+'">').join('');
   let breadcrumb = '';
   if (guideCollection) {

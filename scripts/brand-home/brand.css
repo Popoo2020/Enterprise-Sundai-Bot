@@ -15,3 +15,17 @@ article,.pc-service,.fr-action,.fc-primary{scroll-margin-block-start:6rem}
 .biz-grid .pc-service:nth-child(-n+2){border-block-start:3px solid var(--brand-blue);background:linear-gradient(160deg,#f2f6ff 0%,#fff 55%)}
 .biz-grid .pc-service:nth-child(-n+2):is(:hover,:focus-visible){border-color:var(--brand-blue);background:#f2f6ff}
 .kn-faq details p a{color:var(--brand-ink);text-decoration:underline;text-underline-offset:.18em}
+
+
+:is(.kn-reading,.kn-hub,.ar-reading,.ar-library,.lr-reading) {
+  --brand-ring: var(--brand-blue);
+}
+:is(.kn-reading,.kn-hub,.ar-reading,.ar-library,.lr-reading) h1 {
+  font-weight: 600;
+}
+:is(.kn-reading,.kn-hub,.ar-reading,.ar-library,.lr-reading) :is(h2,h3) {
+  font-weight: 620;
+}
+:lang(he):is(.kn-reading,.kn-hub) h1 {
+  line-height: 1.1;
+}
