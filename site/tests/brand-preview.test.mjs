@@ -15,12 +15,18 @@ const origin = 'https://preview.invalid';
 const languages = ['en','he','sv','da'];
 const courseSlugs = ['youth','teachers','hospital','public'];
 const serviceSlugs = ['compliance-ai-governance','cloud-security','secure-ai-automation','private-ai-agents-rag'];
+const workflowSlug = 'enterprise-ai-agents';
+const parentService = 'private-ai-agents-rag';
+const servicePages = [...serviceSlugs, workflowSlug];
 const syllabusKeys = ['TeenTech','Teacher','Hospital','PublicConsultation'];
 const pdfName = (key, locale) => 'SundAI_' + key + '_Syllabus_' + locale.toUpperCase() + '.pdf';
 
 function hrefs(html) {
   return [...html.matchAll(/(?:href|src)\s*=\s*["']([^"']+)["']/gi)]
     .map(match => match[1].replaceAll('&amp;', '&'));
+}
+function main(html) {
+  return html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)[1];
 }
 function routeFor(locale, section = '', slug = '') {
   const base = locale === 'en' ? '/' : '/' + locale + '/';
@@ -39,7 +45,7 @@ test('rendered pages use their requested language and have working local links',
       ['',''], ['intro-call',''], ['read',''], ...articleSlugs.map(slug=>['read',slug]),
       ['free-guides',''], ...legacyGuideSlugs.map(slug=>['free-guides',slug]),
       ...courseSlugs.map(slug => ['courses', slug]),
-      ...serviceSlugs.map(slug => ['services', slug])
+      ...servicePages.map(slug => ['services', slug])
     ];
     for (const [section, slug] of routes) {
       const route = routeFor(locale, section, slug);
@@ -101,7 +107,8 @@ test('rendered pages use their requested language and have working local links',
           const destination = routeFor(lang, section, slug);
           assert.ok(hrefs(html).includes(destination), route + ' missing translated service ' + destination);
         }
-        const intents = slug === 'compliance-ai-governance' ? ['decision-review','readiness-review'] : [slug];
+        const serviceTopic = slug === workflowSlug ? parentService : slug;
+        const intents = slug === 'compliance-ai-governance' ? ['decision-review','readiness-review'] : [serviceTopic];
         for (const intent of intents) {
           assert.ok(hrefs(html).includes(routeFor(locale, 'intro-call') + '?topic=' + intent + '&via=service'), route + ' contextual service call for ' + intent);
         }
@@ -125,6 +132,26 @@ test('rendered pages use their requested language and have working local links',
         }
       }
       if (locale === 'he') assert.match(html, /<html[^>]*dir=["']rtl["']/i, route);
+    }
+  }
+});
+
+test('agents service is reachable from both menus, its parent service and each translation', async () => {
+  for (const lang of languages) {
+    const route = routeFor(lang, 'services', workflowSlug);
+    const parent = routeFor(lang, 'services', parentService);
+    const page = await readFile(publicFile(route), 'utf8');
+    const home = await readFile(publicFile(routeFor(lang)), 'utf8');
+    const parentPage = await readFile(publicFile(parent), 'utf8');
+    const menus = [...home.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)].map(match => match[1]);
+    assert.equal(menus.filter(menu => menu.includes('class="fr-entry" href="'+route+'"')).length, 2, lang+' desktop and mobile service entries');
+    assert.ok(hrefs(main(parentPage)).includes(route), lang+' contextual link from parent');
+    assert.ok(hrefs(main(page)).includes(parent), lang+' contextual link to parent');
+    assert.ok(hrefs(main(page)).includes(routeFor(lang,'read','secure-llm-deployment')), lang+' security guide');
+    assert.ok(hrefs(main(page)).includes(routeFor(lang,'intro-call')+'?topic='+parentService+'&via=service'), lang+' booking with existing topic');
+    for (const other of languages) {
+      const translated = routeFor(other, 'services', workflowSlug);
+      assert.ok(page.includes('href="'+translated+'" lang="'+other+'" hreflang="'+other+'"'), route+' language switch to '+other);
     }
   }
 });
@@ -156,7 +183,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
     routeFor(lang,'free-guides'),...legacyGuideSlugs.map(slug=>routeFor(lang,'free-guides',slug)),
     ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
     ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),
-    ...serviceSlugs.map(slug=>routeFor(lang,'services',slug))
+    ...servicePages.map(slug=>routeFor(lang,'services',slug))
   ]);
   assert.deepEqual(urls.slice().sort(),routes.map(route=>'https://sundaibot.com'+route).sort());
   assert.ok(urls.every(url=>!url.includes('intro-call')));
@@ -177,7 +204,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
   }
 });
 
-test('public guides have discoverable canonical pages, source links and accurate article metadata', async () => {
+test('public guides and agents services have discoverable canonical pages and accurate metadata', async () => {
   await buildReferencePreview(true);
   const output = path.join(repo,'dist/brand-public');
   const publicPage = route => readFile(path.join(output,route,'index.html'),'utf8');
@@ -191,6 +218,19 @@ test('public guides have discoverable canonical pages, source links and accurate
   assert.match(publicRobots,/^Sitemap: https:\/\/sundaibot\.com\/sitemap-sundai\.xml$/m);
   for (const lang of languages) {
     const hub = routeFor(lang,'read');
+    const serviceRoute = routeFor(lang,'services',workflowSlug);
+    const serviceUrl = canonical(serviceRoute);
+    const serviceHtml = await publicPage(serviceRoute);
+    const service = nodes(serviceHtml).find(node => node['@type'] === 'Service');
+    assert.equal(service.url, serviceUrl);
+    assert.equal(service.provider.name, 'SundAI');
+    assert.equal(service.mainEntityOfPage['@id'], serviceUrl);
+    assert.equal(service.mainEntityOfPage.inLanguage, lang);
+    assert.match(serviceHtml, /<meta name="robots" content="index,follow">/);
+    const parent = directory.services.find(item => item.id === parentService);
+    const detail = parent.relatedPages.find(item => item.id === workflowSlug);
+    assert.equal(detail.locales[lang].url, serviceUrl);
+    assert.ok(llms.includes(serviceUrl), lang+' agents service in plain-text directory');
     const entries = directory.practicalGuides[lang];
     assert.equal(entries.hub,canonical(hub));
     assert.ok(llms.includes(entries.hub));
@@ -227,7 +267,6 @@ test('public guides have discoverable canonical pages, source links and accurate
 });
 
 test('the library exposes each retained guide at its established URL in the current design', async () => {
-  const originalMain = source => source.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)[1];
   for (const lang of languages) {
     const directory = await readFile(publicFile(routeFor(lang,'read')), 'utf8');
     const archive = archiveLibrary(lang);
@@ -240,8 +279,8 @@ test('the library exposes each retained guide at its established URL in the curr
       assert.match(page, /class="fr-header"/);
       assert.match(page, /class="fr-frameworks"/);
       assert.ok(page.includes('rel="canonical" href="https://sundaibot.com' + url + '"'));
-      for (const link of hrefs(originalMain(source))) {
-        assert.ok(hrefs(originalMain(page)).includes(link), url + ' lost original content link ' + link);
+      for (const link of hrefs(main(source))) {
+        assert.ok(hrefs(main(page)).includes(link), url + ' lost original content link ' + link);
       }
     }
     const flagship = await readFile(publicFile(routeFor(lang, 'read', 'secure-llm-deployment')), 'utf8');

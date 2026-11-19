@@ -1,5 +1,8 @@
 /* Responsive navigation and closing contact section */
-.fr-header,.fr-footer{font-family:inherit;font-synthesis:inherit}
+@font-face{font-family:Field;src:url("/assets/brand-home/outfit-latin.woff2") format("woff2");font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:RubikHE;src:url("/assets/brand-home/rubik-hebrew.woff2") format("woff2");font-style:normal;font-weight:300 900;font-display:swap}
+:root{--sans:Field,RubikHE,Arial,sans-serif}
+.fr-header,.fr-footer{font:400 1rem/normal var(--sans);font-synthesis:inherit}
 .fr-header,.fr-header *,.fr-footer,.fr-footer *{box-sizing:border-box}
 .fr-header{--fr-height:86px;position:sticky;inset-block-start:0;z-index:25;width:100%;flex:none;background:#090a0c;color:white;border:0;text-align:start}
 .fr-header.fr-compact{--fr-height:70px;box-shadow:0 1px 0 #ffffff10}

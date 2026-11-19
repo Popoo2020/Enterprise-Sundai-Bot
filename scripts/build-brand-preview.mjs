@@ -1,3 +1,4 @@
+import { agentWorkflowSlug, agentWorkflowLink, renderAgentWorkflows } from './brand-home/agent-workflows.mjs';
 import { optimisePage, sitemap } from './brand-home/seo.mjs';
 import { locales } from './brand-home/search-copy.mjs';
 import { guideFeed } from './brand-home/guide-feed.mjs';
@@ -33,19 +34,25 @@ async function writePage(target, route, html, isPublic, routes) {
   await writeFile(path.join(directory, 'index.html'), optimisePage(html, route, isPublic));
 }
 
-async function writeGuideDirectory(target, articlesFor) {
+async function writeDiscoveryDirectory(target, articlesFor) {
   const llmsPath = path.join(target, 'llms.txt');
   const discoveryPath = path.join(target, 'discovery.json');
   const [existingText, existingJson] = await Promise.all([readFile(llmsPath,'utf8'),readFile(discoveryPath,'utf8')]);
   const directory = JSON.parse(existingJson);
   const sections = ['## Practical guides for businesses, schools and public-sector teams'];
   directory.practicalGuides = {};
+  const service = {id:agentWorkflowSlug, locales:{}};
+  const parent = directory.services.find(item => item.id === 'private-ai-agents-rag');
+  parent.relatedPages = [...(parent.relatedPages ?? []), service];
   for (const locale of locales) {
+    const workflow = agentWorkflowLink(locale);
+    service.locales[locale] = {name:workflow.title, summary:workflow.description, url:new URL(workflow.url, 'https://sundaibot.com').href};
     const hub = new URL((locale==='en' ? '' : locale+'/')+'read/', 'https://sundaibot.com/').href;
     const articles = articlesFor(locale).map(article => ({title:article.title,url:new URL(article.slug+'/',hub).href}));
     directory.practicalGuides[locale] = {hub, articles};
     sections.push('### '+locale.toUpperCase(), '- [All guides]('+hub+')', ...articles.map(article => '- ['+article.title+']('+article.url+')'));
   }
+  sections.push('','## Enterprise AI agents', ...Object.entries(service.locales).map(([locale, entry]) => '- ['+entry.name+']('+entry.url+') ('+locale+')'));
   await Promise.all([
     writeFile(llmsPath,existingText.trimEnd()+'\n\n'+sections.join('\n')+'\n'),
     writeFile(discoveryPath,JSON.stringify(directory,null,2)+'\n')
@@ -103,6 +110,7 @@ export async function buildReferencePreview(isPublic = false) {
         }
         await writePage(staging, path.join(prefix, 'services', slug), html, isPublic, routes);
       }
+      await writePage(staging, path.join(prefix,'services',agentWorkflowSlug), renderAgentWorkflows(locale), isPublic, routes);
       for (const slug of courseSlugs) {
         await writePage(staging, path.join(prefix, 'courses', slug), await renderCourse(locale, slug), isPublic, routes);
       }
@@ -113,7 +121,7 @@ export async function buildReferencePreview(isPublic = false) {
     await rebrandLegacyAssessment(staging, isPublic);
     await writeFile(path.join(staging,'sitemap-sundai.xml'), sitemap(routes));
     if (isPublic) {
-      await writeGuideDirectory(staging, articlesFor);
+      await writeDiscoveryDirectory(staging, articlesFor);
       const robots = await readFile(path.join(staging,'robots.txt'),'utf8');
       await writeFile(path.join(staging,'robots.txt'), robots.trimEnd()+'\nSitemap: https://sundaibot.com/sitemap-sundai.xml\n');
     } else {

@@ -1,0 +1,80 @@
+.aw-page .os-copy h1 { margin-block-start: clamp(28px, 3.2vw, 54px); }
+.aw-page .os-hero-grid { min-height: clamp(490px, 45vw, 700px); }
+
+.aw-proof {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(22px, 4vw, 64px) clamp(18px, 3.7vw, 58px);
+  border: 1px solid #363639;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at 65% 85%, #494234, transparent 72%), #1b1c20;
+}
+.aw-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: clamp(20px, 2.4vw, 38px);
+  background: #faf9f3;
+  color: #232222;
+  border-block-start: 6px solid var(--os-color);
+  border-radius: 3px;
+  box-shadow: 4px 5px 0 #d7c28a, 8px 10px 0 #756849, 10px 16px 22px #0005;
+}
+[dir=rtl] .aw-sheet { box-shadow: -4px 5px 0 #d7c28a, -8px 10px 0 #756849, -10px 16px 22px #0005; }
+.aw-sheet figcaption { font-size: clamp(22px, 2.1vw, 34px); font-weight: 590; letter-spacing: -.035em; line-height: 1.18; text-wrap: balance; }
+.aw-sheet dl { margin: clamp(20px, 2.3vw, 34px) 0 16px; }
+.aw-sheet dl div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-top: 1px solid #d7d5cc; padding: 10px 0; }
+.aw-sheet dt { font-size: clamp(15px, 1.12vw, 18px); line-height: 1.4; }
+.aw-sheet dd { flex: none; margin: 0; font-weight: 580; font-variant-numeric: tabular-nums; }
+.aw-sheet dl div:last-child { border-top: 1px solid #716d5e; }
+.aw-sheet dl div:last-child dd { color: #59420b; background: #ffeaab; padding: 2px 7px; border-radius: 2px; }
+.aw-page .aw-sheet p { font-size: 14px; color: #524f48; line-height: 1.45; }
+
+.aw-section { padding-block: clamp(60px, 6.5vw, 104px); }
+.aw-page .aw-section h2 { max-width: 19ch; font-size: clamp(35px, 4.2vw, 68px); text-wrap: balance; }
+.aw-page .aw-section h3 { font-size: clamp(23px, 2.1vw, 34px); line-height: 1.16; letter-spacing: -.035em; font-weight: 580; }
+.aw-page .aw-section p, .aw-controls li, .aw-metrics span { font-size: clamp(16px, 1.15vw, 19px); line-height: 1.58; }
+.aw-page .aw-section p { color: #464852; margin-block-start: 12px; }
+.aw-modes { background: #f5f5f6; }
+.aw-columns, .aw-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 3.7vw, 60px); margin: clamp(28px, 3.7vw, 56px) 0 0; padding: 0; list-style: none; }
+.aw-columns > li { border-block-start: 1px solid #b5b4ae; padding-block-start: 20px; }
+.aw-collaboration { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.65fr); gap: clamp(16px, 3.5vw, 55px); margin-block-start: clamp(28px, 3.6vw, 55px); padding: clamp(20px, 2.7vw, 40px); border: 1px solid #e6d8a0; border-radius: 12px; background: var(--os-soft); }
+.aw-page .aw-collaboration p { margin: 0; color: #3e392a; }
+.aw-controls, .aw-pilot { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 6vw, 98px); }
+.aw-page .aw-controls p { margin-block-start: 20px; max-width: 53ch; }
+.aw-controls ul, .aw-pilot ol { list-style: none; margin: 0; padding: 0; }
+.aw-controls li { position: relative; padding: 16px 0; padding-inline-start: 22px; border-block-start: 1px solid #d5d5dc; }
+.aw-controls li::before { content: ''; position: absolute; inset-inline-start: 0; inset-block-start: 1.7em; width: 7px; height: 7px; background: #a98635; border-radius: 50%; }
+
+.aw-value { color: white; background: #111316; }
+.aw-page .aw-value h2 { max-width: 23ch; }
+.aw-page .aw-value p { color: #dbdbe1; max-width: 76ch; }
+.aw-metrics li { display: flex; flex-direction: column; gap: 8px; border-block-start: 1px solid #62615a; padding-block-start: 18px; }
+.aw-metrics strong { font-weight: 550; font-size: clamp(35px, 4.1vw, 64px); color: var(--os-color); line-height: 1.1; letter-spacing: -.045em; }
+.aw-metrics span { max-width: 32ch; }
+.aw-page .aw-value .aw-footnote { font-size: 15px; margin-block-start: clamp(24px, 3vw, 40px); color: #c5c5cc; }
+.aw-pilot { row-gap: clamp(20px, 2.8vw, 42px); }
+.aw-pilot .os-go { margin-block-start: 26px; }
+.aw-pilot li { border-block-start: 1px solid #c8c8d0; padding-block: 18px; }
+.aw-pilot li:last-child { padding-block-end: 0; }
+.aw-page .aw-pilot li h3 { font-size: clamp(21px, 1.7vw, 28px); }
+.aw-guide { display: inline-flex; align-items: center; justify-self: start; gap: 12px; grid-column: 2; color: var(--brand-ink, #243d99); font-weight: 580; line-height: 1.4; text-decoration: underline; text-underline-offset: .2em; }
+.aw-guide:hover { color: #173376; }
+.aw-page:lang(he) .aw-section h3, .aw-page:lang(he) .aw-sheet figcaption, .aw-page:lang(he) .aw-metrics strong { letter-spacing: -.025em; }
+
+@media (max-width: 800px) {
+  .aw-columns, .aw-metrics { gap: 20px; }
+  .aw-proof { padding: 24px 19px 29px; }
+}
+@media (max-width: 690px) {
+  .aw-page .os-hero-grid { min-height: auto; }
+  .aw-proof { align-self: stretch; }
+  .aw-collaboration, .aw-controls, .aw-pilot, .aw-columns, .aw-metrics { grid-template-columns: 1fr; }
+  .aw-controls, .aw-pilot { gap: 25px; }
+  .aw-page .aw-section h2 { max-width: 100%; }
+  .aw-metrics li { gap: 4px; }
+  .aw-metrics span { max-width: none; }
+  .aw-page .aw-section h3 { font-size: 24px; }
+  .aw-guide { grid-column: 1; }
+}
