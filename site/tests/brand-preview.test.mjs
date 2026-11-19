@@ -91,6 +91,7 @@ test('rendered pages use their requested language and have working local links',
         }
         for (const other of languages) assert.ok(hrefs(html).includes(routeFor(other,'read',slug)));
       } else if (section === 'free-guides') {
+        assert.match(html, /"@type":"BreadcrumbList"/);
         for (const lang of languages) assert.ok(hrefs(html).includes(routeFor(lang,section,slug)));
         if (slug && locale !== 'he') assert.match(html,/action="\/api\/leads"/);
         if (!slug) for (const id of legacyGuideSlugs) assert.ok(hrefs(html).includes(routeFor(locale,section,id)));

@@ -1,5 +1,6 @@
 import { courseTopics, locales, searchCopy } from './search-copy.mjs';
 import { guideIndex } from './knowledge-data.mjs';
+import { legacyGuideLabel } from './legacy-guides.mjs';
 const origin = 'https://sundaibot.com';
 const escape = value => value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const entities = {'&amp;':'&','&quot;':'"','&#39;':"'",'&lt;':'<','&gt;':'>'};
@@ -30,8 +31,9 @@ export function optimisePage(html, route, isPublic = false) {
   if(pageType==='Course'||pageType==='Service') entity.provider=org;
   const alternatives = [...locales,'x-default'].map(l=>'<link rel="alternate" hreflang="'+l+'" href="'+urlFor(l==='x-default'?'en':l,parts)+'">').join('');
   let breadcrumb = '';
-  if (kind==='read') {
-    const pages = [{name:'SundAI',item:urlFor(lang,[])},{name:guideIndex[lang].title,item:urlFor(lang,['read'])}];
+  if (guideCollection) {
+    const hubTitle = kind==='free-guides' ? legacyGuideLabel(lang) : guideIndex[lang].title;
+    const pages = [{name:'SundAI',item:urlFor(lang,[])},{name:hubTitle,item:urlFor(lang,[kind])}];
     if (slug) pages.push({name:entity.name,item:canonical});
     breadcrumb = structuredData({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:pages.map((page,i)=>({'@type':'ListItem',position:i+1,...page}))});
   }
