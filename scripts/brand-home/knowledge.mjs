@@ -1,9 +1,11 @@
 import { searchCopy } from './search-copy.mjs';
 import { renderHeader, renderFooter } from './frame.mjs';
-import { articleSlugs, knowledge } from './knowledge-data.mjs';
+import { guides, guideIndex, legacyArticleSlugs, knowledge } from './knowledge-data.mjs';
 
 const base = lang => lang === 'en' ? '/' : '/' + lang + '/';
-const articleUrl = (lang, slug) => base(lang) + 'read/' + slug + '/';
+const hubUrl = lang => base(lang) + 'read/';
+const articleUrl = (lang, slug) => hubUrl(lang) + slug + '/';
+const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const archive = lang => 'https://sundaibot.com' + base(lang === 'he' ? 'en' : lang) + 'insights/';
 const further = [
  ['NIST · AI Risk Management Framework','https://www.nist.gov/itl/ai-risk-management-framework','services/secure-ai-automation/'],
@@ -28,19 +30,77 @@ function literacyQuestion(lang) {
  return [question, answer + ' <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4">' + actLabel + '</a> · <a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers">' + faqLabel + '</a>'];
 }
 
-export function resourcesSection(lang) {
- const c = knowledge[lang];
- const articles = c.a.map(([title,lead],i) => `<article><h3><a href="${articleUrl(lang,articleSlugs[i])}">${title}</a></h3><p>${lead}</p></article>`).join('');
- const market = searchCopy[lang];
- const faqs = [...c.q,starting[lang],literacyQuestion(lang),[market.marketQ,market.marketA]].map(([question,answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join('');
- return `<div class="kn-home"><section id="articles" class="kn-section"><header><h2>${c.articles}</h2><p>${c.articleIntro}</p></header><div class="kn-articles">${articles}</div><a class="kn-archive" href="${archive(lang)}">${c.archive}</a></section><section id="faq" class="kn-section kn-faq"><header><h2>${c.faq}</h2><p>${c.faqIntro}</p></header><div>${faqs}</div></section></div>`;
+const categories = ['work', 'school', 'governance'];
+
+// The older articles keep their URLs and copy. Present both collections in the same reading layout.
+export function articlesFor(lang) {
+  const existing = knowledge[lang].a.map((a, i) => {
+    const [name, url, related] = further[i];
+    return {
+      slug: legacyArticleSlugs[i], category: categories[i], related, sources: [{name, url}],
+      title: a[0], summary: a[1], sections: [[a[2], a[3]], [a[4], a[5]], [a[6], a[7]]], exercise: a[8]
+    };
+  });
+  const added = guides.map(({slug, category, related, sources, text}) => ({
+    slug, category, related, sources, ...text[lang], published: '2026-11-19'
+  }));
+  return [...added, ...existing];
 }
 
-export function renderArticle(lang,slug) {
- const c = knowledge[lang], i = articleSlugs.indexOf(slug);
- if(i===-1) throw new Error('Unknown article: '+slug);
- const a = c.a[i], [reference,href,related] = further[i], opts={innerPage:true,article:slug};
- const body=[2,4,6].map(j=>`<section><h2>${a[j]}</h2><p>${a[j+1]}</p></section>`).join('');
- const links={he:['אוטומציה עסקית','קורס Teen Tech AI','עוזרי AI לידע ארגוני'],en:['Business automation','Teen Tech AI course','Internal AI assistants'],sv:['Automatisering för företag','Kursen Teen Tech AI','Interna AI-assistenter'],da:['Automatisering i virksomheder','Kurset Teen Tech AI','Interne AI-assistenter']};
- return `<!doctype html><html lang="${lang}" dir="${lang==='he'?'rtl':'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${a[0]} | SundAI</title><meta name="description" content="${a[1]}"><link rel="icon" href="/assets/favicon.svg">${['shell','frame','knowledge'].map(f=>'<link rel="stylesheet" href="/assets/brand-home/'+f+'.css">').join('')}<script defer src="/assets/brand-home/frame.js"></script></head><body><a class="fr-skip" href="#main">${a[0]}</a>${renderHeader(lang,opts)}<main id="main" class="kn-reading"><article><a class="kn-back" href="${base(lang)}#articles">${c.back}</a><h1>${a[0]}</h1><p class="kn-lead">${a[1]}</p>${body}<aside><h2>${c.apply}</h2><p>${a[8]}</p></aside><nav aria-label="${c.further}"><h2>${c.further}</h2><a href="${base(lang)+related}">${links[lang][i]}</a><a href="${href}" lang="en" dir="auto">${reference}</a></nav></article></main>${renderFooter(lang,opts)}</body></html>`;
+export function relatedGuide(lang, route) {
+  const guide = guides.find(item => item.related === route);
+  return guide ? {url: articleUrl(lang, guide.slug), title: guide.text[lang].title} : null;
+}
+
+function articleCard(lang, slug, title, summary) {
+  return `<article><h3><a href="${articleUrl(lang, slug)}">${escape(title)}</a></h3><p>${escape(summary)}</p></article>`;
+}
+
+export function resourcesSection(lang) {
+  const c = knowledge[lang];
+  const articles = c.a.map(([title, lead], i) => articleCard(lang, legacyArticleSlugs[i], title, lead)).join('');
+  const market = searchCopy[lang];
+  const faqs = [...c.q, starting[lang], literacyQuestion(lang), [market.marketQ, market.marketA]]
+    .map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join('');
+  return `<div class="kn-home"><section id="articles" class="kn-section"><header><h2>${c.articles}</h2><p>${c.articleIntro}</p></header><div class="kn-articles">${articles}</div><a class="kn-archive" href="${hubUrl(lang)}">${guideIndex[lang].browse}</a></section><section id="faq" class="kn-section kn-faq"><header><h2>${c.faq}</h2><p>${c.faqIntro}</p></header><div>${faqs}</div></section></div>`;
+}
+
+function readingPage(lang, title, description, options, main) {
+  const css = ['shell','frame','knowledge'].map(file => `<link rel="stylesheet" href="/assets/brand-home/${file}.css">`).join('');
+  return `<!doctype html><html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escape(title)} | SundAI</title><meta name="description" content="${escape(description)}"><link rel="icon" href="/assets/favicon.svg">${css}<script defer src="/assets/brand-home/frame.js"></script></head><body><a class="fr-skip" href="#main">${guideIndex[lang].skip}</a>${renderHeader(lang,options)}${main}${renderFooter(lang,options)}</body></html>`;
+}
+
+export function renderHub(lang) {
+  const c = guideIndex[lang];
+  const articles = articlesFor(lang);
+  const links = categories.map(key => `<a href="#${key}">${c[key]}</a>`).join('');
+  const groups = categories.map(key => {
+    const cards = articles.filter(item => item.category === key)
+      .map(item => articleCard(lang, item.slug, item.title, item.summary)).join('');
+    return `<section class="kn-hub-group" id="${key}"><h2>${c[key]}</h2><div class="kn-articles">${cards}</div></section>`;
+  }).join('');
+  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header><nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}<a class="kn-archive" href="${archive(lang)}">${knowledge[lang].archive}</a></div></main>`;
+  return readingPage(lang, c.title, c.summary, {innerPage:true, hub:true}, main);
+}
+
+export function renderArticle(lang, slug) {
+  const articles = articlesFor(lang);
+  const a = articles.find(item => item.slug === slug);
+  if (!a) throw new Error('Unknown article: ' + slug);
+  const c = guideIndex[lang];
+  const relatedGuides = articles.filter(item => item.category === a.category);
+  const next = relatedGuides[(relatedGuides.indexOf(a) + 1) % relatedGuides.length];
+  const body = a.sections.map(([heading, paragraph]) =>
+    `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}</p></section>`).join('');
+  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span><time datetime="${a.published}">${c.date}</time></p>` : '';
+  const sources = a.sources.map(({name, url}) =>
+    `<li><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
+  const main = `<main id="main" class="kn-reading"><article>
+    <a class="kn-back" href="${hubUrl(lang)}">${c.browse}</a>
+    <header><h1>${escape(a.title)}</h1>${byline}<p class="kn-lead">${escape(a.summary)}</p></header>
+    ${body}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p></aside>
+    <section class="kn-sources"><h2>${c.sources}</h2><ul>${sources}</ul></section>
+    <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a><a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
+  </article></main>`;
+  return readingPage(lang, a.title, a.summary, {innerPage:true, article:slug}, main);
 }

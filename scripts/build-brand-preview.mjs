@@ -1,4 +1,6 @@
 import { optimisePage, sitemap } from './brand-home/seo.mjs';
+import { locales } from './brand-home/search-copy.mjs';
+import { guideFeed } from './brand-home/guide-feed.mjs';
 import {cp, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 
@@ -28,10 +30,29 @@ async function writePage(target, route, html, isPublic, routes) {
   await writeFile(path.join(directory, 'index.html'), optimisePage(html, route, isPublic));
 }
 
+async function writeGuideDirectory(target, articlesFor) {
+  const llmsPath = path.join(target, 'llms.txt');
+  const discoveryPath = path.join(target, 'discovery.json');
+  const [existingText, existingJson] = await Promise.all([readFile(llmsPath,'utf8'),readFile(discoveryPath,'utf8')]);
+  const directory = JSON.parse(existingJson);
+  const sections = ['## Practical guides for businesses, schools and public-sector teams'];
+  directory.practicalGuides = {};
+  for (const locale of locales) {
+    const hub = new URL((locale==='en' ? '' : locale+'/')+'read/', 'https://sundaibot.com/').href;
+    const articles = articlesFor(locale).map(article => ({title:article.title,url:new URL(article.slug+'/',hub).href}));
+    directory.practicalGuides[locale] = {hub, articles};
+    sections.push('### '+locale.toUpperCase(), '- [All guides]('+hub+')', ...articles.map(article => '- ['+article.title+']('+article.url+')'));
+  }
+  await Promise.all([
+    writeFile(llmsPath,existingText.trimEnd()+'\n\n'+sections.join('\n')+'\n'),
+    writeFile(discoveryPath,JSON.stringify(directory,null,2)+'\n')
+  ]);
+}
+
 export async function buildReferencePreview(isPublic = false) {
   const output = path.join(dist, isPublic ? 'brand-public' : 'reference-preview');
   const routes = [];
-  const {renderArticle} = await import('./brand-home/knowledge.mjs');
+  const {renderArticle, renderHub, articlesFor} = await import('./brand-home/knowledge.mjs');
   const {articleSlugs} = await import('./brand-home/knowledge-data.mjs');
   const {renderCallPage} = await import('./brand-home/call-page.mjs');
   const {renderHome} = await import('./brand-home/render.mjs');
@@ -54,6 +75,8 @@ export async function buildReferencePreview(isPublic = false) {
       const prefix = locale === 'en' ? '' : locale;
       await writePage(staging, prefix, await renderHome(locale), isPublic, routes);
       await writePage(staging, path.join(prefix, 'intro-call'), renderCallPage(locale), isPublic, routes);
+      await writePage(staging, path.join(prefix,'read'), renderHub(locale), isPublic, routes);
+      await writeFile(path.join(staging,prefix,'read','feed.xml'),guideFeed(locale));
       for (const slug of articleSlugs) await writePage(staging, path.join(prefix,'read',slug), renderArticle(locale,slug), isPublic, routes);
       for (const slug of serviceSlugs) {
         let html = renderService(locale, slug, isPublic);
@@ -76,6 +99,7 @@ export async function buildReferencePreview(isPublic = false) {
 
     await writeFile(path.join(staging,'sitemap-sundai.xml'), sitemap(routes));
     if (isPublic) {
+      await writeGuideDirectory(staging, articlesFor);
       const robots = await readFile(path.join(staging,'robots.txt'),'utf8');
       await writeFile(path.join(staging,'robots.txt'), robots.trimEnd()+'\nSitemap: https://sundaibot.com/sitemap-sundai.xml\n');
     } else {
