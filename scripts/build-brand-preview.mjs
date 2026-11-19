@@ -1,6 +1,9 @@
 import { optimisePage, sitemap } from './brand-home/seo.mjs';
 import { locales } from './brand-home/search-copy.mjs';
 import { guideFeed } from './brand-home/guide-feed.mjs';
+import { archiveLibrary, rebrandLegacyArchive } from './brand-home/legacy-archive.mjs';
+import { resourceLibrary, rebrandLegacyResources } from './brand-home/legacy-resources.mjs';
+import { legacyGuideCards, legacyGuideHubPath, legacyGuideLabel, legacyGuideSlugs, renderLegacyGuide, rebrandLegacyAssessment } from './brand-home/legacy-guides.mjs';
 import {cp, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 
@@ -75,7 +78,15 @@ export async function buildReferencePreview(isPublic = false) {
       const prefix = locale === 'en' ? '' : locale;
       await writePage(staging, prefix, await renderHome(locale), isPublic, routes);
       await writePage(staging, path.join(prefix, 'intro-call'), renderCallPage(locale), isPublic, routes);
-      await writePage(staging, path.join(prefix,'read'), renderHub(locale), isPublic, routes);
+      const collections = {
+        freeGuides: {index:legacyGuideHubPath(locale), label:legacyGuideLabel(locale), items:legacyGuideCards(locale)},
+        resources: resourceLibrary(locale),
+        archive: archiveLibrary(locale)
+      };
+      await writePage(staging, path.join(prefix,'read'), renderHub(locale, collections), isPublic, routes);
+      for (const slug of ['', ...legacyGuideSlugs]) {
+        await writePage(staging, path.join(prefix,'free-guides',slug), renderLegacyGuide(locale,slug), isPublic, routes);
+      }
       await writeFile(path.join(staging,prefix,'read','feed.xml'),guideFeed(locale));
       for (const slug of articleSlugs) await writePage(staging, path.join(prefix,'read',slug), renderArticle(locale,slug), isPublic, routes);
       for (const slug of serviceSlugs) {
@@ -97,6 +108,9 @@ export async function buildReferencePreview(isPublic = false) {
       }
     }
 
+    await rebrandLegacyArchive(staging, isPublic);
+    await rebrandLegacyResources(staging, isPublic);
+    await rebrandLegacyAssessment(staging, isPublic);
     await writeFile(path.join(staging,'sitemap-sundai.xml'), sitemap(routes));
     if (isPublic) {
       await writeGuideDirectory(staging, articlesFor);

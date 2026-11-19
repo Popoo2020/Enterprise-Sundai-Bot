@@ -28,3 +28,12 @@
 .kn-reading .kn-byline{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;color:#50505a;font-size:.95rem;margin:.5rem 0 1.1rem}
 .kn-reading .kn-sources ul{padding-inline-start:1.2rem;line-height:1.6}
 .kn-sources a,.kn-hub article,.kn-reading article{overflow-wrap:break-word}
+.kn-reading .kn-checks,.kn-collection ul{padding-inline-start:1.35rem;font-size:1.05rem;line-height:1.65}
+.kn-checks li,.kn-collection li{margin-block:.5rem}
+.kn-checks li::marker,.kn-collection li::marker{color:#506cc7}
+.kn-collection ul{columns:2;column-gap:3rem}
+.kn-collection li{break-inside:avoid}
+.kn-collection a,.kn-article-call a{color:#2646ae;text-underline-offset:.2em}
+.kn-collection .kn-archive{margin-top:.3rem}
+.kn-article-call a{font-weight:650}
+@media(max-width:700px){.kn-collection ul{columns:1}}

@@ -1,4 +1,6 @@
 import { searchCopy } from './search-copy.mjs';
+import { callUrl } from './call.mjs';
+import { secureLlmGuide } from './secure-llm-guide.mjs';
 import { renderHeader, renderFooter } from './frame.mjs';
 import { guides, guideIndex, legacyArticleSlugs, knowledge } from './knowledge-data.mjs';
 
@@ -6,7 +8,12 @@ const base = lang => lang === 'en' ? '/' : '/' + lang + '/';
 const hubUrl = lang => base(lang) + 'read/';
 const articleUrl = (lang, slug) => hubUrl(lang) + slug + '/';
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-const archive = lang => 'https://sundaibot.com' + base(lang === 'he' ? 'en' : lang) + 'insights/';
+const collectionCopy = {
+  en: {checklists:'Downloadable checklists', tools:'Governance tools and templates', archive:'Articles from the SundAI archive', allTools:'Browse the resource library', allArticles:'Browse the article archive', call:'Discuss your AI decision in a free 20-minute call'},
+  he: {checklists:'מדריכי עבודה ורשימות בדיקה', tools:'כלים ותבניות לממשל AI (באנגלית)', archive:'מאמרים מארכיון SundAI (באנגלית)', allTools:'לכל הכלים והתבניות באנגלית', allArticles:'לארכיון המאמרים באנגלית', call:'שיחת היכרות ללא עלות על החלטת ה־AI שלכם · 20 דקות'},
+  sv: {checklists:'Checklistor att ladda ner', tools:'Verktyg och mallar för AI-styrning', archive:'Artiklar ur SundAI:s arkiv', allTools:'Alla verktyg och mallar', allArticles:'Till artikelarkivet', call:'Diskutera ert AI-beslut i ett kostnadsfritt samtal på 20 minuter'},
+  da: {checklists:'Tjeklister til download', tools:'Værktøjer og skabeloner til AI-governance', archive:'Artikler fra SundAIs arkiv', allTools:'Se alle værktøjer og skabeloner', allArticles:'Gå til artikelarkivet', call:'Drøft jeres AI-beslutning på et gratis møde på 20 minutter'}
+};
 const further = [
  ['NIST · AI Risk Management Framework','https://www.nist.gov/itl/ai-risk-management-framework','services/secure-ai-automation/'],
  ['UNESCO · AI Competency Framework for Students','https://www.unesco.org/en/articles/ai-competency-framework-students','courses/youth/'],
@@ -58,7 +65,9 @@ function articleCard(lang, slug, title, summary) {
 
 export function resourcesSection(lang) {
   const c = knowledge[lang];
-  const articles = c.a.map(([title, lead], i) => articleCard(lang, legacyArticleSlugs[i], title, lead)).join('');
+  const feature = secureLlmGuide.text[lang];
+  const articles = articleCard(lang, secureLlmGuide.slug, feature.title, feature.summary)
+    + c.a.slice(0, 2).map(([title, lead], i) => articleCard(lang, legacyArticleSlugs[i], title, lead)).join('');
   const market = searchCopy[lang];
   const faqs = [...c.q, starting[lang], literacyQuestion(lang), [market.marketQ, market.marketA]]
     .map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join('');
@@ -70,16 +79,27 @@ function readingPage(lang, title, description, options, main) {
   return `<!doctype html><html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escape(title)} | SundAI</title><meta name="description" content="${escape(description)}"><link rel="icon" href="/assets/favicon.svg">${css}<script defer src="/assets/brand-home/frame.js"></script></head><body><a class="fr-skip" href="#main">${guideIndex[lang].skip}</a>${renderHeader(lang,options)}${main}${renderFooter(lang,options)}</body></html>`;
 }
 
-export function renderHub(lang) {
+function collectionSection(id, heading, items, index, label, contentLang) {
+  const list = items.map(({url,title}) => `<li><a href="${escape(url)}" lang="${contentLang}" dir="auto">${escape(title)}</a></li>`).join('');
+  return `<section class="kn-hub-group kn-collection" id="${id}"><h2>${escape(heading)}</h2><ul>${list}</ul><a class="kn-archive" href="${escape(index)}">${escape(label)}</a></section>`;
+}
+
+export function renderHub(lang, {freeGuides, archive, resources}) {
   const c = guideIndex[lang];
   const articles = articlesFor(lang);
-  const links = categories.map(key => `<a href="#${key}">${c[key]}</a>`).join('');
+  const t = collectionCopy[lang];
+  const collections = [...categories.map(key => [key, c[key]]), ['checklists', t.checklists], ['tools', t.tools], ['archive', t.archive]];
+  const links = collections.map(([id, label]) => `<a href="#${id}">${escape(label)}</a>`).join('');
   const groups = categories.map(key => {
     const cards = articles.filter(item => item.category === key)
       .map(item => articleCard(lang, item.slug, item.title, item.summary)).join('');
     return `<section class="kn-hub-group" id="${key}"><h2>${c[key]}</h2><div class="kn-articles">${cards}</div></section>`;
   }).join('');
-  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header><nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}<a class="kn-archive" href="${archive(lang)}">${knowledge[lang].archive}</a></div></main>`;
+  const archiveLang = lang === 'he' ? 'en' : lang;
+  const more = collectionSection('checklists', t.checklists, freeGuides.items, freeGuides.index, freeGuides.label, lang)
+    + collectionSection('tools', t.tools, resources.items, resources.index, t.allTools, archiveLang)
+    + collectionSection('archive', t.archive, archive.articles, archive.index, t.allArticles, archiveLang);
+  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header><nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}${more}</div></main>`;
   return readingPage(lang, c.title, c.summary, {innerPage:true, hub:true}, main);
 }
 
@@ -90,15 +110,19 @@ export function renderArticle(lang, slug) {
   const c = guideIndex[lang];
   const relatedGuides = articles.filter(item => item.category === a.category);
   const next = relatedGuides[(relatedGuides.indexOf(a) + 1) % relatedGuides.length];
-  const body = a.sections.map(([heading, paragraph]) =>
-    `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}</p></section>`).join('');
+  const body = a.sections.map(([heading, paragraph, bullets]) => {
+    const list = bullets ? '<ul class="kn-checks">' + bullets.map(item => '<li>' + escape(item) + '</li>').join('') + '</ul>' : '';
+    return `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}</p>${list}</section>`;
+  }).join('');
+  const consultation = slug === secureLlmGuide.slug
+    ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
   const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span><time datetime="${a.published}">${c.date}</time></p>` : '';
   const sources = a.sources.map(({name, url}) =>
     `<li><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
   const main = `<main id="main" class="kn-reading"><article>
     <a class="kn-back" href="${hubUrl(lang)}">${c.browse}</a>
     <header><h1>${escape(a.title)}</h1>${byline}<p class="kn-lead">${escape(a.summary)}</p></header>
-    ${body}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p></aside>
+    ${body}${consultation}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p></aside>
     <section class="kn-sources"><h2>${c.sources}</h2><ul>${sources}</ul></section>
     <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a><a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
   </article></main>`;

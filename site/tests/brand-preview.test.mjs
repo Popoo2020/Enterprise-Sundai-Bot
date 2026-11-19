@@ -5,6 +5,9 @@ import {access, readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {articleSlugs, guides} from '../../scripts/brand-home/knowledge-data.mjs';
 import {buildReferencePreview} from '../../scripts/build-brand-preview.mjs';
+import {legacyGuideSlugs} from '../../scripts/brand-home/legacy-guides.mjs';
+import {archiveLibrary} from '../../scripts/brand-home/legacy-archive.mjs';
+import {resourceLibrary} from '../../scripts/brand-home/legacy-resources.mjs';
 
 const repo = path.resolve(import.meta.dirname, '../..');
 const target = path.join(repo, 'dist/reference-preview');
@@ -34,6 +37,7 @@ test('rendered pages use their requested language and have working local links',
     const titles = new Set();
     const routes = [
       ['',''], ['intro-call',''], ['read',''], ...articleSlugs.map(slug=>['read',slug]),
+      ['free-guides',''], ...legacyGuideSlugs.map(slug=>['free-guides',slug]),
       ...courseSlugs.map(slug => ['courses', slug]),
       ...serviceSlugs.map(slug => ['services', slug])
     ];
@@ -75,7 +79,7 @@ test('rendered pages use their requested language and have working local links',
           assert.ok(hrefs(catalogue).includes(routeFor(locale, 'services', service)), route + ' organisation card ' + service);
         }
         assert.ok(hrefs(html).includes(routeFor(locale,'read')), route + ' guide hub link');
-        for (const [detailSection, detailSlug] of routes.filter(([section,pageSlug]) => section!=='read' && pageSlug)) {
+        for (const [detailSection, detailSlug] of routes.filter(([section,pageSlug]) => ['courses','services'].includes(section) && pageSlug)) {
           const destination = routeFor(locale, detailSection, detailSlug);
           assert.ok(hrefs(html).includes(destination), route + ' missing detail navigation ' + destination);
         }
@@ -86,6 +90,11 @@ test('rendered pages use their requested language and have working local links',
           for (const guideSlug of articleSlugs) assert.ok(hrefs(html).includes(routeFor(locale,'read',guideSlug)), route+' article '+guideSlug);
         }
         for (const other of languages) assert.ok(hrefs(html).includes(routeFor(other,'read',slug)));
+      } else if (section === 'free-guides') {
+        assert.match(html, /"@type":"BreadcrumbList"/);
+        for (const lang of languages) assert.ok(hrefs(html).includes(routeFor(lang,section,slug)));
+        if (slug && locale !== 'he') assert.match(html,/action="\/api\/leads"/);
+        if (!slug) for (const id of legacyGuideSlugs) assert.ok(hrefs(html).includes(routeFor(locale,section,id)));
       } else if (section === 'services') {
         assert.ok(hrefs(html).includes('/assets/brand-home/services.css'), route + ' missing service layout');
         for (const lang of languages.filter(lang => lang !== locale)) {
@@ -101,6 +110,7 @@ test('rendered pages use their requested language and have working local links',
         assert.ok(hrefs(html).includes(pdf), route + ' incorrect syllabus');
         assert.ok(hrefs(html).includes(routeFor(locale, 'intro-call') + '?topic=' + slug + '&via=course'), route + ' contextual course call');
       }
+      assert.equal([...html.matchAll(/src="\/assets\/framework-[^"]+\.svg"/g)].length, 5, route + ' framework symbols');
       for (const raw of hrefs(html)) {
         if (raw.startsWith('data:') || raw.startsWith('mailto:') || raw.startsWith('tel:')) continue;
         const url = new URL(raw, origin + route);
@@ -143,6 +153,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
   const routes = languages.flatMap(lang=>[
     routeFor(lang),routeFor(lang,'read'),
+    routeFor(lang,'free-guides'),...legacyGuideSlugs.map(slug=>routeFor(lang,'free-guides',slug)),
     ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
     ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),
     ...serviceSlugs.map(slug=>routeFor(lang,'services',slug))
@@ -212,5 +223,30 @@ test('public guides have discoverable canonical pages, source links and accurate
       for (const {url:source} of guide.sources) assert.ok(hrefs(html).includes(source),route+' missing reference '+source);
     }
     assert.match(await publicPage(routeFor(lang,'intro-call')),/<meta name="robots" content="noindex,follow">/);
+  }
+});
+
+test('the library exposes each retained guide at its established URL in the current design', async () => {
+  const originalMain = source => source.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)[1];
+  for (const lang of languages) {
+    const directory = await readFile(publicFile(routeFor(lang,'read')), 'utf8');
+    const archive = archiveLibrary(lang);
+    const resources = resourceLibrary(lang);
+    const retained = [archive.index, resources.index, ...archive.articles.map(item => item.url), ...resources.items.map(item => item.url)];
+    for (const url of retained) {
+      assert.ok(hrefs(directory).includes(url), 'directory missing ' + url);
+      const page = await readFile(publicFile(url), 'utf8');
+      const source = await readFile(path.join(repo, 'site', url, url.endsWith('/') ? 'index.html' : ''), 'utf8');
+      assert.match(page, /class="fr-header"/);
+      assert.match(page, /class="fr-frameworks"/);
+      assert.ok(page.includes('rel="canonical" href="https://sundaibot.com' + url + '"'));
+      for (const link of hrefs(originalMain(source))) {
+        assert.ok(hrefs(originalMain(page)).includes(link), url + ' lost original content link ' + link);
+      }
+    }
+    const flagship = await readFile(publicFile(routeFor(lang, 'read', 'secure-llm-deployment')), 'utf8');
+    assert.ok(hrefs(directory).includes(routeFor(lang, 'read', 'secure-llm-deployment')));
+    assert.match(flagship, /class="kn-checks"/);
+    assert.ok(hrefs(flagship).includes(routeFor(lang, 'intro-call') + '?topic=decision-review&via=article'));
   }
 });
