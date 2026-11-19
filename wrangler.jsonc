@@ -11,8 +11,11 @@
     "CONTACT_FROM_EMAIL": "SundAI Website <website@sundaibot.com>",
     "TURNSTILE_ALLOWED_HOSTNAMES": "sundaibot.com,www.sundaibot.com"
   },
+  "build": {
+    "command": "node scripts/build-upgrade.mjs --brand-public"
+  },
   "assets": {
-    "directory": "./site",
+    "directory": "./dist/brand-public",
     "binding": "ASSETS",
     "run_worker_first": [
       "/*"

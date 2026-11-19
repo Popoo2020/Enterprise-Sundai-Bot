@@ -3,6 +3,21 @@
 (() => {
   'use strict';
   const copy = {
+    he: {
+      loading: 'טוענים את בדיקת האבטחה…', ready: 'יש להשלים את בדיקת האבטחה לפני השליחה.',
+      sending: 'הבקשה נשלחת…', unavailable: 'שירות השליחה אינו זמין כרגע. הפרטים נשמרו בעמוד. אפשר לנסות שוב או לפנות במייל.',
+      security: 'השלימו את בדיקת האבטחה. אם פג תוקפה, עברו אותה שוב.',
+      invalid: 'בדקו את השם ואת כתובת האימייל.', long: 'הבקשה ארוכה מדי. קצרו את הטקסט ונסו שוב.',
+      portfolio: 'הזינו כתובת אתר תקינה.', timezone: 'בדקו את אזור הזמן.',
+      timing: 'המתינו רגע לפני השליחה. אם העמוד פתוח כבר יום, טענו אותו מחדש.',
+      rate: 'התקבלו בקשות רבות. אפשר להמתין מעט ולנסות שוב או לפנות במייל.',
+      failed: 'לא התקבל אישור לשליחה. הפרטים נשמרו בעמוד. אפשר לנסות שוב או להשתמש בקישור למייל.',
+      accepted: 'ספק הדואר קיבל את הבקשה לשליחה.',
+      booking: 'בקשת השיחה הועברה לספק הדואר. המועד ייקבע לאחר אישור אישי במייל.',
+      join: 'הבקשה הועברה לספק הדואר.',
+      kinds: { booking: 'בקשה לשיחת היכרות של 20 דקות ללא עלות', join: 'בקשה להצטרפות', training: 'בקשת הדרכה', enquiry: 'פנייה לגבי שירות' },
+      labels: ['תחום העניין', 'שפת השיחה', 'אזור זמן', 'מועד מועדף', 'מדינה', 'תחום התמחות', 'ניסיון', 'זמינות', 'תיק עבודות', 'קהל', 'גודל קבוצה', 'טווח גיל', 'נושא', 'מתכונת', 'מועדים', 'מטרה', 'צוות', 'מערכת או תהליך']
+    },
     en: {
       loading: 'Loading the security check…', ready: 'Complete the security check before sending.',
       sending: 'Sending your request…', unavailable: 'The request service is unavailable. Your fields are preserved. Please try again or use the email link below.',
@@ -167,5 +182,6 @@
     });
     // Clear custom errors as the visitor edits, allowing native validation to rerun.
     form.addEventListener('input', event => { event.target.setCustomValidity?.(''); });
+    form.dataset.contactReady = 'true';
   });
 })();

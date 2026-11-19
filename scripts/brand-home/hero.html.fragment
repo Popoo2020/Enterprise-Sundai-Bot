@@ -1,0 +1,51 @@
+<div id="sd-hero-art" class="sd-art" data-scene="0">
+  <div class="sd-dots" aria-hidden="true"></div>
+  <svg class="sd-art-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="0" height="0" focusable="false">
+    <defs>
+      <linearGradient id="sd-metal" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#f7f8ff"/><stop offset=".20" stop-color="#8d97b1"/><stop offset=".36" stop-color="#e9eaf2"/><stop offset=".60" stop-color="#6f7b99"/><stop offset=".74" stop-color="#aeb9d5"/><stop offset="1" stop-color="#525a71"/></linearGradient>
+      <linearGradient id="sd-shell" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#e0e5f3"/><stop offset=".34" stop-color="#9faac4"/><stop offset=".69" stop-color="#57627d"/><stop offset=".92" stop-color="#a1aec9"/><stop offset="1" stop-color="#3e465a"/></linearGradient>
+      <linearGradient id="sd-pad" x1="0" y1="0" x2=".65" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#31394b"/><stop offset=".32" stop-color="#48516c"/><stop offset=".49" stop-color="#343b4f"/><stop offset=".8" stop-color="#1a1d26"/><stop offset="1" stop-color="#444e62"/></linearGradient>
+      <radialGradient id="sd-cup"><stop stop-color="#cfd7e9"/><stop offset=".47" stop-color="#b4bfd8"/><stop offset=".82" stop-color="#838eaa"/><stop offset="1" stop-color="#71809c"/></radialGradient>
+      <linearGradient id="sd-hband" x1="0" y1="1" x2="1" y2="0" gradientUnits="objectBoundingBox"><stop stop-color="#434d62"/><stop offset=".32" stop-color="#242a39"/><stop offset=".52" stop-color="#77829d"/><stop offset=".67" stop-color="#cbd1e2"/><stop offset="1" stop-color="#4e5974"/></linearGradient>
+      <symbol id="sd-headphones" viewBox="0 0 128 96">
+        <g transform="rotate(-14 64 47)">
+          <path d="M27 61C24 29 32 11 57 9c26-3 39 12 42 42" stroke="#303848" stroke-width="11" fill="none" stroke-linecap="round"/>
+          <path d="M26 57C25 24 34 10 57 8c22-2 37 11 41 38" stroke="url(#sd-hband)" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M24 52C25 25 33 12 55 9c18-2 32 5 38 22" stroke="#c6cde0" stroke-opacity=".72" stroke-width="1.1" fill="none"/>
+          <path d="M26 41l1 17m69-20 3 14" stroke="url(#sd-metal)" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g transform="rotate(6 37 64)"><rect x="27" y="47" width="21" height="35" rx="9" fill="#252b39"/><rect x="26" y="46" width="18" height="35" rx="8" fill="url(#sd-pad)"/><rect x="22" y="46" width="16" height="36" rx="7.5" fill="url(#sd-shell)"/><path d="M28 48c-3 0-5 2-5 6v20" stroke="#dbdfed" stroke-width="1.2" opacity=".77" fill="none"/></g>
+          <g transform="rotate(-4 90 62)"><rect x="75" y="44" width="26" height="39" rx="11" fill="url(#sd-pad)" stroke="#373e50"/><rect x="79" y="44" width="24" height="39" rx="10" fill="url(#sd-shell)"/><rect x="82" y="45.5" width="20" height="35.5" rx="8" fill="url(#sd-cup)" stroke="#bbc5db" stroke-opacity=".65"/><path d="M85 48c2-1 4-1 6-1m9 17v6" stroke="#e4e9f6" stroke-width="1" fill="none"/><rect x="94" y="80" width="4" height="1.5" rx=".7" fill="#4d5363"/></g>
+        </g>
+      </symbol>
+      <symbol id="sd-doc-icon" viewBox="0 0 24 24"><path d="M6.8 3.4h7.6l4 4v13.2H6.8z M14.2 3.8v4.1h4.1 M9.5 11.2h6.5m-6.5 3h6.5m-6.5 3h4.3" stroke="currentColor" stroke-width="1.45" fill="none" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    </defs>
+  </svg>
+  <div class="sd-demo-frame" id="sd-demo-school" data-demo="0" role="group">
+    <div class="sd-widget-head"><span class="sd-widget-index" aria-hidden="true">✧</span><strong data-sd-word="schoolTitle">Deal Check</strong><span class="sd-widget-index" aria-hidden="true">01</span></div>
+    <div class="sd-offer-choices">
+      <button class="sd-offer" type="button" data-offer="a" aria-pressed="false"><span class="sd-code" data-sd-word="offer1">OFFER A</span><svg class="sd-product" aria-hidden="true" viewBox="0 0 128 96"><use href="#sd-headphones"/></svg><strong dir="ltr">€19.90</strong><span class="sd-shipping" data-sd-word="plus">+ €6.10 delivery</span></button>
+      <button class="sd-offer" type="button" data-offer="b" aria-pressed="false"><span class="sd-code" data-sd-word="offer2">OFFER B</span><svg class="sd-product sd-product-b" aria-hidden="true" viewBox="0 0 128 96"><use href="#sd-headphones"/></svg><strong dir="ltr">€24.00</strong><span class="sd-shipping" data-sd-word="inc">Delivery included</span></button>
+    </div>
+    <div class="sd-deal-checks">
+      <span><svg aria-hidden="true" viewBox="0 0 32 28"><path d="M7 10h18l1 15H6zM12 11V8a4 4 0 0 1 8 0v3"/></svg><b data-sd-word="item">Item</b></span>
+      <span><svg aria-hidden="true" viewBox="0 0 32 28"><path d="M2 7h17v13H2zm17 5h6l4 5v4H19M5 22a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0m16 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0"/></svg><b data-sd-word="delivery">Delivery</b></span>
+      <span><svg aria-hidden="true" viewBox="0 0 32 28"><path d="m16 2 10 4v7c0 7-6 11-10 13-4-2-10-6-10-13V6zm-4 12 3 3 6-7"/></svg><b data-sd-word="sourceCheck">Source</b></span>
+    </div>
+    <div class="sd-bill"><span data-sd-word="budget">Your budget</span><strong dir="ltr">€25.00</strong></div>
+    <button type="button" class="sd-result-btn" data-check-deal><span data-sd-deal-msg>Compare totals</span><span aria-hidden="true">↗</span></button>
+    <span class="sd-sr" data-sd-announcement aria-live="polite"></span>
+  </div>
+  <div class="sd-chip-scene" id="sd-demo-governance" data-demo="1" role="group" hidden>
+    <div class="sd-socket"><div class="sd-socket-grid"></div><i class="sd-rail sd-r1"></i><i class="sd-rail sd-r2"></i><i class="sd-rail sd-r3"></i><i class="sd-rail sd-r4"></i><div class="sd-chip"><span class="sd-chip-label">GRC</span><span class="sd-chip-pins" aria-hidden="true">•••</span><strong dir="ltr">SundAI</strong><small dir="ltr">AI · 42001<br>REV 02 / EU</small></div></div>
+    <button type="button" class="sd-chip-action" data-governance><span class="sd-tiny-led" aria-hidden="true"></span><span data-sd-gov-msg>Review a decision</span><span aria-hidden="true">↗</span></button>
+  </div>
+  <div class="sd-rag-scene" id="sd-demo-assistant" data-demo="2" role="group" hidden>
+    <div class="sd-rag-stack" aria-hidden="true"><div></div><div></div></div>
+    <div class="sd-rag-panel">
+      <div class="sd-rag-top"><b>RAG</b><i class="sd-tiny-led"></i></div>
+      <strong data-sd-word="ragTitle">Ask your knowledge</strong><p data-sd-word="ragQuestion">Who approves a refund?</p>
+      <div class="sd-source"><svg aria-hidden="true"><use href="#sd-doc-icon"/></svg><span data-sd-word="ragSource">Refund policy · §2</span><span aria-hidden="true">↗</span></div>
+      <button type="button" data-source><span data-sd-source-msg>Inspect source</span><span aria-hidden="true">↗</span></button>
+    </div>
+  </div>
+</div>
