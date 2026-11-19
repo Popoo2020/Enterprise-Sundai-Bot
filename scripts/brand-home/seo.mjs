@@ -1,7 +1,8 @@
 import { courseTopics, locales, searchCopy } from './search-copy.mjs';
 const origin = 'https://sundaibot.com';
 const escape = value => value.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-const text = value => value.replaceAll('&amp;','&').replaceAll('&quot;','"').replaceAll('&#39;',"'").replaceAll('&lt;','<').replaceAll('&gt;','>');
+const entities = {'&amp;':'&','&quot;':'"','&#39;':"'",'&lt;':'<','&gt;':'>'};
+const text = value => value.replace(/&(?:amp|quot|#39|lt|gt);/g, entity => entities[entity]);
 const urlFor = (lang,parts) => origin + '/' + [...(lang==='en'?[]:[lang]),...parts].map(s=>s+'/').join('');
 export function optimisePage(html, route, isPublic = false) {
   const parts = route.split('/').filter(Boolean);

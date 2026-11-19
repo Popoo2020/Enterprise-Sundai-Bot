@@ -46,7 +46,7 @@ test('rendered pages use their requested language and have working local links',
       titles.add(title);
       assert.doesNotMatch(html, /__(?:PDF_[A-Z_]+|PHOTO_[A-Z_]+|COURSE_[A-Z_]+|SERVICE_[A-Z_]+|WORKFLOW_PLANNER_URL|SUNDAI_LOGO)__/, route);
       assert.doesNotMatch(html, /\son(?:click|load|error|mouseover)=|\sstyle=["']|<style\b/i, route + ' inline style/event');
-      for (const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+      for (const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)) {
         if (script[2].trim() && !/type=["']application\/ld\+json["']/i.test(script[1])) {
           assert.fail(route + ' executable inline script violates the site CSP');
         }
