@@ -60,14 +60,13 @@ test('rendered pages use their requested language and have working local links',
         assert.ok(hrefs(html).includes('https://sundaibot.com' + (locale === 'he' || locale === 'en' ? '/' : '/' + locale + '/') + 'book/'), route + ' existing online booking form');
         for (const topic of [...courseSlugs, ...serviceSlugs]) assert.ok(html.includes('value="' + topic + '"'), route + ' missing topic ' + topic);
       } else if (!slug) {
-        for (const id of ['schools','organisations','courses','evidence','sd-demo-automation','sd-demo-school','sd-demo-governance']) {
+        for (const id of ['schools','organisations','courses','evidence','sd-demo-school','sd-demo-governance','sd-demo-assistant']) {
           assert.ok(ids.has(id), route + ' missing section or interactive demo ' + id);
         }
-        assert.ok(hrefs(html).includes(routeFor(locale, 'intro-call') + '?topic=secure-ai-automation&via=hero'), route + ' hero workflow enquiry');
-        const hero = html.slice(html.indexOf('<section class="fr-landing"'),html.indexOf('<div class="fr-ribbon">'));
-        assert.ok(hero.includes('href="#schools"'), route + ' hero schools link');
-        assert.ok(hero.indexOf('id="sd-demo-automation"') < hero.indexOf('id="sd-demo-school"'), route + ' automation is the initial example');
-        assert.doesNotMatch(hero, /€19\.90|€26\.00|sd-demo-assistant/);
+        const schoolDemo = html.slice(html.indexOf('id="sd-demo-school"'), html.indexOf('id="sd-demo-governance"'));
+        assert.match(schoolDemo, /src="\/assets\/brand-home\/balloon-source\.webp"/, route);
+        assert.match(schoolDemo, /data-reveal-frame[^>]*aria-expanded="false"/, route);
+        assert.doesNotMatch(schoolDemo, /data-offer|headphones|€/, route);
         const catalogue = html.match(/<section[^>]+id=["']organisations["'][^>]*>([\s\S]*?)<\/section>/i)?.[1];
         assert.ok(catalogue, route + ' missing organisation catalogue');
         for (const service of serviceSlugs) {

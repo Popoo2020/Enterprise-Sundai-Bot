@@ -17,8 +17,8 @@
 .os-page:lang(he) .os-copy h1{letter-spacing:-.052em;line-height:1.03}
 .os-page .os-lead{margin-block:clamp(21px,2.15vw,33px) 23px;max-width:47ch;font-size:clamp(17px,1.44vw,23px);line-height:1.45;color:#e8e7eb;letter-spacing:-.012em}
 .os-page:lang(he) .os-lead{letter-spacing:0;line-height:1.55}
-.os-go{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:14px 19px;min-height:49px;color:#fff;background:var(--brand-blue,#5143eb);border:1px solid #5976d7;border-radius:4px;font-size:16px;font-weight:580;transition:background .18s,transform .18s}
-.os-go:hover{background:var(--brand-hover,#4035ba);transform:translateY(-2px)}
+.os-go{display:inline-flex;align-items:center;justify-content:center;gap:15px;padding:14px 19px;min-height:49px;color:#fff;background:#2563ec;border:1px solid #5976d7;border-radius:4px;font-size:16px;font-weight:580;transition:background .18s,transform .18s}
+.os-go:hover{background:#4064d9;transform:translateY(-2px)}
 .os-arrow{flex:none;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 [dir=rtl] .os-arrow{transform:scaleX(-1)}
 .os-note{margin-block-start:10px;font-size:13px;color:#bcbcc5}
