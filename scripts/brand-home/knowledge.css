@@ -16,3 +16,15 @@
 .kn-reading h2{font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.2;margin:0 0 .65rem}.kn-reading section{margin:2rem 0}
 .kn-reading p{margin:0}.kn-reading aside{background:#e2e9ff;border-inline-start:4px solid #4564c9;padding:1.4rem 1.55rem;margin:2rem 0}.kn-reading nav a{display:block;width:fit-content;padding:.45rem 0}
 @media(max-width:700px){.kn-section{width:calc(100% - 36px)}.kn-articles,.kn-faq{grid-template-columns:1fr;gap:1.2rem}.kn-faq{padding-block:48px}}
+.kn-hub h1{max-width:19ch;margin:1.5rem 0 1rem;font-size:clamp(2.6rem,5.5vw,5.5rem);line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.kn-hub header p{max-width:66ch}
+.kn-topics{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin:1.5rem 0 0}
+.kn-topics a,.kn-sources a{color:var(--brand-ink,#2646ae);text-underline-offset:.2em}
+.kn-topics a{padding-block:.4rem;font-weight:650}
+.kn-hub-group{padding-top:clamp(2.6rem,5vw,4.5rem);scroll-margin-top:4rem}
+.kn-hub-group h2{font-size:clamp(1.75rem,3.4vw,3.15rem);line-height:1.1}
+.kn-hub .kn-articles{row-gap:1.5rem;margin-bottom:.5rem}
+.kn-hub .kn-archive{display:inline-block;margin-top:2rem}
+.kn-reading .kn-byline{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;color:#50505a;font-size:.95rem;margin:.5rem 0 1.1rem}
+.kn-reading .kn-sources ul{padding-inline-start:1.2rem;line-height:1.6}
+.kn-sources a,.kn-hub article,.kn-reading article{overflow-wrap:break-word}

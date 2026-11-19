@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import {access, readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {articleSlugs, guides} from '../../scripts/brand-home/knowledge-data.mjs';
+import {buildReferencePreview} from '../../scripts/build-brand-preview.mjs';
 
 const repo = path.resolve(import.meta.dirname, '../..');
 const target = path.join(repo, 'dist/reference-preview');
@@ -31,7 +33,7 @@ test('rendered pages use their requested language and have working local links',
   for (const locale of languages) {
     const titles = new Set();
     const routes = [
-      ['',''], ['intro-call',''], ...['approve-before-sending','check-before-sharing','assistant-with-sources'].map(id=>['read',id]),
+      ['',''], ['intro-call',''], ['read',''], ...articleSlugs.map(slug=>['read',slug]),
       ...courseSlugs.map(slug => ['courses', slug]),
       ...serviceSlugs.map(slug => ['services', slug])
     ];
@@ -59,7 +61,7 @@ test('rendered pages use their requested language and have working local links',
         assert.ok(hrefs(html).some(link => link.startsWith('mailto:eririmo@protonmail.com?')), route + ' email draft');
         assert.ok(hrefs(html).includes('https://sundaibot.com' + (locale === 'he' || locale === 'en' ? '/' : '/' + locale + '/') + 'book/'), route + ' existing online booking form');
         for (const topic of [...courseSlugs, ...serviceSlugs]) assert.ok(html.includes('value="' + topic + '"'), route + ' missing topic ' + topic);
-      } else if (!slug) {
+      } else if (!section) {
         for (const id of ['schools','organisations','courses','evidence','sd-demo-school','sd-demo-governance','sd-demo-assistant']) {
           assert.ok(ids.has(id), route + ' missing section or interactive demo ' + id);
         }
@@ -72,12 +74,17 @@ test('rendered pages use their requested language and have working local links',
         for (const service of serviceSlugs) {
           assert.ok(hrefs(catalogue).includes(routeFor(locale, 'services', service)), route + ' organisation card ' + service);
         }
-        for (const [detailSection, detailSlug] of routes.filter(([, pageSlug]) => pageSlug)) {
+        assert.ok(hrefs(html).includes(routeFor(locale,'read')), route + ' guide hub link');
+        for (const [detailSection, detailSlug] of routes.filter(([section,pageSlug]) => section!=='read' && pageSlug)) {
           const destination = routeFor(locale, detailSection, detailSlug);
           assert.ok(hrefs(html).includes(destination), route + ' missing detail navigation ' + destination);
         }
       } else if (section === 'read') {
-        assert.ok(hrefs(html).includes(routeFor(locale)+'#articles'));
+        if (slug) {
+          assert.ok(hrefs(html).includes(routeFor(locale,'read')), route + ' backlink to the guide hub');
+        } else {
+          for (const guideSlug of articleSlugs) assert.ok(hrefs(html).includes(routeFor(locale,'read',guideSlug)), route+' article '+guideSlug);
+        }
         for (const other of languages) assert.ok(hrefs(html).includes(routeFor(other,'read',slug)));
       } else if (section === 'services') {
         assert.ok(hrefs(html).includes('/assets/brand-home/services.css'), route + ' missing service layout');
@@ -131,10 +138,16 @@ test('curricula PDFs retain the source bytes and existing services remain reacha
   }
 });
 
-test('redesign sitemap covers the 48 discovery pages and each page has reciprocal language alternatives', async () => {
+test('redesign sitemap covers all discovery pages and each page has reciprocal language alternatives', async () => {
   const xml = await readFile(path.join(target,'sitemap-sundai.xml'),'utf8');
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
-  assert.equal(new Set(urls).size,48);
+  const routes = languages.flatMap(lang=>[
+    routeFor(lang),routeFor(lang,'read'),
+    ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
+    ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),
+    ...serviceSlugs.map(slug=>routeFor(lang,'services',slug))
+  ]);
+  assert.deepEqual(urls.slice().sort(),routes.map(route=>'https://sundaibot.com'+route).sort());
   assert.ok(urls.every(url=>!url.includes('intro-call')));
   for(const url of urls){
     const html = await readFile(publicFile(new URL(url).pathname),'utf8');
@@ -150,5 +163,54 @@ test('redesign sitemap covers the 48 discovery pages and each page has reciproca
     assert.match(html,/<meta name="robots" content="noindex,follow">/);
     const entity=JSON.parse(html.match(/<script type="application\/ld\+json">([^<]*)<\/script>/)[1]);
     assert.equal(entity.url,url);
+  }
+});
+
+test('public guides have discoverable canonical pages, source links and accurate article metadata', async () => {
+  await buildReferencePreview(true);
+  const output = path.join(repo,'dist/brand-public');
+  const publicPage = route => readFile(path.join(output,route,'index.html'),'utf8');
+  const canonical = route => new URL(route,'https://sundaibot.com').href;
+  const nodes = html => [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map(match=>JSON.parse(match[1]));
+  const directory = JSON.parse(await readFile(path.join(output,'discovery.json'),'utf8'));
+  const llms = await readFile(path.join(output,'llms.txt'),'utf8');
+  const robots = await readFile(path.join(repo,'site/robots.txt'),'utf8');
+  const publicRobots = await readFile(path.join(output,'robots.txt'),'utf8');
+  assert.ok(publicRobots.startsWith(robots.trimEnd()), 'existing crawler policies and sitemap declarations');
+  assert.match(publicRobots,/^Sitemap: https:\/\/sundaibot\.com\/sitemap-sundai\.xml$/m);
+  for (const lang of languages) {
+    const hub = routeFor(lang,'read');
+    const entries = directory.practicalGuides[lang];
+    assert.equal(entries.hub,canonical(hub));
+    assert.ok(llms.includes(entries.hub));
+    const hubHtml = await publicPage(hub);
+    const feed = await readFile(path.join(output,hub,'feed.xml'),'utf8');
+    assert.ok(hubHtml.includes('type="application/rss+xml"') && hubHtml.includes('href="'+canonical(hub)+'feed.xml"'));
+    assert.ok(feed.includes('<language>'+lang+'</language>'));
+    const feedUrls = [...feed.matchAll(/<guid isPermaLink="true">([^<]+)<\/guid>/g)].map(match=>match[1]);
+    assert.deepEqual(feedUrls.sort(),guides.map(guide=>canonical(routeFor(lang,'read',guide.slug))).sort());
+    assert.deepEqual(await readFile(path.join(target,hub,'feed.xml'),'utf8'),feed);
+
+    assert.ok(nodes(hubHtml).some(node=>node['@type']==='CollectionPage' && node.url===entries.hub));
+    assert.match(hubHtml,/<meta name="robots" content="index,follow">/);
+    for (const guide of guides) {
+      const route = routeFor(lang,'read',guide.slug);
+      const url = canonical(route);
+      const html = await publicPage(route);
+      const schemas = nodes(html);
+      const article = schemas.find(node=>node['@type']==='Article');
+      const trail = schemas.find(node=>node['@type']==='BreadcrumbList');
+      assert.equal(article.headline,guide.text[lang].title,route);
+      assert.equal(article.inLanguage,lang,route);
+      assert.equal(article.mainEntityOfPage,url,route);
+      assert.equal(article.author.name,'SundAI',route);
+      assert.equal(article.datePublished,html.match(/<time\b[^>]*datetime="([^"]+)"/)?.[1],route);
+      assert.deepEqual(trail.itemListElement.map(item=>item.item),[canonical(routeFor(lang)),entries.hub,url],route);
+      assert.ok(entries.articles.some(entry=>entry.url===url && entry.title===article.headline),route);
+      assert.ok(llms.includes(url), route+' missing from plain-text directory');
+      assert.match(html,/<meta name="robots" content="index,follow">/);
+      for (const {url:source} of guide.sources) assert.ok(hrefs(html).includes(source),route+' missing reference '+source);
+    }
+    assert.match(await publicPage(routeFor(lang,'intro-call')),/<meta name="robots" content="noindex,follow">/);
   }
 });

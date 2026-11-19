@@ -1,4 +1,4 @@
-import { knowledge, articleSlugs } from './knowledge-data.mjs';
+import { knowledge, articleSlugs, guideIndex } from './knowledge-data.mjs';
 import { callCopy, callUrl, headerCall, topicKeys, callArrow } from './call.mjs';
 const locales = {
   en: {
@@ -54,7 +54,7 @@ const portal={
   sv:{base:'/sv/',training:'utbildning-forelasningar/',services:'tjanster/',guides:'free-guides/',trust:'tillit/',about:'om/',book:'book/',terms:'terms/'},
   da:{base:'/da/',training:'kurser-foredrag/',services:'ydelser/',guides:'free-guides/',trust:'tillid/',about:'om/',book:'book/',terms:'terms/'}
 };
-function menuData(locale,{innerPage=false,course='',service='',booking=false,article=''}={}){
+function menuData(locale,{innerPage=false,course='',service='',booking=false,article='',hub=false}={}){
   const lang=locales[locale]?locale:'en', w=locales[lang],base=lang==='en'?'/':'/'+lang+'/';
   const local = id=>(innerPage?base:'')+'#'+id;
   const publicPaths=portal[lang]||portal.en;
@@ -63,8 +63,8 @@ function menuData(locale,{innerPage=false,course='',service='',booking=false,art
   const schoolRows=[[w.youth,w.pupils,base+'courses/youth/'],[w.teach,w.teachers,base+'courses/teachers/']];
   const orgRows=[[w.auto,w.automation,serviceUrl('secure-ai-automation')],[w.gov,w.governance,serviceUrl('compliance-ai-governance')],[w.rag,w.knowledge,serviceUrl('private-ai-agents-rag')],[w.sec,w.security,serviceUrl('cloud-security')]];
   const articles=knowledge[lang];
-  const resourceRows=[[articles.articles,articles.articleIntro,local('articles')],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,live('guides')],[w.trust,w.trustSub,live('trust')],[w.about,w.aboutSub,live('about')]];
-  let suffix=booking?'intro-call/':'';
+  const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,live('guides')],[w.trust,w.trustSub,live('trust')],[w.about,w.aboutSub,live('about')]];
+  let suffix=hub?'read/':booking?'intro-call/':'';
   if(innerPage && articleSlugs.includes(article))suffix='read/'+article+'/';
   if(innerPage && courseSlugs.includes(course))suffix='courses/'+course+'/';
   if(innerPage && serviceSlugs.includes(service))suffix='services/'+service+'/';

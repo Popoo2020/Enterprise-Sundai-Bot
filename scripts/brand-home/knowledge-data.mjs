@@ -1,4 +1,46 @@
-export const articleSlugs = ['approve-before-sending','check-before-sharing','assistant-with-sources'];
+import { guidesWork } from './guides-work.mjs';
+import { guidesSchool } from './guides-school.mjs';
+import { guidesControls } from './guides-controls.mjs';
+
+export const guides = [...guidesWork, ...guidesSchool, ...guidesControls];
+export const legacyArticleSlugs = ['approve-before-sending','check-before-sharing','assistant-with-sources'];
+
+export const articleSlugs = [...legacyArticleSlugs, ...guides.map(guide => guide.slug)];
+
+export const guideIndex = {
+  en: {
+    title: 'Practical AI guides for teams and schools',
+    summary: 'Choose a workflow to automate, review the risks of an AI tool or plan a classroom workshop. Each guide includes an exercise you can try.',
+    browse: 'Browse all guides', navSummary: 'Workflow examples, classroom activities and AI governance guides.', topics: 'Browse by topic',
+    work: 'Automating everyday work', school: 'Teaching AI and digital literacy', governance: 'AI governance and security',
+    sources: 'Sources', byline: 'By SundAI', date: '19 November 2026', skip: 'Skip to content', home: 'Home',
+    services: {'services/secure-ai-automation/':'Secure AI automation for businesses','services/compliance-ai-governance/':'AI governance reviews','services/private-ai-agents-rag/':'Private AI assistants for teams','courses/teachers/':'AI workshops for teachers','courses/youth/':'AI and online safety workshops for schools','courses/hospital/':'AI training for hospital educators'}
+  },
+  he: {
+    title: 'מדריכי בינה מלאכותית לעסקים ולבתי ספר',
+    summary: 'איך בוחרים תהליך עסקי לאוטומציה, בודקים כלי AI לפני רכישה או מתכננים שיעור בכיתה? בכל מדריך תמצאו דוגמה ותרגיל שאפשר לנסות.',
+    browse: 'לכל המדריכים', navSummary: 'דוגמאות לאוטומציה, פעילויות לכיתה ומדריכים לממשל AI.', topics: 'בחירת נושא',
+    work: 'אוטומציה של משימות בעבודה', school: 'הוראת AI ואוריינות דיגיטלית', governance: 'ממשל AI ואבטחת מידע',
+    sources: 'מקורות', byline: 'מאת SundAI', date: '19 בנובמבר 2026', skip: 'דילוג לתוכן', home: 'דף הבית',
+    services: {'services/secure-ai-automation/':'אוטומציה מאובטחת לעסקים','services/compliance-ai-governance/':'בדיקת ממשל AI לארגונים','services/private-ai-agents-rag/':'עוזרי AI פרטיים לצוותים','courses/teachers/':'סדנאות AI לצוותי הוראה','courses/youth/':'סדנאות AI ובטיחות ברשת לבתי ספר','courses/hospital/':'הדרכת AI למדריכים בבתי חולים'}
+  },
+  sv: {
+    title: 'Praktiska AI-guider för företag och skolor',
+    summary: 'Välj ett arbetsflöde att automatisera, granska ett AI-verktyg före inköp eller planera en lektion i källkritik. Varje guide innehåller en övning att prova.',
+    browse: 'Se alla guider', navSummary: 'Arbetsflöden, lektionsupplägg och vägledning om AI-styrning.', topics: 'Välj ämne',
+    work: 'Automatisering i arbetsvardagen', school: 'AI och källkritik i skolan', governance: 'AI-styrning och informationssäkerhet',
+    sources: 'Källor', byline: 'Av SundAI', date: '19 november 2026', skip: 'Hoppa till innehållet', home: 'Startsidan',
+    services: {'services/secure-ai-automation/':'Säker AI-automatisering för företag','services/compliance-ai-governance/':'Granskning av AI-styrning','services/private-ai-agents-rag/':'Privata AI-assistenter för arbetsgrupper','courses/teachers/':'AI-fortbildning för lärare','courses/youth/':'AI och nätsäkerhet för skolor','courses/hospital/':'AI-utbildning för handledare på sjukhus'}
+  },
+  da: {
+    title: 'Praktiske AI-guides til virksomheder og skoler',
+    summary: 'Vælg en arbejdsgang til automatisering, vurdér et AI-værktøj før køb, eller planlæg en lektion i kildekritik. Hver guide indeholder en øvelse, I kan afprøve.',
+    browse: 'Se alle guides', navSummary: 'Arbejdsgange, undervisningsforløb og guides til AI-governance.', topics: 'Vælg emne',
+    work: 'Automatisering i hverdagen', school: 'AI og kildekritik i skolen', governance: 'AI-governance og informationssikkerhed',
+    sources: 'Kilder', byline: 'Af SundAI', date: '19. november 2026', skip: 'Gå til indholdet', home: 'Forsiden',
+    services: {'services/secure-ai-automation/':'Sikker AI-automatisering til virksomheder','services/compliance-ai-governance/':'Gennemgang af AI-governance','services/private-ai-agents-rag/':'Private AI-assistenter til teams','courses/teachers/':'AI-kurser for lærere','courses/youth/':'AI og sikkerhed på nettet for skoler','courses/hospital/':'AI-kursus for oplæringsansvarlige på hospitaler'}
+  }
+};
 
 export const knowledge = {
  he:{
