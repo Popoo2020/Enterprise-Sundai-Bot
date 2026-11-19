@@ -35,3 +35,12 @@ The registry's `tone: 'light'` means the supplied logo uses white ink and belong
 Each vendor retains its trademarks and asset rights. Brand assets are not licensed by SundAI. Follow the linked vendor guidelines. Microsoft architecture icons are provided under the Microsoft terms distributed with the official icon package; those terms are included as `Microsoft_Architecture_Icons_Terms.pdf`. Trivy's repository is Apache-2.0 for code; that does not grant trademark rights.
 
 These files replace previously drawn approximations with directly sourced official artwork. Other pre-existing files (`denmark-mfa.svg`, `ec-council.svg`) are not part of this technology registry and were not refreshed in this pass.
+
+## Nordic IT service provider examples
+
+These marks identify links to the companies' own service descriptions. Inclusion illustrates types of providers a prospective client may use and does not indicate a SundAI partnership or endorsement. Both official artworks were proportionally resized for local delivery with their colours and transparency retained.
+
+| File | Official artwork | Service referenced |
+| --- | --- | --- |
+| `advania-provider.png` | [Advania press images and logos](https://www.advania.com/newsroom/pictures-logos/), [primary digital logo](https://www.advania.com/library/content-assets/Digital%20Primary%20Logo.png?download=true) | [Cloud services and IT operations](https://www.advania.com/what-we-offer/) |
+| `eficode-provider.png` | [Eficode newsroom, press resources](https://www.eficode.com/newsroom), [official black logo asset](https://www.datocms-assets.com/202684/1782137462-eficode-logo-black-png.png) | [GitLab managed services](https://www.eficode.com/gitlab/managed-services) |

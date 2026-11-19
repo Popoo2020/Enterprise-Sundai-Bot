@@ -1,0 +1,17 @@
+.msp-section{background:#fff;color:#171820}
+.msp-inner{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);align-items:center;gap:clamp(1.75rem,5vw,5rem);padding-block:clamp(2rem,4vw,4rem);border-top:1px solid #dee1ec}
+.msp-copy h2{font-size:clamp(1.8rem,3vw,3.1rem);font-weight:600;line-height:1.09;letter-spacing:-.045em;text-wrap:balance}
+.msp-copy p{max-width:63ch;color:#454855;font-size:1rem;line-height:1.6}
+.msp-copy h2+p{margin-block-start:.75rem}
+.pc-sections .msp-call{display:inline-block;margin-block-start:.65rem;padding-block:.45rem;color:var(--brand-blue,#354fc9);font-weight:650;text-decoration:underline;text-underline-offset:.23em}
+.msp-examples h3{font-size:.9rem;line-height:1.5;font-weight:650}
+.msp-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin-block-start:.6rem}
+.msp-provider{display:flex;flex-direction:column;justify-content:space-between;gap:1rem;border:1px solid #dadde8;border-radius:14px;padding:1rem;background:#fff}
+.msp-provider:hover,.msp-provider:focus-visible{border-color:var(--brand-blue,#354fc9)}
+.msp-logo{display:flex;align-items:center;min-height:48px}
+.msp-logo img{display:block;object-fit:contain;max-width:100%;width:auto;height:44px}
+.msp-logo img[src$="eficode-provider.png"]{height:56px;margin-block:-6px}
+.msp-service{font-weight:550;font-size:.88rem;line-height:1.45}
+.msp-service span{display:inline-block;color:var(--brand-blue,#354fc9)}
+[dir=rtl] .msp-copy h2{letter-spacing:-.024em}
+@media(max-width:760px){.msp-inner{grid-template-columns:minmax(0,1fr);gap:1.3rem}.msp-provider{padding:.85rem;gap:.8rem}}

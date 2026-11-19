@@ -83,6 +83,16 @@ test('no preflight until interaction; request uses the existing API and exact le
   assert.equal(h.calls.length, 2, 'same successful request is not submitted twice');
 });
 
+test('Hebrew introductory calls accept just a name and reply address and await personal confirmation', async () => {
+  const h = harness({ lang: 'he' });
+  Object.assign(h.fields, { organisation: '', timezone: '', portfolio: '', interest: 'פיילוט לבית ספר', message: 'אשמח לשיחת היכרות של 20 דקות ללא עלות בנושא פיילוט לבית ספר.' });
+  assert.equal(h.form.dataset.contactReady, 'true');
+  await h.submit();
+  assert.match(h.status.textContent, /המועד ייקבע לאחר אישור אישי במייל/);
+  assert.match(JSON.parse(h.calls[1].options.body).message, /פיילוט לבית ספר/);
+  assert.equal(h.metrics[0].detail.event, 'enquiry_submitted');
+});
+
 test('unavailable security configuration fails closed without sending or metrics', async () => {
   const h = harness({ available: false });
   await h.submit();

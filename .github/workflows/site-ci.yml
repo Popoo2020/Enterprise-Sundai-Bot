@@ -117,3 +117,7 @@ jobs:
         run: node site/tests/check-commercial-funnel.mjs
       - name: Validate hero artwork quality
         run: node site/tests/check-hero-visual.mjs
+      - name: Build multilingual design preview and verify its routes
+        run: |
+          node scripts/build-upgrade.mjs --reference-preview
+          node --test site/tests/brand-preview.test.mjs
