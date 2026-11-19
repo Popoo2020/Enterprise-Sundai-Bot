@@ -2,7 +2,9 @@ import { guidesWork } from './guides-work.mjs';
 import { guidesSchool } from './guides-school.mjs';
 import { guidesControls } from './guides-controls.mjs';
 
-export const guides = [...guidesWork, ...guidesSchool, ...guidesControls];
+import { secureLlmGuide } from './secure-llm-guide.mjs';
+
+export const guides = [secureLlmGuide, ...guidesWork, ...guidesSchool, ...guidesControls];
 export const legacyArticleSlugs = ['approve-before-sending','check-before-sharing','assistant-with-sources'];
 
 export const articleSlugs = [...legacyArticleSlugs, ...guides.map(guide => guide.slug)];

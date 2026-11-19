@@ -1,0 +1,41 @@
+.lg-page ul{padding-inline-start:1.45rem;line-height:1.65;font-size:1.05rem}
+.lg-page li+li{margin-block-start:.6rem}
+.lg-download{padding:clamp(1.25rem,4vw,2.25rem);background:#e2e9ff;border-inline-start:4px solid #4564c9;scroll-margin-top:6rem}
+.lg-download form{display:grid;gap:1rem;max-width:42rem;margin-block:1.15rem}
+.lg-download label{display:grid;gap:.45rem;font-weight:600}
+.lg-download input[type=email]{padding:.75rem 1rem;border:1px solid #717b92;border-radius:.45rem;max-width:30rem;width:100%;background:#fff;color:#181922}
+.lg-download .lg-choice{display:flex;align-items:flex-start;gap:.65rem;font-weight:400;line-height:1.55}
+.lg-download input[type=checkbox]{flex:none;width:1.15rem;height:1.15rem;margin:.2rem 0 0;accent-color:#2446ac}
+.lg-download form p,.lg-download .lg-email,.lg-hub .lg-audience{font-size:.96rem;line-height:1.55}
+.lg-download [data-lead-status]:empty,.lg-download [data-lead-security]:empty{display:none}
+.lg-download [data-lead-security]{overflow:auto}
+.lg-download button,.lg-link{width:fit-content;cursor:pointer;display:inline-block;background:#253e8f;color:#fff;border:0;border-radius:1.5rem;padding:.7rem 1.2rem;font-weight:650}
+.lg-download button[hidden]{display:none}
+.lg-download button:disabled{opacity:.65}
+.lg-reference a,.lg-download a:not(.lg-link){color:#253e8f;text-decoration:underline;text-underline-offset:.2em}
+.lg-link{margin-block-start:.7rem}
+.lg-faq{margin-block:3rem 0;max-width:47rem}
+.lg-hub .lg-faq h2{font-size:clamp(1.45rem,2.6vw,2rem)}
+.lg-faq details{border-bottom:1px solid #c2c4ce}
+.lg-faq summary{padding-block:1rem;cursor:pointer;font-weight:600}
+.lg-faq details p{margin:0;padding-block-end:1rem;line-height:1.6}
+.lg-hub .lg-audience{color:#4a4c57}
+.lg-assessment > .kn-back{display:block;font-weight:650}
+.lg-assessment .growth-questions,.lg-assessment .data-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem}
+.lg-assessment label{display:grid;align-content:start;gap:.4rem;min-width:0;font-weight:600}
+.lg-assessment label .eyebrow{font-weight:450;color:#555968;margin:0}
+.lg-assessment :is(select,input,textarea){display:block;font:inherit;min-width:0;width:100%;border:1px solid #767d8e;border-radius:.5rem;background:#fff;color:#1a1c24;padding:.72rem .8rem}
+.lg-assessment textarea{resize:vertical}
+.lg-assessment .data-form .full{grid-column:1/-1}
+.lg-assessment :is([data-form-status],[data-turnstile]):empty{display:none}
+.lg-assessment [data-turnstile]{overflow:auto}
+.lg-assessment .button{width:fit-content;display:inline-block;border:1px solid #2c4392;border-radius:2rem;padding:.7rem 1.15rem;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;color:#fff;background:#253e8f}
+.lg-assessment .button.secondary{background:#fff;color:#253e8f}
+.lg-assessment .button:disabled{opacity:.65}
+.lg-assessment [data-security-check] button{margin-top:1.2rem}
+.lg-assessment .actions{display:flex;flex-wrap:wrap;gap:.65rem}
+.lg-assessment [data-check-result]{background:#e2e9ff;border-inline-start:4px solid #4564c9;margin-block:1.5rem;padding:1.25rem}
+.lg-assessment [data-check-result] h2{margin-top:0}
+.lg-assessment .data-form{margin-top:1.35rem}
+.lg-assessment [hidden]{display:none}
+@media(max-width:680px){.lg-assessment .growth-questions,.lg-assessment .data-form{grid-template-columns:minmax(0,1fr)}}

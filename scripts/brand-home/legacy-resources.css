@@ -1,0 +1,74 @@
+.lr-reading {
+  --line: #c7ccd9;
+  --paper: #f7f7fa;
+  background: var(--paper);
+  color: #15151a;
+  padding: clamp(32px, 5vw, 72px) 0 clamp(44px, 7vw, 96px);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+.lr-reading *, .lr-reading *::before, .lr-reading *::after { box-sizing: border-box; }
+.lr-reading > * { width: min(73rem, calc(100% - 48px)); margin-inline: auto; }
+.lr-reading > section, .lr-reading > article, .lr-reading > nav { margin-block: clamp(32px, 5vw, 68px) 0; }
+.lr-reading h1, .lr-reading h2, .lr-reading h3 { line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; }
+.lr-reading h1 { font-size: clamp(2.55rem, 6vw, 5.15rem); max-width: 19ch; margin: .5rem 0 1.05rem; }
+.lr-reading h2 { font-size: clamp(1.6rem, 3.2vw, 2.8rem); margin: 0 0 1rem; }
+.lr-reading h3 { font-size: 1.35rem; margin: 0 0 .5rem; }
+.lr-reading p { max-width: 76ch; margin: .5rem 0 1rem; }
+.lr-reading a { color: var(--brand-ink, #243d99); text-decoration: underline; text-underline-offset: .18em; }
+.lr-reading a:hover { color: #152968; }
+.lr-reading :is(.lr-trail,.eyebrow,.geo-eyebrow,.authority-kicker,.status-pill,.small,.microcopy,.source-note) { font-size: .9375rem; }
+.lr-reading :is(.eyebrow,.geo-eyebrow,.authority-kicker) { font-weight: 600; color: #334c90; }
+.lr-reading .authority-kicker { display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+.lr-reading :is(.page-intro,.authority-hero,.geo-hero,.buyer-hero) p:is(.dek,.lead,.geo-lead), .lr-reading .page-intro > p:last-child { font-size: clamp(1.175rem, 2vw, 1.4rem); color: #444650; }
+.lr-reading .lr-trail { display: flex; align-items: center; gap: .7rem; }
+.lr-reading .lr-trail a { font-weight: 600; }
+.lr-reading :is(.resource-grid,.deliverable-grid,.growth-grid,.decision-list,.acceptance-examples,.geo-proof) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15.7rem, 100%), 1fr));
+  gap: 1.5rem;
+}
+.lr-reading :is(.resource-card,.deliverable-card,.growth-card,.decision-list > article,.acceptance-examples > article,.geo-proof > article) {
+  padding-block: 1.1rem .35rem;
+  border-block-start: 3px solid var(--brand-blue, #2563ec);
+}
+.lr-reading .resource-card h2 { font-size: 1.45rem; margin: .4rem 0 .5rem; }
+.lr-reading .status-pill { color: #50505a; }
+.lr-reading :is(.notice,.answer-first,.geo-answer,.commercial-cta,.geo-cta-box,.ar-update) {
+  margin-block: 1.6rem;
+  border-inline-start: 4px solid #4564c9;
+  background: #e9efff;
+  padding: 1rem 1.3rem;
+}
+.lr-reading :is(.commercial-cta,.geo-cta-box) h2 { font-size: 1.6rem; }
+.lr-reading :is(.authority-body,.geo-section) :is(h2,h3) { margin-block-start: 1.4rem; }
+.lr-reading :is(.authority-body,.geo-section) .geo-proof h3 { margin-block-start: 0; }
+.lr-reading .authority-body > ul, .lr-reading .authority-body > ol { max-width: 76ch; }
+.lr-reading :is(.inline-actions,.matrix-controls,.buyer-jumps,.geo-sources,.growth-paths,.actions) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .65rem 1.15rem;
+  margin: 1rem 0;
+}
+.lr-reading :is(.inline-actions,.matrix-controls,.buyer-jumps,.geo-sources,.growth-paths,.actions) a,
+.lr-reading :is(.button,.geo-button) { font-weight: 600; }
+.lr-reading .lr-table-scroll { max-width: 100%; overflow-x: auto; margin: 1.25rem 0; }
+.lr-reading table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+.lr-reading th, .lr-reading td { padding: .7rem .85rem; border-block-end: 1px solid var(--line); text-align: start; vertical-align: top; min-width: 7rem; }
+.lr-reading thead { background: #e3eafa; color: #172853; }
+.lr-reading table caption { text-align: start; padding: 0 0 .7rem; }
+.lr-reading :is(.source-box,.buyer-sources,.lr-other) { border-block-start: 1px solid var(--line); padding-block-start: 1.4rem; }
+.lr-reading .procurement-list { list-style: none; padding: 0; }
+.lr-reading .procurement-list li { display: flex; gap: 1rem; padding: .75rem 0; border-block-start: 1px solid var(--line); }
+.lr-reading .card-number { color: #3b548c; font-weight: 650; font-variant-numeric: tabular-nums; }
+.lr-reading .lr-other ul { margin: 0; padding-inline-start: 1.25rem; }
+
+@media (max-width: 640px) {
+  .lr-reading > * { width: calc(100% - 36px); }
+  .lr-reading :is(.resource-grid,.deliverable-grid,.growth-grid,.decision-list,.acceptance-examples,.geo-proof) { gap: .9rem; }
+  .lr-reading .authority-table { min-width: 40rem; }
+  .lr-reading .comparison-table { min-width: 46rem; }
+}

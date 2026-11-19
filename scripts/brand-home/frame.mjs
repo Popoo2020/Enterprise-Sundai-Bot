@@ -1,3 +1,4 @@
+import { renderFrameworkStrip } from './framework-strip.mjs';
 import { knowledge, articleSlugs, guideIndex } from './knowledge-data.mjs';
 import { callCopy, callUrl, headerCall, topicKeys, callArrow } from './call.mjs';
 const locales = {
@@ -54,7 +55,7 @@ const portal={
   sv:{base:'/sv/',training:'utbildning-forelasningar/',services:'tjanster/',guides:'free-guides/',trust:'tillit/',about:'om/',book:'book/',terms:'terms/'},
   da:{base:'/da/',training:'kurser-foredrag/',services:'ydelser/',guides:'free-guides/',trust:'tillid/',about:'om/',book:'book/',terms:'terms/'}
 };
-function menuData(locale,{innerPage=false,course='',service='',booking=false,article='',hub=false}={}){
+function menuData(locale,{innerPage=false,course='',service='',booking=false,article='',hub=false,languagePaths=null}={}){
   const lang=locales[locale]?locale:'en', w=locales[lang],base=lang==='en'?'/':'/'+lang+'/';
   const local = id=>(innerPage?base:'')+'#'+id;
   const publicPaths=portal[lang]||portal.en;
@@ -63,14 +64,16 @@ function menuData(locale,{innerPage=false,course='',service='',booking=false,art
   const schoolRows=[[w.youth,w.pupils,base+'courses/youth/'],[w.teach,w.teachers,base+'courses/teachers/']];
   const orgRows=[[w.auto,w.automation,serviceUrl('secure-ai-automation')],[w.gov,w.governance,serviceUrl('compliance-ai-governance')],[w.rag,w.knowledge,serviceUrl('private-ai-agents-rag')],[w.sec,w.security,serviceUrl('cloud-security')]];
   const articles=knowledge[lang];
-  const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,live('guides')],[w.trust,w.trustSub,live('trust')],[w.about,w.aboutSub,live('about')]];
+  const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,base+'free-guides/'],[w.trust,w.trustSub,live('trust')],[w.about,w.aboutSub,live('about')]];
   let suffix=hub?'read/':booking?'intro-call/':'';
   if(innerPage && articleSlugs.includes(article))suffix='read/'+article+'/';
   if(innerPage && courseSlugs.includes(course))suffix='courses/'+course+'/';
   if(innerPage && serviceSlugs.includes(service))suffix='services/'+service+'/';
   const languageLinks=Object.entries(nativeNames).map(([key,name])=>{
     const stem=key==='en'?'/':'/'+key+'/';
-    return '<a href="'+stem+suffix+'" lang="'+key+'" hreflang="'+key+'" '+(key===lang?'aria-current="true"':'')+'>'+name+'<span>'+key.toUpperCase()+'</span></a>';
+    const target=languagePaths ? languagePaths[key] : stem+suffix;
+    if (!target) return '';
+    return '<a href="'+target+'" lang="'+key+'" hreflang="'+key+'" '+(key===lang?'aria-current="true"':'')+'>'+name+'<span>'+key.toUpperCase()+'</span></a>';
   }).join('');
   return {w,base,local,live,schoolRows,orgRows,resourceRows,languageLinks,lang,topic:course||service||'general',booking};
 }
@@ -101,6 +104,6 @@ export function renderFooter(locale='en',options={}){
     ? choice('schools',c.school,c.schoolLine)+choice('organisations',c.org,c.orgLine)
     : choice(d.topic,c.cta,c.footnote);
   const description=d.topic==='general'?c.footer:c.outcomes[topicKeys.indexOf(d.topic)];
-  const section=d.booking?'':'<section class="fr-close" id="intro-conversation"><div class="fr-close-inner"><div><h2>'+c.title+'</h2><p>'+description+'</p></div><div class="fr-choices">'+choices+'</div></div></section>';
-  return '<footer class="fr-footer">'+section+'<div class="fr-base"><div class="fr-base-row"><a class="fr-brand" href="'+d.base+'" aria-label="SundAI"><img src="/assets/sundai-wordmark-dark.svg" alt="SundAI" width="500" height="117"></a><div class="fr-footer-nav"><a href="'+d.local('schools')+'">'+w.schools+'</a><a href="'+d.local('organisations')+'">'+w.org+'</a><a href="'+d.local('courses')+'">'+w.four+'</a><a href="'+d.local('evidence')+'">'+w.work+'</a><a href="'+d.live('about')+'">'+w.about+'</a></div><a class="fr-back" href="#fr-top">'+w.toTop+' ↑</a></div><div class="fr-legal"><span>© 2026 SundAI · '+w.legalName+'</span><div><a href="https://sundaibot.com/privacy.html">'+w.privacy+'</a><a href="'+d.live('terms')+'">'+w.terms+'</a><a href="https://sundaibot.com/accessibility.html">'+w.a11y+'</a></div></div></div></footer>';
+  const section=d.booking || options.showClose===false ? '' :'<section class="fr-close" id="intro-conversation"><div class="fr-close-inner"><div><h2>'+c.title+'</h2><p>'+description+'</p></div><div class="fr-choices">'+choices+'</div></div></section>';
+  return '<footer class="fr-footer">'+section+'<div class="fr-base">'+renderFrameworkStrip(d.lang)+'<div class="fr-base-row"><a class="fr-brand" href="'+d.base+'" aria-label="SundAI"><img src="/assets/sundai-wordmark-dark.svg" alt="SundAI" width="500" height="117"></a><div class="fr-footer-nav"><a href="'+d.local('schools')+'">'+w.schools+'</a><a href="'+d.local('organisations')+'">'+w.org+'</a><a href="'+d.local('courses')+'">'+w.four+'</a><a href="'+d.local('evidence')+'">'+w.work+'</a><a href="'+d.live('about')+'">'+w.about+'</a></div><a class="fr-back" href="#fr-top">'+w.toTop+' ↑</a></div><div class="fr-legal"><span>© 2026 SundAI · '+w.legalName+'</span><div><a href="https://sundaibot.com/privacy.html">'+w.privacy+'</a><a href="'+d.live('terms')+'">'+w.terms+'</a><a href="https://sundaibot.com/accessibility.html">'+w.a11y+'</a></div></div></div></footer>';
 }
