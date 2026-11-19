@@ -1,6 +1,6 @@
 @font-face{font-family:Sora;src:url("/assets/fonts/sora-latin.woff2") format("woff2");font-weight:100 900;font-display:swap}
 @font-face{font-family:Manrope;src:url("/assets/fonts/manrope-latin.woff2") format("woff2");font-weight:200 900;font-display:swap}
-:root{--ink:#0b0c0e;--night:#101113;--surface:#24232a;--paper:#fff;--line:#d9dadd;--muted:#50505b;--accent:#94abff;--action:var(--brand-blue,#5143eb);--accent-pale:#ced7f9;--title:Sora,Arial,"Noto Sans Hebrew",sans-serif;--body:Manrope,Arial,"Noto Sans Hebrew",sans-serif}
+:root{--ink:#0b0c0e;--night:#101113;--surface:#24232a;--paper:#fff;--line:#d9dadd;--muted:#50505b;--accent:#94abff;--action:#2563ec;--accent-pale:#ced7f9;--title:Sora,Arial,"Noto Sans Hebrew",sans-serif;--body:Manrope,Arial,"Noto Sans Hebrew",sans-serif}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:500 1rem/1.58 var(--body);overflow-wrap:break-word}
 .course-teachers{--accent:#83baff;--accent-pale:#c2dfff}

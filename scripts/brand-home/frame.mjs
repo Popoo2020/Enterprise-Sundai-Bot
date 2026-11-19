@@ -8,7 +8,7 @@ const locales = {
     auto:'Secure AI Automation', automation:'Measure staff time and AI cost per enquiry.', rag:'Private AI assistants', knowledge:'Get an answer with the source and access controls.',
     guides:'Free guides', guidesSub:'Practical resources you can use before a project.', trust:'Evidence & trust', trustSub:'Inspect the work, the platform choices and the methods.',
     about:'About SundAI', aboutSub:'Meet the people behind the training and project work.', menu:'Menu', language:'Language', pilot:'School pilot', talk:'Talk to us', nav:'Main navigation',
-    studentEg:'The student project', studentLine:'Would you share this clip?', studentLink:'See the school programmes', orgEg:'From our work', orgLine:'From the kitchen to the workflow.', orgLink:'Explore our work',
+    studentEg:'The student project', studentLine:'Which offer really costs less?', studentLink:'See the school programmes', orgEg:'From our work', orgLine:'From the kitchen to the workflow.', orgLink:'Explore our work',
     footerH:'What would you like to try?',footerP:'Start with one class or bring one real workflow. We’ll help you pick a useful first step.',
     schoolLong:'A pilot for my school',orgLong:'A call about my organisation',pilotSub:'90 minutes with one group.',callSub:'A free 20-minute fit call.', privacy:'Privacy',terms:'Terms',a11y:'Accessibility',toTop:'Back to top',four:'Four programmes', legalName:'Operated by RIIMON HOLDINGS LTD', begin:'Skip to navigation destination'
   },
@@ -19,7 +19,7 @@ const locales = {
     auto:'אוטומציה מאובטחת עם AI',automation:'מודדים זמן עבודה ועלות AI לכל פנייה.',rag:'עוזרי AI פרטיים',knowledge:'מקבלים תשובה עם מקור לפי הרשאות המשתמש.',
     guides:'מדריכים ללא תשלום',guidesSub:'חומרי עבודה שאפשר להיעזר בהם כבר לפני תחילת הפרויקט.',trust:'ניסיון ושיטות עבודה',trustSub:'הכירו את הפרויקטים, הכלים ושיטות הבדיקה שלנו.',
     about:'אודות SundAI',aboutSub:'הכירו את מי שמוביל את ההדרכות והפרויקטים.',menu:'תפריט',language:'שפה',pilot:'פיילוט לבית ספר',talk:'שיחת היכרות',nav:'ניווט ראשי',
-    studentEg:'פרויקט התלמידים',studentLine:'האם הייתם משתפים את הסרטון הזה?',studentLink:'למסלולי בתי הספר',orgEg:'מהעבודה שלנו',orgLine:'מהמטבח לתהליך עבודה אוטומטי.',orgLink:'לפרויקט לדוגמה',
+    studentEg:'פרויקט התלמידים',studentLine:'איזו הצעה באמת זולה יותר?',studentLink:'למסלולי בתי הספר',orgEg:'מהעבודה שלנו',orgLine:'מהמטבח לתהליך עבודה אוטומטי.',orgLink:'לפרויקט לדוגמה',
     footerH:'מה תרצו לנסות?',footerP:'אפשר להתחיל מכיתה אחת או להביא תהליך עבודה מהארגון. יחד נבחר צעד ראשון ששווה לבדוק.',
     schoolLong:'פיילוט לבית הספר שלנו',orgLong:'שיחת היכרות לארגון שלנו',pilotSub:'90 דקות עם קבוצה אחת.',callSub:'20 דקות, ללא תשלום.',privacy:'פרטיות',terms:'תנאי שימוש',a11y:'נגישות',toTop:'חזרה לראש העמוד',four:'ארבע תוכניות',legalName:'מופעל על ידי RIIMON HOLDINGS LTD',begin:'דלגו ליעד בתפריט'
   },
@@ -30,7 +30,7 @@ const locales = {
     auto:'Säker AI-automatisering',automation:'Mät arbetstid och AI-kostnad per ärende.',rag:'Privata AI-assistenter',knowledge:'Få svar med källhänvisningar och rätt behörigheter.',
     guides:'Kostnadsfria guider',guidesSub:'Praktiska underlag som ni kan använda redan före projektstart.',trust:'Erfarenhet och arbetssätt',trustSub:'Ta del av våra exempel, verktygsval och metoder.',
     about:'Om SundAI',aboutSub:'Möt personerna bakom utbildningarna och projekten.',menu:'Meny',language:'Språk',pilot:'Skolpilot',talk:'Kontakta oss',nav:'Huvudmeny',
-    studentEg:'Elevprojektet',studentLine:'Skulle ni dela det här klippet?',studentLink:'Utforska skolprogrammen',orgEg:'Från våra uppdrag',orgLine:'Från köket till arbetsflödet.',orgLink:'Utforska våra uppdrag',
+    studentEg:'Elevprojektet',studentLine:'Vilket erbjudande är egentligen billigast?',studentLink:'Utforska skolprogrammen',orgEg:'Från våra uppdrag',orgLine:'Från köket till arbetsflödet.',orgLink:'Utforska våra uppdrag',
     footerH:'Vad vill ni prova?',footerP:'Börja med en klass eller ta med ett konkret arbetsflöde. Tillsammans väljer vi ett första steg.',
     schoolLong:'En pilot för min skola',orgLong:'Ett samtal för min organisation',pilotSub:'90 minuter med en grupp.',callSub:'Ett kostnadsfritt samtal på 20 minuter.',privacy:'Integritet',terms:'Villkor',a11y:'Tillgänglighet',toTop:'Till sidans början',four:'Fyra program',legalName:'Drivs av RIIMON HOLDINGS LTD',begin:'Hoppa till menyval'
   },
@@ -41,7 +41,7 @@ const locales = {
     auto:'Sikker AI-automatisering',automation:'Mål arbejdstid og AI-omkostninger pr. sag.',rag:'Private AI-assistenter',knowledge:'Få svar med kilder og adgangskontrol.',
     guides:'Gratis vejledninger',guidesSub:'Praktisk materiale, I kan bruge allerede før et projekt.',trust:'Erfaring og metoder',trustSub:'Læs om vores projekter, værktøjer og arbejdsmetoder.',
     about:'Om SundAI',aboutSub:'Mød folkene bag undervisningen og projekterne.',menu:'Menu',language:'Sprog',pilot:'Skolepilot',talk:'Kontakt os',nav:'Hovedmenu',
-    studentEg:'Elevprojektet',studentLine:'Ville I dele dette klip?',studentLink:'Se skoleforløbene',orgEg:'Fra vores projekter',orgLine:'Fra køkkenet til arbejdsgangen.',orgLink:'Se vores projekter',
+    studentEg:'Elevprojektet',studentLine:'Hvilket tilbud er faktisk billigst?',studentLink:'Se skoleforløbene',orgEg:'Fra vores projekter',orgLine:'Fra køkkenet til arbejdsgangen.',orgLink:'Se vores projekter',
     footerH:'Hvad vil I afprøve?',footerP:'Start med én klasse, eller tag en konkret arbejdsgang med. Vi hjælper jer med at vælge første skridt.',
     schoolLong:'Et pilotforløb til min skole',orgLong:'En samtale for min organisation',pilotSub:'90 minutter med én gruppe.',callSub:'En gratis samtale på 20 minutter.',privacy:'Privatliv',terms:'Vilkår',a11y:'Tilgængelighed',toTop:'Til toppen',four:'Fire forløb',legalName:'Drives af RIIMON HOLDINGS LTD',begin:'Gå til menupunkt'
   }
@@ -78,7 +78,7 @@ const chevron='<i class="fr-caret" aria-hidden="true"></i>';
 function point(index){return '<i class="fr-point fr-pt-'+index+'" aria-hidden="true"><i></i></i>';}
 function rows(items){return items.map(([name,desc,url],i)=>'<a class="fr-entry" href="'+url+'">'+point(i)+'<span><strong>'+name+'</strong><small>'+desc+'</small></span></a>').join('');}
 function displayDemo(kind){
-  if(kind==='school')return '<div class="fr-picture fr-pic-project" aria-hidden="true"><div class="fr-project-window"><i></i><b>Teen Tech AI</b><strong>&lt;/&gt;</strong></div></div>';
+  if(kind==='school')return '<div class="fr-picture fr-pic-receipt" aria-hidden="true"><div class="fr-paper"><b>Teen Tech AI</b><i></i><i></i><div><s>€26.00</s><strong>€24.00</strong></div></div></div>';
   return '<div class="fr-picture fr-pic-chip" aria-hidden="true"><b>SundAI</b></div>';
 }
 function desktopMega(label,panel,kind,w,local){
