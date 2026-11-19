@@ -1,17 +1,13 @@
-/* The AI letters of the original wordmark supply the primary colour. */
-:root{--brand-blue:#2563ec;--brand-hover:#204fc3;--brand-ink:#243d99;--brand-light:#a9beff;--brand-pale:#e9efff;--brand-ring:#7098ff}
-.fr-title{letter-spacing:-.052em}
+/* Indigo actions and a lighter companion for dark surfaces. */
+:root{--brand-blue:#5143eb;--brand-hover:#4035ba;--brand-ink:#3831a7;--brand-light:#b7adff;--brand-pale:#eeecff;--brand-ring:#8276f7}
 .fr-purple,.fc-primary,.biz-actions .fr-action{background:var(--brand-blue);border-color:var(--brand-blue);color:#fff}
 .fr-purple:hover,.fc-primary:hover,.biz-actions .fr-action:hover{background:var(--brand-hover);color:#fff}
-.biz-grid .pc-service:hover,.kn-articles article:focus-within{border-color:var(--brand-blue);background:#f5f8ff}
+.biz-grid .pc-service:hover,.kn-articles article:focus-within{border-color:var(--brand-blue);background:#f6f5ff}
 .kn-articles h3 a:hover,.kn-archive,.kn-back,.kn-reading nav a{color:var(--brand-ink)}
 article,.pc-service,.fr-action,.fc-primary{scroll-margin-block-start:6rem}
 :focus-visible{outline:3px solid var(--brand-ring);outline-offset:3px}
-.fr-title{font-size:clamp(3rem,5.1vw,5.6rem);line-height:1.06}
-.fr-title .fr-mark{width:.72em;height:.72em}
 .kn-articles article{border-top-color:var(--brand-blue)}
 .kn-reading aside{border-inline-start-color:var(--brand-blue);background:var(--brand-pale)}
-@media(max-width:690px){.fr-title{font-size:clamp(2.2rem,8.2vw,3.5rem)}}
-.biz-grid .pc-service:nth-child(-n+2){border-block-start:3px solid var(--brand-blue);background:linear-gradient(160deg,#f2f6ff 0%,#fff 55%)}
-.biz-grid .pc-service:nth-child(-n+2):is(:hover,:focus-visible){border-color:var(--brand-blue);background:#f2f6ff}
+.biz-grid .pc-service:nth-child(-n+2){border-block-start:3px solid var(--brand-blue);background:linear-gradient(160deg,#f5f3ff 0%,#fff 55%)}
+.biz-grid .pc-service:nth-child(-n+2):is(:hover,:focus-visible){border-color:var(--brand-blue);background:#f5f3ff}
 .kn-faq details p a{color:var(--brand-ink);text-decoration:underline;text-underline-offset:.18em}
