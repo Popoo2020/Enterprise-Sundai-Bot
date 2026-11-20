@@ -137,4 +137,28 @@
   }
 
   document.querySelectorAll('[data-ew]').forEach(run);
+
+  // Web fonts can move the worksheet after the browser first follows its fragment.
+  if (document.location?.hash !== '#work-tool') return;
+  if (performance.getEntriesByType('navigation')[0]?.type !== 'navigate') return;
+  const initialJump = new AbortController();
+  for (const event of ['pointerdown', 'touchstart', 'wheel', 'keydown', 'hashchange', 'pagehide']) {
+    window.addEventListener(event, () => initialJump.abort(), {passive:true, signal:initialJump.signal});
+  }
+  window.addEventListener('pageshow', async event => {
+    if (event.persisted) return;
+    await document.fonts?.ready;
+    requestAnimationFrame(() => {
+      if (initialJump.signal.aborted) return;
+      initialJump.abort();
+      if (document.location.hash !== '#work-tool') return;
+      const tool = document.getElementById('work-tool');
+      const header = document.querySelector('.fr-header');
+      if (!tool || !header) return;
+      const top = tool.getBoundingClientRect().top;
+      if (top < header.getBoundingClientRect().bottom || top >= document.documentElement.clientHeight) {
+        tool.scrollIntoView({block:'start', behavior:'instant'});
+      }
+    });
+  }, {once:true, signal:initialJump.signal});
 })();

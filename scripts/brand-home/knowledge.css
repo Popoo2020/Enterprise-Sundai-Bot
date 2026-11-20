@@ -50,5 +50,6 @@
 .kn-refs{display:inline-block;white-space:nowrap;font-variant-numeric:tabular-nums}
 .kn-refs a{color:var(--brand-ink);text-underline-offset:.14em}
 .kn-reading :is(.kn-sources li,#work-tool){scroll-margin-block-start:.75rem}
+html:has(#work-tool:target){scroll-behavior:auto}
 .kn-featured a:focus-visible,.kn-reading :is(.kn-work-jump,.kn-work-call,.kn-refs a):focus-visible{outline:3px solid var(--brand-blue);outline-offset:3px}
 @media(max-width:700px){.kn-featured div{display:grid;gap:.15rem}.kn-featured a{justify-self:start}}
