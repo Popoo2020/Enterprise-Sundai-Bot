@@ -1,5 +1,7 @@
 export const beginners = {
   he: {
+    seoTitle: 'קורס בינה מלאכותית למתחילים – ללמוד בקצב שלך',
+    description: 'קורס AI למבוגרים שמתחילים מהצעד הראשון. עם אריאל רימון מתרגלים ניסוח הודעות, בדיקת תשובות ושמירה על הפרטיות בעזרת דוגמאות מחיי היום־יום.',
     title: 'AI בקצב שלך', label: 'קורס היכרות למבוגרים',
     lead: 'יש הודעה שקשה לנסח, או מכתב שהיית רוצה לקרוא בשפה פשוטה? נתחיל בדיוק שם. נפתח יחד שיחה ראשונה עם כלי AI, ננסה ניסוח אחר ונראה מה משתנה. יש זמן לשאלות ולתרגול חוזר.',
     who: 'למבוגרים בכל גיל, גם למי שפוגש בינה מלאכותית לראשונה בגיל מבוגר.',
@@ -13,6 +15,8 @@ export const beginners = {
     callHeading: 'מה היית רוצה לנסות בפעם הראשונה?', callOutcome: 'נבחר דוגמה אחת מחיי היום־יום ונחליט יחד איך יהיה לך נוח ללמוד.',
   },
   en: {
+    seoTitle: 'Beginner AI course for adults – learn at your own pace',
+    description: 'New to AI? Practise writing a message, checking an answer and keeping personal details private with Ariel Rimón. Four everyday topics at your own pace.',
     title: 'AI at your own pace', label: 'A first AI course for adults',
     lead: 'Is there a message you find hard to write, or a letter you wish were easier to read? Bring that idea. We’ll open an AI chat together, try a different way of asking and see what changes. There’s time to ask questions and try again.',
     who: 'Adults starting from scratch, including people trying AI for the first time later in life.',
@@ -26,6 +30,8 @@ export const beginners = {
     callHeading: 'What would you like to try first?', callOutcome: 'We’ll choose one everyday example and talk about how you like to learn.',
   },
   sv: {
+    seoTitle: 'AI-kurs för vuxna nybörjare – lär dig i din egen takt',
+    description: 'Nyfiken på AI? Med Ariel Rimón övar du på att skriva ett meddelande, kontrollera svar och skydda privata uppgifter. Fyra vardagliga teman i din egen takt.',
     title: 'AI i din egen takt', label: 'En första AI-kurs för vuxna',
     lead: 'Har du ett meddelande som är svårt att formulera eller ett brev som du skulle vilja få förklarat med enklare ord? Vi börjar där. Tillsammans öppnar vi en AI-chatt, provar att fråga på ett annat sätt och ser vad som händer. Du får tid att fråga och prova igen.',
     who: 'Vuxna som börjar från grunden, även den som vill prova AI för första gången senare i livet.',
@@ -39,6 +45,8 @@ export const beginners = {
     callHeading: 'Vad skulle du vilja prova först?', callOutcome: 'Vi väljer ett exempel ur din vardag och pratar om hur du helst vill lära dig.',
   },
   da: {
+    seoTitle: 'AI-kursus for voksne begyndere – lær i dit eget tempo',
+    description: 'Ny til AI? Sammen med Ariel Rimón øver du dig i at skrive en besked, tjekke et svar og passe på private oplysninger. Fire hverdagsemner i dit eget tempo.',
     title: 'AI i dit eget tempo', label: 'Et første AI-kursus for voksne',
     lead: 'Har du en besked, der er svær at skrive, eller et brev, du gerne vil have forklaret med enklere ord? Så begynder vi der. Vi åbner en AI-chat sammen, prøver at spørge på en anden måde og ser, hvad der sker. Du får tid til at spørge og prøve igen.',
     who: 'Voksne, der begynder helt fra bunden, også dem, der møder AI for første gang sent i livet.',

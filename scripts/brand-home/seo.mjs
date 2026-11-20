@@ -1,4 +1,4 @@
-import { courseTopics, locales, searchCopy } from './search-copy.mjs';
+import { locales, searchCopy } from './search-copy.mjs';
 import { guideIndex } from './knowledge-data.mjs';
 import { legacyGuideLabel } from './legacy-guides.mjs';
 const origin = 'https://sundaibot.com';
@@ -14,7 +14,7 @@ export function optimisePage(html, route, isPublic = false, languagePaths) {
   const [kind,slug] = parts;
   const info = searchCopy[lang];
   const course = kind==='courses';
-  const title = !kind ? info.home+' | SundAI' : course ? info.course[courseTopics.indexOf(slug)]+' | SundAI' : text(html.match(/<title>(.*?)<\/title>/s)[1]);
+  const title = !kind ? info.home+' | SundAI' : text(html.match(/<title>(.*?)<\/title>/s)[1]);
   const desc = !kind ? info.homeLead : text(html.match(/<meta name="description" content="([^"]*)"/)[1]);
   const localizedUrl = locale => languagePaths ? new URL(languagePaths[locale], origin).href : urlFor(locale,parts);
   const canonical = localizedUrl(lang);
@@ -29,7 +29,8 @@ export function optimisePage(html, route, isPublic = false, languagePaths) {
   }
   if (pageType==='CollectionPage') Object.assign(entity,{inLanguage:lang,publisher:org});
   if(pageType==='WebPage') Object.assign(entity,{inLanguage:lang,publisher:org});
-  if(pageType==='Course'||pageType==='Service') entity.provider=org;
+  if(pageType==='Course') Object.assign(entity, {inLanguage:lang, provider:org});
+  if(pageType==='Service') entity.provider=org;
   if(pageType==='Service') entity.mainEntityOfPage = {'@type':'WebPage','@id':canonical,inLanguage:lang};
   const alternatives = [...locales,'x-default'].map(l=>'<link rel="alternate" hreflang="'+l+'" href="'+localizedUrl(l==='x-default'?'en':l)+'">').join('');
   let breadcrumb = '';
