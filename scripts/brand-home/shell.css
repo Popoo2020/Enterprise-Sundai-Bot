@@ -70,3 +70,7 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-ribbon .fr-track-group img:is(.fr-gdansk,.fr-ely){background:white;border-radius:3px;padding:3px;max-height:none;height:44px}
 .fr-ribbon .fr-track-group img.fr-gdansk{width:64px}
 .fr-ribbon .fr-track-group img.fr-ely{width:155px}
+
+.fr-beginner-link{display:flex;align-items:center;min-height:44px;color:var(--brand-light,#a9beff);font-size:1rem;line-height:1.45;text-decoration:underline;text-underline-offset:.17em}
+.fr-beginner-link:is(:hover,:focus-visible){color:white}
+@media(max-width:760px){.fr-beginner-link{flex-basis:100%}}
