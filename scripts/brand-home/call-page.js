@@ -5,7 +5,7 @@
   const topic = document.getElementById('fc-topic');
   const teaching = document.getElementById('fc-teaching');
   const delivery = document.getElementById('fc-delivery');
-  const trainingTopics = new Set(['schools','teachers','youth','public','hospital']);
+  const trainingTopics = new Set(['schools','teachers','youth','public','hospital','beginners']);
   const when = document.getElementById('fc-time');
   const kickoff = document.getElementById('fc-kickoff');
   const earliest = document.getElementById('fc-earliest');
@@ -25,7 +25,7 @@
   const zoneLabel = document.getElementById('fc-zone');
   zoneLabel.textContent = zone ? cfg.zone + ' · ' + zone : '';
   const isProduction = location.protocol === 'https:' && ['sundaibot.com','www.sundaibot.com'].includes(location.hostname);
-  const otherInterests = new Set(['schools','organisations','teachers','youth','public','hospital','it-provider']);
+  const otherInterests = new Set(['schools','organisations','teachers','youth','public','hospital','beginners','it-provider']);
   const optionalTime = when.closest('details');
   topic.parentElement.hidden = false;
   optionalTime.hidden = false;

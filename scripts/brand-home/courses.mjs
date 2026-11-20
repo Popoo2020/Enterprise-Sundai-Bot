@@ -1,11 +1,13 @@
+import { beginners } from './beginners.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { courseTopics, searchCopy } from './search-copy.mjs';
 import { trainingLanguages } from './training-languages.mjs';
 import { callCopy, callUrl, topicKeys } from './call.mjs';
 import { renderHeader, renderFooter } from './frame.mjs';
-export const courseSlugs = ['youth', 'teachers', 'hospital', 'public'];
+export const courseSlugs = courseTopics;
 
 const pdfs = {
+  beginners: 'Beginners',
   youth: 'TeenTech',
   teachers: 'Teacher',
   hospital: 'Hospital',
@@ -20,6 +22,7 @@ const ui = {
 };
 
 const courses = {
+  beginners,
   youth: {
     he: {
       title:'הייתם משתפים את זה?', label:'Teen Tech AI', lead:'בדקו מי עומד מאחורי סרטון, גלו כמה באמת עולה המבצע ובנו אתר שעוזר לחבר לכיתה לקבל החלטה.',
@@ -159,7 +162,7 @@ const courses = {
 };
 
 const languages = { en:'English', he:'עברית', sv:'Svenska', da:'Dansk' };
-const symbols = { youth:'↗', teachers:'✳', hospital:'↔', public:'≋' };
+const symbols = { beginners:'✳', youth:'↗', teachers:'✳', hospital:'↔', public:'≋' };
 
 function escapeHtml(value) {
   const entities = { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' };
@@ -194,9 +197,10 @@ export function renderCourse(locale, slug) {
   const example = c.rows.map(([label,val]) => '<div><dt>' + escapeHtml(label) + '</dt><dd><bdi>' + escapeHtml(val) + '</bdi></dd></div>').join('');
   const skills = c.skills.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
   const units = c.units.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
+  const teacher = c.teacher ? '<div class="course-teacher"><h2>' + escapeHtml(c.teacherTitle) + '</h2><p>' + escapeHtml(c.teacher) + '</p></div>' : '';
   const guide = relatedGuide(lang, 'courses/' + slug + '/');
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');
   const direction = lang === 'he' ? 'rtl' : 'ltr';
-  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.title) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css"><script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + ' · ' + escapeHtml(c.title) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div><aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside></div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + t.skills + '</h2><ul class="skills">' + skills + '</ul></div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
+  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.title) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css"><script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div><aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside></div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + t.skills + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
 }

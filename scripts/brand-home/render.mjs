@@ -1,3 +1,4 @@
+import { beginners } from './beginners.mjs';
 import { resourcesSection } from './knowledge.mjs';
 import { businessSection } from './business.mjs';
 import { trainingLanguages } from './training-languages.mjs';
@@ -31,7 +32,9 @@ function chaptersFor(locale){
  const slugs={YOUTH:'youth',TEACHERS:'teachers',HOSPITAL:'hospital',PUBLIC:'public'};
  const pdfs={YOUTH:'TeenTech',TEACHER:'Teacher',HOSPITAL:'Hospital',PUBLIC:'PublicConsultation'};
  const plannerSection={en:'services',he:'services',sv:'sv/tjanster',da:'da/ydelser'}[locale];
- return chapters.replace('__TEACHING_LANGUAGES__', escape(trainingLanguages[locale].offer)).replace(/__COURSE_(\w+?)_URL__/g,(_,key)=>course(locale,slugs[key]))
+ const beginner = beginners[locale];
+ const beginnerRow = '<details class="pc-course"><summary><span><small>'+escape(beginner.label)+'</small><strong>'+escape(beginner.title)+'</strong></span><i aria-hidden="true"></i></summary><div class="pc-course-body"><p>'+escape(beginner.teaser)+'</p><a class="pc-course-link" href="'+course(locale,'beginners')+'">'+escape(beginner.details)+'</a></div></details>';
+ return chapters.replace('__BEGINNER_COURSE_ROW__', beginnerRow).replace('__TEACHING_LANGUAGES__', escape(trainingLanguages[locale].offer)).replace(/__COURSE_(\w+?)_URL__/g,(_,key)=>course(locale,slugs[key]))
    .replace(/__SERVICE_(\w+?)_URL__/g,(_,key)=>base(locale)+'services/'+key.toLowerCase().replaceAll('_','-')+'/')
    .replace('__WORKFLOW_PLANNER_URL__','https://sundaibot.com/'+plannerSection+'/secure-ai-automation/#planner')
    .replace(/__PHOTO_(SCHOOL|TEAM)__/g,(_,key)=>assetRoot+'photo_'+key.toLowerCase()+'.webp')
