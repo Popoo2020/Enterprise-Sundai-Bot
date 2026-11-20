@@ -10,11 +10,12 @@ export const automation = {
       ['A cost per enquiry', 'Track staff time, manual entries, input and output tokens, and model fees per case. Where your provider reports energy use, we can compare that too.']
     ],
     steps: [
-      ['Measure today’s process', 'Choose typical enquiries, time the manual steps and count how often staff re-enter the same information.'],
-      ['Connect and test', 'Agree permissions and approval points. Test a normal case, a duplicate and a failed request with the team.'],
-      ['Compare like with like', 'Time equivalent cases, including approval and corrections. Compare labour and running costs before deciding whether to expand.']
+      ['Measure today’s process', 'Choose one task with the founder or team. Record today’s handling time, the customer outcome and a budget that fits the product and its market. Agree in writing what the pilot delivers and what would justify a change.'],
+      ['Connect and test', 'Give the workflow only the access it needs. Set input and output token limits, a retry limit and a spending threshold. Test that it pauses for a person when it reaches a limit or a request fails.'],
+      ['Compare like with like', 'Compare similar completed requests, including time spent approving and correcting them. Review cost per accepted result and agree whether to stop, adjust or expand. You approve extra work and its price first.']
     ],
     scope: 'One workflow and up to two systems with documented APIs. Bring a typical request to the free call. We confirm the first available start, access requirements and pilot scope together.',
+    fieldNote: ['Why Ariel starts small', 'At Ariel’s Pizza in Odense, I built tools for shift planning, daily tasks and staff guidance. That experience shapes my first question for your pilot. Who will use the result on a busy day, and how will they know it is right?', 'Inside the Ariel’s Pizza project'],
     example: ['Example calculation', '8 staff hours per month', 'If 120 monthly enquiries each take four fewer minutes including approval, that frees eight staff hours. To estimate monthly net value, multiply those hours by your internal hourly cost. Deduct monthly model and maintenance costs and the monthly share of setup costs.']
   },
   he: {
@@ -28,11 +29,12 @@ export const automation = {
       ['עלות לכל פנייה', 'מודדים זמן, הזנות ידניות, טוקנים ועלות המודל לכל פנייה שטופלה. אם ספק התשתית מספק נתוני צריכת חשמל, אפשר להשוות גם אותם.']
     ],
     steps: [
-      ['מודדים את המצב הקיים', 'בוחרים פניות אופייניות, מודדים את משך השלבים הידניים וסופרים כמה פעמים העובדים מזינים מחדש את אותו המידע.'],
-      ['מחברים ובודקים', 'מגדירים הרשאות ונקודות אישור. בודקים עם הצוות פנייה רגילה, כפילות ובקשה שנכשלה.'],
-      ['משווים פניות דומות', 'מודדים גם את זמן האישור והתיקונים. משווים את עלות העבודה והתפעול לפני שמחליטים אם להרחיב את השימוש.']
+      ['מודדים את המצב הקיים', 'בוחרים עם היזם או הצוות משימה אחת. מתעדים את זמן הטיפול כיום, את התוצאה הנדרשת ללקוח ואת התקציב שמתאים למוצר ולשוק. מסכימים בכתב מה נמסור ובאילו תנאים נשקול שינוי.'],
+      ['מחברים ובודקים', 'נותנים לתהליך רק את ההרשאות הדרושות. מגבילים את כמות הטקסט שהמודל מקבל ומחזיר (טוקנים), את מספר הניסיונות החוזרים ואת ההוצאה. בודקים שהמערכת עוצרת ומעבירה לטיפול אנושי כשהיא מגיעה לסף או כשבקשה נכשלת.'],
+      ['משווים פניות דומות', 'משווים פניות דומות שהושלמו, כולל זמן הבדיקה והתיקונים. בוחנים כמה עלתה כל תוצאה שהצוות אישר ומחליטים אם לעצור, לשפר או להרחיב. כל תוספת עבודה ומחירה מובאות לאישורכם מראש.']
     ],
     scope: 'הפיילוט כולל תהליך אחד ועד שתי מערכות בעלות ממשקי API מתועדים. הביאו לשיחת ההיכרות דוגמה לפנייה. יחד נבדוק מתי אפשר להתחיל, אילו הרשאות נחוצות ומה נכלל בפיילוט.',
+    fieldNote: ['למה אני מתחיל במשימה אחת', 'ב־Ariel’s Pizza באודנסה בניתי כלים לתכנון משמרות, לניהול משימות ולהדרכת עובדים. משם אני מביא לפיילוט שלכם שאלה פשוטה. מי ישתמש בתוצאה ביום עמוס ואיך יידע שאפשר לסמוך עליה?', 'כך עבדנו ב־Ariel’s Pizza'],
     example: ['דוגמה לחישוב', '8 שעות עבודה בחודש', 'אם מטפלים ב־120 פניות בחודש וכל פנייה מתקצרת בארבע דקות, כולל זמן האישור, מתפנות שמונה שעות עבודה. כדי לאמוד את הערך החודשי נטו, מכפילים בעלות שעת עבודה ומפחיתים את הוצאות המודל והתחזוקה לחודש ואת החלק החודשי של עלות ההקמה.']
   },
   sv: {
@@ -46,11 +48,12 @@ export const automation = {
       ['Kostnad per ärende', 'Följ arbetstid, manuella inmatningar, tokenåtgång och modellkostnad per avslutat ärende. Om leverantören redovisar energianvändning kan den också jämföras.']
     ],
     steps: [
-      ['Mät nuläget', 'Välj typiska ärenden, ta tid på de manuella momenten och räkna hur ofta samma uppgifter matas in på nytt.'],
-      ['Koppla ihop och testa', 'Bestäm behörigheter och vad som kräver godkännande. Testa ett vanligt ärende, en dubblett och ett avbrott med teamet.'],
-      ['Jämför likvärdiga ärenden', 'Räkna in tid för kontroll och rättelser. Jämför arbets- och driftkostnader innan ni väljer om arbetssättet ska införas bredare.']
+      ['Mät nuläget', 'Välj en uppgift tillsammans med grundaren eller teamet. Skriv ner dagens handläggningstid, vilken nytta kunden ska få och en budget som passar produkten och marknaden. Enas skriftligen om leveransen och vad som skulle motivera en ändring.'],
+      ['Koppla ihop och testa', 'Ge arbetsflödet enbart nödvändig åtkomst. Sätt gränser för hur mycket text modellen får ta emot och ge tillbaka (token), för antalet nya försök och för kostnaden. Testa att flödet stannar för mänsklig bedömning vid en gräns eller ett fel.'],
+      ['Jämför likvärdiga ärenden', 'Jämför likvärdiga avslutade ärenden och räkna med tiden för kontroll och rättelser. Se vad ett godkänt resultat kostar och välj om ni vill avsluta, justera eller utöka. Ni godkänner tillägg och pris i förväg.']
     ],
     scope: 'Piloten omfattar ett arbetsflöde och högst två system med dokumenterade API:er. Ta med ett typiskt ärende till det kostnadsfria samtalet. Vi går igenom tidigaste start, åtkomst och omfattning.',
+    fieldNote: ['Därför börjar jag i liten skala', 'På Ariel’s Pizza i Odense byggde jag verktyg för schemaläggning, dagliga uppgifter och personalstöd. Den erfarenheten tar jag med till er pilot. Vem använder resultatet en stressig dag, och hur kan den personen kontrollera det?', 'Läs om arbetet på Ariel’s Pizza'],
     example: ['Räkneexempel', '8 arbetstimmar i månaden', 'Om 120 ärenden i månaden tar fyra minuter mindre vardera, inklusive godkännande, frigörs åtta arbetstimmar. Multiplicera med er interna timkostnad. Dra av månadens modell- och underhållskostnader samt månadens andel av startkostnaden för att uppskatta nettovärdet.']
   },
   da: {
@@ -64,11 +67,12 @@ export const automation = {
       ['Pris pr. sag', 'Følg arbejdstid, manuelle indtastninger, tokenforbrug og modeludgift pr. afsluttet sag. Hvis leverandøren oplyser energiforbruget, kan vi også sammenligne det.']
     ],
     steps: [
-      ['Mål den nuværende arbejdsgang', 'Vælg typiske sager, tag tid på de manuelle trin og tæl, hvor ofte de samme oplysninger indtastes igen.'],
-      ['Forbind og afprøv', 'Aftal adgang og godkendelser. Afprøv en typisk sag, en dublet og et driftsstop sammen med teamet.'],
-      ['Sammenlign tilsvarende sager', 'Medregn tid til godkendelse og rettelser. Sammenlign arbejds- og driftsomkostninger, før I beslutter, om løsningen skal udbredes.']
+      ['Mål den nuværende arbejdsgang', 'Vælg én opgave sammen med stifteren eller teamet. Notér den nuværende behandlingstid, kundens ønskede udbytte og et budget, der passer til produktet og markedet. Aftal skriftligt, hvad piloten skal levere, og hvornår en ændring giver mening.'],
+      ['Forbind og afprøv', 'Giv arbejdsgangen præcis den adgang, den kræver. Sæt grænser for tekst ind og ud af modellen (tokens), antal nye forsøg og forbrug. Test, at opgaven stopper og går videre til en medarbejder ved en fejl, eller når en grænse nås.'],
+      ['Sammenlign tilsvarende sager', 'Sammenlign ensartede afsluttede sager, inklusive tid til godkendelse og rettelser. Se prisen pr. godkendt resultat, og vælg, om I vil stoppe, justere eller udvide. I godkender ekstra arbejde og pris på forhånd.']
     ],
     scope: 'Piloten omfatter én arbejdsgang og højst to systemer med dokumenterede API’er. Tag en typisk henvendelse med til den gratis samtale. Vi afklarer tidligste opstart, adgang og omfang.',
+    fieldNote: ['Derfor begynder jeg med én opgave', 'Hos Ariel’s Pizza i Odense byggede jeg værktøjer til vagtplanlægning, daglige opgaver og vejledning af medarbejdere. Den erfaring tager jeg med til jeres pilot. Hvem skal bruge resultatet på en travl dag, og hvordan kan de tjekke det?', 'Se arbejdet hos Ariel’s Pizza'],
     example: ['Regneeksempel', '8 arbejdstimer om måneden', 'Hvis 120 henvendelser om måneden hver tager fire minutter mindre inklusive godkendelse, frigiver det otte arbejdstimer. Gang med jeres interne timepris. Træk månedens udgifter til model og vedligehold samt månedens andel af etableringsudgiften fra for at anslå nettoværdien.']
   }
 };

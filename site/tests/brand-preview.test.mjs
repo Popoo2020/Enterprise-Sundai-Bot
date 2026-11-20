@@ -13,13 +13,13 @@ const repo = path.resolve(import.meta.dirname, '../..');
 const target = path.join(repo, 'dist/reference-preview');
 const origin = 'https://preview.invalid';
 const languages = ['en','he','sv','da'];
-const courseSlugs = ['youth','teachers','hospital','public'];
+const courseSlugs = ['youth','teachers','hospital','public','beginners'];
 const serviceSlugs = ['compliance-ai-governance','cloud-security','secure-ai-automation','private-ai-agents-rag'];
 const workflowSlug = 'enterprise-ai-agents';
 const trustRoutes = {en:'/trust/', he:'/he/trust/', sv:'/sv/tillit/', da:'/da/tillid/'};
 const parentService = 'private-ai-agents-rag';
 const servicePages = [...serviceSlugs, workflowSlug];
-const syllabusKeys = ['TeenTech','Teacher','Hospital','PublicConsultation'];
+const syllabusKeys = ['TeenTech','Teacher','Hospital','PublicConsultation','Beginners'];
 const pdfName = (key, locale) => 'SundAI_' + key + '_Syllabus_' + locale.toUpperCase() + '.pdf';
 
 function hrefs(html) {

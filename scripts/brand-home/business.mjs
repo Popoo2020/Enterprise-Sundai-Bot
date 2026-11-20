@@ -5,7 +5,7 @@ import { callUrl } from './call.mjs';
 const serviceSlugs = ['secure-ai-automation','compliance-ai-governance','private-ai-agents-rag','cloud-security'];
 const copy = {
   he: {
-    title:"עודף עבודה ידנית? החלטה על כלי AI חדש?", lead:"לחברות של 10–100 עובדים ולמשרדי שירותים מקצועיים. בחרו תהליך שגוזל זמן או החלטה שדורשת בדיקת סיכונים.",
+    title:"עודף עבודה ידנית? החלטה על כלי AI חדש?", lead:"לפני הפיתוח מסכמים איתכם מה בונים, מה התקציב ואיך תדעו שזה עובד. בפיילוט אוטומציה בוחרים משימה אחת, קובעים גבולות שימוש ועלות ובודקים כמה עולה להשלים אותה, כולל הזמן של הצוות שלכם.",
     services:[
       ["אוטומציה מאובטחת עם AI", "הצוות מעתיק פניות מהמייל ל־CRM? מחברים בין המערכות ומכינים טיוטת תשובה שאדם מאשר לפני השליחה.", "מודדים דקות עבודה, הקלדה חוזרת ועלות AI לכל פנייה."],
       ["ממשל AI ובדיקת ספקים", "מנהלי IT, טכנולוגיה וציות מקבלים המלצה מנומקת לפני רכישת כלי, חיבור מערכת או מתן גישה לנתונים.", "Decision Review · בדיקה של החלטה אחת ב־<bdi>€490</bdi>."],
@@ -14,7 +14,7 @@ const copy = {
     ], call:"לתיאום שיחת היכרות חינם · 20 דקות", proof:'איך זה עובד ב־Ariel’s Pizza'
   },
   en: {
-    title:"Too much admin? An AI purchase to approve?", lead:"For professional services firms and teams of 10–100. Start with one task that takes too long or one AI decision that needs a second pair of eyes.",
+    title:"Too much admin? An AI purchase to approve?", lead:"Before we build, we agree with you on the scope, budget and what success looks like. For an automation pilot, we choose one task, set usage and spending limits and measure the cost to complete it, including your team’s time.",
     services:[
       ["Secure AI Automation", "Still copying enquiries from email to your CRM? Connect the two and give staff a draft reply to approve before sending.", "Track staff minutes, manual entries and AI cost per enquiry."],
       ["AI governance and vendor reviews", "IT leads, CTOs and compliance managers get a written recommendation before buying an AI tool, connecting systems or granting data access.", "Decision Review · €490 for one decision."],
@@ -23,7 +23,7 @@ const copy = {
     ], call:"Book a free 20-minute call", proof:'See the work at Ariel’s Pizza'
   },
   sv: {
-    title:"För mycket administration? Dags att köpa in AI?", lead:"För tjänsteföretag och team med 10–100 anställda. Välj ett moment som tar för lång tid eller ett AI-beslut som ni behöver underlag för.",
+    title:"För mycket administration? Dags att köpa in AI?", lead:"Före utvecklingen enas vi om uppdraget, budgeten och hur ni avgör om lösningen fungerar. För en automationspilot väljer vi en uppgift, sätter gränser för användning och kostnad och mäter vad en slutförd uppgift kostar, inklusive er arbetstid.",
     services:[
       ["Säker AI-automatisering", "Kopierar ni kundärenden från mejlen till ert CRM? Vi kopplar ihop systemen och låter en medarbetare godkänna svaret före utskick.", "Mät arbetstid, manuella inmatningar och AI-kostnad per ärende."],
       ["AI-styrning och leverantörsgranskning", "IT-chefer, teknikchefer och ansvariga för regelefterlevnad får en skriftlig rekommendation inför inköp, integration eller åtkomst till data.", "Decision Review · 490 € för ett beslut."],
@@ -32,7 +32,7 @@ const copy = {
     ], call:"Boka ett kostnadsfritt samtal på 20 minuter", proof:'Se arbetet på Ariel’s Pizza'
   },
   da: {
-    title:"For meget administration? Skal I købe et AI-værktøj?", lead:"Til rådgivningsvirksomheder og teams med 10–100 ansatte. Vælg en opgave, der tager for lang tid, eller en AI-beslutning, som I har brug for at få belyst.",
+    title:"For meget administration? Skal I købe et AI-værktøj?", lead:"Før vi bygger, aftaler vi opgaven, budgettet og hvordan I vil vurdere resultatet. I en pilot vælger vi én arbejdsgang, sætter grænser for brug og udgifter og måler prisen pr. afsluttet opgave, inklusive jeres arbejdstid.",
     services:[
       ["Sikker AI-automatisering", "Kopierer I henvendelser fra mail til CRM? Vi forbinder systemerne og lader en medarbejder godkende svaret, før det sendes.", "Mål arbejdstid, manuelle indtastninger og AI-udgift pr. sag."],
       ["AI-styring og leverandørvurdering", "IT-chefer, teknologichefer og complianceansvarlige får en skriftlig anbefaling før et indkøb, en integration eller en godkendelse af dataadgang.", "Decision Review · 490 € for én beslutning."],
