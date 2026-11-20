@@ -33,7 +33,7 @@ export const secureLlmGuide = {
       exercise: 'At your next release meeting, give the sponsor the cost per completed case and the security lead the access-test results. Record the decision to launch, narrow the scope or pause, with an owner and a review date.'
     },
     he: {
-      title: 'איך מטמיעים מודל שפה בארגון ומונעים דליפת מידע?',
+      title: 'איך מטמיעים מודל שפה בארגון ומצמצמים את הסיכון לדליפת מידע?',
       summary: 'לפני שמחברים מודל שפה לנתוני לקוחות, כדאי לבדוק מי רשאי לראות כל פרט וכמה זמן באמת נחסך. פיילוט במוקד החזרות מדגים איך עושים זאת ומה בודקים באבטחת ה־API.',
       sections: [
         ['ממשל AI מתחיל בהחלטה אחת של ההנהלה', 'לקוחה שואלת אם היא יכולה להחזיר מוצר. כדי לנסח תשובה, עוזר השירות צריך את פרטי המוצר, תאריך הקנייה ומדיניות ההחזרות. הנציגה בודקת את הזכאות, שולחת את התשובה ומאשרת זיכוי במידת הצורך. תקן ISO/IEC 42001 עוסק בניהול מערכות AI לאורך חייהן. בפיילוט כזה אפשר ליישם את העיקרון באמצעות חלוקת אחריות ברורה.', [

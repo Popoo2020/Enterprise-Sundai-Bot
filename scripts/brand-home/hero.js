@@ -12,8 +12,8 @@
     },
     he:{
       pills:['AI לבתי ספר','ממשל AI ותקינה','עוזרי AI פרטיים'],group:'בחירת הדגמה',pause:'השהיית המעבר האוטומטי',play:'הפעלת המעבר האוטומטי',
-      schoolTitle:'מחוץ לתמונה', question:'הכדור הפורח הזה לבד בשמיים?', answer:'בתמונה המלאה רואים גם כדור פורח צהוב. התקריב הסתיר אותו.', reveal:'גלו את התמונה המלאה', crop:'חזרה לתקריב', altCrop:'תקריב של כדור פורח בצבעי אדום ושמנת.', altWide:'שני כדורים פורחים מעל עמק סלעי. אחד באדום ושמנת והשני צהוב.',
-      review:'בדיקת החלטה',gov:['ההרשאה נבדקה','נקבע גורם אחראי','ההחלטה תועדה'],ragTitle:'שאלו את עוזר הידע',ragQuestion:'מי מאשר החזר חריג?',ragSource:'מדיניות החזרים · סעיף 2',inspect:'בדיקת המקור',source:'סעיף 2 · מנהל מאשר חריגים.'
+        answer:'בתמונה המלאה רואים גם כדור פורח צהוב. התקריב הסתיר אותו.',  crop:'חזרה לתקריב',  altWide:'שני כדורים פורחים מעל עמק סלעי. אחד באדום ושמנת והשני צהוב.',
+      gov:['ההרשאה נבדקה','נקבע גורם אחראי','ההחלטה תועדה'],source:'סעיף 2 · מנהל מאשר חריגים.'
     },
     sv:{
       pills:['AI för skolan','AI-styrning','Privata AI-assistenter'],group:'Välj demonstration',pause:'Pausa automatiskt byte',play:'Starta automatiskt byte',
@@ -26,6 +26,9 @@
       review:'Gennemgå en beslutning',gov:['Adgang kontrolleret','Ansvarlig udpeget','Beslutning registreret'],ragTitle:'Spørg din AI-assistent',ragQuestion:'Hvem godkender en refundering?',ragSource:'Returpolitik · §2',inspect:'Undersøg kilden',source:'§2 · En leder godkender undtagelser.'
     }
   };
+  for (const element of art.querySelectorAll('[data-he-key]')) {
+    words.he[element.dataset.heKey] = element.dataset.heText;
+  }
   let language = 'en', current = 0, elapsed = 0, last = 0, frame = 0, onScreen = true, hover = false, focus = false;
   let photoRevealed = false, govStep = -1, sourceOpen = false;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');

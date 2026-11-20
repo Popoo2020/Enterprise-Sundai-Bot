@@ -17,14 +17,14 @@ const locales = {
     schoolLong:'A pilot for my school',orgLong:'A call about my organisation',pilotSub:'90 minutes with one group.',callSub:'A free 20-minute fit call.', privacy:'Privacy',terms:'Terms',a11y:'Accessibility',toTop:'Back to top',four:'All courses', legalName:'Operated by RIIMON HOLDINGS LTD', begin:'Skip to navigation destination'
   },
   he: {
-    schools:'קורסים',org:'שירותים לעסקים',work:'העבודות שלנו',resources:'מאמרים ושאלות',courses:'תוכניות לבתי ספר',teams:'שירותים לארגונים',
+    schools:'קורסים',org:'שירותים לעסקים',work:'העבודות שלנו',resources:'מאמרים ושאלות נפוצות',courses:'תוכניות לבתי ספר',teams:'שירותים לארגונים',
     youth:'AI ובטיחות ברשת לנוער',pupils:'בודקים סרטון חשוד ובונים אתר שאפשר להשתמש בו.',teach:'AI לצוותי הוראה',teachers:'מכינים שיעור, מלמדים ומשפרים אותו יחד עם עמיתים.',
     agents:'פיתוח סוכני AI לארגונים', agentTask:'מחברים סוכנים לידע פנימי ומחלקים משימות בין מודלים.',
-    gov:'ממשל AI ותקינה',governance:'מקבלים המלצה כתובה על החלטה אחת ב־490 אירו.',sec:'אבטחת AI וענן',security:'בודקים הרשאות, מתעדפים ממצאים ומאמתים תיקונים.',
-    auto:'אוטומציה מאובטחת עם AI',automation:'מודדים זמן עבודה ועלות AI לכל פנייה.',rag:'עוזרי AI פרטיים',knowledge:'מקבלים תשובה עם מקור לפי הרשאות המשתמש.',
+    gov:'ממשל AI ותקינה',governance:'בדיקה של החלטה אחת והמלצה בכתב, ב־490 אירו.',sec:'אבטחת AI וענן',security:'בודקים למי יש גישה ומה חשוב לתקן תחילה.',
+    auto:'אוטומציה מאובטחת עם AI',automation:'מודדים זמן עבודה ועלות AI לכל פנייה.',rag:'עוזרי AI פרטיים',knowledge:'תשובה עם קישור למסמך שהעובד רשאי לקרוא.',
     guides:'מדריכים ללא תשלום',guidesSub:'חומרי עבודה שאפשר להיעזר בהם כבר לפני תחילת הפרויקט.',trust:'ניסיון ושיטות עבודה',trustSub:'הכירו את הפרויקטים, הכלים ושיטות הבדיקה שלנו.',
     about:'אודות SundAI',aboutSub:'הכירו את מי שמוביל את ההדרכות והפרויקטים.',menu:'תפריט',language:'שפה',pilot:'פיילוט לבית ספר',talk:'שיחת היכרות',nav:'ניווט ראשי',
-    studentEg:'פרויקט התלמידים',studentLine:'איזו הצעה באמת זולה יותר?',studentLink:'למסלולי בתי הספר',orgEg:'מהעבודה שלנו',orgLine:'מהמטבח לתהליך עבודה אוטומטי.',orgLink:'לפרויקט לדוגמה',
+    studentEg:'פרויקט התלמידים',studentLine:'איזו הצעה באמת זולה יותר?',studentLink:'למסלולי בתי הספר',orgEg:'מהעבודה שלנו',orgLine:'כך מתכננים משמרת ב־Ariel’s Pizza.',orgLink:'לפרויקט לדוגמה',
     footerH:'מה תרצו לנסות?',footerP:'אפשר להתחיל מכיתה אחת או להביא תהליך עבודה מהארגון. יחד נבחר צעד ראשון ששווה לבדוק.',
     schoolLong:'פיילוט לבית הספר שלנו',orgLong:'שיחת היכרות לארגון שלנו',pilotSub:'90 דקות עם קבוצה אחת.',callSub:'20 דקות, ללא תשלום.',privacy:'פרטיות',terms:'תנאי שימוש',a11y:'נגישות',toTop:'חזרה לראש העמוד',four:'לכל הקורסים',legalName:'מופעל על ידי RIIMON HOLDINGS LTD',begin:'דלגו ליעד בתפריט'
   },

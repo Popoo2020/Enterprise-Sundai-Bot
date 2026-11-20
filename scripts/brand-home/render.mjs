@@ -10,6 +10,11 @@ const assetRoot='/assets/brand-home/';
 const read=name=>readFileSync(new URL(name,import.meta.url),'utf8');
 const hero=read('hero.html.fragment');
 const chapters=read('chapters.html.fragment');
+function heroFor(locale) {
+ if (locale !== 'he') return hero;
+ return hero.replace(/(data-he-key="[^"]+" data-he-text="([^"]+)")>([^<]*)</g, '$1>$2<')
+   .replace(/(data-he-key="altCrop" data-he-text="([^"]+)") alt="[^"]+"/, '$1 alt="$2"');
+}
 const escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const base=locale=>locale==='en'?'/':'/'+locale+'/';
 const course=(locale,slug)=>base(locale)+'courses/'+slug+'/';
@@ -34,7 +39,7 @@ function chaptersFor(locale){
  const plannerSection={en:'services',he:'services',sv:'sv/tjanster',da:'da/ydelser'}[locale];
  const beginner = beginners[locale];
  const beginnerRow = '<details class="pc-course"><summary><span><small>'+escape(beginner.label)+'</small><strong>'+escape(beginner.title)+'</strong></span><i aria-hidden="true"></i></summary><div class="pc-course-body"><p>'+escape(beginner.teaser)+'</p><a class="pc-course-link" href="'+course(locale,'beginners')+'">'+escape(beginner.details)+'</a></div></details>';
- return chapters.replace('__BEGINNER_COURSE_ROW__', beginnerRow).replace('__TEACHING_LANGUAGES__', escape(trainingLanguages[locale].offer)).replace(/__COURSE_(\w+?)_URL__/g,(_,key)=>course(locale,slugs[key]))
+ return chapters.replace('</span><br><span class="pc-badge">', locale === 'he' ? '</span> <br><span class="pc-badge">' : '</span><br><span class="pc-badge">').replace('__BEGINNER_COURSE_ROW__', beginnerRow).replace('__TEACHING_LANGUAGES__', escape(trainingLanguages[locale].offer)).replace(/__COURSE_(\w+?)_URL__/g,(_,key)=>course(locale,slugs[key]))
    .replace(/__SERVICE_(\w+?)_URL__/g,(_,key)=>base(locale)+'services/'+key.toLowerCase().replaceAll('_','-')+'/')
    .replace('__WORKFLOW_PLANNER_URL__','https://sundaibot.com/'+plannerSection+'/secure-ai-automation/#planner')
    .replace(/__PHOTO_(SCHOOL|TEAM)__/g,(_,key)=>assetRoot+'photo_'+key.toLowerCase()+'.webp')
@@ -46,7 +51,7 @@ function chaptersFor(locale){
 export function renderHome(locale='en'){
  if(!homeCopy[locale])throw Error('Unsupported homepage locale: '+locale);
  const c=homeCopy[locale],dir=locale==='he'?'rtl':'ltr';
- const section='<section class="fr-landing" aria-labelledby="fr-title"><div class="fr-layout"><div class="fr-copy"><h1 class="fr-title" id="fr-title"><span class="fr-line">'+escape(c.first)+'</span><span class="fr-line"><i class="fr-mark" aria-hidden="true">'+bulb+'</i>'+escape(c.second)+'</span></h1><div id="sd-hero-pills"></div><div class="fr-deck"><div class="fr-hero-links"><a class="fr-action" href="#organisations">'+escape(c.organisations)+'</a><a class="fr-action fr-action-outline" href="#schools">'+escape(c.schools)+'</a><a class="fr-beginner-link" href="'+course(locale,'beginners')+'">'+escape(beginners[locale].homeLink)+'</a></div><p class="fr-lead">'+escape(c.lead)+'</p></div></div><div class="fr-art">'+hero+'</div></div>'+ribbon(c)+'</section>';
+ const section='<section class="fr-landing" aria-labelledby="fr-title"><div class="fr-layout"><div class="fr-copy"><h1 class="fr-title" id="fr-title"><span class="fr-line">'+escape(c.first)+'</span>'+(locale==='he'?' ':'')+'<span class="fr-line"><i class="fr-mark" aria-hidden="true">'+bulb+'</i>'+escape(c.second)+'</span></h1><div id="sd-hero-pills"></div><div class="fr-deck"><div class="fr-hero-links"><a class="fr-action" href="#organisations">'+escape(c.organisations)+'</a><a class="fr-action fr-action-outline" href="#schools">'+escape(c.schools)+'</a><a class="fr-beginner-link" href="'+course(locale,'beginners')+'">'+escape(beginners[locale].homeLink)+'</a></div><p class="fr-lead">'+escape(c.lead)+'</p></div></div><div class="fr-art">'+heroFor(locale)+'</div></div>'+ribbon(c)+'</section>';
  const benefit=c.benefits.map(([title,desc],i)=>'<article class="fr-benefit fr-enter"><img width="132" height="85" loading="lazy" alt="" src="'+assetRoot+['ink-build.svg','ink-check.svg','ink-control.svg'][i]+'"><h2>'+escape(title)+'</h2><p>'+escape(desc)+'</p></article>').join('');
  const banner='<aside class="fr-banner"><h2>'+escape(c.banner)+'</h2><div class="fr-banner-side"><div class="fr-banner-icons" aria-hidden="true">'+mini.map(x=>'<i><svg viewBox="0 0 24 24">'+x+'</svg></i>').join('')+'</div><p>'+escape(c.bannerLine)+'</p><a class="fr-action" href="'+callUrl(locale,'youth','school-banner')+'">'+escape(c.bannerCall)+'</a><a class="fc-banner-link" href="'+course(locale,'youth')+'">'+escape(c.bannerCta)+' '+callArrow+'</a></div></aside>';
  const css=['shell','frame','hero','chapters','providers','knowledge'].map(n=>'<link rel="stylesheet" href="'+assetRoot+n+'.css">').join('\n');
