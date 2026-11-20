@@ -16,6 +16,7 @@ const languages = ['en','he','sv','da'];
 const courseSlugs = ['youth','teachers','hospital','public','beginners'];
 const serviceSlugs = ['compliance-ai-governance','cloud-security','secure-ai-automation','private-ai-agents-rag'];
 const workflowSlug = 'enterprise-ai-agents';
+const shopifyPilot = 'shopify-first-order';
 const trustRoutes = {en:'/trust/', he:'/he/trust/', sv:'/sv/tillit/', da:'/da/tillid/'};
 const parentService = 'private-ai-agents-rag';
 const servicePages = [...serviceSlugs, workflowSlug];
@@ -46,7 +47,7 @@ test('rendered pages use their requested language and have working local links',
       ['',''], ['intro-call',''], ['read',''], ...articleSlugs.map(slug=>['read',slug]),
       ['free-guides',''], ...legacyGuideSlugs.map(slug=>['free-guides',slug]),
       ...courseSlugs.map(slug => ['courses', slug]),
-      ...servicePages.map(slug => ['services', slug])
+      ...[...servicePages, shopifyPilot].map(slug => ['services', slug])
     ];
     for (const [section, slug] of routes) {
       const route = routeFor(locale, section, slug);
@@ -87,6 +88,8 @@ test('rendered pages use their requested language and have working local links',
         }
         assert.ok(hrefs(html).includes(routeFor(locale,'read')), route + ' guide hub link');
         for (const [detailSection, detailSlug] of routes.filter(([section,pageSlug]) => ['courses','services'].includes(section) && pageSlug)) {
+          // The Shopify pilot is linked from its automation parent.
+          if (detailSlug === shopifyPilot) continue;
           const destination = routeFor(locale, detailSection, detailSlug);
           assert.ok(hrefs(html).includes(destination), route + ' missing detail navigation ' + destination);
         }
@@ -103,7 +106,14 @@ test('rendered pages use their requested language and have working local links',
         if (slug && locale !== 'he') assert.match(html,/action="\/api\/leads"/);
         if (!slug) for (const id of legacyGuideSlugs) assert.ok(hrefs(html).includes(routeFor(locale,section,id)));
       } else if (section === 'services') {
-        assert.ok(hrefs(html).includes('/assets/brand-home/services.css'), route + ' missing service layout');
+        const layout = slug === shopifyPilot ? 'shopify-first-order' : 'services';
+        assert.ok(hrefs(html).includes('/assets/brand-home/'+layout+'.css'), route + ' missing service layout');
+        if (slug === shopifyPilot) {
+          const parent = await readFile(publicFile(routeFor(locale, 'services', 'secure-ai-automation')), 'utf8');
+          assert.ok(hrefs(main(parent)).includes(route), route + ' automation service link');
+          const call = await readFile(publicFile(routeFor(locale, 'intro-call')), 'utf8');
+          assert.ok(call.includes('value="'+slug+'"'), route + ' enquiry topic');
+        }
         for (const lang of languages.filter(lang => lang !== locale)) {
           const destination = routeFor(lang, section, slug);
           assert.ok(hrefs(html).includes(destination), route + ' missing translated service ' + destination);
@@ -199,7 +209,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
     routeFor(lang,'free-guides'),...legacyGuideSlugs.map(slug=>routeFor(lang,'free-guides',slug)),
     ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
     ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),
-    ...servicePages.map(slug=>routeFor(lang,'services',slug))
+    ...[...servicePages,shopifyPilot].map(slug=>routeFor(lang,'services',slug))
   ]);
   assert.deepEqual(urls.slice().sort(),routes.map(route=>'https://sundaibot.com'+route).sort());
   assert.ok(urls.every(url=>!url.includes('intro-call')));

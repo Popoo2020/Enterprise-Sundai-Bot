@@ -3,13 +3,15 @@
   if (!root) return;
   const cfg = JSON.parse(root.dataset.config);
   const topic = document.getElementById('fc-topic');
+  const shopifyBrief = document.getElementById('fc-shopify');
+  const product = document.getElementById('fc-product');
   const teaching = document.getElementById('fc-teaching');
   const delivery = document.getElementById('fc-delivery');
   const trainingTopics = new Set(['schools','teachers','youth','public','hospital','beginners']);
   const when = document.getElementById('fc-time');
   const kickoff = document.getElementById('fc-kickoff');
   const earliest = document.getElementById('fc-earliest');
-  const priorityOffers = new Set(['decision-review','readiness-review','secure-ai-automation']);
+  const priorityOffers = new Set(['decision-review','readiness-review','secure-ai-automation','shopify-first-order']);
   const form = document.getElementById('fc-native');
   const manual = document.getElementById('fc-manual');
   const web = document.getElementById('fc-online');
@@ -42,19 +44,24 @@
     const preference = !delivery.hidden && teaching.value ? cfg.teachingLabel + ': ' + teaching.selectedOptions[0].text : '';
     kickoff.hidden = !priorityOffers.has(topic.value);
     const startRequest = !kickoff.hidden && earliest.checked ? cfg.earliest : '';
-    const body = cfg.hello + '\r\n\r\n' + [enquiry, preference, startRequest, schedule].filter(Boolean).join('\r\n');
+    const isShopify = topic.value === 'shopify-first-order';
+    if (shopifyBrief) shopifyBrief.hidden = !isShopify;
+    const lines = [enquiry, isShopify ? product?.value.trim() : '', preference, startRequest, schedule].filter(Boolean);
+    const body = cfg.hello + '\r\n\r\n' + lines.join('\r\n');
     const href = 'mailto:' + cfg.address + '?subject=' + encodeURIComponent(cfg.subject + ' · ' + option.text) + '&body=' + encodeURIComponent(body);
     for (const link of root.querySelectorAll('.fc-email')) link.href = href;
     const target = new URL(cfg.web);
-    const bookingInterest = {'decision-review':'ai-decision-review','readiness-review':'compliance-ai-governance'}[topic.value] || topic.value;
+    const bookingInterest = {'decision-review':'ai-decision-review','readiness-review':'compliance-ai-governance','shopify-first-order':'secure-ai-automation'}[topic.value] || topic.value;
     if (topic.value !== 'general') target.searchParams.set('interest', otherInterests.has(topic.value) ? 'other' : bookingInterest);
     document.getElementById('fc-web-readiness').hidden = topic.value !== 'readiness-review';
     document.getElementById('fc-web-provider').hidden = topic.value !== 'it-provider';
+    const shopifyWebHint = document.getElementById('fc-web-shopify');
+    if (shopifyWebHint) shopifyWebHint.hidden = !isShopify;
     web.href = target.href;
     form.elements.interest.value = option.text;
     form.elements.preferredTime.value = localTime;
     form.elements.timezone.value = time ? zone : '';
-    form.elements.message.value = [enquiry, preference, startRequest, schedule].filter(Boolean).join('\n') + (via ? '\nSundAI: ' + via + ' / ' + topic.value : '');
+    form.elements.message.value = lines.join('\n') + (via ? '\nSundAI: ' + via + ' / ' + topic.value : '');
     document.getElementById('fc-headline').textContent = option.dataset.heading;
     document.getElementById('call-outcome').textContent = option.dataset.outcome;
     for (const link of document.querySelectorAll('.fr-header a[hreflang]')) {
@@ -77,6 +84,7 @@
 
   earliest.addEventListener('change', update);
   teaching.addEventListener('change', update);
+  product?.addEventListener('input', update);
   topic.addEventListener('change', update);
   when.addEventListener('input', () => { when.setCustomValidity(''); update(); });
   optionalTime.addEventListener('toggle', update);

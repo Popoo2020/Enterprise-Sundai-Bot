@@ -1,5 +1,6 @@
 export const automation = {
   en: {
+    firstOrder: ["What will your first Shopify order cost?", "Compare the margin, rehearse an order with one supplier and learn how to handle it yourself with Ariel.", "Try the First Order Check"],
     category: 'Secure AI Automation',
     title: ['Spend less time', 'on each enquiry.'],
     lead: 'For professional services firms and companies with 10–100 staff. We connect the inbox to the CRM, prepare a reply for approval and measure what each enquiry costs before and after.',
@@ -19,9 +20,10 @@ export const automation = {
     example: ['Example calculation', '8 staff hours per month', 'If 120 monthly enquiries each take four fewer minutes including approval, that frees eight staff hours. To estimate monthly net value, multiply those hours by your internal hourly cost. Deduct monthly model and maintenance costs and the monthly share of setup costs.']
   },
   he: {
+    firstOrder: ["כמה יישאר לכם מההזמנה הראשונה ב־Shopify?", "בדקו את הכדאיות, תרגלו הזמנה עם ספק אחד ולמדו מאריאל איך לנהל את התהליך בעצמכם.", "נסו את מבחן ההזמנה הראשונה"],
     category: 'אוטומציה מאובטחת עם AI',
     title: ['פחות זמן הקלדה,','יותר זמן למענה ללקוחות'],
-    lead: 'למשרדי שירותים מקצועיים ולחברות עם 10–100 עובדים. כשהצוות מעתיק פניות מהמייל למערכת ניהול הלקוחות (CRM), הוא משקיע זמן עוד לפני שהתחיל לענות. נחבר בין המערכות ונכין טיוטה לאישור. אחר כך נשווה את זמן הטיפול ואת הכמה עולה לטפל בפנייה? לפני הפיילוט ואחריו.',
+    lead: 'למשרדי שירותים מקצועיים ולחברות עם 10–100 עובדים. כשהצוות מעתיק פניות מהמייל למערכת ניהול הלקוחות (CRM), הוא משקיע זמן עוד לפני שהתחיל לענות. נחבר בין המערכות ונכין טיוטה לאישור. נמדוד כמה זמן וכסף עולה לטפל בכל פנייה, לפני הפיילוט ואחריו.',
     cta: 'לשיחת היכרות על התהליך שלכם',
     cards: [
       ['הפרטים נרשמים פעם אחת', 'כשמגיעה פנייה במייל, נפתחת עבורה רשומה במערכת ניהול הלקוחות. את הפרטים מעבירים לפי כללים שקובעים מראש. עוזר ה־AI מקבל רק את מה שנחוץ לניסוח התשובה.'],
@@ -38,6 +40,7 @@ export const automation = {
     example: ['דוגמה לחישוב', '8 שעות עבודה בחודש', 'נניח שמטפלים ב־120 פניות בחודש, וחוסכים ארבע דקות בכל פנייה גם אחרי שמביאים בחשבון את זמן האישור. זה חיסכון של שמונה שעות בחודש. כדי להעריך כמה כסף נחסך, מכפילים שמונה בעלות שעת עבודה ומפחיתים את העלות החודשית של המודל, התחזוקה והחלק היחסי של ההקמה.']
   },
   sv: {
+    firstOrder: ["Vad blir kvar efter din första Shopify-order?", "Räkna på marginalen, prova ett orderflöde med en leverantör och lär dig att sköta det själv med Ariels stöd.", "Testa din första order"],
     category: 'Säker AI-automatisering',
     title: ['Lägg mindre tid', 'på varje ärende.'],
     lead: 'För tjänsteföretag och företag med 10–100 anställda. Vi kopplar inkorgen till ert CRM, tar fram svarsutkast för godkännande och mäter vad ett ärende kostar före och efter.',
@@ -57,6 +60,7 @@ export const automation = {
     example: ['Räkneexempel', '8 arbetstimmar i månaden', 'Om 120 ärenden i månaden tar fyra minuter mindre vardera, inklusive godkännande, frigörs åtta arbetstimmar. Multiplicera med er interna timkostnad. Dra av månadens modell- och underhållskostnader samt månadens andel av startkostnaden för att uppskatta nettovärdet.']
   },
   da: {
+    firstOrder: ["Hvad har du tilbage efter din første Shopify-ordre?", "Beregn din avance, afprøv et ordreforløb med én leverandør, og lær at håndtere det selv med Ariels hjælp.", "Test din første ordre"],
     category: 'Sikker AI-automatisering',
     title: ['Brug mindre tid', 'på hver sag.'],
     lead: 'Til rådgivningsvirksomheder og virksomheder med 10–100 ansatte. Vi forbinder indbakken med jeres CRM, laver svarudkast til godkendelse og måler prisen pr. sag før og efter.',

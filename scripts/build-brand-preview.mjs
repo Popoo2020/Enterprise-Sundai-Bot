@@ -1,5 +1,6 @@
 import {rebrandLegacyPages} from './brand-home/legacy-pages.mjs';
 import { agentWorkflowSlug, agentWorkflowLink, renderAgentWorkflows } from './brand-home/agent-workflows.mjs';
+import { shopifyPilotSlug, shopifyPilotLink, renderShopifyPilot } from './brand-home/shopify-first-order.mjs';
 import { renderTrust, trustPaths } from './brand-home/trust.mjs';
 import { optimisePage, sitemap } from './brand-home/seo.mjs';
 import { locales } from './brand-home/search-copy.mjs';
@@ -46,7 +47,12 @@ async function writeDiscoveryDirectory(target, articlesFor) {
   const service = {id:agentWorkflowSlug, locales:{}};
   const parent = directory.services.find(item => item.id === 'private-ai-agents-rag');
   parent.relatedPages = [...(parent.relatedPages ?? []), service];
+  const pilot = {id:shopifyPilotSlug, locales:{}};
+  const automation = directory.services.find(item => item.id === 'secure-ai-automation');
+  automation.relatedPages = [...(automation.relatedPages ?? []), pilot];
   for (const locale of locales) {
+    const shopify = shopifyPilotLink(locale);
+    pilot.locales[locale] = {name:shopify.title, summary:shopify.description, url:new URL(shopify.url,'https://sundaibot.com').href};
     const workflow = agentWorkflowLink(locale);
     service.locales[locale] = {name:workflow.title, summary:workflow.description, url:new URL(workflow.url, 'https://sundaibot.com').href};
     const hub = new URL((locale==='en' ? '' : locale+'/')+'read/', 'https://sundaibot.com/').href;
@@ -55,6 +61,7 @@ async function writeDiscoveryDirectory(target, articlesFor) {
     sections.push('### '+locale.toUpperCase(), '- [All guides]('+hub+')', ...articles.map(article => '- ['+article.title+']('+article.url+')'));
   }
   sections.push('','## Enterprise AI agents', ...Object.entries(service.locales).map(([locale, entry]) => '- ['+entry.name+']('+entry.url+') ('+locale+')'));
+  sections.push('','## First order check for Shopify', ...Object.entries(pilot.locales).map(([locale, entry]) => '- ['+entry.name+']('+entry.url+') ('+locale+')'));
   await Promise.all([
     writeFile(llmsPath,existingText.trimEnd()+'\n\n'+sections.join('\n')+'\n'),
     writeFile(discoveryPath,JSON.stringify(directory,null,2)+'\n')
@@ -114,6 +121,7 @@ export async function buildReferencePreview(isPublic = false) {
         await writePage(staging, path.join(prefix, 'services', slug), html, isPublic, routes);
       }
       await writePage(staging, path.join(prefix,'services',agentWorkflowSlug), renderAgentWorkflows(locale), isPublic, routes);
+      await writePage(staging, path.join(prefix,'services',shopifyPilotSlug), renderShopifyPilot(locale), isPublic, routes);
       for (const slug of courseSlugs) {
         await writePage(staging, path.join(prefix, 'courses', slug), await renderCourse(locale, slug), isPublic, routes);
       }
