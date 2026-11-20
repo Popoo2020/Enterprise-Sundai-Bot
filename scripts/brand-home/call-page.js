@@ -16,7 +16,7 @@
   const manual = document.getElementById('fc-manual');
   const web = document.getElementById('fc-online');
   const query = new URLSearchParams(location.search);
-  const allowedSources = ['header','school-banner','footer','course','course-outcome','service','hero','partner','partners'];
+  const allowedSources = ['header','school-banner','footer','course','course-outcome','service','hero','partner','partners','article','market-research-with-ai','diagnose-signup-dropoff'];
   const via = allowedSources.includes(query.get('via')) ? query.get('via') : '';
   const validTopic = value => Array.from(topic.options).some(option => option.value === value);
   if (validTopic(query.get('topic'))) topic.value = query.get('topic');

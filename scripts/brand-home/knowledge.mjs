@@ -1,6 +1,10 @@
 import { searchCopy } from './search-copy.mjs';
 import { callUrl } from './call.mjs';
 import { secureLlmGuide } from './secure-llm-guide.mjs';
+import { renderEditorialTool } from './editorial-tools.mjs';
+import { renderFeaturedWorkGuides } from './featured-work-guide.mjs';
+import { signupEvidenceGuide } from './signup-evidence-guide.mjs';
+import { marketEvidenceGuide } from './market-evidence-guide.mjs';
 import { renderHeader, renderFooter } from './frame.mjs';
 import { guides, guideIndex, legacyArticleSlugs, knowledge } from './knowledge-data.mjs';
 
@@ -39,6 +43,32 @@ function literacyQuestion(lang) {
 
 const categories = ['work', 'school', 'governance'];
 
+const shopifyServiceLabel = {
+  en: 'Plan your Shopify store through its first order with Ariel',
+  he: 'ליווי אישי עם אריאל בהקמת חנות Shopify עד להזמנה הראשונה',
+  sv: 'Planera er Shopify-butik fram till den första ordern med Ariel',
+  da: 'Planlæg jeres Shopify-butik frem til den første ordre sammen med Ariel'
+};
+
+const editorialActions = {
+  en: {
+    market: ['Open the evidence worksheet', 'Discuss one market claim with Ariel · 20 minutes, free'],
+    signup: ['Open the signup calculator', 'Review one signup step with Ariel · 20 minutes, free']
+  },
+  he: {
+    market: ['לגיליון בדיקת המקורות', 'לשיחה עם אריאל על שאלת שוק אחת · 20 דקות ללא עלות'],
+    signup: ['למחשבון ההרשמה', 'לבדיקת שלב אחד בהרשמה עם אריאל · 20 דקות ללא עלות']
+  },
+  sv: {
+    market: ['Öppna arbetsbladet för källgranskning', 'Gå igenom en marknadsfråga med Ariel · 20 minuter utan kostnad'],
+    signup: ['Öppna kalkylatorn för registreringar', 'Gå igenom ett registreringssteg med Ariel · 20 minuter utan kostnad']
+  },
+  da: {
+    market: ['Åbn arbejdsarket til kildekontrol', 'Gennemgå ét markedsspørgsmål med Ariel · 20 minutter uden betaling'],
+    signup: ['Åbn beregneren for tilmeldinger', 'Gennemgå ét trin i tilmeldingen med Ariel · 20 minutter uden betaling']
+  }
+};
+
 // The older articles keep their URLs and copy. Present both collections in the same reading layout.
 export function articlesFor(lang) {
   const existing = knowledge[lang].a.map((a, i) => {
@@ -48,8 +78,8 @@ export function articlesFor(lang) {
       title: a[0], summary: a[1], sections: [[a[2], a[3]], [a[4], a[5]], [a[6], a[7]]], exercise: a[8]
     };
   });
-  const added = guides.map(({slug, category, related, sources, text}) => ({
-    slug, category, related, sources, ...text[lang], published: '2026-11-19'
+  const added = guides.map(({slug, category, related, sources, sectionSources, text, published = '2026-11-19'}) => ({
+    slug, category, related, sources, sectionSources, ...text[lang], published
   }));
   return [...added, ...existing];
 }
@@ -67,16 +97,18 @@ export function resourcesSection(lang) {
   const c = knowledge[lang];
   const feature = secureLlmGuide.text[lang];
   const articles = articleCard(lang, secureLlmGuide.slug, feature.title, feature.summary)
-    + c.a.slice(0, 2).map(([title, lead], i) => articleCard(lang, legacyArticleSlugs[i], title, lead)).join('');
+    + articleCard(lang, signupEvidenceGuide.slug, signupEvidenceGuide.text[lang].title, signupEvidenceGuide.text[lang].summary)
+    + articleCard(lang, legacyArticleSlugs[1], c.a[1][0], c.a[1][1]);
   const market = searchCopy[lang];
   const faqs = [...c.q, starting[lang], literacyQuestion(lang), [market.marketQ, market.marketA]]
     .map(([question, answer]) => `<details><summary>${question}</summary><p>${answer}</p></details>`).join('');
   return `<div class="kn-home"><section id="articles" class="kn-section"><header><h2>${c.articles}</h2><p>${c.articleIntro}</p></header><div class="kn-articles">${articles}</div><a class="kn-archive" href="${hubUrl(lang)}">${guideIndex[lang].browse}</a></section><section id="faq" class="kn-section kn-faq"><header><h2>${c.faq}</h2><p>${c.faqIntro}</p></header><div>${faqs}</div></section></div>`;
 }
 
-function readingPage(lang, title, description, options, main) {
+function readingPage(lang, title, description, options, main, toolAssets = false) {
   const css = ['shell','frame','knowledge'].map(file => `<link rel="stylesheet" href="/assets/brand-home/${file}.css">`).join('');
-  return `<!doctype html><html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escape(title)} | SundAI</title><meta name="description" content="${escape(description)}"><link rel="icon" href="/assets/favicon.svg">${css}<script defer src="/assets/brand-home/frame.js"></script></head><body><a class="fr-skip" href="#main">${guideIndex[lang].skip}</a>${renderHeader(lang,options)}${main}${renderFooter(lang,options)}</body></html>`;
+  const toolFiles = toolAssets ? '<link rel="stylesheet" href="/assets/brand-home/editorial-tools.css"><script defer src="/assets/brand-home/editorial-tools.js"></script>' : '';
+  return `<!doctype html><html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escape(title)} | SundAI</title><meta name="description" content="${escape(description)}"><link rel="icon" href="/assets/favicon.svg">${css}${toolFiles}<script defer src="/assets/brand-home/frame.js"></script></head><body><a class="fr-skip" href="#main">${guideIndex[lang].skip}</a>${renderHeader(lang,options)}${main}${renderFooter(lang,options)}</body></html>`;
 }
 
 function collectionSection(id, heading, items, index, label, contentLang) {
@@ -99,7 +131,7 @@ export function renderHub(lang, {freeGuides, archive, resources}) {
   const more = collectionSection('checklists', t.checklists, freeGuides.items, freeGuides.index, freeGuides.label, lang)
     + collectionSection('tools', t.tools, resources.items, resources.index, t.allTools, archiveLang)
     + collectionSection('archive', t.archive, archive.articles, archive.index, t.allArticles, archiveLang);
-  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header><nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}${more}</div></main>`;
+  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header>${renderFeaturedWorkGuides(lang, articles)}<nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}${more}</div></main>`;
   return readingPage(lang, c.title, c.summary, {innerPage:true, hub:true}, main);
 }
 
@@ -109,22 +141,33 @@ export function renderArticle(lang, slug) {
   if (!a) throw new Error('Unknown article: ' + slug);
   const c = guideIndex[lang];
   const relatedGuides = articles.filter(item => item.category === a.category);
-  const next = relatedGuides[(relatedGuides.indexOf(a) + 1) % relatedGuides.length];
-  const body = a.sections.map(([heading, paragraph, bullets]) => {
+  const tool = renderEditorialTool(lang, slug);
+  const companion = slug === marketEvidenceGuide.slug ? signupEvidenceGuide : marketEvidenceGuide;
+  const next = tool ? articles.find(item => item.slug === companion.slug) : relatedGuides[(relatedGuides.indexOf(a) + 1) % relatedGuides.length];
+  const actions = slug === marketEvidenceGuide.slug ? editorialActions[lang].market : editorialActions[lang].signup;
+  const body = a.sections.map(([heading, paragraph, bullets], sectionIndex) => {
     const list = bullets ? '<ul class="kn-checks">' + bullets.map(item => '<li>' + escape(item) + '</li>').join('') + '</ul>' : '';
-    return `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}</p>${list}</section>`;
+    const refs = (a.sectionSources?.[sectionIndex] ?? []).map(i =>
+      `<a href="#reference-${i+1}" aria-label="${escape(c.sources+' · '+a.sources[i].name)}">[${i+1}]</a>`
+    ).join(' ');
+    return `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}${refs ? ' <small class="kn-refs" dir="ltr">'+refs+'</small>' : ''}</p>${list}</section>`;
   }).join('');
   const consultation = slug === secureLlmGuide.slug
     ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
-  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${c.date}</time></p>` : '';
-  const sources = a.sources.map(({name, url}) =>
-    `<li><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
+  const localizedDate = a.published && new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : lang, {dateStyle:'long', timeZone:'UTC'}).format(new Date(a.published+'T00:00:00Z'));
+  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${localizedDate}</time></p>` : '';
+  const sources = a.sources.map(({name, url}, i) =>
+    `<li id="reference-${i+1}"><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
+  const sourceList = tool ? 'ol' : 'ul';
+  const shopifyLink = slug === marketEvidenceGuide.slug
+    ? `<a href="${base(lang)}services/shopify-first-order/">${shopifyServiceLabel[lang]}</a>` : '';
+  const action = tool ? `<p class="kn-article-call"><a class="kn-work-call" href="${callUrl(lang,'secure-ai-automation',slug)}">${escape(actions[1])}</a></p>` : '';
   const main = `<main id="main" class="kn-reading"><article>
     <a class="kn-back" href="${hubUrl(lang)}">${c.browse}</a>
-    <header><h1>${escape(a.title)}</h1>${byline}<p class="kn-lead">${escape(a.summary)}</p></header>
-    ${body}${consultation}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p></aside>
-    <section class="kn-sources"><h2>${c.sources}</h2><ul>${sources}</ul></section>
-    <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a><a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
+    <header><h1>${escape(a.title)}</h1>${byline}<p class="kn-lead">${escape(a.summary)}</p>${tool ? '<a class="kn-work-jump" href="#work-tool">'+escape(actions[0])+'</a>' : ''}</header>
+    ${body}${consultation}${tool}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p>${action}</aside>
+    <section class="kn-sources"><h2>${c.sources}</h2><${sourceList}>${sources}</${sourceList}></section>
+    <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a>${shopifyLink}<a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
   </article></main>`;
-  return readingPage(lang, a.title, a.summary, {innerPage:true, article:slug}, main);
+  return readingPage(lang, a.title, a.summary, {innerPage:true, article:slug}, main, Boolean(tool));
 }

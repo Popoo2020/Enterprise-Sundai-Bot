@@ -3,8 +3,10 @@ import { guidesSchool } from './guides-school.mjs';
 import { guidesControls } from './guides-controls.mjs';
 
 import { secureLlmGuide } from './secure-llm-guide.mjs';
+import { marketEvidenceGuide } from './market-evidence-guide.mjs';
+import { signupEvidenceGuide } from './signup-evidence-guide.mjs';
 
-export const guides = [secureLlmGuide, ...guidesWork, ...guidesSchool, ...guidesControls];
+export const guides = [marketEvidenceGuide, signupEvidenceGuide, secureLlmGuide, ...guidesWork, ...guidesSchool, ...guidesControls];
 export const legacyArticleSlugs = ['approve-before-sending','check-before-sharing','assistant-with-sources'];
 
 export const articleSlugs = [...legacyArticleSlugs, ...guides.map(guide => guide.slug)];

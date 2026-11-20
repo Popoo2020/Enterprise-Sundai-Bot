@@ -1,0 +1,39 @@
+.kn-reading .ew-tool {
+  --ew-blue: #204fc3;
+  background: #f3f6ff; border: 1px solid #c9d5ed; border-top: 4px solid #2563ec;
+  border-radius: .7rem; padding: clamp(1rem, 4vw, 2rem); scroll-margin-block-start: 6rem;
+  color: #141822;
+}
+.ew-tool [hidden] {display:none!important}
+.kn-reading .ew-tool h2 {max-width: 28ch; margin: 0 0 .55rem; font-size: clamp(1.5rem, 2.7vw, 2rem)}
+.kn-reading .ew-tool .ew-intro {color:#434d63; line-height:1.55; font-size:1.03rem}
+.ew-body {margin-top: 1.2rem}
+.ew-field {display:grid; gap:.4rem; margin-block: .75rem; font-size:1rem; font-weight:600; line-height:1.45}
+.ew-field input, .ew-field textarea, .ew-field select {
+  display:block; width:100%; min-width:0; max-width:100%; border:1px solid #68778e; border-radius:.35rem;
+  padding:.6rem .75rem; color:#141822; background:#fff; font:400 1rem/1.45 var(--sans, sans-serif); min-height:44px;
+}
+.ew-field textarea {resize:vertical}
+.ew-field input[aria-invalid=true] {border-color:#9b3d21}
+.ew-pair {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:.2rem 1.15rem}
+.ew-tool fieldset {min-width:0; margin:.65rem 0; border:1px solid #c5cfe1; border-radius:.45rem; padding:.3rem .8rem .55rem; background:#fff}
+.ew-tool legend {font-weight:650; font-size:1.03rem; padding-inline:.3rem}
+.ew-check {display:flex; align-items:center; gap:.6rem; font-size:1rem; min-height:44px; line-height:1.45}
+.ew-check input {width:1.2rem; height:1.2rem; flex:0 0 auto; accent-color:var(--ew-blue)}
+.ew-tool summary {cursor:pointer; padding:.55rem .1rem; color:var(--ew-blue); min-height:44px; font-weight:650; font-size:1rem; line-height:1.5}
+.ew-tool .ew-plan ol {padding-inline-start:1.45rem; margin-block:.3rem .7rem; font-size:1rem; line-height:1.5}
+.ew-tool .ew-plan li + li {margin-block-start:.4rem}
+.kn-reading .ew-tool .ew-result {font-weight:600; color:#273e71; padding:.8rem 0; line-height:1.5}
+.kn-reading .ew-tool .ew-result:empty, .ew-notice:empty {display:none}
+.ew-metrics {display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,9.8rem),1fr)); gap:.65rem 1.1rem; margin: .75rem 0; border:0}
+.ew-metrics div {border-top:2px solid #9bb5ed; padding:.6rem 0; min-width:0}
+.ew-metrics dt {font-size:.95rem; line-height:1.35; color:#434d63}
+.ew-metrics dd {margin:.24rem 0 0; font-size:1.4rem; font-weight:650; font-variant-numeric:tabular-nums; line-height:1.25}
+.ew-actions {display:flex; flex-wrap:wrap; gap:.6rem; margin:1rem 0 .6rem}
+.ew-actions button {cursor:pointer; color:var(--ew-blue); background:white; border:1px solid var(--ew-blue); border-radius:.35rem; padding:.5rem .95rem; font-weight:650; font-size:1rem; min-height:44px; line-height:1.35}
+.ew-actions button:first-child {background:var(--ew-blue); color:#fff}
+.ew-actions button:disabled {opacity:.52; cursor:default}
+.kn-reading .ew-tool .ew-privacy,.kn-reading .ew-tool .ew-notice {font-size:.91rem; color:#434d63; line-height:1.5}
+.kn-reading .ew-tool .ew-notice:not(:empty) {margin:.6rem 0;font-weight:600}
+@media(max-width:650px) {.ew-pair {grid-template-columns:1fr}.ew-metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:390px) {.ew-metrics {grid-template-columns:1fr}.ew-actions {gap:.45rem}}
