@@ -1,11 +1,11 @@
-import { renderFrameworkStrip } from './framework-strip.mjs';
+import { renderFrameworkStrip, trustPaths } from './framework-strip.mjs';
 import { knowledge, articleSlugs, guideIndex } from './knowledge-data.mjs';
 import { callCopy, callUrl, headerCall, topicKeys, callArrow } from './call.mjs';
 const locales = {
   en: {
     schools:'Schools', org:'Business services', work:'Our work', resources:'Articles & FAQs', courses:'School programmes', teams:'Services for organisations',
     youth:'AI and online safety for teens', pupils:'Investigate a suspicious clip and build a working website.', teach:'AI for teachers', teachers:'Prepare a lesson, teach it and refine it with your colleagues.',
-    agents:'Enterprise AI agents', agentTask:'Check invoices against signed contracts and review exceptions.',
+    agents:'Custom AI agents', agentTask:'Connect internal knowledge and assign tasks across models.',
     gov:'AI governance & standards', governance:'Get a written recommendation on one AI decision for €490.', sec:'AI security & cloud', security:'Check access, prioritise findings and verify fixes.',
     auto:'Secure AI Automation', automation:'Measure staff time and AI cost per enquiry.', rag:'Private AI assistants', knowledge:'Get an answer with the source and access controls.',
     guides:'Free guides', guidesSub:'Practical resources you can use before a project.', trust:'Evidence & trust', trustSub:'Inspect the work, the platform choices and the methods.',
@@ -17,7 +17,7 @@ const locales = {
   he: {
     schools:'לבתי ספר',org:'שירותים לעסקים',work:'העבודות שלנו',resources:'מאמרים ושאלות',courses:'תוכניות לבתי ספר',teams:'שירותים לארגונים',
     youth:'AI ובטיחות ברשת לנוער',pupils:'בודקים סרטון חשוד ובונים אתר שאפשר להשתמש בו.',teach:'AI לצוותי הוראה',teachers:'מכינים שיעור, מלמדים ומשפרים אותו יחד עם עמיתים.',
-    agents:'סוכני AI לארגונים', agentTask:'משווים חשבוניות לחוזים חתומים ומעבירים פערים לבדיקה.',
+    agents:'פיתוח סוכני AI לארגונים', agentTask:'מחברים סוכנים לידע פנימי ומחלקים משימות בין מודלים.',
     gov:'ממשל AI ותקינה',governance:'מקבלים המלצה כתובה על החלטה אחת ב־490 אירו.',sec:'אבטחת AI וענן',security:'בודקים הרשאות, מתעדפים ממצאים ומאמתים תיקונים.',
     auto:'אוטומציה מאובטחת עם AI',automation:'מודדים זמן עבודה ועלות AI לכל פנייה.',rag:'עוזרי AI פרטיים',knowledge:'מקבלים תשובה עם מקור לפי הרשאות המשתמש.',
     guides:'מדריכים ללא תשלום',guidesSub:'חומרי עבודה שאפשר להיעזר בהם כבר לפני תחילת הפרויקט.',trust:'ניסיון ושיטות עבודה',trustSub:'הכירו את הפרויקטים, הכלים ושיטות הבדיקה שלנו.',
@@ -29,7 +29,7 @@ const locales = {
   sv: {
     schools:'För skolor',org:'Företagstjänster',work:'Våra uppdrag',resources:'Artiklar och frågor',courses:'Skolprogram',teams:'Tjänster för organisationer',
     youth:'AI och nätsäkerhet för unga',pupils:'Granska ett misstänkt klipp och bygg en fungerande webbplats.',teach:'AI för lärare',teachers:'Planera, genomför och förbättra en lektion tillsammans.',
-    agents:'AI-agenter för företag', agentTask:'Jämför fakturor med avtal och granska avvikelser.',
+    agents:'Skräddarsydda AI-agenter', agentTask:'Använd interna källor och fördela uppgifter mellan modeller.',
     gov:'AI-styrning och standarder',governance:'Få en skriftlig rekommendation om ett AI-beslut för 490 euro.',sec:'AI- och molnsäkerhet',security:'Granska behörigheter, prioritera brister och följ upp åtgärder.',
     auto:'Säker AI-automatisering',automation:'Mät arbetstid och AI-kostnad per ärende.',rag:'Privata AI-assistenter',knowledge:'Få svar med källhänvisningar och rätt behörigheter.',
     guides:'Kostnadsfria guider',guidesSub:'Praktiska underlag som ni kan använda redan före projektstart.',trust:'Erfarenhet och arbetssätt',trustSub:'Ta del av våra exempel, verktygsval och metoder.',
@@ -41,7 +41,7 @@ const locales = {
   da: {
     schools:'For skoler',org:'Erhverv',work:'Vores projekter',resources:'Artikler og spørgsmål',courses:'Skoleforløb',teams:'Ydelser til organisationer',
     youth:'AI og sikkerhed på nettet for unge',pupils:'Undersøg et mistænkeligt klip, og byg en fungerende hjemmeside.',teach:'AI for lærere',teachers:'Forbered, gennemfør og forbedr en lektion sammen.',
-    agents:'AI-agenter til virksomheder', agentTask:'Sammenhold fakturaer med aftaler, og gennemgå afvigelser.',
+    agents:'Skræddersyede AI-agenter', agentTask:'Brug interne kilder, og fordel opgaver mellem modeller.',
     gov:'AI-governance og standarder',governance:'Få en skriftlig anbefaling om én AI-beslutning for 490 euro.',sec:'AI- og cloudsikkerhed',security:'Gennemgå adgange, prioritér fund, og kontrollér rettelser.',
     auto:'Sikker AI-automatisering',automation:'Mål arbejdstid og AI-omkostninger pr. sag.',rag:'Private AI-assistenter',knowledge:'Få svar med kilder og adgangskontrol.',
     guides:'Gratis vejledninger',guidesSub:'Praktisk materiale, I kan bruge allerede før et projekt.',trust:'Erfaring og metoder',trustSub:'Læs om vores projekter, værktøjer og arbejdsmetoder.',
@@ -55,20 +55,20 @@ const nativeNames={en:'English',he:'עברית',sv:'Svenska',da:'Dansk'};
 const courseSlugs=['youth','teachers','hospital','public'];
 const serviceSlugs=['compliance-ai-governance','cloud-security','secure-ai-automation','private-ai-agents-rag'];
 const portal={
-  en:{base:'/',training:'training/',services:'services/',guides:'free-guides/',trust:'trust/',about:'about/',book:'book/',terms:'terms/'},
-  sv:{base:'/sv/',training:'utbildning-forelasningar/',services:'tjanster/',guides:'free-guides/',trust:'tillit/',about:'om/',book:'book/',terms:'terms/'},
-  da:{base:'/da/',training:'kurser-foredrag/',services:'ydelser/',guides:'free-guides/',trust:'tillid/',about:'om/',book:'book/',terms:'terms/'}
+  en:{base:'/',training:'training/',services:'services/',guides:'free-guides/',trust:'trust/',about:'about/',book:'book/',terms:'terms/',privacy:'privacy.html',access:'accessibility.html'},
+  sv:{base:'/sv/',training:'utbildning-forelasningar/',services:'tjanster/',guides:'free-guides/',trust:'tillit/',about:'om/',book:'book/',terms:'terms/',privacy:'integritet.html',access:'tillganglighet.html'},
+  da:{base:'/da/',training:'kurser-foredrag/',services:'ydelser/',guides:'free-guides/',trust:'tillid/',about:'om/',book:'book/',terms:'terms/',privacy:'privatliv.html',access:'tilgaengelighed.html'}
 };
 function menuData(locale,{innerPage=false,course='',service='',booking=false,article='',hub=false,languagePaths=null}={}){
   const lang=locales[locale]?locale:'en', w=locales[lang],base=lang==='en'?'/':'/'+lang+'/';
   const local = id=>(innerPage?base:'')+'#'+id;
   const publicPaths=portal[lang]||portal.en;
-  const live=key=>'https://sundaibot.com'+publicPaths.base+publicPaths[key];
+  const live=key=>publicPaths.base+publicPaths[key];
   const serviceUrl=slug=>base+'services/'+slug+'/';
   const schoolRows=[[w.youth,w.pupils,base+'courses/youth/'],[w.teach,w.teachers,base+'courses/teachers/']];
   const orgRows=[[w.auto,w.automation,serviceUrl('secure-ai-automation')],[w.gov,w.governance,serviceUrl('compliance-ai-governance')],[w.rag,w.knowledge,serviceUrl('private-ai-agents-rag')],[w.sec,w.security,serviceUrl('cloud-security')],[w.agents,w.agentTask,serviceUrl('enterprise-ai-agents')]];
   const articles=knowledge[lang];
-  const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,base+'free-guides/'],[w.trust,w.trustSub,live('trust')],[w.about,w.aboutSub,live('about')]];
+  const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,base+'free-guides/'],[w.trust,w.trustSub,trustPaths[lang]],[w.about,w.aboutSub,live('about')]];
   let suffix=hub?'read/':booking?'intro-call/':'';
   if(innerPage && articleSlugs.includes(article))suffix='read/'+article+'/';
   if(innerPage && courseSlugs.includes(course))suffix='courses/'+course+'/';
@@ -109,5 +109,5 @@ export function renderFooter(locale='en',options={}){
     : choice(d.topic,c.cta,c.footnote);
   const description=d.topic==='general'?c.footer:c.outcomes[topicKeys.indexOf(d.topic)];
   const section=d.booking || options.showClose===false ? '' :'<section class="fr-close" id="intro-conversation"><div class="fr-close-inner"><div><h2>'+c.title+'</h2><p>'+description+'</p></div><div class="fr-choices">'+choices+'</div></div></section>';
-  return '<footer class="fr-footer">'+section+'<div class="fr-base">'+renderFrameworkStrip(d.lang)+'<div class="fr-base-row"><a class="fr-brand" href="'+d.base+'" aria-label="SundAI"><img src="/assets/sundai-wordmark-dark.svg" alt="SundAI" width="500" height="117"></a><div class="fr-footer-nav"><a href="'+d.local('schools')+'">'+w.schools+'</a><a href="'+d.local('organisations')+'">'+w.org+'</a><a href="'+d.local('courses')+'">'+w.four+'</a><a href="'+d.local('evidence')+'">'+w.work+'</a><a href="'+d.live('about')+'">'+w.about+'</a></div><a class="fr-back" href="#fr-top">'+w.toTop+' ↑</a></div><div class="fr-legal"><span>© 2026 SundAI · '+w.legalName+'</span><div><a href="https://sundaibot.com/privacy.html">'+w.privacy+'</a><a href="'+d.live('terms')+'">'+w.terms+'</a><a href="https://sundaibot.com/accessibility.html">'+w.a11y+'</a></div></div></div></footer>';
+  return '<footer class="fr-footer">'+section+'<div class="fr-base">'+renderFrameworkStrip(d.lang)+'<div class="fr-base-row"><a class="fr-brand" href="'+d.base+'" aria-label="SundAI"><img src="/assets/sundai-wordmark-dark.svg" alt="SundAI" width="500" height="117"></a><div class="fr-footer-nav"><a href="'+d.local('schools')+'">'+w.schools+'</a><a href="'+d.local('organisations')+'">'+w.org+'</a><a href="'+d.local('courses')+'">'+w.four+'</a><a href="'+d.local('evidence')+'">'+w.work+'</a><a href="'+d.live('about')+'">'+w.about+'</a></div><a class="fr-back" href="#fr-top">'+w.toTop+' ↑</a></div><div class="fr-legal"><span>© 2026 SundAI · '+w.legalName+'</span><div><a href="'+d.live('privacy')+'">'+w.privacy+'</a><a href="'+d.live('terms')+'">'+w.terms+'</a><a href="'+d.live('access')+'">'+w.a11y+'</a></div></div></div></footer>';
 }

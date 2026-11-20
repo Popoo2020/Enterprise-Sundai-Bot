@@ -36,7 +36,7 @@ function alternatePaths(html) {
 
 // Input documents are static HTML produced by our own generators. Preserve their
 // canonical URLs, translated metadata, JSON-LD, article text and source links.
-export function restyleDocument({html, lang, languagePaths, isPublic, mainClass, styles = [], bodyScripts = [], beforeContent = '', afterContent = ''}) {
+export function restyleDocument({html, lang, languagePaths, isPublic, mainClass, styles = [], bodyScripts = [], showClose = true, beforeContent = '', afterContent = ''}) {
   const originalHead = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1];
   const originalMain = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
   if (!originalHead || !originalMain) throw new Error('Expected a head and main in legacy ' + lang + ' document.');
@@ -48,7 +48,7 @@ export function restyleDocument({html, lang, languagePaths, isPublic, mainClass,
     '<link rel="stylesheet" href="/assets/brand-home/' + name + '.css">').join('');
   const scripts = ['/assets/brand-home/frame.js', ...bodyScripts].map(src =>
     '<script defer src="' + src + '"></script>').join('');
-  const options = {innerPage: true, languagePaths: languagePaths || alternatePaths(originalHead)};
+  const options = {innerPage: true, showClose, languagePaths: languagePaths || alternatePaths(originalHead)};
   return '<!doctype html><html lang="' + lang + '" dir="' + (lang === 'he' ? 'rtl' : 'ltr') + '"><head>' +
     head + css + scripts + '</head><body><a class="fr-skip" href="#main">' + guideIndex[lang].skip + '</a>' +
     renderHeader(lang, options) + '<main id="main" class="' + mainClass + '">' +
