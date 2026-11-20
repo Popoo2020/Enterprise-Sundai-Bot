@@ -116,7 +116,7 @@ export function renderArticle(lang, slug) {
   }).join('');
   const consultation = slug === secureLlmGuide.slug
     ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
-  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span><time datetime="${a.published}">${c.date}</time></p>` : '';
+  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${c.date}</time></p>` : '';
   const sources = a.sources.map(({name, url}) =>
     `<li><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
   const main = `<main id="main" class="kn-reading"><article>

@@ -6,24 +6,24 @@
     </defs>
   </svg>
   <div class="sd-demo-frame" id="sd-demo-school" data-demo="0" data-view="crop" role="group">
-    <div class="sd-widget-head"><span class="sd-widget-index" aria-hidden="true">✧</span><strong data-sd-word="schoolTitle">Outside the frame</strong><span class="sd-widget-index" aria-hidden="true">✧</span></div>
+    <div class="sd-widget-head"><span class="sd-widget-index" aria-hidden="true">✧</span><strong data-sd-word="schoolTitle" data-he-key="schoolTitle" data-he-text="מה נשאר מחוץ לתמונה?">Outside the frame</strong><span class="sd-widget-index" aria-hidden="true">✧</span></div>
     <div class="sd-photo" id="sd-school-photo">
-      <img src="/assets/brand-home/balloon-source.webp" alt="A close-up of a red and cream hot-air balloon." decoding="async">
+      <img src="/assets/brand-home/balloon-source.webp" data-he-key="altCrop" data-he-text="תקריב של כדור פורח בצבעי אדום ושמנת." alt="A close-up of a red and cream hot-air balloon." decoding="async">
     </div>
-    <p class="sd-photo-note" aria-live="polite" data-sd-frame-note>Is this balloon alone in the sky?</p>
-    <button type="button" class="sd-result-btn" data-reveal-frame aria-controls="sd-school-photo" aria-expanded="false"><span data-sd-frame-action>Show the full photo</span><span aria-hidden="true">↗</span></button>
+    <p class="sd-photo-note" aria-live="polite" data-sd-frame-note data-he-key="question" data-he-text="האם זה הכדור הפורח היחיד בשמיים?">Is this balloon alone in the sky?</p>
+    <button type="button" class="sd-result-btn" data-reveal-frame aria-controls="sd-school-photo" aria-expanded="false"><span data-sd-frame-action data-he-key="reveal" data-he-text="לתמונה המלאה">Show the full photo</span><span aria-hidden="true">↗</span></button>
   </div>
   <div class="sd-chip-scene" id="sd-demo-governance" data-demo="1" role="group" hidden>
     <div class="sd-socket"><div class="sd-socket-grid"></div><i class="sd-rail sd-r1"></i><i class="sd-rail sd-r2"></i><i class="sd-rail sd-r3"></i><i class="sd-rail sd-r4"></i><div class="sd-chip"><span class="sd-chip-label">GRC</span><span class="sd-chip-pins" aria-hidden="true">•••</span><strong dir="ltr">SundAI</strong><small dir="ltr">AI · 42001<br>REV 02 / EU</small></div></div>
-    <button type="button" class="sd-chip-action" data-governance><span class="sd-tiny-led" aria-hidden="true"></span><span data-sd-gov-msg>Review a decision</span><span aria-hidden="true">↗</span></button>
+    <button type="button" class="sd-chip-action" data-governance><span class="sd-tiny-led" aria-hidden="true"></span><span data-sd-gov-msg data-he-key="review" data-he-text="לבדיקת ההחלטה">Review a decision</span><span aria-hidden="true">↗</span></button>
   </div>
   <div class="sd-rag-scene" id="sd-demo-assistant" data-demo="2" role="group" hidden>
     <div class="sd-rag-stack" aria-hidden="true"><div></div><div></div></div>
     <div class="sd-rag-panel">
       <div class="sd-rag-top"><b>RAG</b><i class="sd-tiny-led"></i></div>
-      <strong data-sd-word="ragTitle">Ask your knowledge</strong><p data-sd-word="ragQuestion">Who approves a refund?</p>
-      <div class="sd-source"><svg aria-hidden="true"><use href="#sd-doc-icon"/></svg><span data-sd-word="ragSource">Refund policy · §2</span><span aria-hidden="true">↗</span></div>
-      <button type="button" data-source><span data-sd-source-msg>Inspect source</span><span aria-hidden="true">↗</span></button>
+      <strong data-sd-word="ragTitle" data-he-key="ragTitle" data-he-text="שאלה לעוזר הארגוני">Ask your knowledge</strong><p data-sd-word="ragQuestion" data-he-key="ragQuestion" data-he-text="מי מוסמך לאשר החזר כספי?">Who approves a refund?</p>
+      <div class="sd-source"><svg aria-hidden="true"><use href="#sd-doc-icon"/></svg><span data-sd-word="ragSource" data-he-key="ragSource" data-he-text="נוהל החזרים · סעיף 2">Refund policy · §2</span><span aria-hidden="true">↗</span></div>
+      <button type="button" data-source><span data-sd-source-msg data-he-key="inspect" data-he-text="למקור התשובה">Inspect source</span><span aria-hidden="true">↗</span></button>
     </div>
   </div>
 </div>

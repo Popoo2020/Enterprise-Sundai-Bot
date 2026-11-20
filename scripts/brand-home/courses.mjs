@@ -27,10 +27,10 @@ const courses = {
     he: {
       title:'הייתם משתפים את זה?', label:'Teen Tech AI', lead:'בדקו מי עומד מאחורי סרטון, גלו כמה באמת עולה המבצע ובנו אתר שעוזר לחבר לכיתה לקבל החלטה.',
       who:'כיתות ח׳–ט׳ · עד 24 תלמידים', time:'4 מפגשים בני 90 דקות',
-      skills:['להצליב טענה מול מקור עצמאי ולהסביר מה עדיין אינו ידוע.','לחשב מחיר כולל ולבחור תגובה בטוחה לבקשת פרטים.','לשנות אתר בעזרת AI ולבדוק בעצמכם שני קלטים.'],
+      skills:['להצליב טענה מול מקור עצמאי ולהסביר מה עדיין אינו ידוע.','לחשב מחיר כולל ולבחור תגובה בטוחה לבקשת פרטים.','לשנות אתר בעזרת AI, להזין בו שתי דוגמאות ולבדוק אם הוא מחזיר את התוצאה הצפויה.'],
       units:['חוקרים סרטון ואת מקורו','משווים מבצעים ומתרגלים תגובה לפישינג','בונים אתר מתבנית ובודקים שני מקרי שימוש','מחליפים אתרים, מתעדים משוב ומשפרים'],
-      take:'לכל זוג אתר עובד, יומן ראיות קצר ותיקון שתועד בעקבות בדיקת משתמש.',
-      sample:'איזו הצעה נכנסת בתקציב של 25 אירו?', rows:[['הצעה א׳','€19.90 + €6.10'],['הצעה ב׳','€24.00']], note:'אחרי המשלוח, הצעה א׳ עולה 26 אירו. מה עוד תבדקו על המוכר?',
+      take:'כל זוג יוצא עם אתר שבנה, תיעוד קצר של המקורות שבדק ושיפור שעשה אחרי שחברים לכיתה ניסו את האתר.',
+      sample:'איזו הצעה נכנסת בתקציב של 25 אירו?', rows:[['הצעה א׳','€19.90 + €6.10'],['הצעה ב׳','€24.00']], note:'כולל דמי המשלוח, המחיר בהצעה א׳ הוא 26 אירו. מה עוד תבדקו על המוכר?',
     },
     en: {
       title:'Would you share it?', label:'Teen Tech AI', lead:'Investigate a video, find the real cost of a deal and build a website that helps a classmate make a decision.',
@@ -59,12 +59,12 @@ const courses = {
   },
   teachers: {
     he: {
-      title:'השיעור של השבוע הבא', label:'AI לצוותי הוראה', lead:'בחרו שיעור שתקיימו השבוע. הכינו שתי פעילויות לאותה מטרה וגלו מתוך תשובות התלמידים מה כדאי לשנות.',
-      who:'עד 12 מורים מאותו תחום דעת', time:'2 × 90 דקות ועוד 30 דקות עצמאיות',
+      title:'השיעור של השבוע הבא', label:'AI לצוותי הוראה', lead:'בחרו שיעור שתלמדו בשבוע הבא. בסדנה תכינו שתי פעילויות לאותה מטרת לימוד, ואחרי שתנסו אותן בכיתה, תבדקו מה התלמידים הבינו ומה כדאי לשנות.',
+      who:'עד 12 מורים מאותו תחום דעת', time:'שני מפגשים בני 90 דקות וחצי שעה של עבודה עצמאית',
       skills:['לנסח יעד משותף לשתי דרכי הוראה.','לבדוק טיוטת AI מול חומר לימוד מאושר.','לשפר פעילות על בסיס תשובות מכרטיס יציאה.'],
       units:['מתכננים ומאמתים · 90 דקות','מתאימים ומנתחים · 30 דקות עצמאיות. ההוראה עצמה בשיעור הרגיל','מפרשים תשובות, מתקנים ומעבירים לעמית · 90 דקות'],
       take:'ערכת שיעור לעריכה עם שתי פעילויות, תשובון, כרטיס יציאה והערה שמסבירה מה שופר.',
-      sample:'איך נדע שהתלמיד הבין התאדות?', rows:[['טיוטת AI','״מים מתאדים רק ברתיחה״'],['כרטיס יציאה','לאן עברו המים בשלולית שהתייבשה?']], note:'המורה בודק את הטענה מול המקור, ואז מחפש בתשובה הסבר למעבר ממים נוזליים לאדי מים.',
+      sample:'איך נדע אם התלמידים הבינו מהי התאדות?', rows:[['טיוטת AI','״מים מתאדים רק ברתיחה״'],['כרטיס יציאה','לאן עברו המים בשלולית שהתייבשה?']], note:'המורה בודק את הטענה מול המקור, ואז מחפש בתשובה הסבר למעבר ממים נוזליים לאדי מים.',
     },
     en: {
       title:'Next week’s lesson', label:'AI for teaching teams', lead:'Start with a lesson you will teach this week. Design two ways to teach the same idea, then use students’ answers to decide what to improve.',
@@ -94,11 +94,11 @@ const courses = {
   hospital: {
     he: {
       title:'המשמרת הראשונה', label:'AI למדריכי קליטה ושירות', lead:'הפכו שיחה מאתגרת בדלפק המרפאה לסימולציה בת חמש דקות שמדריך אחר יוכל להעביר לעובד חדש.',
-      who:'6–10 מדריכי קליטה ושירות בבתי חולים', time:'2 × 120 דקות ושעה עצמאית',
-      skills:['להגדיר התנהגות שאפשר לראות או לשמוע בשיחה.','לבנות שני צומתי החלטה ולבדוק ניסוחים מול נוהל מקומי.','לתת משוב על התנהגות ולשפר תרגיל אחרי הרצת עמית.'],
-      units:['כתיבת תרחיש ותדריך עם כלי AI · 120 דקות','הרצה בידי עמית ותיעוד · 60 דקות עצמאיות','תחקיר, עריכה והעברת הערכה · 120 דקות'],
+      who:'6–10 מדריכי קליטה ושירות בבתי חולים', time:'שני מפגשים בני שעתיים ושעה של עבודה עצמאית',
+      skills:['להגדיר התנהגות שאפשר לראות או לשמוע בשיחה.','לתכנן שני רגעים שבהם העובד צריך לבחור איך להגיב, ולבדוק שהתגובות תואמות את נוהלי היחידה.','לתת משוב על מה שהעובד אמר ועשה, ולשפר את התרגיל אחרי שעמית התנסה בהעברתו.'],
+      units:['כתיבת תרחיש ותדריך עם כלי AI · 120 דקות','עמית מעביר את התרגיל ומתעד מה עבד ומה דרש הסבר נוסף · שעה של עבודה עצמאית','משוחחים על התרגול, משפרים את חומרי ההנחיה ומעבירים אותם למדריך נוסף · שעתיים'],
       take:'תיק הנחיה לעריכה הכולל תרחיש, תרשים החלטות, כרטיסי תפקיד, שאלות תחקיר ודף תצפית.',
-      sample:'מלווה שואל למה נדחה תור, בדלפק עמוס.', rows:[['רגע ההחלטה','איזו שאלה אפשר לברר כאן?'],['משוב המדריך','מה העובד הציע, ובאיזה ערוץ?']], note:'כל הפרטים בדיוניים. המדריכים בודקים את הניסוח מול נוהל היחידה ושומרים על גבולות התפקיד.',
+      sample:'מלווה ניגש לדלפק העמוס ושואל מדוע התור נדחה. איך מגיבים?', rows:[['רגע ההחלטה','איזו שאלה אפשר לברר כאן?'],['משוב המדריך','מה העובד הציע, ובאיזה ערוץ?']], note:'כל הפרטים בדיוניים. המדריכים בודקים את הניסוח מול נוהל היחידה ושומרים על גבולות התפקיד.',
     },
     en: {
       title:'The first shift', label:'AI for onboarding and service trainers', lead:'Turn a difficult conversation at an outpatient desk into a five-minute simulation another trainer can run with a new colleague.',
@@ -127,11 +127,11 @@ const courses = {
   },
   public: {
     he: {
-      title:'מי נשאר מחוץ לסיכום?', label:'AI לצוותי שיתוף ציבור', lead:'שלושים תגובות הוגשו להתייעצות אחת. בנו תקציר לישיבת החלטה שבו אפשר לראות גם הסתייגות של אדם אחד.',
-      who:'עד 10 עובדי רשות או שיתוף ציבור', time:'2 מפגשים בני 90 דקות',
-      skills:['לשייך תגובה לכמה נושאים ולזהות תמיכה מותנית.','לבדוק כל ציטוט מול המקור ולמצוא טענה שנשמטה.','לחשוף מגבלות ייצוג ולהגיש תקציר שאפשר לשחזר.'],
+      title:'מי נשאר מחוץ לסיכום?', label:'AI לצוותי שיתוף ציבור', lead:'התקבלו שלושים תגובות על הצעה של הרשות. איך מסכמים אותן בעמוד אחד לקראת ישיבה, בלי להחמיץ הסתייגות שהופיעה רק באחת התגובות?',
+      who:'עד עשרה משתתפים מקרב עובדי הרשות וצוותי שיתוף הציבור', time:'2 מפגשים בני 90 דקות',
+      skills:['לשייך תגובה לכמה נושאים ולזהות תמיכה מותנית.','לבדוק כל ציטוט מול המקור ולמצוא טענה שנשמטה.','להסביר אילו עמדות מיוצגות בתגובות ולהראות איך הגיעו מהן למסקנות שבתקציר.'],
       units:['קריאת התגובות, בניית מפתח נושאים וקידוד · 90 דקות','כתיבת תקציר, אימות כל הציטוטים וביקורת מדגמית · 90 דקות'],
-      take:'תקציר בן עמוד, מטריצת תגובות ויומן ביקורת שמראה מי בדק, מה השתנה ומדוע.',
+      take:'תקציר בן עמוד לישיבה, טבלה שמקשרת כל עמדה לתגובות המקוריות ותיעוד של הבדיקות והתיקונים שערכתם.',
       sample:'״אני בעד פתיחה בערב, בתנאי שלא יסגרו ביום שישי.״', rows:[['מקור','תגובה 17 · תרחיש בדוי'],['קידוד','תמיכה בפתיחת ערב והתנגדות לסגירת שישי']], note:'אפשר לקודד שתי עמדות ולשייך את שתיהן לאותה תגובה.',
     },
     en: {
@@ -202,5 +202,5 @@ export function renderCourse(locale, slug) {
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');
   const direction = lang === 'he' ? 'rtl' : 'ltr';
-  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css"><script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div><aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside></div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + t.skills + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
+  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css"><script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div><aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside></div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
 }
