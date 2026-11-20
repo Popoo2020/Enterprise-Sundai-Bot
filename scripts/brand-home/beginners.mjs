@@ -1,5 +1,6 @@
 export const beginners = {
   he: {
+    homeLink: 'פעם ראשונה עם AI? קורס למתחילים',
     seoTitle: 'קורס בינה מלאכותית למתחילים – ללמוד בקצב שלך',
     description: 'קורס AI למבוגרים שמתחילים מהצעד הראשון. עם אריאל רימון מתרגלים ניסוח הודעות, בדיקת תשובות ושמירה על הפרטיות בעזרת דוגמאות מחיי היום־יום.',
     title: 'AI בקצב שלך', label: 'קורס היכרות למבוגרים',
@@ -15,6 +16,7 @@ export const beginners = {
     callHeading: 'מה היית רוצה לנסות בפעם הראשונה?', callOutcome: 'נבחר דוגמה אחת מחיי היום־יום ונחליט יחד איך יהיה לך נוח ללמוד.',
   },
   en: {
+    homeLink: 'New to AI? Explore the beginner course',
     seoTitle: 'Beginner AI course for adults – learn at your own pace',
     description: 'New to AI? Practise writing a message, checking an answer and keeping personal details private with Ariel Rimón. Four everyday topics at your own pace.',
     title: 'AI at your own pace', label: 'A first AI course for adults',
@@ -30,6 +32,7 @@ export const beginners = {
     callHeading: 'What would you like to try first?', callOutcome: 'We’ll choose one everyday example and talk about how you like to learn.',
   },
   sv: {
+    homeLink: 'Ny på AI? Se nybörjarkursen',
     seoTitle: 'AI-kurs för vuxna nybörjare – lär dig i din egen takt',
     description: 'Nyfiken på AI? Med Ariel Rimón övar du på att skriva ett meddelande, kontrollera svar och skydda privata uppgifter. Fyra vardagliga teman i din egen takt.',
     title: 'AI i din egen takt', label: 'En första AI-kurs för vuxna',
@@ -45,6 +48,7 @@ export const beginners = {
     callHeading: 'Vad skulle du vilja prova först?', callOutcome: 'Vi väljer ett exempel ur din vardag och pratar om hur du helst vill lära dig.',
   },
   da: {
+    homeLink: 'Ny til AI? Se begynderkurset',
     seoTitle: 'AI-kursus for voksne begyndere – lær i dit eget tempo',
     description: 'Ny til AI? Sammen med Ariel Rimón øver du dig i at skrive en besked, tjekke et svar og passe på private oplysninger. Fire hverdagsemner i dit eget tempo.',
     title: 'AI i dit eget tempo', label: 'Et første AI-kursus for voksne',
