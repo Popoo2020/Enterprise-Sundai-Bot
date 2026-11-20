@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import {access, readFile} from 'node:fs/promises';
+import {access, readdir, readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {articleSlugs, guides} from '../../scripts/brand-home/knowledge-data.mjs';
 import {buildReferencePreview} from '../../scripts/build-brand-preview.mjs';
@@ -16,6 +16,7 @@ const languages = ['en','he','sv','da'];
 const courseSlugs = ['youth','teachers','hospital','public'];
 const serviceSlugs = ['compliance-ai-governance','cloud-security','secure-ai-automation','private-ai-agents-rag'];
 const workflowSlug = 'enterprise-ai-agents';
+const trustRoutes = {en:'/trust/', he:'/he/trust/', sv:'/sv/tillit/', da:'/da/tillid/'};
 const parentService = 'private-ai-agents-rag';
 const servicePages = [...serviceSlugs, workflowSlug];
 const syllabusKeys = ['TeenTech','Teacher','Hospital','PublicConsultation'];
@@ -81,7 +82,7 @@ test('rendered pages use their requested language and have working local links',
         assert.doesNotMatch(schoolDemo, /data-offer|headphones|€/, route);
         const catalogue = html.match(/<section[^>]+id=["']organisations["'][^>]*>([\s\S]*?)<\/section>/i)?.[1];
         assert.ok(catalogue, route + ' missing organisation catalogue');
-        for (const service of serviceSlugs) {
+        for (const service of servicePages) {
           assert.ok(hrefs(catalogue).includes(routeFor(locale, 'services', service)), route + ' organisation card ' + service);
         }
         assert.ok(hrefs(html).includes(routeFor(locale,'read')), route + ' guide hub link');
@@ -166,7 +167,22 @@ test('curricula PDFs retain the source bytes and existing services remain reacha
       createHash('sha256').update(copy).digest('hex'), name);
   }
   for (const route of ['/services/','/book/','/training/','/sv/tjanster/','/da/ydelser/']) {
-    assert.equal(await readFile(publicFile(route), 'utf8'), await readFile(path.join(repo, 'site', route, 'index.html'), 'utf8'), route);
+    const updated = await readFile(publicFile(route), 'utf8');
+    const original = await readFile(path.join(repo, 'site', route, 'index.html'), 'utf8');
+    const originalMain = main(original);
+    const updatedMain = main(updated);
+    assert.match(updated, /class="fr-header"/, route);
+    for (const match of originalMain.matchAll(/\b(?:id|action|name)="[^"]+"/g)) {
+      assert.ok(updated.includes(match[0]), route+' lost '+match[0]);
+    }
+    const updatedLinks = hrefs(updatedMain);
+    for (const destination of hrefs(originalMain)) {
+      assert.ok(updatedLinks.includes(destination), route+' lost '+destination);
+    }
+    if (originalMain.includes('id="ai-assistants"')) {
+      const lang = updated.match(/<html[^>]+lang="([^"]+)"/)[1];
+      assert.ok(updatedLinks.includes(routeFor(lang,'services',workflowSlug)),route+' agent service entry');
+    }
   }
   assert.match(await readFile(path.join(target,'robots.txt'), 'utf8'), /Disallow: \/\s*$/m);
   assert.match(await readFile(path.join(target,'_headers'), 'utf8'), /X-Robots-Tag: noindex, nofollow/);
@@ -179,7 +195,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
   const xml = await readFile(path.join(target,'sitemap-sundai.xml'),'utf8');
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
   const routes = languages.flatMap(lang=>[
-    routeFor(lang),routeFor(lang,'read'),
+    routeFor(lang),trustRoutes[lang],routeFor(lang,'read'),
     routeFor(lang,'free-guides'),...legacyGuideSlugs.map(slug=>routeFor(lang,'free-guides',slug)),
     ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
     ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),
@@ -204,9 +220,46 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
   }
 });
 
-test('public guides and agents services have discoverable canonical pages and accurate metadata', async () => {
+async function verifyFrameworkDestinations(output) {
+  const frameworkIds = ['soc2','iso27001','iso42001','gdpr','eu-ai-act'];
+  const trustDocuments = new Map();
+  for (const [lang, route] of Object.entries(trustRoutes)) {
+    const html = await readFile(path.join(output,route,'index.html'),'utf8');
+    assert.match(html, new RegExp('<html[^>]+lang="'+lang+'"'), route);
+    assert.ok(html.includes('rel="canonical" href="https://sundaibot.com'+route+'"'), route+' canonical URL');
+    const article = main(html);
+    for (const id of frameworkIds) assert.ok(article.includes('id="framework-'+id+'"'),route+' section '+id);
+    trustDocuments.set(lang,route);
+  }
+  const htmlFiles = (await readdir(output,{recursive:true})).filter(file=>file.endsWith('.html'));
+  for (const file of htmlFiles) {
+    const html = await readFile(path.join(output,file),'utf8');
+    const lang = html.match(/<html\b[^>]*\blang="([^"]+)"/i)?.[1];
+    const trustRoute = trustDocuments.get(lang);
+    assert.ok(trustRoute, file+' page language');
+    assert.match(html, /<header\b[^>]*\bclass="fr-header"/, file+' branded navigation');
+    const footer = html.match(/<footer\b[^>]*\bclass="fr-footer"[^>]*>([\s\S]*?)<\/footer>/i)?.[1];
+    assert.ok(footer,file+' branded footer');
+    const strip = footer.match(/<section\b[^>]*\bclass="fr-frameworks"[^>]*>([\s\S]*?)<\/section>/i)?.[1];
+    assert.ok(strip,file+' frameworks section');
+    const links = new Map();
+    for (const [,attrs,body] of strip.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+      const id = body.match(/src="\/assets\/framework-([^"]+)\.svg"/)?.[1];
+      const href = attrs.match(/\bhref="([^"]+)"/)?.[1];
+      assert.ok(id && href,file+' linked framework emblem');
+      links.set(id,new URL(href,'https://sundaibot.com/'+file).href);
+    }
+    assert.equal(links.size,frameworkIds.length,file+' different frameworks');
+    for (const id of frameworkIds) {
+      assert.equal(links.get(id),'https://sundaibot.com'+trustRoute+'#framework-'+id,file+' '+id);
+    }
+  }
+}
+
+test('public pages use localized trust links and publish discoverable guides and agent services', async () => {
   await buildReferencePreview(true);
   const output = path.join(repo,'dist/brand-public');
+  await verifyFrameworkDestinations(output);
   const publicPage = route => readFile(path.join(output,route,'index.html'),'utf8');
   const canonical = route => new URL(route,'https://sundaibot.com').href;
   const nodes = html => [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map(match=>JSON.parse(match[1]));

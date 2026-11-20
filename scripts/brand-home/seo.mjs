@@ -8,7 +8,7 @@ const text = value => value.replace(/&(?:amp|quot|#39|lt|gt);/g, entity => entit
 const urlFor = (lang,parts) => origin + '/' + [...(lang==='en'?[]:[lang]),...parts].map(s=>s+'/').join('');
 const structuredData = data => '<script type="application/ld+json">'+JSON.stringify(data).replaceAll('<','\\u003c')+'</script>';
 
-export function optimisePage(html, route, isPublic = false) {
+export function optimisePage(html, route, isPublic = false, languagePaths) {
   const parts = route.split('/').filter(Boolean);
   const lang = locales.includes(parts[0]) ? parts.shift() : 'en';
   const [kind,slug] = parts;
@@ -16,7 +16,8 @@ export function optimisePage(html, route, isPublic = false) {
   const course = kind==='courses';
   const title = !kind ? info.home+' | SundAI' : course ? info.course[courseTopics.indexOf(slug)]+' | SundAI' : text(html.match(/<title>(.*?)<\/title>/s)[1]);
   const desc = !kind ? info.homeLead : text(html.match(/<meta name="description" content="([^"]*)"/)[1]);
-  const canonical = urlFor(lang,parts);
+  const localizedUrl = locale => languagePaths ? new URL(languagePaths[locale], origin).href : urlFor(locale,parts);
+  const canonical = localizedUrl(lang);
   const org = {'@type':'Organization','@id':origin+'/#organization',name:'SundAI',url:origin+'/'};
   const guideCollection = kind==='read' || kind==='free-guides';
   const pageType = course?'Course':kind==='services'?'Service':guideCollection?(slug?'Article':'CollectionPage'):'WebPage';
@@ -30,7 +31,7 @@ export function optimisePage(html, route, isPublic = false) {
   if(pageType==='WebPage') Object.assign(entity,{inLanguage:lang,publisher:org});
   if(pageType==='Course'||pageType==='Service') entity.provider=org;
   if(pageType==='Service') entity.mainEntityOfPage = {'@type':'WebPage','@id':canonical,inLanguage:lang};
-  const alternatives = [...locales,'x-default'].map(l=>'<link rel="alternate" hreflang="'+l+'" href="'+urlFor(l==='x-default'?'en':l,parts)+'">').join('');
+  const alternatives = [...locales,'x-default'].map(l=>'<link rel="alternate" hreflang="'+l+'" href="'+localizedUrl(l==='x-default'?'en':l)+'">').join('');
   let breadcrumb = '';
   if (guideCollection) {
     const hubTitle = kind==='free-guides' ? legacyGuideLabel(lang) : guideIndex[lang].title;

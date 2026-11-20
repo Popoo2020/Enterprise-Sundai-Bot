@@ -1,4 +1,6 @@
+import {rebrandLegacyPages} from './brand-home/legacy-pages.mjs';
 import { agentWorkflowSlug, agentWorkflowLink, renderAgentWorkflows } from './brand-home/agent-workflows.mjs';
+import { renderTrust, trustPaths } from './brand-home/trust.mjs';
 import { optimisePage, sitemap } from './brand-home/seo.mjs';
 import { locales } from './brand-home/search-copy.mjs';
 import { guideFeed } from './brand-home/guide-feed.mjs';
@@ -27,11 +29,11 @@ async function copyPublicSite(target) {
   });
 }
 
-async function writePage(target, route, html, isPublic, routes) {
+async function writePage(target, route, html, isPublic, routes, languagePaths) {
   const directory = path.join(target, route);
   await mkdir(directory, {recursive: true});
   routes.push(route);
-  await writeFile(path.join(directory, 'index.html'), optimisePage(html, route, isPublic));
+  await writeFile(path.join(directory, 'index.html'), optimisePage(html, route, isPublic, languagePaths));
 }
 
 async function writeDiscoveryDirectory(target, articlesFor) {
@@ -84,6 +86,7 @@ export async function buildReferencePreview(isPublic = false) {
     for (const locale of ['en', 'he', 'sv', 'da']) {
       const prefix = locale === 'en' ? '' : locale;
       await writePage(staging, prefix, await renderHome(locale), isPublic, routes);
+      await writePage(staging, trustPaths[locale].slice(1,-1), renderTrust(locale), isPublic, routes, trustPaths);
       await writePage(staging, path.join(prefix, 'intro-call'), renderCallPage(locale), isPublic, routes);
       const collections = {
         freeGuides: {index:legacyGuideHubPath(locale), label:legacyGuideLabel(locale), items:legacyGuideCards(locale)},
@@ -119,6 +122,7 @@ export async function buildReferencePreview(isPublic = false) {
     await rebrandLegacyArchive(staging, isPublic);
     await rebrandLegacyResources(staging, isPublic);
     await rebrandLegacyAssessment(staging, isPublic);
+    await rebrandLegacyPages(staging, isPublic);
     await writeFile(path.join(staging,'sitemap-sundai.xml'), sitemap(routes));
     if (isPublic) {
       await writeDiscoveryDirectory(staging, articlesFor);

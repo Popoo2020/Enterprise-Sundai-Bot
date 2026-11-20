@@ -122,3 +122,9 @@
 @media(max-width:620px){.biz-heading,.biz-grid{grid-template-columns:1fr}.biz-heading{gap:.85rem}.biz-grid{gap:.65rem}.biz-grid .pc-service{display:grid;grid-template-columns:40px 1fr;align-items:center;column-gap:.75rem}.biz-grid .pc-service-icon{width:40px;height:40px;margin:0}.biz-grid .pc-service h3{margin:0}.biz-grid .pc-service p,.biz-grid .biz-result{grid-column:1/-1}.biz-grid .pc-service p{margin-top:.7rem}.biz-result{margin-top:.65rem;padding-top:.65rem}}
 .pc-business .biz-actions .fr-action{color:#fff}
 @media(min-width:621px){.biz-grid .pc-service p{flex:1}.biz-grid .biz-result{align-self:stretch}}
+
+.biz-agent-card { position: relative; }
+.biz-agent-primary::after { content: ""; position: absolute; inset: 0; border-radius: 14px; }
+.biz-agent-primary:focus-visible::after { outline: 3px solid var(--brand-blue); outline-offset: 2px; }
+.biz-agent-detail { position: relative; color: var(--brand-ink); font-weight: 600; text-decoration: underline; text-underline-offset: .2em; }
+.biz-agent-detail:hover { color: var(--brand-hover); }
