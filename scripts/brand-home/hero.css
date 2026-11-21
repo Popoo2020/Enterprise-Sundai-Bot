@@ -99,3 +99,76 @@
 .sd-demo-frame{width:84%;min-width:240px;max-width:406px;padding:clamp(10px,2.8cqw,16px)}
 .sd-result-btn{min-height:35px!important}.sd-socket{aspect-ratio:.99}.sd-chip-scene{width:65%;max-width:325px}
 @media(max-width:650px){.sd-art{aspect-ratio:.92}.sd-art .sd-demo-frame{width:78%;max-width:405px}}
+
+/* The mascots grip the edge of the active demonstration. Keeping them in flow
+   leaves the entire card available for direct interaction, also in narrow RTL. */
+.sd-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sd-crew-perch {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: clamp(125px, 54%, 268px);
+  margin-bottom: -3px;
+  z-index: 2;
+  direction: ltr;
+  pointer-events: none;
+}
+.sd-crew-perch img,
+.fr-school-crew img {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+.sd-crew-perch img:first-child { width: clamp(57px, 19cqw, 97px); }
+.sd-crew-perch img:last-child { width: clamp(48px, 16cqw, 79px); }
+.sd-art[data-scene="2"] .sd-rag-scene { margin-top: 0; }
+
+.fr-school-crew {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  direction: ltr;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  width: 146px;
+  max-width: 100%;
+  overflow: hidden;
+  border-bottom: 2px solid #b5c9ff;
+  border-image: linear-gradient(90deg, transparent, #b5c9ff 17% 83%, transparent) 1;
+}
+.fr-school-crew img:first-child { width: 61px; }
+.fr-school-crew img:last-child { width: 49px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .sd-crew-perch.fr-enter.fr-active,
+  .fr-school-crew.fr-enter.fr-active { animation: none; }
+  .sd-crew-perch.fr-active img,
+  .fr-school-crew.fr-active img {
+    transform-origin: 50% 99%;
+    animation: crew-perch-in .64s cubic-bezier(.22,.77,.3,1) backwards;
+  }
+  /* Pausing the slideshow must leave the grip settled even when focus arrives
+     in the first few frames. Each entrance runs once on its own scroll cue. */
+  .sd-art:not(.sd-running) .sd-crew-perch.fr-active img {
+    animation-play-state: running !important;
+  }
+  .fr-school-crew.fr-active img { animation-name: crew-peek-in; }
+  .sd-crew-perch.fr-active img + img,
+  .fr-school-crew.fr-active img + img { animation-delay: .11s; }
+  @keyframes crew-peek-in {
+    from { transform: translateY(74%) rotate(-5deg); }
+    70% { transform: translateY(-2px) rotate(1deg); }
+    to { transform: none; }
+  }
+  @keyframes crew-perch-in {
+    from { transform: translateY(13px) rotate(-5deg) scale(.97); }
+    65% { transform: translateY(-2px) rotate(2deg); }
+    to { transform: none; }
+  }
+}

@@ -7,22 +7,22 @@
   const words = {
     en:{
       pills:['AI for Schools','AI Governance','Private AI Assistants'], group:'Choose a demonstration', pause:'Pause automatic rotation', play:'Play automatic rotation',
-      schoolTitle:'Outside the frame', question:'Is this balloon alone in the sky?', answer:'There’s a yellow balloon, too. The close-up hid it.', reveal:'Show the full photo', crop:'Back to the close-up', altCrop:'A close-up of a red and cream hot-air balloon.', altWide:'Two hot-air balloons, one red and cream and one yellow, above a rocky valley.',
+      schoolTitle:'Outside the frame', question:'Is this balloon alone in the sky?', answer:'There’s a yellow balloon, too. Which detail changed your answer?', reveal:'Show the full photo', crop:'Back to the close-up', altCrop:'A close-up of a red and cream hot-air balloon.', altWide:'Two hot-air balloons, one red and cream and one yellow, above a rocky valley.',
       review:'Review a decision',gov:['Access checked','Owner assigned','Decision recorded'],ragTitle:'Ask your knowledge',ragQuestion:'Who approves a refund?',ragSource:'Refund policy · §2',inspect:'Inspect source',source:'§2 · A manager approves exceptions.'
     },
     he:{
       pills:['AI לבתי ספר','ממשל AI ותקינה','עוזרי AI פרטיים'],group:'בחירת הדגמה',pause:'השהיית המעבר האוטומטי',play:'הפעלת המעבר האוטומטי',
-        answer:'בתמונה המלאה רואים גם כדור פורח צהוב. התקריב הסתיר אותו.',  crop:'חזרה לתקריב',  altWide:'שני כדורים פורחים מעל עמק סלעי. אחד באדום ושמנת והשני צהוב.',
+        answer:'עכשיו רואים גם כדור פורח צהוב. מה בתמונה גרם לכם לחשוב אחרת?',  crop:'חזרה לתקריב',  altWide:'שני כדורים פורחים מעל עמק סלעי. אחד באדום ושמנת והשני צהוב.',
       gov:['ההרשאה נבדקה','נקבע גורם אחראי','ההחלטה תועדה'],source:'סעיף 2 · מנהל מאשר חריגים.'
     },
     sv:{
       pills:['AI för skolan','AI-styrning','Privata AI-assistenter'],group:'Välj demonstration',pause:'Pausa automatiskt byte',play:'Starta automatiskt byte',
-      schoolTitle:'Utanför bild', question:'Är luftballongen ensam på himlen?', answer:'Här syns också en gul ballong. Den hamnade utanför närbilden.', reveal:'Visa hela bilden', crop:'Tillbaka till närbilden', altCrop:'En röd och gräddvit luftballong i närbild.', altWide:'Två luftballonger över en klippig dal. Den ena är röd och gräddvit, den andra gul.',
+      schoolTitle:'Utanför bild', question:'Är luftballongen ensam på himlen?', answer:'Nu syns en gul ballong också. Vilken detalj fick dig att tänka om?', reveal:'Visa hela bilden', crop:'Tillbaka till närbilden', altCrop:'En röd och gräddvit luftballong i närbild.', altWide:'Två luftballonger över en klippig dal. Den ena är röd och gräddvit, den andra gul.',
       review:'Granska ett beslut',gov:['Åtkomst kontrollerad','Ansvarig utsedd','Beslut dokumenterat'],ragTitle:'Fråga kunskapsstödet',ragQuestion:'Vem godkänner återköp?',ragSource:'Returpolicy · §2',inspect:'Kontrollera källan',source:'§2 · En chef godkänner undantag.'
     },
     da:{
       pills:['AI i skolen','AI-governance','Private AI-assistenter'],group:'Vælg demonstration',pause:'Sæt automatisk skift på pause',play:'Start automatisk skift',
-      schoolTitle:'Uden for billedet', question:'Er luftballonen alene på himlen?', answer:'Der er også en gul ballon. Den var uden for nærbilledet.', reveal:'Vis hele billedet', crop:'Tilbage til nærbilledet', altCrop:'Et nærbillede af en rød og cremefarvet luftballon.', altWide:'To luftballoner over en klippedal. Den ene er rød og cremefarvet, den anden gul.',
+      schoolTitle:'Uden for billedet', question:'Er luftballonen alene på himlen?', answer:'Nu kan du også se en gul ballon. Hvilken detalje ændrede dit svar?', reveal:'Vis hele billedet', crop:'Tilbage til nærbilledet', altCrop:'Et nærbillede af en rød og cremefarvet luftballon.', altWide:'To luftballoner over en klippedal. Den ene er rød og cremefarvet, den anden gul.',
       review:'Gennemgå en beslutning',gov:['Adgang kontrolleret','Ansvarlig udpeget','Beslutning registreret'],ragTitle:'Spørg din AI-assistent',ragQuestion:'Hvem godkender en refundering?',ragSource:'Returpolitik · §2',inspect:'Undersøg kilden',source:'§2 · En leder godkender undtagelser.'
     }
   };

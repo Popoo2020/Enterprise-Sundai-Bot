@@ -1,3 +1,4 @@
+import { renderOfferExercise } from './crew-demos.mjs';
 import { beginners } from './beginners.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { courseTopics, searchCopy } from './search-copy.mjs';
@@ -30,7 +31,7 @@ const courses = {
       skills:['להצליב טענה מול מקור עצמאי ולהסביר מה עדיין אינו ידוע.','לחשב מחיר כולל ולבחור תגובה בטוחה לבקשת פרטים.','לשנות אתר בעזרת AI, להזין בו שתי דוגמאות ולבדוק אם הוא מחזיר את התוצאה הצפויה.'],
       units:['חוקרים סרטון ואת מקורו','משווים מבצעים ומתרגלים תגובה לפישינג','בונים אתר מתבנית ובודקים שני מקרי שימוש','מחליפים אתרים, מתעדים משוב ומשפרים'],
       take:'כל זוג יוצא עם אתר שבנה, תיעוד קצר של המקורות שבדק ושיפור שעשה אחרי שחברים לכיתה ניסו את האתר.',
-      sample:'איזו הצעה נכנסת בתקציב של 25 אירו?', rows:[['הצעה א׳','€19.90 + €6.10'],['הצעה ב׳','€24.00']], note:'כולל דמי המשלוח, המחיר בהצעה א׳ הוא 26 אירו. מה עוד תבדקו על המוכר?',
+      sample:'איזו הצעה נכנסת בתקציב של 25 אירו?',
     },
     en: {
       title:'Would you share it?', label:'Teen Tech AI', lead:'Investigate a video, find the real cost of a deal and build a website that helps a classmate make a decision.',
@@ -38,7 +39,7 @@ const courses = {
       skills:['Check a claim against an independent source and explain what is still unknown.','Calculate the full price and respond safely to requests for personal details.','Edit a website with AI and test two inputs yourself.'],
       units:['Investigate a video and its source','Compare offers and practise responding to phishing','Build a website from a template and test two cases','Swap projects, observe a user and improve the design'],
       take:'Each pair finishes with a working website, a short evidence log and a documented change made after user testing.',
-      sample:'Which offer fits a €25 budget?', rows:[['Offer A','€19.90 + €6.10'],['Offer B','€24.00']], note:'After delivery, offer A costs €26. What else would you check about the seller?',
+      sample:'Which offer fits a €25 budget?',
     },
     sv: {
       title:'Skulle du dela det här?', label:'Teen Tech AI', lead:'Granska en video, räkna ut vad ett erbjudande faktiskt kostar och bygg en webbplats som hjälper en klasskamrat att fatta beslut.',
@@ -46,7 +47,7 @@ const courses = {
       skills:['Kontrollera ett påstående mot en oberoende källa och förklara vad som fortfarande är oklart.','Räkna ut totalpriset och bemöta en förfrågan om personuppgifter på ett säkert sätt.','Ändra en webbplats med AI och själv testa två inmatningar.'],
       units:['Granska en video och dess källa','Jämför erbjudanden och öva på att hantera nätfiske','Bygg en webbplats från en mall och testa två fall','Byt projekt, följ en användare och förbättra webbplatsen'],
       take:'Varje par får en fungerande webbplats, en kort källogg och en dokumenterad förbättring efter ett användartest.',
-      sample:'Vilket erbjudande ryms inom 25 euro?', rows:[['Erbjudande A','€19,90 + €6,10'],['Erbjudande B','€24,00']], note:'Med frakt kostar det första erbjudandet 26 euro. Vad vill du veta om säljaren?',
+      sample:'Vilket erbjudande ryms inom 25 euro?',
     },
     da: {
       title:'Ville du dele det?', label:'Teen Tech AI', lead:'Undersøg en video, find den reelle pris på et tilbud og byg en hjemmeside, der hjælper en klassekammerat med at træffe et valg.',
@@ -54,7 +55,7 @@ const courses = {
       skills:['Tjekke en påstand hos en uafhængig kilde og forklare, hvad der stadig er usikkert.','Beregne den samlede pris og håndtere en anmodning om personoplysninger sikkert.','Ændre en hjemmeside med AI og selv afprøve to indtastninger.'],
       units:['Undersøg en video og dens kilde','Sammenlign tilbud og øv jer i at håndtere phishing','Byg en hjemmeside fra en skabelon og afprøv to eksempler','Byt projekter, følg en bruger og forbedr hjemmesiden'],
       take:'Hvert makkerpar får en fungerende hjemmeside, en kort kildelog og en dokumenteret ændring efter en brugertest.',
-      sample:'Hvilket tilbud holder sig inden for 25 euro?', rows:[['Tilbud A','€19,90 + €6,10'],['Tilbud B','€24,00']], note:'Med fragt koster tilbud A 26 euro. Hvad vil du ellers tjekke om sælgeren?',
+      sample:'Hvilket tilbud holder sig inden for 25 euro?',
     },
   },
   teachers: {
@@ -175,6 +176,12 @@ function courseUrl(lang, slug) {
   return homeUrl(lang) + 'courses/' + slug + '/';
 }
 
+function renderCourseExample(lang, slug, t, c) {
+  if (slug === 'youth') return renderOfferExercise(lang, t.sample, c.sample);
+  const example = c.rows.map(([label,val]) => '<div><dt>' + escapeHtml(label) + '</dt><dd><bdi>' + escapeHtml(val) + '</bdi></dd></div>').join('');
+  return '<aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside>';
+}
+
 export function renderCourse(locale, slug) {
   const lang = String(locale).toLowerCase();
   if (!Object.hasOwn(ui,lang) || !courseSlugs.includes(slug)) throw new Error('Unknown course or language: ' + locale + '/' + slug);
@@ -194,7 +201,7 @@ export function renderCourse(locale, slug) {
   const alternates = Object.keys(languages).map(l => '<link rel="alternate" hreflang="' + l + '" href="https://sundaibot.com' + courseUrl(l,slug) + '">').join('');
 
   const facts = [[t.who,c.who],[t.format,c.time],[t.language,trainingLanguages[lang].offer]].map(([term,val]) => '<div><dt>' + escapeHtml(term) + '</dt><dd>' + escapeHtml(val) + '</dd></div>').join('');
-  const example = c.rows.map(([label,val]) => '<div><dt>' + escapeHtml(label) + '</dt><dd><bdi>' + escapeHtml(val) + '</bdi></dd></div>').join('');
+  const sample = renderCourseExample(lang, slug, t, c);
   const skills = c.skills.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
   const units = c.units.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
   const teacher = c.teacher ? '<div class="course-teacher"><h2>' + escapeHtml(c.teacherTitle) + '</h2><p>' + escapeHtml(c.teacher) + '</p></div>' : '';
@@ -202,5 +209,5 @@ export function renderCourse(locale, slug) {
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');
   const direction = lang === 'he' ? 'rtl' : 'ltr';
-  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css"><script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div><aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside></div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
+  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css">' + (slug === 'youth' ? '<link rel="stylesheet" href="' + directory + 'crew-demos.css">' : '') + '<script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div>' + sample + '</div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
 }

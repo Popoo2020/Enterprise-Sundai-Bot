@@ -1,0 +1,53 @@
+/* Keep the characters on the edge of the example they help explain. */
+.crew-lesson .example-window { padding-block-start: .35rem; }
+.crew-lesson-head {
+  display: flex; align-items: end; justify-content: space-between; gap: .75rem;
+  border-block-end: 1px solid #697599;
+}
+.crew-lesson-head .sample-label { padding-block: .65rem; }
+.crew-lesson-head img {
+  display: block; width: clamp(3.5rem, 5vw, 4.5rem); height: auto; margin-block-end: -2px;
+  pointer-events: none; transform-origin: 52% 98%;
+}
+.crew-lesson h2 { margin-block: 1rem .35rem; }
+.crew-instruction { font-size: .9rem; color: #d4d7e6; margin-block-end: .8rem; }
+.crew-answer { border-block-start: 1px solid #525466; }
+.crew-answer summary, .crew-review summary {
+  list-style: none; display: flex; align-items: center; justify-content: space-between; gap: .65rem;
+  min-height: 44px; cursor: pointer; border-radius: 2px;
+}
+.crew-answer summary::-webkit-details-marker, .crew-review summary::-webkit-details-marker { display: none; }
+.crew-answer summary { padding: .6rem .2rem; }
+.crew-answer summary:focus-visible, .crew-review summary:focus-visible {
+  outline: 3px solid var(--brand-ring, #7098ff); outline-offset: 3px;
+}
+.crew-answer strong, .crew-price { display: block; }
+.crew-answer strong { font-weight: 600; }
+.crew-price, .crew-feedback { font-size: .88rem; line-height: 1.5; color: #d4d7e6; }
+.crew-feedback { padding: .15rem .2rem .75rem; color: #e2e9ff; }
+.crew-plus { position: relative; display: block; width: 1rem; height: 1rem; flex: none; }
+.crew-plus::before, .crew-plus::after {
+  content: ''; position: absolute; inset: 50% 1px auto; border-top: 2px solid currentColor;
+}
+.crew-plus::after { transform: rotate(90deg); }
+:is(.crew-answer, .crew-review)[open] > summary .crew-plus::after { display: none; }
+.crew-review { align-self: stretch; width: 100%; min-width: 0; margin-block-start: 1rem; border-block-start: 1px solid #c8d2e1; }
+.crew-review summary { justify-content: start; padding-block: .5rem; font-size: .95rem; line-height: 1.3; font-weight: 600; color: #234c85; }
+.crew-review summary img { flex: none; width: 2.6rem; height: auto; transform-origin: 50% 98%; }
+.crew-review summary .crew-plus { margin-inline-start: auto; }
+.crew-review-body { background: #f2f6fc; border-inline-start: 2px solid #507bcb; padding: .75rem 1rem; }
+.crew-review-body dl, .crew-review-body dd { margin: 0; }
+.crew-review-body dt { color: #46546b; font-size: .8rem; font-weight: 600; }
+.crew-review-body dd { line-height: 1.4; margin-block: .15rem .75rem; }
+.os-page .crew-review-body p { font-size: .9rem; line-height: 1.5; color: #253550; }
+@media (max-width: 690px) { .crew-review { grid-column: 1 / -1; } }
+@media (hover: hover) {
+  .crew-answer summary:hover { color: #b4ceff; }
+  .crew-review summary:hover { color: #173aa0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .crew-lesson-head img { animation: crew-demo-peek .55s ease-out both; }
+  .crew-review[open] summary img { animation: crew-demo-nod .45s ease-in-out; }
+  @keyframes crew-demo-peek { from { transform: translateY(4px) rotate(-4deg); } }
+  @keyframes crew-demo-nod { 45% { transform: rotate(-5deg); } }
+}

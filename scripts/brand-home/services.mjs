@@ -1,3 +1,4 @@
+import { renderReviewExample } from './crew-demos.mjs';
 import { agentWorkflowLink } from './agent-workflows.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { automation, governance } from './priority-services.mjs';
@@ -132,8 +133,8 @@ function artwork(index,t) {
  const [head,title,left,right] = t.labels[index].map(escapeHtml);
  return `<div class="os-art" aria-hidden="true"><div class="os-traces"></div><div class="os-paper-back os-back-two"></div><div class="os-paper-back os-back-one"></div><div class="os-art-object"><div class="os-art-bar"><span class="os-art-brand">SundAI</span><span class="os-art-lights"><i></i><i></i><i></i></span></div><div class="os-art-body"><div class="os-art-meta">${mark(index)}<span>${head}</span></div><strong>${title}</strong><img src="${assets+ink[index]}" width="176" height="105" alt=""><span class="os-art-field">${left}<i></i></span><span class="os-art-field">${right}<i></i></span></div></div><span class="os-art-caption">${escapeHtml(t.art)}</span></div>`;
 }
-function renderCards(c, index) {
- return c.cards.map(([name,description],i)=>`<article class="os-card"><span class="os-card-icon">${mark((index+i)%4)}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(description)}</p></article>`).join('');
+function renderCards(lang, c, index) {
+ return c.cards.map(([name,description],i)=>`<article class="os-card"><span class="os-card-icon">${mark((index+i)%4)}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(description)}</p>${serviceSlugs[index] === 'secure-ai-automation' && i === 1 ? renderReviewExample(lang) : ''}</article>`).join('');
 }
 function renderDeliverables(lang, c, t, index) {
  if (c.offers) {
@@ -142,7 +143,7 @@ function renderDeliverables(lang, c, t, index) {
    return `<section class="os-deliver" id="review-options" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${escapeHtml(c.offersHeading)}</h2><div class="os-offers">${offers}</div></div></section>`;
  }
  const illustration = c.example ? `<aside class="os-example"><div><p class="os-example-label">${escapeHtml(c.example[0])}</p><h3>${escapeHtml(c.example[1])}</h3></div><p>${escapeHtml(c.example[2])}</p></aside>` : '';
- return `<section class="os-deliver" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${t.out}</h2><div class="os-cards">${renderCards(c,index)}</div>${illustration}</div></section>`;
+ return `<section class="os-deliver" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${t.out}</h2><div class="os-cards">${renderCards(lang,c,index)}</div>${illustration}</div></section>`;
 }
 const shareLabel = {he:'שיתוף השירות ב־LinkedIn',en:'Share this service on LinkedIn',sv:'Dela tjänsten på LinkedIn',da:'Del ydelsen på LinkedIn'};
 export function renderService(lang,slug, isPublic = false) {
@@ -151,7 +152,9 @@ export function renderService(lang,slug, isPublic = false) {
  const home=base(lang), url=serviceUrl(lang,slug), book=callUrl(lang,c.offers?'decision-review':slug,'service');
  const pageOptions={innerPage:true,service:slug};
  const title = escapeHtml(c.category)+' | SundAI';
- const styles = ['shell','frame','services'].map(file=>`<link rel="stylesheet" href="${assets}${file}.css">`).join('');
+ const stylesheets = ['shell','frame','services'];
+ if (slug === 'secure-ai-automation') stylesheets.push('crew-demos');
+ const styles = stylesheets.map(file=>`<link rel="stylesheet" href="${assets}${file}.css">`).join('');
  const alternates = Object.keys(ui).map(l=>`<link rel="alternate" hreflang="${l}" href="https://sundaibot.com${serviceUrl(l,slug)}">`).join('');
  const action = `<a class="os-go" href="${book}">${escapeHtml(c.cta)} ${arrow}</a>`;
  const shareOrigin = isPublic ? 'https://sundaibot.com' : 'https://sundai-design-review.eririm.chatgpt.site';
