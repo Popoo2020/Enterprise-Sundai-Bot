@@ -15,7 +15,7 @@ export const beginners = {
     teacherTitle: 'כך נלמד יחד',
     teacher: [
       'אני אריק אריאל רימון (Eric Ariel Rimón). נתחיל ממשהו שמעניין אותך לנסות, או ממשהו שמטריד אותך בשימוש ב־AI. אדגים צעד אחד, ואז יהיה לך זמן לנסות בעצמך. אם ההסבר לא ברור, נמצא דרך אחרת.',
-      'יש לי תואר ראשון בשירותים חברתיים מ־Novia בפינלנד. למדתי גם פסיכולוגיה חינוכית ב־Åbo Akademi. יש לי תעודת Mini‑MBA מקצועית מ־IBMI, שם למדתי בין היתר מנהל עסקים ושיווק.',
+      'למדתי בפינלנד. יש לי תואר בניהול שירותי ממשל עם תוספת לפסיכולוגיה פדגוגית. יש לי תעודת Mini‑MBA מקצועית מ־IBMI, שם למדתי בין היתר מנהל עסקים ושיווק.',
       'בשנתיים האחרונות צברתי 234 שעות מתועדות של הכשרה מעשית בסייבר. פיתחתי גם כלי אוטומציה לתכנון משמרות ועוזר AI שמאתר הנחיות לעובדים. בקורס נתרגל איך להחליט אילו פרטים אישיים להשאיר מחוץ לשיחה ואיך לבדוק תשובה מול המקור.',
     ],
     menu: 'AI למתחילים', teaser: 'נכתוב הודעה לספרייה, נכין רשימת קניות או נתחיל משאלה משלך. נתקדם בקצב שנוח לך.', details: 'לתוכנית הקורס למתחילים',
@@ -36,7 +36,7 @@ export const beginners = {
     teacherTitle: 'How we’ll learn together',
     teacher: [
       'I’m Eric Ariel Rimón. We’ll start with something you want to try, or with a worry you have about AI. I’ll show you one step and give you time to try it yourself. If it feels unclear, we’ll find another way.',
-      'I hold a Bachelor of Social Services from Novia University of Applied Sciences in Finland and studied educational psychology at Åbo Akademi University. I also earned a professional Mini‑MBA certificate from IBMI, with coursework in business management and marketing.',
+      'I have a degree in public services management from Finland with additional studies in pedagogical psychology. I also earned a professional Mini‑MBA certificate from IBMI, with coursework in business management and marketing.',
       'Over the past two years, I’ve logged 234 hours of practical cybersecurity training. I’ve also built tools for shift planning and an AI assistant that helps staff find the right instructions. In class, we practise deciding which personal details to leave out of a chat and checking an answer against its source.',
     ],
     menu: 'AI for absolute beginners', teaser: 'A library message, a shopping list or a question of your own. Try it one step at a time.', details: 'Explore the beginner course',
@@ -57,7 +57,7 @@ export const beginners = {
     teacherTitle: 'Så lär vi oss tillsammans',
     teacher: [
       'Jag heter Eric Ariel Rimón. Vi börjar med något du vill prova eller något som känns osäkert med AI. Jag visar ett steg och sedan får du prova själv. Om det känns oklart tar vi det på ett annat sätt.',
-      'Jag är utbildad socionom (YH) vid Yrkeshögskolan Novia i Finland och har läst pedagogisk psykologi vid Åbo Akademi. Jag har också ett Mini‑MBA-certifikat från IBMI, där jag bland annat läste företagsledning och marknadsföring.',
+      'Jag har en finländsk examen i ledning av offentlig verksamhet med kompletterande studier i pedagogisk psykologi. Jag har också ett Mini‑MBA-certifikat från IBMI, där jag bland annat läste företagsledning och marknadsföring.',
       'Under de senaste två åren har jag dokumenterat 234 timmars praktisk utbildning i cybersäkerhet. Jag har också byggt verktyg för skiftplanering och en AI-assistent som hjälper personalen att hitta rätt instruktion. På kursen övar vi på att avgöra vilka personuppgifter som ska stanna utanför chatten och att kontrollera ett svar mot källan.',
     ],
     menu: 'AI för nybörjare', teaser: 'Ett meddelande till biblioteket, en inköpslista eller en egen fråga. Vi provar ett steg i taget.', details: 'Läs om nybörjarkursen',
@@ -78,7 +78,7 @@ export const beginners = {
     teacherTitle: 'Sådan lærer vi sammen',
     teacher: [
       'Jeg hedder Eric Ariel Rimón. Vi begynder med noget, du gerne vil prøve, eller noget ved AI, der gør dig usikker. Jeg viser dig ét trin og giver dig tid til selv at prøve. Er det uklart, finder vi en anden måde.',
-      'Jeg har en Bachelor of Social Services fra Novia i Finland og har læst pædagogisk psykologi på Åbo Akademi. Jeg har også et Mini‑MBA-certifikat fra IBMI, hvor jeg blandt andet læste virksomhedsledelse og markedsføring.',
+      'Jeg har en finsk uddannelse i ledelse af offentlige tjenester med supplerende studier i pædagogisk psykologi. Jeg har også et Mini‑MBA-certifikat fra IBMI, hvor jeg blandt andet læste virksomhedsledelse og markedsføring.',
       'De seneste to år har jeg dokumenteret 234 timers praktisk uddannelse i cybersikkerhed. Jeg har også bygget værktøjer til vagtplanlægning og en AI-assistent, der hjælper medarbejdere med at finde den rette vejledning. På kurset øver vi os i at vælge, hvilke personoplysninger vi holder ude af chatten, og i at tjekke et svar ved kilden.',
     ],
     menu: 'AI for begyndere', teaser: 'En besked til biblioteket, en indkøbsliste eller dit eget spørgsmål. Vi prøver ét trin ad gangen.', details: 'Se begynderkurset',

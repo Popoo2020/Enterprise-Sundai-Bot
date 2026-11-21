@@ -91,7 +91,13 @@ test('rendered pages use their requested language and have working local links',
       assert.doesNotMatch(html, /(?<!Eric )Ariel Rimón|(?<!אריק )אריאל רימון/, route + ' abbreviated founder name');
       if (section === 'courses' && slug === 'beginners') {
         const bio = html.match(/<div class="course-teacher">([\s\S]*?)<\/div>/)?.[1] ?? '';
-        for (const term of ['Eric Ariel Rimón', 'Novia', 'Åbo Akademi', 'IBMI', '234']) {
+        const degree = {
+          he: 'למדתי בפינלנד. יש לי תואר בניהול שירותי ממשל עם תוספת לפסיכולוגיה פדגוגית.',
+          en: 'I have a degree in public services management from Finland with additional studies in pedagogical psychology.',
+          sv: 'Jag har en finländsk examen i ledning av offentlig verksamhet med kompletterande studier i pedagogisk psykologi.',
+          da: 'Jeg har en finsk uddannelse i ledelse af offentlige tjenester med supplerende studier i pædagogisk psykologi.',
+        };
+        for (const term of ['Eric Ariel Rimón', degree[locale], 'IBMI', '234']) {
           assert.ok(bio.includes(term), route + ' instructor profile missing ' + term);
         }
       }
