@@ -1,4 +1,5 @@
 import { callUrl } from './call.mjs';
+import { renderContextCue, crewMotionScript } from './crew-demos.mjs';
 import { renderHeader, renderFooter } from './frame.mjs';
 
 export const agentWorkflowSlug = 'enterprise-ai-agents';
@@ -195,13 +196,16 @@ export function renderAgentWorkflows(lang) {
   const languagePaths = Object.fromEntries(Object.keys(copy).map(locale => [locale, servicePath(locale, agentWorkflowSlug)]));
   const frameOptions = {innerPage: true, service: parentSlug, languagePaths};
   const booking = callUrl(lang, parentSlug, 'service');
-  const styleLinks = ['shell','frame','services','agent-workflows'].map(name => `<link rel="stylesheet" href="/assets/brand-home/${name}.css">`).join('');
+  const styleLinks = ['shell','frame','services','crew-demos','agent-workflows'].map(name => `<link rel="stylesheet" href="/assets/brand-home/${name}.css">`).join('');
   const button = label => `<a class="os-go" href="${booking}">${escapeHtml(label)}${arrow}</a>`;
   const sections = pairs => pairs.map(([title, body]) => `<li><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></li>`).join('');
-  const invoice = c.detailRows.map(([label, amount]) => `<div><dt>${escapeHtml(label)}</dt><dd><bdi dir="ltr">${escapeHtml(amount)}</bdi></dd></div>`).join('');
+  const invoice = c.detailRows.map(([label, amount], index) => {
+    const isVariance = index === c.detailRows.length - 1;
+    return `<div${isVariance ? ' class="aw-variance"' : ''}><dt>${escapeHtml(label)}</dt><dd><bdi dir="ltr">${escapeHtml(amount)}</bdi>${isVariance ? renderContextCue('mark') : ''}</dd></div>`;
+  }).join('');
   const metrics = c.metrics.map(([value, label]) => `<li><strong><bdi>${escapeHtml(value)}</bdi></strong><span>${escapeHtml(label)}</span></li>`).join('');
   return `<!doctype html>
-<html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0b0d"><title>${escapeHtml(c.title)} | SundAI</title><meta name="description" content="${escapeHtml(c.meta)}"><link rel="icon" href="/assets/favicon.svg">${styleLinks}<script defer src="/assets/brand-home/frame.js"></script></head>
+<html lang="${lang}" dir="${lang === 'he' ? 'rtl' : 'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0b0d"><title>${escapeHtml(c.title)} | SundAI</title><meta name="description" content="${escapeHtml(c.meta)}"><link rel="icon" href="/assets/favicon.svg">${styleLinks}<script defer src="/assets/brand-home/frame.js"></script>${crewMotionScript}</head>
 <body class="os-page os-theme-3 aw-page"><a class="fr-skip" href="#main">${escapeHtml(c.skip)}</a>${renderHeader(lang,frameOptions)}
 <main id="main">
   <section class="os-hero"><div class="os-wrap os-hero-grid"><div class="os-copy">

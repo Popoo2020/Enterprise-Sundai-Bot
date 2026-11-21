@@ -71,3 +71,9 @@
   @keyframes crew-look-first { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
   @keyframes crew-look-second { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 }
+
+/* Inline artwork on a sample document occupies its own space as motion loads. */
+.sd-context-cue { display: block; position: relative; pointer-events: none; user-select: none; }
+.sd-context-cue img { display: block; width: 100%; height: auto; }
+.sd-context-cue .sd-context-motion { position: absolute; inset: 0; }
+.sd-context-cue:has(.sd-context-motion) > img:first-child { visibility: hidden; }

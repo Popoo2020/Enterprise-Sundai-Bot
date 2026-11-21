@@ -1,4 +1,4 @@
-import { renderOfferExercise } from './crew-demos.mjs';
+import { crewMotionScript, renderContextCue, renderOfferExercise } from './crew-demos.mjs';
 import { beginners } from './beginners.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { courseTopics, searchCopy } from './search-copy.mjs';
@@ -65,7 +65,8 @@ const courses = {
       skills:['לנסח יעד משותף לשתי דרכי הוראה.','לבדוק טיוטת AI מול חומר לימוד מאושר.','לשפר פעילות על בסיס תשובות מכרטיס יציאה.'],
       units:['מתכננים ומאמתים · 90 דקות','מתאימים ומנתחים · 30 דקות עצמאיות. ההוראה עצמה בשיעור הרגיל','מפרשים תשובות, מתקנים ומעבירים לעמית · 90 דקות'],
       take:'ערכת שיעור לעריכה עם שתי פעילויות, תשובון, כרטיס יציאה והערה שמסבירה מה שופר.',
-      sample:'איך נדע אם התלמידים הבינו מהי התאדות?', rows:[['טיוטת AI','״מים מתאדים רק ברתיחה״'],['כרטיס יציאה','לאן עברו המים בשלולית שהתייבשה?']], note:'המורה בודק את הטענה מול המקור, ואז מחפש בתשובה הסבר למעבר ממים נוזליים לאדי מים.',
+      sample:'איך נדע אם התלמידים הבינו מהי התאדות?', rows:[['טיוטת AI שגויה','״מים מתאדים רק ברתיחה״'],['כרטיס יציאה','לאן עברו המים בשלולית שהתייבשה?']], note:'המורה בודק את הטענה מול המקור, ואז מחפש בתשובה הסבר למעבר ממים נוזליים לאדי מים.',
+      review: 'בדקו את הטיוטה', modelLabel: 'תשובה אפשרית של תלמיד', modelAnswer: 'מים מתאדים גם בטמפרטורת החדר. חלק ממי השלולית הפכו לאדי מים והתערבבו באוויר.',
     },
     en: {
       title:'Next week’s lesson', label:'AI for teaching teams', lead:'Start with a lesson you will teach this week. Design two ways to teach the same idea, then use students’ answers to decide what to improve.',
@@ -73,7 +74,8 @@ const courses = {
       skills:['Define one learning goal for two teaching approaches.','Check an AI draft against an approved subject source.','Revise an activity using evidence from exit tickets.'],
       units:['Plan and verify · 90 minutes','Adapt and analyse · 30 minutes independently. Teach during normal class time','Interpret, revise and hand the lesson to a colleague · 90 minutes'],
       take:'An editable lesson pack with two activities, an answer guide, an exit ticket and a note explaining the improvement.',
-      sample:'What would show that a student understands evaporation?', rows:[['AI draft','“Water evaporates only when it boils.”'],['Exit ticket','Where did the water in the drying puddle go?']], note:'The teacher checks the draft against a source, then looks for an explanation of liquid water turning into vapour.',
+      sample:'What would show that a student understands evaporation?', rows:[['Incorrect AI draft','“Water evaporates only when it boils.”'],['Exit ticket','Where did the water in the drying puddle go?']], note:'The teacher checks the draft against a source, then looks for an explanation of liquid water turning into vapour.',
+      review: 'Check the draft', modelLabel: 'Example pupil answer', modelAnswer: 'Water can evaporate at room temperature. Some water from the puddle turned into water vapour and mixed with the air.',
     },
     sv: {
       title:'Nästa veckas lektion', label:'AI för lärarlag', lead:'Utgå från en lektion du ska hålla i veckan. Planera två sätt att undervisa om samma sak och använd elevernas svar för att förbättra lektionen.',
@@ -81,7 +83,8 @@ const courses = {
       skills:['Formulera ett gemensamt lärandemål för två arbetssätt.','Granska ett AI-utkast mot en tillförlitlig ämneskälla.','Förbättra en uppgift utifrån elevernas avslutande svar.'],
       units:['Planera och granska · 90 minuter','Anpassa och analysera · 30 minuter enskilt. Undervisningen sker på ordinarie lektionstid','Tolka svar, bearbeta och lämna över till en kollega · 90 minuter'],
       take:'Ett redigerbart lektionspaket med två aktiviteter, facit, en avslutande kontrollfråga och en motivering till en förbättring.',
-      sample:'Hur ser vi att eleven förstår avdunstning?', rows:[['AI-utkast','”Vatten avdunstar bara när det kokar.”'],['Kontrollfråga','Vart tog vattnet i den torkande pölen vägen?']], note:'Läraren granskar påståendet mot en källa och letar sedan efter en förklaring till hur flytande vatten blir vattenånga.',
+      sample:'Hur ser vi att eleven förstår avdunstning?', rows:[['Felaktigt AI-utkast','”Vatten avdunstar bara när det kokar.”'],['Kontrollfråga','Vart tog vattnet i den torkande pölen vägen?']], note:'Läraren granskar påståendet mot en källa och letar sedan efter en förklaring till hur flytande vatten blir vattenånga.',
+      review: 'Granska utkastet', modelLabel: 'Ett möjligt elevsvar', modelAnswer: 'Vatten kan avdunsta vid rumstemperatur. En del av vattnet i pölen blev till vattenånga och blandades med luften.',
     },
     da: {
       title:'Næste uges lektion', label:'AI for lærerteams', lead:'Tag udgangspunkt i en lektion, du skal holde i denne uge. Planlæg to veje til samme læringsmål, og brug elevernes svar til at forbedre undervisningen.',
@@ -89,7 +92,8 @@ const courses = {
       skills:['Formulere ét læringsmål for to undervisningsformer.','Tjekke et AI-udkast mod en godkendt faglig kilde.','Forbedre en aktivitet ud fra elevernes svar på en afsluttende opgave.'],
       units:['Planlæg og tjek indholdet · 90 minutter','Tilpas og analysér · 30 minutter på egen hånd. Undervis i den almindelige lektion','Fortolk svar, ret materialet og giv det til en kollega · 90 minutter'],
       take:'Et redigerbart undervisningsmateriale med to aktiviteter, facit, en kort afsluttende opgave og en begrundelse for en forbedring.',
-      sample:'Hvordan ser vi, at eleven forstår fordampning?', rows:[['AI-udkast','”Vand fordamper kun, når det koger.”'],['Afsluttende opgave','Hvor blev vandet i den udtørrede pyt af?']], note:'Læreren tjekker påstanden mod en kilde og ser derefter efter en forklaring på, hvordan flydende vand bliver til vanddamp.',
+      sample:'Hvordan ser vi, at eleven forstår fordampning?', rows:[['AI-udkast med fejl','”Vand fordamper kun, når det koger.”'],['Afsluttende opgave','Hvor blev vandet i den udtørrede pyt af?']], note:'Læreren tjekker påstanden mod en kilde og ser derefter efter en forklaring på, hvordan flydende vand bliver til vanddamp.',
+      review: 'Tjek udkastet', modelLabel: 'Et muligt elevsvar', modelAnswer: 'Vand kan fordampe ved stuetemperatur. Noget af vandet i pytten blev til vanddamp og blandede sig med luften.',
     },
   },
   hospital: {
@@ -179,6 +183,15 @@ function courseUrl(lang, slug) {
 function renderCourseExample(lang, slug, t, c) {
   if (slug === 'youth') return renderOfferExercise(lang, t.sample, c.sample);
   const example = c.rows.map(([label,val]) => '<div><dt>' + escapeHtml(label) + '</dt><dd><bdi>' + escapeHtml(val) + '</bdi></dd></div>').join('');
+  if (slug === 'teachers') {
+    const direction = lang === 'he' ? 'rtl' : 'ltr';
+    return `<aside class="example teacher-example"><div class="example-window">
+      <p class="sample-label">${t.sample}</p><h2>${escapeHtml(c.sample)}</h2><dl>${example}</dl>
+      <details class="teacher-review"><summary>${escapeHtml(c.review)}</summary>
+        <div class="teacher-model"><div class="teacher-model-text" dir="${direction}"><h3>${escapeHtml(c.modelLabel)}</h3><p>${escapeHtml(c.modelAnswer)}</p></div>${renderContextCue('dan')}</div>
+        <p class="example-note">${escapeHtml(c.note)}</p>
+      </details></div></aside>${crewMotionScript}`;
+  }
   return '<aside class="example"><div class="example-window"><p class="sample-label">' + t.sample + '</p><h2>' + escapeHtml(c.sample) + '</h2><dl>' + example + '</dl><p class="example-note">' + escapeHtml(c.note) + '</p></div></aside>';
 }
 
@@ -209,5 +222,5 @@ export function renderCourse(locale, slug) {
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');
   const direction = lang === 'he' ? 'rtl' : 'ltr';
-  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css">' + (slug === 'youth' ? '<link rel="stylesheet" href="' + directory + 'crew-demos.css">' : '') + '<script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div>' + sample + '</div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
+  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css">' + (school ? '<link rel="stylesheet" href="' + directory + 'crew-demos.css">' : '') + '<script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p></div>' + sample + '</div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section><section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
 }

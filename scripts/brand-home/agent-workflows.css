@@ -27,8 +27,14 @@
 .aw-sheet dl div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-top: 1px solid #d7d5cc; padding: 10px 0; }
 .aw-sheet dt { font-size: clamp(15px, 1.12vw, 18px); line-height: 1.4; }
 .aw-sheet dd { flex: none; margin: 0; font-weight: 580; font-variant-numeric: tabular-nums; }
-.aw-sheet dl div:last-child { border-top: 1px solid #716d5e; }
-.aw-sheet dl div:last-child dd { color: #59420b; background: #ffeaab; padding: 2px 7px; border-radius: 2px; }
+.aw-sheet dl .aw-variance { border-top: 1px solid #716d5e; align-items: center; column-gap: 7px; }
+.aw-variance dd { display: flex; direction: ltr; align-items: end; gap: 4px; }
+.aw-variance bdi { color: #59420b; background: #ffeaab; padding: 2px 7px; border-radius: 2px; }
+.aw-variance .sd-context-cue {
+  width: clamp(37px, 4vw, 55px);
+  flex: none;
+  border-block-end: 1px solid #bcb49d;
+}
 .aw-page .aw-sheet p { font-size: 14px; color: #524f48; line-height: 1.45; }
 
 .aw-section { padding-block: clamp(60px, 6.5vw, 104px); }
