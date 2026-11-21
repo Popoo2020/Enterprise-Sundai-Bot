@@ -36,10 +36,19 @@
   <div class="sd-rag-scene" id="sd-demo-assistant" data-demo="2" role="group" hidden>
     <div class="sd-rag-stack" aria-hidden="true"><div></div><div></div></div>
     <div class="sd-rag-panel">
+      <span class="sd-character sd-rag-bot" aria-hidden="true" data-motion="/brand/crew/v2/bot-motion.webp">
+        <img data-poster="/brand/crew/v2/bot.webp" alt="" decoding="async" width="256" height="256">
+      </span>
       <div class="sd-rag-top"><b>RAG</b><i class="sd-tiny-led"></i></div>
       <strong data-sd-word="ragTitle" data-he-key="ragTitle" data-he-text="שאלה לעוזר הארגוני">Ask your knowledge</strong><p data-sd-word="ragQuestion" data-he-key="ragQuestion" data-he-text="מי מוסמך לאשר החזר כספי?">Who approves a refund?</p>
-      <div class="sd-source"><svg aria-hidden="true"><use href="#sd-doc-icon"/></svg><span data-sd-word="ragSource" data-he-key="ragSource" data-he-text="נוהל החזרים · סעיף 2">Refund policy · §2</span><span aria-hidden="true">↗</span></div>
-      <button type="button" data-source><span data-sd-source-msg data-he-key="inspect" data-he-text="למקור התשובה">Inspect source</span><span aria-hidden="true">↗</span></button>
+      <div class="sd-source">
+        <span class="sd-character sd-rag-mark" aria-hidden="true" data-motion="/brand/crew/v2/mark-motion.webp" hidden>
+          <img data-poster="/brand/crew/v2/mark.webp" alt="" decoding="async" width="256" height="256">
+        </span>
+        <svg class="sd-document-icon" aria-hidden="true"><use href="#sd-doc-icon"/></svg><span data-sd-word="ragSource" data-he-key="ragSource" data-he-text="נוהל החזרים · סעיף 2">Refund policy · §2</span>
+        <svg class="sd-citation-check" aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <button type="button" data-source><span class="sd-source-label"><span class="sd-source-reserve" aria-hidden="true"></span><span data-sd-source-msg data-he-key="inspect" data-he-text="למקור התשובה">Inspect source</span></span><svg class="sd-inspect-chevron" aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="m3.5 6 4.5 4.5L12.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </div>
 </div>

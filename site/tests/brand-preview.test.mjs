@@ -40,7 +40,7 @@ function publicFile(route) {
 }
 
 test('hero character reactions are single-play animations with static alternatives', async () => {
-  for (const name of ['sunny', 'dan']) {
+  for (const name of ['sunny', 'dan', 'mark', 'bot']) {
     for (const motion of [false, true]) {
       const file = name + (motion ? '-motion.webp' : '.webp');
       const data = await readFile(publicFile('/brand/crew/v2/' + file));

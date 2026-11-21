@@ -55,8 +55,14 @@
   const msg = attr => selection('[data-sd-'+attr+']');
   const sunny = selection('.sd-sunny');
   const dan = selection('.sd-dan');
+  const bot = selection('.sd-rag-bot');
+  const mark = selection('.sd-rag-mark');
   const connection = navigator.connection;
-  let sunnyPlayed = false;
+  let sunnyPlayed = false, botPlayed = false;
+  function loadPoster(pose) {
+    const image = pose.firstElementChild;
+    if (!image.hasAttribute('src')) image.src = image.dataset.poster;
+  }
   function stopPose(pose) {
     pose.querySelector('.sd-motion-frame')?.remove();
   }
@@ -74,13 +80,31 @@
     motion.src = pose.dataset.motion;
   }
   function syncCrew() {
-    const schoolVisible = current === 0 && onScreen && !document.hidden;
+    const visible = onScreen && !document.hidden;
+    const schoolVisible = current === 0 && visible;
+    const assistantVisible = current === 2 && visible;
     const motionAllowed = !reduced.matches && !connection?.saveData
       && !['slow-2g', '2g'].includes(connection?.effectiveType);
     art.toggleAttribute('data-crew-motion', motionAllowed);
+    mark.hidden = !sourceOpen;
+    if (assistantVisible) {
+      loadPoster(bot);
+      if (sourceOpen) loadPoster(mark);
+    }
+    if (assistantVisible && motionAllowed) {
+      if (!botPlayed) {
+        botPlayed = true;
+        playPose(bot);
+      }
+      if (sourceOpen) playPose(mark);
+      else stopPose(mark);
+    } else {
+      stopPose(bot);
+      stopPose(mark);
+    }
+
     dan.hidden = !photoRevealed;
-    const poster = dan.firstElementChild;
-    if (photoRevealed && !poster.hasAttribute('src')) poster.src = poster.dataset.poster;
+    if (photoRevealed) loadPoster(dan);
     if (!schoolVisible || !motionAllowed) {
       stopPose(sunny);
       stopPose(dan);
@@ -105,6 +129,8 @@
     msg('frame-action').textContent = photoRevealed ? w.crop : w.reveal;
     selection('[data-reveal-frame]').setAttribute('aria-expanded', String(photoRevealed));
     msg('gov-msg').textContent=govStep<0?w.review:w.gov[govStep];
+    demos[2].toggleAttribute('data-inspected', sourceOpen);
+    selection('.sd-source-reserve').textContent = w.source;
     msg('source-msg').textContent=sourceOpen?w.source:w.inspect;
     selection('[data-source]').setAttribute('aria-pressed',String(sourceOpen));
   }

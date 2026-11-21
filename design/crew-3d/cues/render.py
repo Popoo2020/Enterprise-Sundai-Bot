@@ -1,10 +1,9 @@
-"""Bake the fixed-camera glance and nod used by the two native detail examples.
+"""Bake the fixed-camera glance and nod used on the home and detail pages.
 
 Run with Pillow, NumPy and SciPy. The original texture is the site's transparent
 256 px portrait. The facial surface turns about the neck, the irises lead the
-neck movement, and the resting hand stays planted. A single WebP strip lets
-CSS play the cue after it decodes. The native disclosure and still portrait
-remain available without JavaScript or with reduced motion.
+neck movement, and the resting hand stays planted. Export a WebP strip for the
+detail pages and a one-shot animation for the homepage from the same frames.
 """
 from pathlib import Path
 import numpy as np
@@ -42,6 +41,7 @@ def bake(name, rig):
     eyes = sum(oval(x, y, ex, ey, 4.9, 5.4) for ex, ey in rig['eye'])
     hand = oval(x, y, *rig['hand'], 18, 16)
     sheet = Image.new('RGBA', (FRAMES * TILE, TILE))
+    frames = []
     for i in range(FRAMES):
         t = i / (FRAMES - 1)
         turn = impulse(t, .07, .93)
@@ -62,7 +62,11 @@ def bake(name, rig):
         warped[:, :, :3] = np.divide(warped[:, :, :3], alpha, out=np.zeros_like(warped[:, :, :3]), where=alpha > 1e-5)
         tile = Image.fromarray(np.uint8(np.clip(warped * 255 + .5, 0, 255))).resize((TILE, TILE), Image.Resampling.LANCZOS)
         sheet.paste(tile, (i * TILE, 0))
+        frames.append(tile)
     sheet.save(PUBLIC / (name + '-cue.webp'), quality=74, method=6, exact=True)
+    frames[0].save(PUBLIC / (name + '-motion.webp'), save_all=True,
+                   append_images=frames[1:], duration=80, loop=1, quality=72,
+                   method=6, minimize_size=True)
 
 
 if __name__ == '__main__':

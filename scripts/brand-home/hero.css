@@ -89,7 +89,7 @@
 .sd-rag-panel>strong{font-size:clamp(16px,4.4cqw,24px);letter-spacing:-.045em}
 .sd-rag-panel p{margin:8px 0 12px;font-size:clamp(11px,2.8cqw,14px);color:#d1dce9}
 .sd-source{gap:6px;justify-content:flex-start;border:1px solid #4a5667;background:#303b49;border-radius:6px;padding:8px 6px;font-size:clamp(11px,2.8cqw,14px)}
-.sd-source svg{width:19px;height:19px;color:#93c6ff}.sd-source span:last-child{margin-inline-start:auto}
+.sd-source .sd-document-icon{width:19px;height:19px;color:#93c6ff;flex:none}
 .sd-rag-panel button{margin-top:10px;background:linear-gradient(100deg,#7ac7ff,#5d9be7);color:#0e233d}
 @media (min-width:651px) and (max-width:900px){.sd-art .sd-demo-frame,.sd-art .sd-chip-scene,.sd-art .sd-rag-scene{min-width:min(235px,80%)}}
 @media (max-width:650px){#sd-hero-pills{gap:6px;align-items:flex-start;flex-direction:column;padding-inline-end:35px}#sd-hero-pills .sd-pill{min-height:27px;padding:4px 10px;font-size:11px}.sd-pause{position:absolute;inset-inline-end:0;top:0}.sd-art{width:min(100%,510px);aspect-ratio:1.04}.sd-art .sd-demo-frame{width:65%}.sd-art .sd-chip-scene{width:68%}}
@@ -148,6 +148,35 @@
   width: 28%;
   transform: translate(-11.6%, -50%);
 }
+/* Bot rests on the front card. Mark points in from the document margin. */
+.sd-art .sd-rag-scene {
+  min-width: min(235px, 72cqw);
+  left: -1.5cqw;
+}
+.sd-rag-bot {
+  width: clamp(55px, 20cqw, 99px);
+  right: 9%;
+  bottom: calc(100% - 3px);
+}
+.sd-rag-panel .sd-source { position: relative; }
+.sd-rag-mark {
+  width: clamp(32px, 12.5cqw, 67px);
+  left: calc(100% + 5px);
+  top: 50%;
+  transform: translateY(-79%);
+}
+.sd-rag-scene[data-inspected] .sd-source {
+  border-color: #8cbdeb;
+  background: #30455b;
+}
+.sd-citation-check { flex: none; margin-inline-start: auto; visibility: hidden; color: #a8d6ff; }
+.sd-rag-scene[data-inspected] .sd-citation-check { visibility: visible; }
+.sd-source-label { display: grid; align-items: center; min-width: 0; }
+.sd-source-label > * { grid-area: 1 / 1; }
+.sd-source-reserve { visibility: hidden; }
+.sd-inspect-chevron { flex: none; }
+.sd-rag-panel button[aria-pressed="true"] .sd-inspect-chevron { transform: rotate(180deg); }
+.sd-rag-panel button { min-height: 44px; }
 .sd-frame-caption { padding: clamp(10px, 2.6cqw, 15px); }
 .sd-frame-caption .sd-widget-head { padding: 0; }
 .sd-note-box,
