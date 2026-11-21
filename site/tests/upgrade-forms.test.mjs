@@ -7,14 +7,24 @@ const script = await readFile(new URL('../assets/upgrade-forms.js', import.meta.
 
 function harness({ lang = 'en', kind = 'booking', result = { status: 202, body: { ok: true } }, available = true } = {}) {
   const handlers = new Map(), calls = [], metrics = [];
-  let clock = 10000, widgetOptions, resets = 0;
+  let clock = Date.now() - 5000, widgetOptions, resizeObserver, resets = 0;
   const fields = { name: 'Test Person', email: 'test@example.test', organisation: 'Example', message: 'Please discuss a workflow for our organisation.', timezone: 'Europe/Copenhagen', portfolio: 'https://example.test/work', interest: 'Automation', team: '', product: '' };
+  if (kind === 'school-pilot') {
+    for (const key of Object.keys(fields)) delete fields[key];
+    Object.assign(fields, {organisation: '', email: '', grade: '', groupSize: ''});
+  }
   const validity = {};
   const fieldNode = name => ({ setCustomValidity(text) { validity[name] = text; } });
   const nodes = Object.fromEntries(Object.keys(fields).map(name => [name, fieldNode(name)]));
   const node = () => ({ dataset: {}, setAttribute() {}, appendChild() {}, before() {}, hidden: false, textContent: '' });
   const status = node(), button = node(), challenge = node();
+  challenge.clientWidth = 0;
+  const mailEvents = new Map();
+  const mail = {href: 'mailto:owner@example.invalid?subject=Test', addEventListener(name, callback) { mailEvents.set(name, callback); }};
   const form = {
+    hidden: kind === 'school-pilot',
+    clientWidth: 390,
+    closest() { return {querySelector() { return mail; }}; },
     dataset: { kind },
     querySelector(selector) {
       if (selector === '[data-form-status]') return status;
@@ -28,8 +38,10 @@ function harness({ lang = 'en', kind = 'booking', result = { status: 202, body: 
   };
   const response = (status, body) => ({ status, ok: status >= 200 && status < 300, async json() { return body; } });
   const window = {
+    ResizeObserver: class { constructor(callback) { resizeObserver = callback; } observe() {} },
     turnstile: {
       render(_, options) { widgetOptions = options; options.callback('test-challenge-token'); return 1; },
+      remove() { widgetOptions = undefined; },
       reset() { resets++; }
     },
     dispatchEvent(event) { metrics.push(event); }
@@ -38,20 +50,22 @@ function harness({ lang = 'en', kind = 'booking', result = { status: 202, body: 
   vm.runInNewContext(script, {
     document, window, URL, Intl, AbortController, setTimeout, clearTimeout,
     Date: { now: () => clock },
-    FormData: class { getAll(name) { return fields[name] === undefined ? [] : [fields[name]]; } },
+    FormData: class { get(name) { return fields[name]; } getAll(name) { return fields[name] === undefined ? [] : [fields[name]]; } },
     CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options.detail; } },
     async fetch(url, options) {
       calls.push({ url, options });
       if (options.method !== 'POST') return response(available ? 200 : 503, { available, enabled: available, siteKey: available ? 'public-site-key' : '', action: 'contact' });
-      if (typeof result === 'function') return result(response);
+      if (typeof result === 'function') return result(response, options);
       return response(result.status, result.body);
     }
   });
   clock += 5000;
   return {
-    calls, metrics, fields, status, button, form, window,
+    calls, metrics, fields, status, button, form, window, mail,
+    prepareEmail: () => mailEvents.get('click')(),
     submit: () => handlers.get('submit')({ preventDefault() {} }),
     focus: () => handlers.get('focusin')(),
+    async resize(width) { form.clientWidth = width; resizeObserver?.(); await new Promise(resolve => setImmediate(resolve)); },
     edit: name => handlers.get('input')({ target: nodes[name] }),
     token: () => widgetOptions.callback('refreshed-token'),
     resetCount: () => resets,
@@ -259,4 +273,84 @@ test('planner briefs and visitor edits reach the protected payload verbatim with
     assert.equal(h.metrics.length,1);
     assert.deepEqual(JSON.parse(JSON.stringify(h.metrics[0].detail)),{event:'enquiry_submitted'});
   }
+});
+
+
+test('the four-field school pilot travels through the shared protected handler and preserves its reply address', async t => {
+  const { onRequestPost } = await import('../functions/api/contact.js');
+  const { vars } = JSON.parse(await readFile(new URL('../../wrangler.jsonc', import.meta.url), 'utf8'));
+  const env = {...vars, TURNSTILE_SECRET_KEY: 'test-secret', TURNSTILE_SITE_KEY: 'test-key', RESEND_API_KEY: 're_test_key'};
+  const deliveries = [];
+  t.mock.method(globalThis, 'fetch', async (url, options) => {
+    if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+      return Response.json({success: true, action: 'contact', hostname: 'sundaibot.com'});
+    }
+    assert.equal(url, 'https://api.resend.com/emails');
+    deliveries.push(JSON.parse(options.body));
+    return Response.json({id: 'mock-school-pilot'});
+  });
+  for (const [lang, grade] of Object.entries({en: 'Grade 9', he: 'כיתה ט׳', sv: 'Årskurs 9', da: '9. klasse'})) {
+    const h = harness({lang, kind: 'school-pilot', result: (_, options) => onRequestPost({env, request: new Request('https://sundaibot.com/api/contact', {
+      method: 'POST', headers: {...options.headers, origin: 'https://sundaibot.com'}, body: options.body
+    })})});
+    assert.equal(h.form.hidden, false);
+    Object.assign(h.fields, {organisation: 'Demo School', email: 'office@example.invalid', grade, groupSize: '21'});
+    h.prepareEmail();
+    const draft = new URL(h.mail.href);
+    assert.equal(draft.protocol, 'mailto:');
+    const before = deliveries.length;
+    await h.submit();
+    assert.equal(deliveries.length, before + 1, lang);
+    const mail = deliveries.at(-1);
+    assert.deepEqual(mail.to, [vars.CONTACT_TO_EMAIL]);
+    assert.equal(mail.reply_to, h.fields.email);
+    for (const fact of [grade, '21', '90', 'Teen Tech AI', h.fields.organisation]) {
+      assert.ok(mail.text.includes(fact), lang + ': ' + fact);
+      assert.ok(draft.searchParams.get('body').includes(fact), lang + ' fallback: ' + fact);
+    }
+    assert.equal(h.status.dataset.state, 'accepted');
+    assert.equal(h.metrics.length, 1);
+    await h.submit();
+    assert.equal(deliveries.length, before + 1, 'same accepted request is not sent twice');
+  }
+});
+
+test('the school pilot rejects incomplete inputs and offers email when the security service is unavailable', async () => {
+  const h = harness({lang: 'he', kind: 'school-pilot', available: false});
+  Object.assign(h.fields, {organisation: 'Demo School', email: 'office@example.invalid', grade: '', groupSize: '21'});
+  await h.submit();
+  assert.match(h.status.textContent, /שכבת הגיל/);
+  assert.equal(h.calls.length, 0);
+  h.fields.grade = 'כיתה ח׳';
+  for (const invalidCount of ['', '0', '1.7', '25']) {
+    h.fields.groupSize = invalidCount;
+    await h.submit();
+    assert.equal(h.calls.length, 0);
+  }
+  h.fields.groupSize = '24';
+  await h.submit();
+  assert.equal(h.calls.length, 1);
+  assert.equal(h.metrics.length, 0);
+  assert.equal(h.status.dataset.state, 'error');
+  h.prepareEmail();
+  assert.ok(new URL(h.mail.href).searchParams.get('body').includes(h.fields.grade));
+});
+
+test('the pilot challenge fits the available form width before and after rotation', async () => {
+  const h = harness({kind: 'school-pilot'});
+  await h.resize(310);
+  assert.equal(h.calls.length, 0, 'no security request before interaction');
+  h.focus();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(h.options().size, 'flexible', 'an empty, hidden widget container still fits a wide form');
+  assert.equal(h.options().theme, 'light');
+  await h.resize(246);
+  assert.equal(h.options().size, 'compact');
+  await h.resize(320);
+  assert.equal(h.options().size, 'flexible');
+  assert.ok(h.calls.every(call => call.options.method !== 'POST'));
+  Object.assign(h.fields, {organisation: 'Example School', email: 'office@example.invalid', grade: 'Grade 8', groupSize: '20'});
+  await h.submit();
+  assert.equal(h.status.dataset.state, 'accepted');
+  assert.equal(h.metrics.length, 1);
 });

@@ -62,7 +62,7 @@ export async function rebrandLegacyPages(staging, isPublic) {
     const planner = /data-service-planner\b/.test(html);
     const document = restyleDocument({
       html, lang, languagePaths, isPublic, bodyScripts: interactiveScripts,
-      mainClass: 'lp-page', styles: ['legacy-pages'],
+      mainClass: 'lp-page', styles: body[1] === 'decision-review' ? ['legacy-pages', 'decision-memo'] : ['legacy-pages'],
       showClose: !['book','enquiry','join','decision-review','service','training'].includes(body[1]) && !html.includes('class="section cta"')
     }).replace('<body>', '<body data-page-kind="' + body[1] + '">');
     // Only the interactive planner uses its original component stylesheet.
