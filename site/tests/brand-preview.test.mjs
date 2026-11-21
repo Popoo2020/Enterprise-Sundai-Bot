@@ -39,6 +39,29 @@ function publicFile(route) {
   return path.join(target, file);
 }
 
+test('hero character reactions are single-play animations with static alternatives', async () => {
+  for (const name of ['sunny', 'dan']) {
+    for (const motion of [false, true]) {
+      const file = name + (motion ? '-motion.webp' : '.webp');
+      const data = await readFile(publicFile('/brand/crew/v2/' + file));
+      assert.equal(data.toString('ascii', 0, 4), 'RIFF', file);
+      assert.equal(data.toString('ascii', 8, 12), 'WEBP', file);
+      let frames = 0;
+      let plays;
+      for (let pos = 12; pos + 8 <= data.length;) {
+        const type = data.toString('ascii', pos, pos + 4);
+        const size = data.readUInt32LE(pos + 4);
+        assert.ok(pos + 8 + size <= data.length, file + ' truncated chunk');
+        if (type === 'ANIM') plays = data.readUInt16LE(pos + 12);
+        if (type === 'ANMF') frames++;
+        pos += 8 + size + (size % 2);
+      }
+      assert.equal(plays, motion ? 1 : undefined, file);
+      assert.ok(motion ? frames > 1 : frames === 0, file);
+    }
+  }
+});
+
 test('rendered pages use their requested language and have working local links', async () => {
   const anchorCache = new Map();
   for (const locale of languages) {

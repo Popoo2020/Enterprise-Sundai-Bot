@@ -17,19 +17,22 @@
     },
     sv:{
       pills:['AI för skolan','AI-styrning','Privata AI-assistenter'],group:'Välj demonstration',pause:'Pausa automatiskt byte',play:'Starta automatiskt byte',
-      schoolTitle:'Utanför bild', question:'Är luftballongen ensam på himlen?', answer:'Nu syns en gul ballong också. Vilken detalj fick dig att tänka om?', reveal:'Visa hela bilden', crop:'Tillbaka till närbilden', altCrop:'En röd och gräddvit luftballong i närbild.', altWide:'Två luftballonger över en klippig dal. Den ena är röd och gräddvit, den andra gul.',
+      answer:'Nu syns en gul ballong också. Vilken detalj fick dig att tänka om?', crop:'Tillbaka till närbilden', altWide:'Två luftballonger över en klippig dal. Den ena är röd och gräddvit, den andra gul.',
       review:'Granska ett beslut',gov:['Åtkomst kontrollerad','Ansvarig utsedd','Beslut dokumenterat'],ragTitle:'Fråga kunskapsstödet',ragQuestion:'Vem godkänner återköp?',ragSource:'Returpolicy · §2',inspect:'Kontrollera källan',source:'§2 · En chef godkänner undantag.'
     },
     da:{
       pills:['AI i skolen','AI-governance','Private AI-assistenter'],group:'Vælg demonstration',pause:'Sæt automatisk skift på pause',play:'Start automatisk skift',
-      schoolTitle:'Uden for billedet', question:'Er luftballonen alene på himlen?', answer:'Nu kan du også se en gul ballon. Hvilken detalje ændrede dit svar?', reveal:'Vis hele billedet', crop:'Tilbage til nærbilledet', altCrop:'Et nærbillede af en rød og cremefarvet luftballon.', altWide:'To luftballoner over en klippedal. Den ene er rød og cremefarvet, den anden gul.',
+      answer:'Nu kan du også se en gul ballon. Hvilken detalje ændrede dit svar?', crop:'Tilbage til nærbilledet', altWide:'To luftballoner over en klippedal. Den ene er rød og cremefarvet, den anden gul.',
       review:'Gennemgå en beslutning',gov:['Adgang kontrolleret','Ansvarlig udpeget','Beslutning registreret'],ragTitle:'Spørg din AI-assistent',ragQuestion:'Hvem godkender en refundering?',ragSource:'Returpolitik · §2',inspect:'Undersøg kilden',source:'§2 · En leder godkender undtagelser.'
     }
   };
   for (const element of art.querySelectorAll('[data-he-key]')) {
-    words.he[element.dataset.heKey] = element.dataset.heText;
+    for (const code of ['he', 'sv', 'da']) {
+      const value = element.getAttribute('data-' + code + '-text');
+      if (value) words[code][element.dataset.heKey] = value;
+    }
   }
-  let language = 'en', current = 0, elapsed = 0, last = 0, frame = 0, onScreen = true, hover = false, focus = false;
+  let language = 'en', current = 0, elapsed = 0, last = 0, frame = 0, onScreen = !('IntersectionObserver' in window), hover = false, focus = false;
   let photoRevealed = false, govStep = -1, sourceOpen = false;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let paused = reduced.matches;
@@ -50,10 +53,53 @@
   controls.append(pause);
   const selection = key => art.querySelector(key);
   const msg = attr => selection('[data-sd-'+attr+']');
+  const sunny = selection('.sd-sunny');
+  const dan = selection('.sd-dan');
+  const connection = navigator.connection;
+  let sunnyPlayed = false;
+  function stopPose(pose) {
+    pose.querySelector('.sd-motion-frame')?.remove();
+  }
+  function playPose(pose) {
+    // The poster remains visible if an image is delayed, unsupported or blocked.
+    if (pose.querySelector('.sd-motion-frame')) return;
+    const motion = new Image();
+    motion.className = 'sd-motion-frame';
+    motion.alt = '';
+    motion.decoding = 'async';
+    motion.hidden = true;
+    motion.onload = () => { motion.hidden = false; };
+    motion.onerror = () => motion.remove();
+    pose.append(motion);
+    motion.src = pose.dataset.motion;
+  }
+  function syncCrew() {
+    const schoolVisible = current === 0 && onScreen && !document.hidden;
+    const motionAllowed = !reduced.matches && !connection?.saveData
+      && !['slow-2g', '2g'].includes(connection?.effectiveType);
+    art.toggleAttribute('data-crew-motion', motionAllowed);
+    dan.hidden = !photoRevealed;
+    const poster = dan.firstElementChild;
+    if (photoRevealed && !poster.hasAttribute('src')) poster.src = poster.dataset.poster;
+    if (!schoolVisible || !motionAllowed) {
+      stopPose(sunny);
+      stopPose(dan);
+      return;
+    }
+    if (!sunnyPlayed) {
+      sunnyPlayed = true;
+      playPose(sunny);
+    }
+    if (photoRevealed) playPose(dan);
+    else stopPose(dan);
+  }
   function renderData(){
     const w=words[language];
     for(const el of art.querySelectorAll('[data-sd-word]')) el.textContent=w[el.dataset.sdWord];
     demos[0].dataset.view = photoRevealed ? 'wide' : 'crop';
+    const reserve = selection('.sd-note-reserve');
+    reserve.dataset.question = w.question;
+    reserve.dataset.answer = w.answer;
     selection('.sd-photo img').alt = photoRevealed ? w.altWide : w.altCrop;
     msg('frame-note').textContent = photoRevealed ? w.answer : w.question;
     msg('frame-action').textContent = photoRevealed ? w.crop : w.reveal;
@@ -77,6 +123,7 @@
     pause.setAttribute('aria-label',pause.title);
     art.dataset.scene=String(current);
     art.classList.toggle('sd-running',!paused&&!hover&&!focus&&onScreen&&!document.hidden&&!reduced.matches);
+    syncCrew();
     schedule();
   }
   function switchTo(i){
@@ -132,6 +179,7 @@
   }
   document.addEventListener('visibilitychange',renderControls);
   reduced.addEventListener('change',e=>{if(e.matches) paused=true;renderControls()});
+  connection?.addEventListener?.('change',syncCrew);
   if('IntersectionObserver' in window)new IntersectionObserver(entries=>{onScreen=Boolean(entries[0]?.isIntersecting);renderControls()},{threshold:.05}).observe(art);
   // One reusable dot matrix and three groups of accent lights, with a fixed seed.
   const svgNS='http://www.w3.org/2000/svg', dotCanvas=document.createElementNS(svgNS,'svg');
@@ -147,5 +195,6 @@
     }pieces+='</g>';
   }
   dotCanvas.innerHTML=pieces;art.querySelector('.sd-dots').append(dotCanvas);
+  art.dataset.ready = 'true';
   updateLocale();
 })();

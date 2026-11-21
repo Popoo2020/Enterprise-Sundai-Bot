@@ -41,6 +41,12 @@ const copy = {
   },
 };
 
+const motionScript = '<script defer src="/assets/brand-home/crew-demos.js"></script>';
+
+function portrait(actor) {
+  return `<span class="crew-performer crew-${actor}" aria-hidden="true" data-strip="/brand/crew/v2/${actor}-cue.webp"><img src="/brand/crew/v2/${actor}.webp" alt="" width="256" height="256" decoding="async"></span>`;
+}
+
 export function renderOfferExercise(lang, label, question) {
   const c = copy[lang];
   const currency = (n) => new Intl.NumberFormat(lang, {
@@ -49,11 +55,12 @@ export function renderOfferExercise(lang, label, question) {
   }).format(n);
   const amounts = {item: 19.9, shipping: 6.1, total: 24, first: 19.9 + 6.1, second: 24, one: 1};
   const prices = (s) => s.replace(/\{(\w+)\}/g, (_, key) => `<bdi>${currency(amounts[key])}</bdi>`);
-  const options = c.offers.map((offer, i) => `<details class="crew-answer" name="crew-offers"><summary><span><strong>${offer}</strong><span class="crew-price">${prices(c.shipping[i])}</span></span><i class="crew-plus" aria-hidden="true"></i></summary><p class="crew-feedback">${prices(c.feedback[i])}</p></details>`).join('');
-  return `<aside class="example crew-lesson" aria-labelledby="crew-offer-title"><div class="example-window"><div class="crew-lesson-head"><p class="sample-label">${label}</p><img src="/brand/crew/mark.webp" alt="" width="360" height="450" decoding="async"></div><h2 id="crew-offer-title">${question}</h2><p class="crew-instruction">${c.choose}</p>${options}</div></aside>`;
+  const direction = lang === 'he' ? 'rtl' : 'ltr';
+  const options = c.offers.map((offer, i) => `<details class="crew-answer" name="crew-offers" dir="${direction}"><summary><span><strong>${offer}</strong><span class="crew-price">${prices(c.shipping[i])}</span></span><i class="crew-plus" aria-hidden="true"></i></summary><p class="crew-feedback">${prices(c.feedback[i])}</p></details>`).join('');
+  return `<aside class="example crew-lesson" aria-labelledby="crew-offer-title"><div class="example-window"><p class="sample-label">${label}</p><h2 id="crew-offer-title">${question}</h2><p class="crew-instruction">${c.choose}</p><div class="crew-choices">${options}${portrait('mark')}</div></div></aside>${motionScript}`;
 }
 
 export function renderReviewExample(lang) {
   const c = copy[lang];
-  return `<details class="crew-review"><summary><img src="/brand/crew/bot.webp" alt="" width="360" height="439" loading="lazy" decoding="async"><span>${c.review}</span><i class="crew-plus" aria-hidden="true"></i></summary><div class="crew-review-body"><dl><dt>${c.requestLabel}</dt><dd>${c.request}</dd><dt>${c.draftLabel}</dt><dd>${c.draft}</dd></dl><p>${c.check}</p></div></details>`;
+  return `<details class="crew-review"><summary><span>${c.review}</span><i class="crew-plus" aria-hidden="true"></i></summary><div class="crew-review-body"><dl><dt>${c.requestLabel}</dt><dd>${c.request}</dd><dt>${c.draftLabel}</dt><dd class="crew-draft-line"><span><mark>${c.draft}</mark></span>${portrait('bot')}</dd></dl><p>${c.check}</p></div></details>${motionScript}`;
 }
