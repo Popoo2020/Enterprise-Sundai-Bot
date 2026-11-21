@@ -4,6 +4,7 @@
   text-decoration-thickness: 1px; text-underline-offset: .24em;
 }
 .school-pilot-jump span { text-decoration: none; }
+.course-youth .course-written { display: inline-flex; align-items: center; min-height: 44px; }
 .school-pilot, .school-quote { scroll-margin-block-start: 7rem; }
 .school-pilot { border-block-end: 1px solid var(--line); }
 .school-pilot-grid {
