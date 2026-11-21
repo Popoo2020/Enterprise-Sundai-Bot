@@ -217,7 +217,7 @@ export function renderCourse(locale, slug) {
   const sample = renderCourseExample(lang, slug, t, c);
   const skills = c.skills.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
   const units = c.units.map(s => '<li>' + escapeHtml(s) + '</li>').join('');
-  const teacher = c.teacher ? '<div class="course-teacher"><h2>' + escapeHtml(c.teacherTitle) + '</h2><p>' + escapeHtml(c.teacher) + '</p></div>' : '';
+  const teacher = c.teacher ? '<div class="course-teacher"><h2>' + escapeHtml(c.teacherTitle) + '</h2>' + c.teacher.map(paragraph => '<p>' + escapeHtml(paragraph) + '</p>').join('') + '</div>' : '';
   const guide = relatedGuide(lang, 'courses/' + slug + '/');
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');

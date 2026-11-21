@@ -6,22 +6,22 @@ export const shopifyPilotSlug = 'shopify-first-order';
 const pageCopy = {
   en: {
     title: 'First order check for Shopify',
-    description: 'Work directly with Ariel Rimón to compare fulfilment options, check margin and cash requirements, and rehearse one Shopify order with your team.',
+    description: 'Work directly with Eric Ariel Rimón to compare fulfilment options, check margin and cash requirements, and rehearse one Shopify order with your team.',
     skip: 'Skip to content'
   },
   he: {
     title: 'מבחן ההזמנה הראשונה לחנויות Shopify',
-    description: 'ליווי אישי של אריאל רימון לבעלי חנויות. נשווה דרכים לטיפול בהזמנות, נחשב כמה נשאר מכל מכירה וכמה כסף צריך מראש, ונתרגל הזמנה אחת עם הצוות שלכם.',
+    description: 'ליווי אישי של אריק אריאל רימון לבעלי חנויות. נשווה דרכים לטיפול בהזמנות, נחשב כמה נשאר מכל מכירה וכמה כסף צריך מראש, ונתרגל הזמנה אחת עם הצוות שלכם.',
     skip: 'דילוג לתוכן'
   },
   sv: {
     title: 'Testa den första ordern i Shopify',
-    description: 'Jämför olika sätt att hantera beställningar tillsammans med Ariel Rimón. Räkna på marginal och kapitalbehov och öva på en Shopify-order med ditt team.',
+    description: 'Jämför olika sätt att hantera beställningar tillsammans med Eric Ariel Rimón. Räkna på marginal och kapitalbehov och öva på en Shopify-order med ditt team.',
     skip: 'Till innehållet'
   },
   da: {
     title: 'Test den første ordre i Shopify',
-    description: 'Sammenlign måder at håndtere ordrer på med Ariel Rimón. Beregn, hvad der er tilbage pr. salg, og hvor meget kapital du skal bruge. Afprøv en ordre med dit team.',
+    description: 'Sammenlign måder at håndtere ordrer på med Eric Ariel Rimón. Beregn, hvad der er tilbage pr. salg, og hvor meget kapital du skal bruge. Afprøv en ordre med dit team.',
     skip: 'Gå til indhold'
   }
 };

@@ -88,6 +88,13 @@ test('rendered pages use their requested language and have working local links',
         assert.ok(html.match(sample)?.[1].includes('data-crew-context="' + actor + '"'), route + ' sample location');
         assert.equal(hrefs(html).filter(url => url.endsWith('/crew-demos.js')).length, 1, route);
       }
+      assert.doesNotMatch(html, /(?<!Eric )Ariel Rimón|(?<!אריק )אריאל רימון/, route + ' abbreviated founder name');
+      if (section === 'courses' && slug === 'beginners') {
+        const bio = html.match(/<div class="course-teacher">([\s\S]*?)<\/div>/)?.[1] ?? '';
+        for (const term of ['Eric Ariel Rimón', 'Novia', 'Åbo Akademi', 'IBMI', '234']) {
+          assert.ok(bio.includes(term), route + ' instructor profile missing ' + term);
+        }
+      }
       const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
       assert.ok(title?.trim(), route + ' title');
       assert.ok(!titles.has(title), route + ' title not unique within its locale');
