@@ -5,9 +5,11 @@
   const topic = document.getElementById('fc-topic');
   const shopifyBrief = document.getElementById('fc-shopify');
   const product = document.getElementById('fc-product');
+  const partner = document.getElementById('fc-partner');
+  const partnerBrief = document.getElementById('fc-partner-brief');
   const teaching = document.getElementById('fc-teaching');
   const delivery = document.getElementById('fc-delivery');
-  const trainingTopics = new Set(['schools','teachers','youth','public','hospital','beginners']);
+  const trainingTopics = new Set(['schools','teachers','youth','public','hospital','beginners','training-partner']);
   const when = document.getElementById('fc-time');
   const kickoff = document.getElementById('fc-kickoff');
   const earliest = document.getElementById('fc-earliest');
@@ -16,7 +18,7 @@
   const manual = document.getElementById('fc-manual');
   const web = document.getElementById('fc-online');
   const query = new URLSearchParams(location.search);
-  const allowedSources = ['header','school-banner','footer','course','course-outcome','service','hero','partner','partners','article','market-research-with-ai','diagnose-signup-dropoff'];
+  const allowedSources = ['header','school-banner','footer','course','course-outcome','service','hero','partner','partners','training-partners','article','market-research-with-ai','diagnose-signup-dropoff'];
   const via = allowedSources.includes(query.get('via')) ? query.get('via') : '';
   const validTopic = value => Array.from(topic.options).some(option => option.value === value);
   if (validTopic(query.get('topic'))) topic.value = query.get('topic');
@@ -46,7 +48,9 @@
     const startRequest = !kickoff.hidden && earliest.checked ? cfg.earliest : '';
     const isShopify = topic.value === 'shopify-first-order';
     if (shopifyBrief) shopifyBrief.hidden = !isShopify;
-    const lines = [enquiry, isShopify ? product?.value.trim() : '', preference, startRequest, schedule].filter(Boolean);
+    const isPartner = topic.value === 'training-partner';
+    if (partner) partner.hidden = !isPartner;
+    const lines = [enquiry, isShopify ? product?.value.trim() : '', isPartner ? partnerBrief?.value.trim() : '', preference, startRequest, schedule].filter(Boolean);
     const body = cfg.hello + '\r\n\r\n' + lines.join('\r\n');
     const href = 'mailto:' + cfg.address + '?subject=' + encodeURIComponent(cfg.subject + ' · ' + option.text) + '&body=' + encodeURIComponent(body);
     for (const link of root.querySelectorAll('.fc-email')) link.href = href;
@@ -57,6 +61,8 @@
     document.getElementById('fc-web-provider').hidden = topic.value !== 'it-provider';
     const shopifyWebHint = document.getElementById('fc-web-shopify');
     if (shopifyWebHint) shopifyWebHint.hidden = !isShopify;
+    const partnerWebHint = document.getElementById('fc-web-partner');
+    if (partnerWebHint) partnerWebHint.hidden = !isPartner;
     web.href = target.href;
     form.elements.interest.value = option.text;
     form.elements.preferredTime.value = localTime;
@@ -85,6 +91,7 @@
   earliest.addEventListener('change', update);
   teaching.addEventListener('change', update);
   product?.addEventListener('input', update);
+  partnerBrief?.addEventListener('input', update);
   topic.addEventListener('change', update);
   when.addEventListener('input', () => { when.setCustomValidity(''); update(); });
   optionalTime.addEventListener('toggle', update);

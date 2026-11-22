@@ -34,6 +34,7 @@ export function renderCallPage(lang) {
       <div class="fc-ticket-top"><span class="fc-stamp" aria-hidden="true">${clockIcon}</span><h2 id="fc-title">${safe(c.page)}</h2></div>
       <div class="fc-choice" hidden><label for="fc-topic">${safe(c.topic)}</label><select id="fc-topic">${options}</select></div>
       <div id="fc-shopify" class="fc-choice" hidden><label for="fc-product">${safe(c.shopifyBrief)}</label><input id="fc-product" type="text" dir="auto" maxlength="240" aria-describedby="fc-product-hint"><p id="fc-product-hint" class="fc-hint">${safe(c.shopifyHint)}</p></div>
+      <div id="fc-partner" class="fc-choice" hidden><label for="fc-partner-brief">${safe(c.partnerBrief)}</label><input id="fc-partner-brief" type="text" dir="auto" maxlength="240" aria-describedby="fc-partner-hint"><p id="fc-partner-hint" class="fc-hint">${safe(c.partnerHint)}</p></div>
       <div id="fc-delivery" class="fc-choice" hidden><label for="fc-teaching">${safe(teaching.label)}</label><select id="fc-teaching"><option value="">${safe(teaching.any)}</option>${deliveryOptions}</select></div>
       <div class="fc-kickoff" id="fc-kickoff" hidden><label><input id="fc-earliest" type="checkbox" aria-describedby="fc-kickoff-note">${safe(c.earliest)}</label><small id="fc-kickoff-note">${safe(c.earliestHint)}</small></div>
       <details class="fc-when" hidden><summary>${safe(c.when)}<span aria-hidden="true">+</span></summary>
@@ -46,7 +47,7 @@ export function renderCallPage(lang) {
         <p class="fc-status" data-form-status role="status"></p><a class="fc-subtle fc-email" href="${email}">${safe(c.formFallback)}</a>
       </form>
       <div id="fc-manual"><a class="fc-primary fc-email" href="${email}">${safe(c.email)}${callArrow}</a><p class="fc-hint">${safe(c.emailHint)}</p>
-        <a class="fc-subtle" id="fc-online" href="${web}">${safe(c.web)} ${callArrow}</a><p id="fc-web-readiness" class="fc-hint" hidden>${safe(c.readinessWeb)}</p><p id="fc-web-provider" class="fc-hint" hidden>${safe(c.providerWeb)}</p><p id="fc-web-shopify" class="fc-hint" hidden>${safe(c.shopifyWeb)}</p><p id="fc-web-time" class="fc-hint" hidden>${safe(c.webTime)}</p></div>
+        <a class="fc-subtle" id="fc-online" href="${web}">${safe(c.web)} ${callArrow}</a><p id="fc-web-readiness" class="fc-hint" hidden>${safe(c.readinessWeb)}</p><p id="fc-web-provider" class="fc-hint" hidden>${safe(c.providerWeb)}</p><p id="fc-web-shopify" class="fc-hint" hidden>${safe(c.shopifyWeb)}</p><p id="fc-web-partner" class="fc-hint" hidden>${safe(c.partnerWeb)}</p><p id="fc-web-time" class="fc-hint" hidden>${safe(c.webTime)}</p></div>
       <p class="fc-confirm">${safe(c.confirm)} <a href="https://sundaibot.com/privacy.html">${safe(c.privacy)}</a></p>
     </section>
   </div>

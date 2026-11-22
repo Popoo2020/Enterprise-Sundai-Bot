@@ -2,6 +2,7 @@ import { beginners } from './beginners.mjs';
 import { resourcesSection } from './knowledge.mjs';
 import { businessSection } from './business.mjs';
 import { trainingLanguages } from './training-languages.mjs';
+import { renderTrainingPartners } from './training-partners.mjs';
 import { readFileSync } from 'node:fs';
 import { renderHeader, renderFooter } from './frame.mjs';
 import { callUrl, callArrow } from './call.mjs';
@@ -46,6 +47,7 @@ function chaptersFor(locale){
  const beginner = beginners[locale];
  const beginnerRow = '<details class="pc-course"><summary><span><small>'+escape(beginner.label)+'</small><strong>'+escape(beginner.title)+'</strong></span><i aria-hidden="true"></i></summary><div class="pc-course-body"><p>'+escape(beginner.teaser)+'</p><a class="pc-course-link" href="'+course(locale,'beginners')+'">'+escape(beginner.details)+'</a></div></details>';
  return chapters.replace('</span><br><span class="pc-badge">', locale === 'he' ? '</span> <br><span class="pc-badge">' : '</span><br><span class="pc-badge">').replace('__BEGINNER_COURSE_ROW__', beginnerRow).replace('__TEACHING_LANGUAGES__', escape(trainingLanguages[locale].offer)).replace(/__COURSE_(\w+?)_URL__/g,(_,key)=>course(locale,slugs[key]))
+   .replace('__TRAINING_PARTNERS__', renderTrainingPartners(locale))
    .replace(/__SERVICE_(\w+?)_URL__/g,(_,key)=>base(locale)+'services/'+key.toLowerCase().replaceAll('_','-')+'/')
    .replace('__WORKFLOW_PLANNER_URL__','https://sundaibot.com/'+plannerSection+'/secure-ai-automation/#planner')
    .replace(/__PHOTO_(SCHOOL|TEAM)__/g,(_,key)=>assetRoot+'photo_'+key.toLowerCase()+'.webp')
