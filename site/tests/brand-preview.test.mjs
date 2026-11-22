@@ -194,6 +194,50 @@ test('rendered pages use their requested language and have working local links',
   }
 });
 
+test('the school pilot links to a local quote and printable worksheet in every language', async () => {
+  const startingPrice = {en: 'From €99 per class', he: 'החל מ־99 אירו לכיתה', sv: 'Från 99 euro per klass', da: 'Fra 99 euro pr. klasse'};
+  for (const lang of languages) {
+    const youth = routeFor(lang, 'courses', 'youth');
+    const home = await readFile(publicFile(routeFor(lang)), 'utf8');
+    assert.ok(hrefs(main(home)).includes(youth + '#school-pilot'), lang + ' homepage school banner');
+    const course = main(await readFile(publicFile(youth), 'utf8'));
+    assert.ok(hrefs(course).includes('#school-proposal'), lang + ' proposal link');
+    const quoteIntro = course.match(/id="school-proposal"[^>]*>([\s\S]*?)<form\b/)?.[1];
+    assert.ok(quoteIntro?.includes(startingPrice[lang]), lang + ' price before the school quote form');
+    assert.equal(course.split(startingPrice[lang]).length - 1, 1, lang + ' one price for the class pilot');
+    assert.ok(!main(home).includes(startingPrice[lang]), lang + ' school price scoped to the pilot');
+    const quote = course.match(/<form\b[^>]*id="school-proposal-form"[\s\S]*?<\/form>/)?.[0];
+    assert.ok(quote?.includes('data-lang="' + lang + '"'), lang + ' form language');
+    assert.match(quote, /action="\/api\/contact"/);
+    assert.deepEqual([...quote.matchAll(/<(?:select|input)\b[^>]*\bname="([^"]+)"/g)].map(m => m[1]),
+      ['organisation', 'email', 'grade', 'groupSize'], lang + ' four school fields');
+    assert.match(quote, /name="groupSize"[^>]*min="1"[^>]*max="24"/);
+    assert.match(course, /data-school-email href="mailto:/);
+    const worksheet = '/assets/brand-home/SundAI_Class_Pilot_Worksheet_' + lang.toUpperCase() + '.pdf';
+    assert.ok(hrefs(course).includes(worksheet), lang + ' worksheet link');
+    assert.equal((await readFile(publicFile(worksheet))).toString('ascii', 0, 5), '%PDF-', lang + ' worksheet file');
+    assert.ok(hrefs(course).includes('/assets/brand-home/' + pdfName('TeenTech', lang)), lang + ' full syllabus');
+  }
+});
+
+test('decision review offers link to an ungated worked memo and a contextual enquiry', async () => {
+  for (const lang of languages) {
+    const services = routeFor(lang, 'services', 'compliance-ai-governance');
+    const pages = [[services, routeFor(lang, 'intro-call') + '?topic=decision-review&via=service']];
+    if (lang !== 'he') pages.push([routeFor(lang, 'ai-decision-review'), '#review-request']);
+    for (const [route, enquiry] of pages) {
+      const page = await readFile(publicFile(route), 'utf8');
+      assert.ok(hrefs(page).includes('#decision-memo'), route + ' sample link');
+      assert.equal([...page.matchAll(/id="decision-memo"/g)].length, 1, route);
+      const sample = page.match(/<section\b[^>]*id="decision-memo"[\s\S]*?<\/section>/)?.[0];
+      assert.match(sample, /class="dm-verdict"/);
+      assert.equal([...sample.matchAll(/<dt>/g)].length, 4, route + ' data, owner, stop and decision conditions');
+      assert.doesNotMatch(sample, /<form\b|<details\b/);
+      assert.ok(hrefs(sample).includes(enquiry), route + ' relevant next step');
+    }
+  }
+});
+
 test('agents service is reachable from both menus, its parent service and each translation', async () => {
   for (const lang of languages) {
     const route = routeFor(lang, 'services', workflowSlug);

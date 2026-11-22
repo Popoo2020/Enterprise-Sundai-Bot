@@ -1,3 +1,4 @@
+import { renderDecisionMemo, renderMemoJump } from './decision-memo.mjs';
 import { renderReviewExample } from './crew-demos.mjs';
 import { agentWorkflowLink } from './agent-workflows.mjs';
 import { relatedGuide } from './knowledge.mjs';
@@ -139,8 +140,8 @@ function renderCards(lang, c, index) {
 function renderDeliverables(lang, c, t, index) {
  if (c.offers) {
    const topics = ['decision-review','readiness-review'];
-   const offers = c.offers.map(([name,price,fit,description,cta],i)=>`<article class="os-offer"><p class="os-offer-fit">${escapeHtml(fit)}</p><h3><bdi>${escapeHtml(name)}</bdi></h3><bdi class="os-price" dir="ltr">${escapeHtml(price)}</bdi><p class="os-offer-description">${escapeHtml(description)}</p><a class="os-offer-link" href="${callUrl(lang,topics[i],'service')}">${escapeHtml(cta)}${arrow}</a></article>`).join('');
-   return `<section class="os-deliver" id="review-options" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${escapeHtml(c.offersHeading)}</h2><div class="os-offers">${offers}</div></div></section>`;
+   const offers = c.offers.map(([name,price,fit,description,cta],i)=>`<article class="os-offer"><p class="os-offer-fit">${escapeHtml(fit)}</p><h3><bdi>${escapeHtml(name)}</bdi></h3><bdi class="os-price" dir="ltr">${escapeHtml(price)}</bdi><p class="os-offer-description">${escapeHtml(description)}</p>${i === 0 ? renderMemoJump(lang) : ''}<a class="os-offer-link" href="${callUrl(lang,topics[i],'service')}">${escapeHtml(cta)}${arrow}</a></article>`).join('');
+   return `<section class="os-deliver" id="review-options" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${escapeHtml(c.offersHeading)}</h2><div class="os-offers">${offers}</div>${renderDecisionMemo(lang, callUrl(lang, 'decision-review', 'service'))}</div></section>`;
  }
  const illustration = c.example ? `<aside class="os-example"><div><p class="os-example-label">${escapeHtml(c.example[0])}</p><h3>${escapeHtml(c.example[1])}</h3></div><p>${escapeHtml(c.example[2])}</p></aside>` : '';
  return `<section class="os-deliver" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${t.out}</h2><div class="os-cards">${renderCards(lang,c,index)}</div>${illustration}</div></section>`;
@@ -154,6 +155,7 @@ export function renderService(lang,slug, isPublic = false) {
  const title = escapeHtml(c.category)+' | SundAI';
  const stylesheets = ['shell','frame','services'];
  if (slug === 'secure-ai-automation') stylesheets.push('crew-demos');
+ if (c.offers) stylesheets.push('decision-memo');
  const styles = stylesheets.map(file=>`<link rel="stylesheet" href="${assets}${file}.css">`).join('');
  const alternates = Object.keys(ui).map(l=>`<link rel="alternate" hreflang="${l}" href="https://sundaibot.com${serviceUrl(l,slug)}">`).join('');
  const action = `<a class="os-go" href="${book}">${escapeHtml(c.cta)} ${arrow}</a>`;

@@ -70,6 +70,36 @@
       labels: ['Intresse', 'Språk', 'IANA-tidszon', 'Önskad tid (endast förfrågan)', 'Land', 'Expertis', 'Erfarenhet', 'Tillgänglighet', 'Portfolio', 'Målgrupp', 'Gruppstorlek', 'Endast åldersintervall', 'Ämne', 'Format', 'Önskade datum', 'Lärandemål', 'Team / avdelning', 'Produkt, system eller arbetsflöde']
     }
   };
+  const schoolCopy = {
+    he: {
+      subject: 'בקשת הצעה בכתב לפיילוט Teen Tech AI של 90 דקות לכיתה אחת',
+      school: 'בית הספר', email: 'אימייל לתשובה', grade: 'שכבת גיל', count: 'מספר תלמידים', locale: 'שפת הפנייה: עברית',
+      invalid: 'בדקו את שם בית הספר, האימייל, שכבת הגיל ומספר התלמידים (1–24).',
+      accepted: 'בקשת ההצעה נשלחה. נחזור אליכם במייל עם פרטי המפגש והמחיר הכולל לכיתה.'
+    },
+    en: {
+      subject: 'Written proposal request for a 90-minute Teen Tech AI pilot for one class',
+      school: 'School', email: 'Reply email', grade: 'School year', count: 'Pupils', locale: 'Enquiry language: English',
+      invalid: 'Check the school name, reply email, school year and number of pupils (1–24).',
+      accepted: 'Your proposal request has been sent. We’ll email you the session outline and the total price for your class.'
+    },
+    sv: {
+      subject: 'Offertförfrågan för ett provpass i Teen Tech AI på 90 minuter för en klass',
+      school: 'Skola', email: 'E-post för svar', grade: 'Årskurs', count: 'Antal elever', locale: 'Förfrågans språk: svenska',
+      invalid: 'Kontrollera skolans namn, e-postadress, årskurs och antal elever (1–24).',
+      accepted: 'Din offertförfrågan har skickats. Vi mejlar dig upplägget för passet och totalpriset för klassen.'
+    },
+    da: {
+      subject: 'Anmodning om et skriftligt tilbud på 90 minutters Teen Tech AI for én klasse',
+      school: 'Skole', email: 'E-mail til svar', grade: 'Klassetrin', count: 'Antal elever', locale: 'Forespørgslens sprog: dansk',
+      invalid: 'Tjek skolens navn, e-mailadressen, klassetrinnet og antallet af elever (1–24).',
+      accepted: 'Din forespørgsel er sendt. Vi sender dig programmet og den samlede pris for klassen på mail.'
+    }
+  };
+  function schoolMessage(school, value) {
+    return [school.subject, school.locale,
+      school.grade + ': ' + value('grade'), school.count + ': ' + value('groupSize')].join('\n');
+  }
   const fields = ['interest', 'language', 'timezone', 'preferredTime', 'country', 'expertise', 'experience', 'availability', 'portfolio', 'audience', 'groupSize', 'ages', 'topic', 'format', 'dates', 'goal', 'team', 'product'];
   let scriptPromise;
   const request = async (options = {}) => {
@@ -100,6 +130,7 @@
     const locale = (form.dataset.lang || document.documentElement.lang || 'en').slice(0, 2);
     const t = copy[locale] || copy.en;
     const lang = copy[locale] ? locale : 'en';
+    const school = form.dataset.kind === 'school-pilot' ? schoolCopy[lang] : null;
     const kind = Object.hasOwn(t.kinds, form.dataset.kind) ? form.dataset.kind : 'enquiry';
     const button = form.querySelector('button[type="submit"]');
     if (!button) return;
@@ -110,9 +141,19 @@
     if (!container) { container = document.createElement('div'); container.dataset.turnstile = ''; button.before(container); }
     const spinner = document.createElement('span');
     spinner.className = 'form-spinner'; spinner.textContent = '…'; spinner.hidden = true; spinner.setAttribute('aria-hidden', 'true'); button.appendChild(spinner);
-    let token = '', widget, preparing, sending = false, accepted = '';
+    let token = '', widget, widgetSize, preparing, sending = false, accepted = '';
+    // The empty widget container has display:none. Measure the form it will fill.
+    const challengeSize = () => school && form.clientWidth < 300 ? 'compact' : 'flexible';
     const startedAt = String(Date.now());
-    const setStatus = (key, error = false) => { status.textContent = t[key]; status.dataset.state = error ? 'error' : key; };
+    const setStatus = (key, error = false) => { status.textContent = school && key === 'invalid' ? school.invalid : t[key]; status.dataset.state = error ? 'error' : key; };
+    const acceptedStatus = () => {
+      if (school) {
+        status.textContent = school.accepted;
+        status.dataset.state = 'accepted';
+      } else {
+        setStatus(kind === 'booking' || kind === 'join' ? kind : 'accepted');
+      }
+    };
     const refresh = () => { token = ''; if (widget !== undefined && window.turnstile) { try { window.turnstile.reset(widget); } catch { widget = undefined; } } };
     const prepare = () => {
       if (widget !== undefined) return Promise.resolve(true);
@@ -123,8 +164,10 @@
           const { response, body } = await request();
           if (!response.ok || body.available !== true || body.enabled !== true || typeof body.siteKey !== 'string' || !body.siteKey || body.action !== 'contact') throw new Error('unavailable');
           const challenge = await loadTurnstile();
+          widgetSize = challengeSize();
           widget = challenge.render(container, {
-            sitekey: body.siteKey, action: 'contact', theme: 'dark', language: lang, size: 'flexible',
+            sitekey: body.siteKey, action: 'contact', theme: school ? 'light' : 'dark', language: lang,
+            size: widgetSize,
             callback: value => { token = value; if (!sending && (status.dataset.state === 'ready' || status.dataset.state === 'loading' || status.textContent === t.security)) status.textContent = ''; },
             'expired-callback': () => { token = ''; if (!sending && !accepted) setStatus('security', true); },
             'error-callback': () => { token = ''; if (!sending && !accepted) setStatus('security', true); }
@@ -136,6 +179,13 @@
       })();
       return preparing;
     };
+    const fitSchoolChallenge = () => {
+      if (!school || sending || widget === undefined || challengeSize() === widgetSize) return;
+      window.turnstile.remove(widget);
+      widget = undefined; token = '';
+      if (!accepted) void prepare();
+    };
+    if (school && window.ResizeObserver) new window.ResizeObserver(fitSchoolChallenge).observe(form);
     form.addEventListener('focusin', () => { if (!sending && !accepted) void prepare(); });
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -154,14 +204,26 @@
         try { new Intl.DateTimeFormat(lang, { timeZone: value('timezone') }).format(); }
         catch { timezone?.setCustomValidity(t.timezone); setStatus('timezone', true); form.reportValidity(); return; }
       }
-      if (!form.reportValidity() || value('name').length < 2 || value('name').length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value('email')) || value('email').length > 200 || value('organisation').length > 150 || value('message').length < 20) { setStatus('invalid', true); return; }
-      const message = [t.kinds[kind], ...fields.map((name, i) => value(name) ? `${t.labels[i]}: ${value(name)}` : '').filter(Boolean), '', value('message')].join('\n');
+      const organisation = value('organisation');
+      const name = school ? organisation : value('name');
+      const email = value('email');
+      const pupilCount = Number(value('groupSize'));
+      const invalidBrief = school
+        ? !value('grade') || !Number.isInteger(pupilCount) || pupilCount < 1 || pupilCount > 24
+        : value('message').length < 20;
+      if (!form.reportValidity() || name.length < 2 || name.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+          || email.length > 200 || organisation.length > 150 || invalidBrief) {
+        setStatus('invalid', true);
+        return;
+      }
+      const message = school ? schoolMessage(school, value)
+        : [t.kinds[kind], ...fields.map((name, i) => value(name) ? `${t.labels[i]}: ${value(name)}` : '').filter(Boolean), '', value('message')].join('\n');
       if (message.length > 3000) { setStatus('long', true); return; }
       // Never change startedAt for retries: the server's provider idempotency key
       // includes it. Tokens are refreshed independently from the logical request.
-      const payload = { name: value('name'), email: value('email'), organisation: value('organisation'), message, startedAt, turnstileToken: '' };
+      const payload = { name, email, organisation, message, startedAt, turnstileToken: '' };
       const fingerprint = JSON.stringify(payload);
-      if (fingerprint === accepted) { setStatus(kind === 'booking' || kind === 'join' ? kind : 'accepted'); return; }
+      if (fingerprint === accepted) { acceptedStatus(); return; }
       if (Date.now() - Number(startedAt) < 1500 || Date.now() - Number(startedAt) > 86400000) { setStatus('timing', true); return; }
       if (!await prepare()) return;
       if (sending) return;
@@ -171,17 +233,38 @@
       try {
         const { response, body } = await request({ method: 'POST', headers: { 'content-type': 'application/json', accept: 'application/json' }, body: JSON.stringify(payload) });
         if (response.status === 202 && body.ok === true) {
-          accepted = fingerprint; setStatus(kind === 'booking' || kind === 'join' ? kind : 'accepted');
+          accepted = fingerprint; acceptedStatus();
           window.dispatchEvent(new CustomEvent('sundai:metric', { detail: { event: kind === 'join' ? 'freelancer_application_submitted' : 'enquiry_submitted' } }));
         } else {
           const code = typeof body.code === 'string' ? body.code : '';
           setStatus(response.status === 429 ? 'rate' : code.startsWith('turnstile_') ? 'security' : code === 'invalid_form_timing' ? 'timing' : code.startsWith('invalid_') ? 'invalid' : code === 'contact_unavailable' ? 'unavailable' : 'failed', true);
         }
       } catch { setStatus('failed', true); }
-      finally { sending = false; button.disabled = false; spinner.hidden = true; form.setAttribute('aria-busy', 'false'); refresh(); }
+      finally { sending = false; button.disabled = false; spinner.hidden = true; form.setAttribute('aria-busy', 'false'); refresh(); fitSchoolChallenge(); }
     });
     // Clear custom errors as the visitor edits, allowing native validation to rerun.
     form.addEventListener('input', event => { event.target.setCustomValidity?.(''); });
     form.dataset.contactReady = 'true';
+    if (school) {
+      const mail = form.closest('#school-proposal').querySelector('[data-school-email]');
+      if (mail) {
+        const base = new URL(mail.href);
+        const updateDraft = () => {
+          const data = new FormData(form);
+          const value = key => String(data.get(key) || '').trim();
+          if (!['organisation', 'email', 'grade', 'groupSize'].some(key => value(key))) {
+            mail.href = base.href;
+            return;
+          }
+          const body = [schoolMessage(school, value), school.school + ': ' + value('organisation'),
+            school.email + ': ' + value('email')].join('\r\n');
+          mail.href = 'mailto:' + base.pathname + '?subject=' + encodeURIComponent(base.searchParams.get('subject') || school.subject)
+            + '&body=' + encodeURIComponent(body);
+        };
+        form.addEventListener('change', updateDraft);
+        mail.addEventListener('click', updateDraft);
+      }
+      form.hidden = false;
+    }
   });
 })();
