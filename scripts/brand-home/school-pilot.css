@@ -28,7 +28,8 @@
   border-radius: 12px; background: #f4f6fb;
 }
 .school-quote h3 { margin: 0; font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.25; letter-spacing: -.035em; }
-.school-quote-price { margin: .5rem 0 1.15rem; color: #424650; font-size: .95rem; line-height: 1.55; }
+.school-quote-start { margin: .75rem 0 .2rem; color: #354c97; font-size: 1.125rem; line-height: 1.4; }
+.school-quote-price { margin: 0 0 1.15rem; color: #424650; font-size: .95rem; line-height: 1.55; }
 .school-quote [hidden] { display: none !important; }
 .school-quote-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1rem; }
 .school-quote-fields label { display: flex; flex-direction: column; gap: .25rem; color: #1a2338; font-weight: 600; font-size: .9rem; }

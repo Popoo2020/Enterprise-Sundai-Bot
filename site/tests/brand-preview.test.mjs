@@ -195,12 +195,17 @@ test('rendered pages use their requested language and have working local links',
 });
 
 test('the school pilot links to a local quote and printable worksheet in every language', async () => {
+  const startingPrice = {en: 'From €99 per class', he: 'החל מ־99 אירו לכיתה', sv: 'Från 99 euro per klass', da: 'Fra 99 euro pr. klasse'};
   for (const lang of languages) {
     const youth = routeFor(lang, 'courses', 'youth');
     const home = await readFile(publicFile(routeFor(lang)), 'utf8');
     assert.ok(hrefs(main(home)).includes(youth + '#school-pilot'), lang + ' homepage school banner');
     const course = main(await readFile(publicFile(youth), 'utf8'));
     assert.ok(hrefs(course).includes('#school-proposal'), lang + ' proposal link');
+    const quoteIntro = course.match(/id="school-proposal"[^>]*>([\s\S]*?)<form\b/)?.[1];
+    assert.ok(quoteIntro?.includes(startingPrice[lang]), lang + ' price before the school quote form');
+    assert.equal(course.split(startingPrice[lang]).length - 1, 1, lang + ' one price for the class pilot');
+    assert.ok(!main(home).includes(startingPrice[lang]), lang + ' school price scoped to the pilot');
     const quote = course.match(/<form\b[^>]*id="school-proposal-form"[\s\S]*?<\/form>/)?.[0];
     assert.ok(quote?.includes('data-lang="' + lang + '"'), lang + ' form language');
     assert.match(quote, /action="\/api\/contact"/);

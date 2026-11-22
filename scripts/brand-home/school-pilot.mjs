@@ -7,7 +7,8 @@ const copy = {
     activity: 'Would you share this clip? Working in pairs, pupils trace who posted it and check one claim against another source. Each pair records its evidence and explains its decision.',
     worksheet: 'Classroom worksheet (PDF)', teacher: 'For the teacher', handout: 'Keep the source-check worksheet and use it again with a new clip.',
     next: 'In the full four-session course, pupils also build a working website and improve it after another pair tests it.',
-    quote: 'Get a quote for your class', price: 'We’ll email you the total price for one class and what it covers. You decide whether to book after reading the quote.',
+    quote: 'Get a quote for your class', startingPrice: 'From €99 per class',
+    price: 'A live, 90-minute online workshop for up to 24 pupils, with a worksheet for the teacher. We’ll confirm the total in writing before you book.',
     school: 'School name', email: 'Your work email', grade: 'Year group', count: 'Number of pupils',
     select: 'Select a year group', years: ['Grade 8', 'Grade 9', 'Mixed grades 8 and 9'],
     submit: 'Request my class quote', safety: 'Use a staff email address. We only need the group size and year, so please leave out pupils’ names.',
@@ -20,7 +21,8 @@ const copy = {
     activity: 'הייתם משתפים את הסרטון הזה? התלמידים עובדים בזוגות, מבררים מי פרסם אותו ובודקים טענה אחת מול מקור נוסף. כל זוג מתעד מה מצא ומנמק אם כדאי לשתף.',
     worksheet: 'דף הפעילות לכיתה (PDF)', teacher: 'למורה', handout: 'דף פעילות לבדיקת מקורות, שאפשר להשתמש בו שוב בכיתה עם סרטון אחר.',
     next: 'בקורס המלא, שנמשך ארבעה מפגשים, התלמידים גם בונים אתר ומשפרים אותו בעקבות משוב מזוג אחר.',
-    quote: 'קבלו הצעת מחיר לכיתה', price: 'נשלח לכם במייל את המחיר הכולל לכיתה ואת פירוט הפעילות. אחרי שתקראו את ההצעה תוכלו להחליט אם להזמין את המפגש.',
+    quote: 'קבלו הצעת מחיר לכיתה', startingPrice: 'החל מ־99 אירו לכיתה',
+    price: 'שיעור מקוון של 90 דקות לכיתה של עד 24 תלמידים, כולל דף פעילות למורה. תקבלו את המחיר הסופי בכתב לפני ההזמנה.',
     school: 'שם בית הספר', email: 'אימייל לחזרה', grade: 'שכבת גיל', count: 'מספר תלמידים',
     select: 'בחרו שכבת גיל', years: ['כיתה ח׳', 'כיתה ט׳', 'קבוצה משולבת של כיתות ח׳ וט׳'],
     submit: 'שלחו לי הצעת מחיר', safety: 'הפנייה מיועדת לאנשי צוות בית הספר. די לציין את שכבת הגיל ואת מספר התלמידים. אין צורך בשמות התלמידים.',
@@ -33,7 +35,8 @@ const copy = {
     activity: 'Skulle ni dela det här klippet? Eleverna arbetar i par, tar reda på vem som publicerat klippet och kontrollerar ett påstående mot en annan källa. Varje par skriver ner vad de hittat och motiverar sitt beslut.',
     worksheet: 'Arbetsblad för klassen (PDF)', teacher: 'Till läraren', handout: 'Ni får ett arbetsblad för källkritik som ni kan använda igen med ett annat klipp.',
     next: 'I hela kursen på fyra pass bygger eleverna också en webbplats och förbättrar den efter att ett annat par har testat den.',
-    quote: 'Be om en offert för klassen', price: 'Vi mejlar totalpriset för en klass och beskriver vad som ingår. Ni tar ställning till bokningen när ni har läst offerten.',
+    quote: 'Be om en offert för klassen', startingPrice: 'Från 99 euro per klass',
+    price: 'Ett lärarlett pass på distans för upp till 24 elever. Passet tar 90 minuter och läraren får ett arbetsblad. Ni får totalpriset skriftligt innan ni bokar.',
     school: 'Skolans namn', email: 'Din e-post på skolan', grade: 'Årskurs', count: 'Antal elever',
     select: 'Välj årskurs', years: ['Årskurs 8', 'Årskurs 9', 'Blandad grupp från årskurs 8 och 9'],
     submit: 'Be om en offert', safety: 'Ange en e-postadress till en vuxen på skolan. Årskurs och antal räcker. Vi behöver inga elevnamn.',
@@ -46,7 +49,8 @@ const copy = {
     activity: 'Ville I dele den her video? Eleverne arbejder to og to, finder ud af, hvem der har lagt den ud, og tjekker en påstand i en anden kilde. Hvert par skriver ned, hvad de har fundet, og begrunder, om de vil dele videoen.',
     worksheet: 'Arbejdsark til klassen (PDF)', teacher: 'Til læreren', handout: 'I får et arbejdsark til kildekritik, som I kan bruge igen med en anden video.',
     next: 'På det fulde kursus over fire mødegange bygger eleverne også et website og forbedrer det, efter at et andet par har testet det.',
-    quote: 'Få et tilbud til klassen', price: 'Vi sender den samlede pris for én klasse og en beskrivelse af, hvad der er med. I tager først stilling til en booking, når I har læst tilbuddet.',
+    quote: 'Få et tilbud til klassen', startingPrice: 'Fra 99 euro pr. klasse',
+    price: 'En onlineworkshop på 90 minutter med en underviser, plads til op til 24 elever og et arbejdsark til læreren. I får den samlede pris på skrift, før I booker.',
     school: 'Skolens navn', email: 'Din arbejdsmail', grade: 'Klassetrin', count: 'Antal elever',
     select: 'Vælg klassetrin', years: ['8. klasse', '9. klasse', 'Blandet hold fra 8. og 9. klasse'],
     submit: 'Send mig et tilbud', safety: 'Brug en mailadresse til en voksen på skolen. Klassetrin og antal er nok. Vi har ikke brug for elevernes navne.',
@@ -73,7 +77,9 @@ export function renderSchoolPilot(locale) {
         <p class="school-pilot-next">${t.next}</p>
       </div>
       <section class="school-quote" id="school-proposal" aria-labelledby="school-quote-title">
-        <h3 id="school-quote-title">${t.quote}</h3><p class="school-quote-price">${t.price}</p>
+        <h3 id="school-quote-title">${t.quote}</h3>
+        <p class="school-quote-start"><strong>${t.startingPrice}</strong></p>
+        <p class="school-quote-price">${t.price}</p>
         <form id="school-proposal-form" data-upgrade-form data-kind="school-pilot" data-lang="${locale}" action="/api/contact" method="post" aria-labelledby="school-quote-title" hidden>
           <div class="school-quote-fields">
             <label>${t.school}<input name="organisation" autocomplete="organization" minlength="2" maxlength="100" required></label>
