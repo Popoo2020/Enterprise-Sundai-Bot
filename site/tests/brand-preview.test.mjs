@@ -64,6 +64,11 @@ test('hero character reactions are single-play animations with static alternativ
 
 test('rendered pages use their requested language and have working local links', async () => {
   const anchorCache = new Map();
+  const artwork = {
+    'courses/teachers': ['dan', /<details class="teacher-review">([\s\S]*?)<\/details>/],
+    ['services/' + workflowSlug]: ['mark', /<figure class="aw-sheet">([\s\S]*?)<\/figure>/],
+    'services/compliance-ai-governance': ['mark', /<p class="os-category os-governance-category">([\s\S]*?)<\/p><h1>/],
+  };
   for (const locale of languages) {
     const titles = new Set();
     const routes = [
@@ -77,15 +82,11 @@ test('rendered pages use their requested language and have working local links',
       const html = await readFile(publicFile(route), 'utf8');
       assert.match(html, new RegExp('<html[^>]+lang=["\']' + locale + '["\']'), route);
       assert.equal([...html.matchAll(/<h1\b/gi)].length, 1, route + ' heading');
-      // Keep contextual characters confined to the two worked examples, away from forms and navigation.
-      const actor = section === 'courses' && slug === 'teachers' ? 'dan'
-        : section === 'services' && slug === workflowSlug ? 'mark' : null;
+      const [actor, location] = artwork[section + '/' + slug] || [];
       const cues = [...html.matchAll(/data-crew-context="([^"]+)"/g)].map(match => match[1]);
       assert.deepEqual(cues, actor ? [actor] : [], route + ' contextual artwork');
       if (actor) {
-        const sample = actor === 'dan' ? /<details class="teacher-review">([\s\S]*?)<\/details>/
-          : /<figure class="aw-sheet">([\s\S]*?)<\/figure>/;
-        assert.ok(html.match(sample)?.[1].includes('data-crew-context="' + actor + '"'), route + ' sample location');
+        assert.ok(html.match(location)?.[1].includes('data-crew-context="' + actor + '"'), route + ' artwork location');
         assert.equal(hrefs(html).filter(url => url.endsWith('/crew-demos.js')).length, 1, route);
       }
       assert.doesNotMatch(html, /(?<!Eric )Ariel Rimón|(?<!אריק )אריאל רימון/, route + ' abbreviated founder name');

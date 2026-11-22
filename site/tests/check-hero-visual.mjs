@@ -1,5 +1,7 @@
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
+import assert from 'node:assert/strict';
+import {renderHome} from '../../scripts/brand-home/render.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da/'],['sv/index.html','sv','sv/']]){
  const html=await readFile(path.join(root,page),'utf8');
@@ -18,4 +20,12 @@ for(const [page,lang,prefix]of [['index.html','en',''],['da/index.html','da','da
  const sheets=[...html.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g)].map(m=>m[1].split('?')[0]);
  if(JSON.stringify(sheets)!==JSON.stringify(['/assets/upgrade.css','/assets/upgrade-mobile.css','/assets/home-story.css']))throw Error(`${page}: coherent base and mobile design required`);
 }
-console.log('Static hero QA passed: EN/DA/SV concise value proposition, request/product links, local styling and two concrete HTML examples. NO browser visual or viewport rendering was performed.');
+for (const lang of ['en', 'he', 'sv', 'da']) {
+  const home = renderHome(lang);
+  const governance = home.slice(home.indexOf('id="sd-demo-governance"'), home.indexOf('id="sd-demo-assistant"'));
+  assert.match(governance, /class="sd-character sd-gov-mark" aria-hidden="true" data-motion="\/brand\/crew\/v2\/mark-motion\.webp"/);
+  assert.match(governance, /<img data-poster="\/brand\/crew\/v2\/mark\.webp" alt=""/);
+  assert.match(governance, /<button[^>]* data-governance>/);
+  assert.doesNotMatch(governance, /\bsrc="[^"]*(?:mark|mark-motion)\.webp"/, lang + ' inactive scene must not download the portrait');
+}
+console.log('Static hero QA passed for the legacy homepage and the governance demonstration in all four brand-site languages.');

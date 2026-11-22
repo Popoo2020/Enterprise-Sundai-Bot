@@ -136,6 +136,15 @@
 .sd-character img { display: block; width: 100%; height: auto; }
 .sd-character .sd-motion-frame { position: absolute; inset: 0; }
 .sd-character:has(.sd-motion-frame:not([hidden])) > img:first-child { visibility: hidden; }
+/* Mark's resting hand meets the socket rim, with the pointing hand above the chip. */
+.sd-chip-scene .sd-gov-mark {
+  position: relative;
+  justify-self: right;
+  width: clamp(52px, 17.5cqw, 88px);
+  margin-right: 6%;
+  margin-bottom: -3px;
+  aspect-ratio: 1;
+}
 .sd-sunny {
   top: 0;
   left: 0;
