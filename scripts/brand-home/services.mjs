@@ -1,5 +1,5 @@
 import { renderDecisionMemo, renderMemoJump } from './decision-memo.mjs';
-import { renderReviewExample } from './crew-demos.mjs';
+import { crewMotionScript, renderContextCue, renderReviewExample } from './crew-demos.mjs';
 import { agentWorkflowLink } from './agent-workflows.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { automation, governance } from './priority-services.mjs';
@@ -154,11 +154,15 @@ export function renderService(lang,slug, isPublic = false) {
  const pageOptions={innerPage:true,service:slug};
  const title = escapeHtml(c.category)+' | SundAI';
  const stylesheets = ['shell','frame','services'];
- if (slug === 'secure-ai-automation') stylesheets.push('crew-demos');
+ const isGovernance = slug === 'compliance-ai-governance';
+ if (isGovernance || slug === 'secure-ai-automation') stylesheets.push('crew-demos');
  if (c.offers) stylesheets.push('decision-memo');
  const styles = stylesheets.map(file=>`<link rel="stylesheet" href="${assets}${file}.css">`).join('');
  const alternates = Object.keys(ui).map(l=>`<link rel="alternate" hreflang="${l}" href="https://sundaibot.com${serviceUrl(l,slug)}">`).join('');
  const action = `<a class="os-go" href="${book}">${escapeHtml(c.cta)} ${arrow}</a>`;
+ const category = isGovernance
+   ? `<p class="os-category os-governance-category"><span>${escapeHtml(c.category)}</span>${renderContextCue('mark')}</p>`
+   : `<p class="os-category"><i></i>${escapeHtml(c.category)}</p>`;
  const shareOrigin = isPublic ? 'https://sundaibot.com' : 'https://sundai-design-review.eririm.chatgpt.site';
  const share = (c.offers || c.example) ? `<a class="os-share" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareOrigin+url)}" target="_blank" rel="noopener noreferrer">${shareLabel[lang]}</a>` : '';
  const workflow = slug === 'private-ai-agents-rag' ? agentWorkflowLink(lang) : null;
@@ -169,5 +173,5 @@ export function renderService(lang,slug, isPublic = false) {
   const guide = relatedGuide(lang, 'services/' + slug + '/');
   const guideLink = guide ? '<p><a href="' + escapeHtml(guide.url) + '">' + escapeHtml(guide.title) + '</a></p>' : '';
  const related = serviceSlugs.filter(s=>s!==slug).map(s=>`<a href="${serviceUrl(lang,s)}">${escapeHtml(copy[s][lang].category)}${arrow}</a>`).join('');
- return `<!doctype html><html lang="${lang}" dir="${lang==='he'?'rtl':'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0b0d"><title>${title}</title><meta name="description" content="${escapeHtml(c.lead)}"><link rel="canonical" href="https://sundaibot.com${url}">${alternates}<link rel="alternate" hreflang="x-default" href="https://sundaibot.com${serviceUrl('en',slug)}"><link rel="icon" href="/assets/favicon.svg">${styles}<script defer src="${assets}frame.js"></script></head><body class="os-page os-theme-${index}"><a class="fr-skip" href="#main">${t.skip}</a>${renderHeader(lang,pageOptions)}<main id="main"><section class="os-hero"><div class="os-wrap os-hero-grid"><div class="os-copy"><a class="os-breadcrumb" href="${home}#organisations">${t.org}</a><p class="os-category"><i></i>${escapeHtml(c.category)}</p><h1><span>${escapeHtml(c.title[0])}</span> <span>${escapeHtml(c.title[1])}</span></h1><p class="os-lead">${escapeHtml(c.lead)}</p>${action}<div class="os-note">${t.book}</div></div>${artwork(index,t)}</div></section>${renderDeliverables(lang,c,t,index)}<section class="os-process os-wrap" id="scope"><div><h2>${t.how}</h2><div class="os-scope"><h3>${t.scope}</h3><p>${escapeHtml(c.scope)}</p>${share}</div>${firstOrder}${fieldNote}${workflowReference}</div><ol>${steps}</ol></section><section class="os-related os-wrap"><h2>${t.more}</h2><nav aria-label="${t.more}">${related}</nav>${guideLink}</section></main>${renderFooter(lang,pageOptions)}</body></html>`;
+ return `<!doctype html><html lang="${lang}" dir="${lang==='he'?'rtl':'ltr'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0b0d"><title>${title}</title><meta name="description" content="${escapeHtml(c.lead)}"><link rel="canonical" href="https://sundaibot.com${url}">${alternates}<link rel="alternate" hreflang="x-default" href="https://sundaibot.com${serviceUrl('en',slug)}"><link rel="icon" href="/assets/favicon.svg">${styles}<script defer src="${assets}frame.js"></script>${isGovernance ? crewMotionScript : ''}</head><body class="os-page os-theme-${index}"><a class="fr-skip" href="#main">${t.skip}</a>${renderHeader(lang,pageOptions)}<main id="main"><section class="os-hero"><div class="os-wrap os-hero-grid"><div class="os-copy"><a class="os-breadcrumb" href="${home}#organisations">${t.org}</a>${category}<h1><span>${escapeHtml(c.title[0])}</span> <span>${escapeHtml(c.title[1])}</span></h1><p class="os-lead">${escapeHtml(c.lead)}</p>${action}<div class="os-note">${t.book}</div></div>${artwork(index,t)}</div></section>${renderDeliverables(lang,c,t,index)}<section class="os-process os-wrap" id="scope"><div><h2>${t.how}</h2><div class="os-scope"><h3>${t.scope}</h3><p>${escapeHtml(c.scope)}</p>${share}</div>${firstOrder}${fieldNote}${workflowReference}</div><ol>${steps}</ol></section><section class="os-related os-wrap"><h2>${t.more}</h2><nav aria-label="${t.more}">${related}</nav>${guideLink}</section></main>${renderFooter(lang,pageOptions)}</body></html>`;
 }

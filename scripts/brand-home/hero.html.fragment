@@ -30,6 +30,9 @@
     </div>
   </div>
   <div class="sd-chip-scene" id="sd-demo-governance" data-demo="1" role="group" hidden>
+    <span class="sd-character sd-gov-mark" aria-hidden="true" data-motion="/brand/crew/v2/mark-motion.webp">
+      <img data-poster="/brand/crew/v2/mark.webp" alt="" decoding="async" width="256" height="256">
+    </span>
     <div class="sd-socket"><div class="sd-socket-grid"></div><i class="sd-rail sd-r1"></i><i class="sd-rail sd-r2"></i><i class="sd-rail sd-r3"></i><i class="sd-rail sd-r4"></i><div class="sd-chip"><span class="sd-chip-label">GRC</span><span class="sd-chip-pins" aria-hidden="true">•••</span><strong dir="ltr">SundAI</strong><small dir="ltr">AI · 42001<br>REV 02 / EU</small></div></div>
     <button type="button" class="sd-chip-action" data-governance><span class="sd-tiny-led" aria-hidden="true"></span><span data-sd-gov-msg data-he-key="review" data-he-text="לבדיקת ההחלטה">Review a decision</span><span aria-hidden="true">↗</span></button>
   </div>

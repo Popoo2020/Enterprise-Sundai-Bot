@@ -55,10 +55,11 @@
   const msg = attr => selection('[data-sd-'+attr+']');
   const sunny = selection('.sd-sunny');
   const dan = selection('.sd-dan');
+  const governanceMark = selection('.sd-gov-mark');
   const bot = selection('.sd-rag-bot');
   const mark = selection('.sd-rag-mark');
   const connection = navigator.connection;
-  let sunnyPlayed = false, botPlayed = false;
+  let sunnyPlayed = false, botPlayed = false, governancePlayed = false;
   function loadPoster(pose) {
     const image = pose.firstElementChild;
     if (!image.hasAttribute('src')) image.src = image.dataset.poster;
@@ -82,10 +83,21 @@
   function syncCrew() {
     const visible = onScreen && !document.hidden;
     const schoolVisible = current === 0 && visible;
+    const governanceVisible = current === 1 && visible;
     const assistantVisible = current === 2 && visible;
     const motionAllowed = !reduced.matches && !connection?.saveData
       && !['slow-2g', '2g'].includes(connection?.effectiveType);
     art.toggleAttribute('data-crew-motion', motionAllowed);
+    // A cached homepage can use the previous governance panel without a portrait.
+    if (governanceMark) {
+      if (governanceVisible) loadPoster(governanceMark);
+      if (!governanceVisible || !motionAllowed) {
+        stopPose(governanceMark);
+      } else if (!governancePlayed) {
+        governancePlayed = true;
+        playPose(governanceMark);
+      }
+    }
     mark.hidden = !sourceOpen;
     if (assistantVisible) {
       loadPoster(bot);

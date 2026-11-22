@@ -11,6 +11,18 @@
 .os-breadcrumb:hover{color:#fff;border-color:#b6c7ff}
 .os-page .os-category{display:flex;align-items:center;gap:9px;color:#dedee7;font-size:clamp(14px,1.15vw,18px);font-weight:500;margin-block:clamp(26px,3.5vw,59px) 14px}
 .os-category i{width:10px;height:10px;display:block;border:1px solid #ffffff8a;background:var(--os-mid);border-radius:50%}
+.os-page .os-governance-category {
+  width: fit-content; max-width: 100%; align-items: flex-end; gap: .6rem;
+  margin-block: clamp(.75rem,1.7vw,1.6rem) .75rem;
+}
+.os-governance-category > span:first-child { padding-block-end: .35rem; }
+.os-governance-category .sd-context-cue { flex: none; width: clamp(3.1rem,5.2vw,4.65rem); aspect-ratio: 1; }
+.os-governance-category .sd-context-cue::after {
+  content: ''; position: absolute; inset: auto 0 0 3%; height: 1px;
+  background: linear-gradient(90deg,transparent,#7888b2 28%,#7888b2 70%,transparent);
+}
+/* Keep Mark's pointing hand aimed at the label in both reading directions. */
+[dir=rtl] .os-governance-category { flex-direction: row-reverse; }
 .os-page .os-copy h1{font-size:clamp(57px,6.35vw,112px);font-weight:550;line-height:.98;letter-spacing:-.064em}
 .os-page .os-copy h1 span{display:block}
 .os-page .os-copy h1 span+span{color:var(--os-color)}
