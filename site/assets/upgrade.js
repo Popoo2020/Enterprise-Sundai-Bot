@@ -21,5 +21,9 @@
  const timezone=document.querySelector('[name="timezone"]');if(timezone&&!timezone.value)timezone.value=Intl.DateTimeFormat().resolvedOptions().timeZone||'Europe/Copenhagen';
  const interest=document.querySelector('select[name="interest"]');
  const requestedInterest=new URLSearchParams(window.location.search).get('interest');
+ if(bookingForm&&interest&&requestedInterest==='training-partner'&&![...interest.options].some(option=>option.value===requestedInterest)){
+  const partnerTopics={en:'AI training delivery partnership',sv:'Samarbete kring AI-utbildning',da:'Samarbejde om AI-undervisning'};
+  interest.add(new Option(partnerTopics[document.documentElement.lang]||partnerTopics.en,requestedInterest));
+ }
  if(interest&&requestedInterest&&[...interest.options].some(option=>option.value===requestedInterest))interest.value=requestedInterest;
 })();

@@ -1,4 +1,5 @@
 import { beginners } from './beginners.mjs';
+import { trainingPartners } from './training-partners.mjs';
 import { courseTopics } from './search-copy.mjs';
 import { renderFrameworkStrip, trustPaths } from './framework-strip.mjs';
 import { knowledge, articleSlugs, guideIndex } from './knowledge-data.mjs';
@@ -66,7 +67,8 @@ function menuData(locale,{innerPage=false,course='',service='',booking=false,art
   const publicPaths=portal[lang]||portal.en;
   const live=key=>publicPaths.base+publicPaths[key];
   const serviceUrl=slug=>base+'services/'+slug+'/';
-  const schoolRows=[[w.youth,w.pupils,base+'courses/youth/'],[w.teach,w.teachers,base+'courses/teachers/'],[beginners[lang].menu,beginners[lang].teaser,base+'courses/beginners/']];
+  const partner = trainingPartners[lang];
+  const schoolRows=[[w.youth,w.pupils,base+'courses/youth/'],[w.teach,w.teachers,base+'courses/teachers/'],[beginners[lang].menu,beginners[lang].teaser,base+'courses/beginners/'],[partner.nav,partner.summary,local('training-partners')]];
   const orgRows=[[w.auto,w.automation,serviceUrl('secure-ai-automation')],[w.gov,w.governance,serviceUrl('compliance-ai-governance')],[w.rag,w.knowledge,serviceUrl('private-ai-agents-rag')],[w.sec,w.security,serviceUrl('cloud-security')],[w.agents,w.agentTask,serviceUrl('enterprise-ai-agents')]];
   const articles=knowledge[lang];
   const resourceRows=[[articles.articles,guideIndex[lang].navSummary,base+'read/'],[articles.faq,articles.faqIntro,local('faq')],[w.guides,w.guidesSub,base+'free-guides/'],[w.trust,w.trustSub,trustPaths[lang]],[w.about,w.aboutSub,live('about')]];

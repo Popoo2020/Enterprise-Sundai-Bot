@@ -118,6 +118,22 @@
 .biz-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1.4rem;margin-top:1.6rem}
 .biz-actions>a:last-child{font-weight:600;text-decoration:underline;text-underline-offset:.24em;padding-block:.6rem}
 .pc-courses header p.biz-language{margin-block-start:1rem}
+.pc-training-partners {
+  display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.4fr);
+  gap: clamp(2rem,6vw,5rem); color: #1e2331; background: #f3f5fc;
+  margin-block-start: clamp(2.5rem,5vw,4.5rem); padding: clamp(1.25rem,3.5vw,3rem);
+  border-radius: 12px; border-inline-start: 3px solid #4b65ca;
+}
+.pc-partner-heading p { color: #3e5498; font-size: .9rem; font-weight: 600; }
+.pc-training-partners h2 { margin-block-start: .45rem; font-size: clamp(1.55rem,2.6vw,2.4rem); letter-spacing: -.035em; line-height: 1.15; text-wrap: balance; }
+.pc-partner-detail p { max-width: 65ch; font-size: 1rem; line-height: 1.55; }
+.pc-partner-detail p + p { margin-block-start: .55rem; color: #454b5b; }
+.pc-partner-action { display: flex; align-items: center; gap: .2rem 1rem; flex-wrap: wrap; margin-block-start: .75rem; }
+.pc-partner-action a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; color: #2b418b; font-weight: 650; text-decoration: underline; text-underline-offset: .2em; }
+.pc-partner-action span { color: #50566a; font-size: .875rem; }
+.pc-partner-action svg { width: 1rem; height: 1rem; flex: none; }
+[dir=rtl] .pc-partner-action svg { transform: scaleX(-1); }
+@media(max-width:750px) { .pc-training-partners { grid-template-columns: minmax(0,1fr); gap: 1rem; } }
 @media(max-width:1000px){.biz-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.biz-heading,.biz-grid{grid-template-columns:1fr}.biz-heading{gap:.85rem}.biz-grid{gap:.65rem}.biz-grid .pc-service{display:grid;grid-template-columns:40px 1fr;align-items:center;column-gap:.75rem}.biz-grid .pc-service-icon{width:40px;height:40px;margin:0}.biz-grid .pc-service h3{margin:0}.biz-grid .pc-service p,.biz-grid .biz-result{grid-column:1/-1}.biz-grid .pc-service p{margin-top:.7rem}.biz-result{margin-top:.65rem;padding-top:.65rem}}
 .pc-business .biz-actions .fr-action{color:#fff}

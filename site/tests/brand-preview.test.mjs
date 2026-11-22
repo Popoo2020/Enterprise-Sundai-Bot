@@ -117,6 +117,8 @@ test('rendered pages use their requested language and have working local links',
       if (section === 'intro-call') {
         assert.ok(ids.has('fc-native') && ids.has('request'), route + ' contact controls');
         assert.match(html, /action="\/api\/contact"/);
+        assert.match(html, /<option value="training-partner" data-heading="[^"]+" data-outcome="[^"]+">[^<]+<\/option>/, route + ' localized training partnership');
+        assert.match(html, /id="fc-partner"[^>]*hidden>[\s\S]*?<label for="fc-partner-brief">[^<]+<\/label><input id="fc-partner-brief"[^>]*maxlength="240"/, route + ' optional partner brief');
         assert.ok(hrefs(html).some(link => link.startsWith('mailto:eririmo@protonmail.com?')), route + ' email draft');
         assert.ok(hrefs(html).includes('https://sundaibot.com' + (locale === 'he' || locale === 'en' ? '/' : '/' + locale + '/') + 'book/'), route + ' existing online booking form');
         for (const topic of [...courseSlugs, ...serviceSlugs]) assert.ok(html.includes('value="' + topic + '"'), route + ' missing topic ' + topic);
@@ -217,6 +219,23 @@ test('the school pilot links to a local quote and printable worksheet in every l
     assert.ok(hrefs(course).includes(worksheet), lang + ' worksheet link');
     assert.equal((await readFile(publicFile(worksheet))).toString('ascii', 0, 5), '%PDF-', lang + ' worksheet file');
     assert.ok(hrefs(course).includes('/assets/brand-home/' + pdfName('TeenTech', lang)), lang + ' full syllabus');
+  }
+});
+
+test('providers can find their local partnership offer through the menu or a course and request a partnership call', async () => {
+  for (const lang of languages) {
+    const base = routeFor(lang);
+    const home = await readFile(publicFile(base), 'utf8');
+    const match = main(home).match(/<section\b[^>]*id="training-partners"[\s\S]*?<\/section>/);
+    assert.ok(match, lang + ' public partner offer');
+    assert.ok(hrefs(match[0]).includes(routeFor(lang, 'intro-call') + '?topic=training-partner&via=training-partners'));
+    assert.equal(home.split('class="fr-entry" href="#training-partners"').length - 1, 2, lang + ' both menus');
+    for (const course of courseSlugs) {
+      const page = await readFile(publicFile(routeFor(lang, 'courses', course)), 'utf8');
+      assert.ok(hrefs(main(page)).includes(base + '#training-partners'), lang + ' referral from ' + course);
+    }
+    const call = await readFile(publicFile(routeFor(lang, 'intro-call')), 'utf8');
+    assert.match(call, /<option value="training-partner" data-heading="[^"]+" data-outcome="[^"]+"/);
   }
 });
 

@@ -190,3 +190,4 @@ html.fr-lock{overflow:hidden}
 @media (max-width: 460px) {
   .fr-frameworks ul { grid-template-columns: 1fr; gap: 8px; }
 }
+.fr-mobile-links .fr-entry[href$="#training-partners"] { min-height: 44px; }
