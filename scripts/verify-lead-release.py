@@ -11,6 +11,10 @@ while time.monotonic()<end:
  try:
   current=json.loads(get('/discovery.json?lead-release='+expected['contentDigest']))
   if current['contentDigest']!=expected['contentDigest']:raise ValueError('Previous public release')
+  # Cloudflare may serve the previous HTML briefly while a build is being promoted.
+  for locale in ('', '/he', '/sv', '/da'):
+   quote=get(locale+'/governance-quote/').decode('utf-8')
+   if 'id="request"' not in quote or 'action="/api/contact"' not in quote:raise ValueError('Governance quote form pending')
   config=json.loads(get('/api/leads'))
   if not config.get('available') or not config.get('storageReady') or config.get('scope')!='configuration_only':raise ValueError('Lead binding/configuration unavailable')
   for lang in ['en','da','sv']:
@@ -21,7 +25,7 @@ while time.monotonic()<end:
    for guide in ['ai-act-readiness','agent-security','supplier-access']:
     pdf=get('/downloads/'+guide+'-'+lang+'.pdf')
     if not pdf.startswith(b'%PDF-') or len(pdf)<10000:raise ValueError('Missing PDF')
-  print('Verified public release, 15 localized entry/article pages, 9 PDF responses and lead API configuration. No signup, consent click, alarm execution or inbox delivery was tested.')
+  print('Verified public release, four contactable governance quote pages, 15 localized entry/article pages, 9 PDF responses and lead API configuration. No signup, consent click, alarm execution or inbox delivery was tested.')
   break
  except (OSError,ValueError,KeyError) as error:
   print('Waiting for public lead release:',type(error).__name__,flush=True);time.sleep(10)

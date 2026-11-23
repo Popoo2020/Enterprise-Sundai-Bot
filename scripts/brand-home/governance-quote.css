@@ -1,0 +1,9 @@
+.gq-form{display:none}
+.gq-form[data-contact-ready="true"]{display:grid;gap:1rem}
+.gq-form .fc-fields{margin:0}
+.gq-form textarea{box-sizing:border-box;width:100%;display:block;margin-block-start:6px;padding:10px 12px;color:#18161b;background:#fff;font:inherit;font-size:1rem;border:1px solid #a7a2ad;border-radius:5px;resize:vertical}
+.gq-form textarea:focus-visible{outline:3px solid #607bd7;outline-offset:3px}
+.gq-form input{font-size:1rem}
+.gq-form .fc-primary{justify-content:center}
+.gq-form [data-turnstile]:empty,.gq-form [hidden]{display:none}
+.gq-form .fc-status{margin:0}

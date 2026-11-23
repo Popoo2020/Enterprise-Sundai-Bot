@@ -4,3 +4,10 @@ function harness({available=true,statusCode=202,followup=false,lang='en'}={}){le
 test('lead download survives token callbacks and cannot be submitted twice',async()=>{const h=harness({followup:true});assert.equal(h.calls.length,0);await h.submit();assert.equal(h.calls.length,2);const sent=JSON.parse(h.calls[1].options.body);assert.equal(sent.followup,'yes');assert.equal(sent.lang,'en');assert.equal(h.children.find(x=>x.href)?.href,'/downloads/agent-security-en.pdf');assert.match(h.status.textContent,/queued/);h.token();h.expire();h.error();assert.match(h.status.textContent,/queued/);assert(h.button.hidden);await h.submit();assert.equal(h.calls.length,2);assert.equal(h.form.elements.email.value,'test@example.test');});
 test('a free download never implies marketing consent and failures preserve input',async()=>{const h=harness({followup:false,statusCode:503,lang:'da'});await h.submit();assert.equal(JSON.parse(h.calls[1].options.body).followup,'no');assert.match(h.status.textContent,/ikke sættes i kø/);assert(!h.button.hidden);assert.equal(h.children.length,0);assert.equal(h.form.elements.email.value,'test@example.test');});
 test('configuration failure cannot send a lead or show a download',async()=>{const h=harness({available:false});await h.submit();assert.equal(h.calls.length,1);assert.match(h.status.textContent,/could not be queued/);assert.equal(h.children.length,0);});
+
+test('two submit events during challenge setup queue a single guide request', async () => {
+  const h = harness();
+  await Promise.all([h.submit(), h.submit()]);
+  assert.equal(h.calls.filter(call => call.options.method === 'POST').length, 1);
+  assert.equal(h.children.filter(node => node.href).length, 1);
+});
