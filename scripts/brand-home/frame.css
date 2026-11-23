@@ -109,7 +109,7 @@ html.fr-lock{overflow:hidden}
 .fc-nav svg{width:17px;height:17px;flex:none}.fc-nav small{border-inline-start:1px solid #a0b2ed;padding-inline-start:8px;font-family:inherit;font-size:.88em;font-weight:500;color:#fff}
 .fr-header .fc-mobile{display:none}.fr-choices>.fr-contact-choice{background:#fff}.fr-contact-choice>b{color:#3150bc}.fr-contact-choice:focus-visible{outline:3px solid #405ec4}
 .fr-footer .fr-contact-choice:hover{background:#fafbff;border-color:#405bba}.fr-close h2{text-wrap:balance;max-width:14ch}
-.fr-banner .fc-banner-link{display:block;width:fit-content;color:#fff;margin-block-start:9px;padding-block:6px;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.fr-banner .fc-banner-link{display:inline-flex;align-items:center;gap:.35em;max-width:100%;color:#fff;margin-block-start:9px;padding-block:6px;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:1050px){
  .fr-header .fc-mobile{display:inline-flex;min-height:41px;margin-inline-start:auto;padding:7px 10px;font-size:12px}
  .fr-bar{gap:10px}.fr-mobile>summary{min-height:44px}

@@ -116,7 +116,7 @@
 .biz-grid .pc-service-icon{margin-bottom:1.35rem}
 .biz-result{border-top:1px solid #dcdce3;margin-top:1rem;padding-top:.85rem;font-size:1rem;line-height:1.45}
 .biz-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1.4rem;margin-top:1.6rem}
-.biz-actions>a:last-child{font-weight:600;text-decoration:underline;text-underline-offset:.24em;padding-block:.6rem}
+.biz-grid .pc-service .biz-proof a{display:inline-block;padding-block:.2em;color:var(--brand-ink);text-decoration:underline;text-underline-offset:.2em}
 .pc-courses header p.biz-language{margin-block-start:1rem}
 .pc-training-partners {
   display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.4fr);

@@ -1,5 +1,5 @@
 import { crewMotionScript, renderContextCue, renderOfferExercise } from './crew-demos.mjs';
-import { renderSchoolPilot, schoolPilotJump } from './school-pilot.mjs';
+import { renderSchoolPilot, schoolPilotQuoteLabel } from './school-pilot.mjs';
 import { beginners } from './beginners.mjs';
 import { relatedGuide } from './knowledge.mjs';
 import { courseTopics, searchCopy } from './search-copy.mjs';
@@ -28,7 +28,7 @@ const courses = {
   beginners,
   youth: {
     he: {
-      title:'הייתם משתפים את זה?', label:'Teen Tech AI', lead:'בדקו מי עומד מאחורי סרטון, גלו כמה באמת עולה המבצע ובנו אתר שעוזר לחבר לכיתה לקבל החלטה.',
+      title:'הייתם משתפים את זה?', label:'Teen Tech AI', lead:'בארבעה מפגשים התלמידים בודקים מי פרסם סרטון, משווים מבצעים ובונים אתר שעוזר לחבר לכיתה לקבל החלטה.',
       who:'כיתות ח׳–ט׳ · עד 24 תלמידים', time:'4 מפגשים בני 90 דקות',
       skills:['להצליב טענה מול מקור עצמאי ולהסביר מה עדיין אינו ידוע.','לחשב מחיר כולל ולבחור תגובה בטוחה לבקשת פרטים.','לשנות אתר בעזרת AI, להזין בו שתי דוגמאות ולבדוק אם הוא מחזיר את התוצאה הצפויה.'],
       units:['חוקרים סרטון ואת מקורו','משווים מבצעים ומתרגלים תגובה לפישינג','בונים אתר מתבנית ובודקים שני מקרי שימוש','מחליפים אתרים, מתעדים משוב ומשפרים'],
@@ -36,7 +36,7 @@ const courses = {
       sample:'איזו הצעה נכנסת בתקציב של 25 אירו?',
     },
     en: {
-      title:'Would you share it?', label:'Teen Tech AI', lead:'Investigate a video, find the real cost of a deal and build a website that helps a classmate make a decision.',
+      title:'Would you share it?', label:'Teen Tech AI', lead:'Over four sessions, pupils investigate a video, compare the real cost of two offers and build a website that helps a classmate make a decision.',
       who:'Grades 8–9 · up to 24 students', time:'4 sessions of 90 minutes',
       skills:['Check a claim against an independent source and explain what is still unknown.','Calculate the full price and respond safely to requests for personal details.','Edit a website with AI and test two inputs yourself.'],
       units:['Investigate a video and its source','Compare offers and practise responding to phishing','Build a website from a template and test two cases','Swap projects, observe a user and improve the design'],
@@ -44,7 +44,7 @@ const courses = {
       sample:'Which offer fits a €25 budget?',
     },
     sv: {
-      title:'Skulle du dela det här?', label:'Teen Tech AI', lead:'Granska en video, räkna ut vad ett erbjudande faktiskt kostar och bygg en webbplats som hjälper en klasskamrat att fatta beslut.',
+      title:'Skulle du dela det här?', label:'Teen Tech AI', lead:'Under fyra pass granskar eleverna ett videoklipp, jämför vad två erbjudanden faktiskt kostar och bygger en webbplats som hjälper en klasskamrat att fatta beslut.',
       who:'Årskurs 8–9 · högst 24 elever', time:'4 pass à 90 minuter',
       skills:['Kontrollera ett påstående mot en oberoende källa och förklara vad som fortfarande är oklart.','Räkna ut totalpriset och bemöta en förfrågan om personuppgifter på ett säkert sätt.','Ändra en webbplats med AI och själv testa två inmatningar.'],
       units:['Granska en video och dess källa','Jämför erbjudanden och öva på att hantera nätfiske','Bygg en webbplats från en mall och testa två fall','Byt projekt, följ en användare och förbättra webbplatsen'],
@@ -52,7 +52,7 @@ const courses = {
       sample:'Vilket erbjudande ryms inom 25 euro?',
     },
     da: {
-      title:'Ville du dele det?', label:'Teen Tech AI', lead:'Undersøg en video, find den reelle pris på et tilbud og byg en hjemmeside, der hjælper en klassekammerat med at træffe et valg.',
+      title:'Ville du dele det?', label:'Teen Tech AI', lead:'På fire moduler undersøger eleverne et videoklip, sammenligner den samlede pris på to tilbud og bygger en hjemmeside, der hjælper en klassekammerat med at træffe et valg.',
       who:'8.–9. klasse · op til 24 elever', time:'4 gange 90 minutter',
       skills:['Tjekke en påstand hos en uafhængig kilde og forklare, hvad der stadig er usikkert.','Beregne den samlede pris og håndtere en anmodning om personoplysninger sikkert.','Ændre en hjemmeside med AI og selv afprøve to indtastninger.'],
       units:['Undersøg en video og dens kilde','Sammenlign tilbud og øv jer i at håndtere phishing','Byg en hjemmeside fra en skabelon og afprøv to eksempler','Byt projekter, følg en bruger og forbedr hjemmesiden'],
@@ -213,7 +213,10 @@ export function renderCourse(locale, slug) {
   const proposal = {he:'training', en:'training', sv:'sv/utbildning-forelasningar', da:'da/kurser-foredrag'}[lang];
   const pilot = slug === 'youth';
   const proposalUrl = pilot ? '#school-proposal' : 'https://sundaibot.com/' + proposal + '/#proposal';
-  const written = school ? '<a class="course-written" href="' + proposalUrl + '">' + info.written + '</a>' : '';
+  const primaryUrl = pilot ? proposalUrl : contact;
+  const primaryLabel = pilot ? schoolPilotQuoteLabel(lang) : cta;
+  const callMeta = pilot ? '<a href="' + contact + '">' + info.full + '</a>' : info.footnote;
+  const written = school ? '<a class="course-written" href="' + proposalUrl + '">' + (pilot ? primaryLabel : info.written) + '</a>' : '';
   const pilotAssets = pilot ? '<link rel="stylesheet" href="' + directory + 'school-pilot.css"><script defer src="/assets/upgrade-forms.js"></script>' : '';
   const pdf = directory + 'SundAI_' + pdfs[slug] + '_Syllabus_' + lang.toUpperCase() + '.pdf';
   const alternates = Object.keys(languages).map(l => '<link rel="alternate" hreflang="' + l + '" href="https://sundaibot.com' + courseUrl(l,slug) + '">').join('');
@@ -228,5 +231,5 @@ export function renderCourse(locale, slug) {
   const partnerLink = '<p class="course-partner"><a href="' + home + '#training-partners">' + escapeHtml(trainingPartners[lang].courseLink) + '</a></p>';
   const more = courseSlugs.filter(s => s!==slug).map(k=>'<a href="' + courseUrl(lang,k) + '">' + escapeHtml(searchCopy[lang].course[courseTopics.indexOf(k)]) + '<span aria-hidden="true">↗</span></a>').join('');
   const direction = lang === 'he' ? 'rtl' : 'ltr';
-  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css">' + (school ? '<link rel="stylesheet" href="' + directory + 'crew-demos.css">' : '') + pilotAssets + '<script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + contact + '">' + cta + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + info.footnote + '</p>' + (pilot ? schoolPilotJump(lang) : '') + '</div>' + sample + '</div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section>' + (pilot ? renderSchoolPilot(lang) : '') + '<section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + partnerLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
+  return '<!doctype html><html lang="' + lang + '" dir="' + direction + '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101012"><title>' + escapeHtml(c.seoTitle || courseName) + ' | SundAI</title><meta name="description" content="' + escapeHtml(c.description || c.lead) + '"><link rel="canonical" href="https://sundaibot.com' + courseUrl(lang,slug) + '">' + alternates + '<link rel="alternate" hreflang="x-default" href="https://sundaibot.com' + courseUrl('en',slug) + '"><link rel="stylesheet" href="' + directory + 'courses.css"><link rel="stylesheet" href="' + directory + 'frame.css">' + (school ? '<link rel="stylesheet" href="' + directory + 'crew-demos.css">' : '') + pilotAssets + '<script defer src="' + directory + 'frame.js"></script></head><body class="course-' + slug + '"><a class="skip" href="#main">' + t.skip + '</a>'+renderHeader(lang,{innerPage:true,course:slug})+'<main id="main"><section class="intro"><div class="course-wrap intro-grid"><div class="intro-copy"><a class="crumb" href="' + home + '">SundAI <span aria-hidden="true">/</span> ' + t.home + '</a><p class="category"><span aria-hidden="true">' + symbols[slug] + '</span>' + escapeHtml(c.label) + (c.title === courseName ? '' : ' · ' + escapeHtml(c.title)) + '</p><h1>' + escapeHtml(courseName) + '</h1><p class="lead">' + escapeHtml(c.lead) + '</p><div class="actions"><a class="btn filled" href="' + primaryUrl + '">' + primaryLabel + '</a><a class="btn outlined" href="' + pdf + '" download>' + t.pdf + '<span aria-hidden="true">↓</span></a></div><p class="course-call-meta">' + callMeta + '</p></div>' + sample + '</div></section><div class="facts"><dl class="course-wrap facts-grid">' + facts + '</dl></div><section class="programme course-wrap"><div><h2>' + escapeHtml(c.skillsHeading || t.skills) + '</h2><ul class="skills">' + skills + '</ul>' + teacher + '</div><div><h2>' + t.outline + '</h2><ol class="units">' + units + '</ol></div></section><section class="deliverable"><div class="course-wrap take"><div><h2>' + t.take + '</h2><p>' + escapeHtml(c.take) + '</p></div><div><a class="btn white-btn" href="' + closeCall + '">' + cta + '</a><p class="fine">' + info.outcomes[topicKeys.indexOf(slug)] + '</p>' + written + '</div></div></section>' + (pilot ? renderSchoolPilot(lang) : '') + '<section class="course-wrap related"><h2>' + t.more + '</h2><nav>' + more + '</nav>' + guideLink + partnerLink + '</section></main>'+renderFooter(lang,{innerPage:true,course:slug,showClose:false})+'</body></html>';
 }

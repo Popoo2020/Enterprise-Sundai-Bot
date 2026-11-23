@@ -202,9 +202,12 @@ test('the school pilot links to a local quote and printable worksheet in every l
   for (const lang of languages) {
     const youth = routeFor(lang, 'courses', 'youth');
     const home = await readFile(publicFile(routeFor(lang)), 'utf8');
-    assert.ok(hrefs(main(home)).includes(youth + '#school-pilot'), lang + ' homepage school banner');
+    const banner = main(home).match(/<aside\b[^>]*class="fr-banner"[^>]*>([\s\S]*?)<\/aside>/)?.[1];
+    assert.ok(banner && hrefs(banner).includes(youth + '#school-proposal'), lang + ' homepage class quote goes directly to its form');
+    assert.match(banner, /90/, lang + ' pilot length before clicking');
     const course = main(await readFile(publicFile(youth), 'utf8'));
-    assert.ok(hrefs(course).includes('#school-proposal'), lang + ' proposal link');
+    const primary = course.match(/<a class="btn filled" href="#school-proposal">([^<]+)/);
+    assert.match(primary?.[1] || '', /90/, lang + ' primary course action identifies the 90-minute offer');
     const quoteIntro = course.match(/id="school-proposal"[^>]*>([\s\S]*?)<form\b/)?.[1];
     assert.ok(quoteIntro?.includes(startingPrice[lang]), lang + ' price before the school quote form');
     assert.equal(course.split(startingPrice[lang]).length - 1, 1, lang + ' one price for the class pilot');
@@ -408,6 +411,29 @@ test('public pages use localized trust links and publish discoverable guides and
   assert.ok(publicRobots.startsWith(robots.trimEnd()), 'existing crawler policies and sitemap declarations');
   assert.match(publicRobots,/^Sitemap: https:\/\/sundaibot\.com\/sitemap-sundai\.xml$/m);
   for (const lang of languages) {
+    const home = main(await publicPage(routeFor(lang)));
+    const article = home.match(/<article class="pc-service [^"]*">[\s\S]*?<\/article>/g)?.find(card => hrefs(card).includes(routeFor(lang,'services','secure-ai-automation')));
+    assert.ok(article?.includes('Ariel’s Pizza') && article.includes('WhatsApp'), lang + ' evidence inside the automation card');
+    const caseLink = article.match(/<a\b[^>]*href="([^"]*ariels-pizza\/)"[^>]*>(.*?)<\/a>/s);
+    assert.ok(caseLink, lang + ' direct case link inside the card');
+    const expectedLang = lang === 'he' ? 'en' : lang;
+    const casePath = new URL(caseLink[1], canonical('/')).pathname;
+    const evidence = home.match(/<section\b[^>]*id="evidence"[\s\S]*?<\/section>/)?.[0];
+    const fullCaseLink = evidence?.match(/<a\b[^>]*href="([^"]*ariels-pizza\/)"[^>]*>([\s\S]*?)<\/a>/);
+    assert.ok(fullCaseLink && new URL(fullCaseLink[1], canonical('/')).pathname === casePath, lang + ' full case link matches early evidence');
+    const casePage = await publicPage(casePath);
+    assert.match(casePage, new RegExp('<html[^>]*lang="' + expectedLang + '"'), lang + ' case study destination language');
+    const planner = home.match(/<a\b[^>]*href="([^"]*#planner)"[^>]*>([\s\S]*?)<\/a>/);
+    assert.ok(planner, lang + ' workflow planner link');
+    const plannerPage = await publicPage(new URL(planner[1], canonical('/')).pathname);
+    assert.match(plannerPage, /<[^>]*id="planner"[^>]*data-service-planner/, lang + ' direct link to interactive controls');
+    assert.match(plannerPage, new RegExp('<html[^>]*lang="' + expectedLang + '"'), lang + ' planner destination language');
+    if (lang === 'he') {
+      const englishNotice = /(?:^|>)[^<>]*\(באנגלית\)[^<>]*(?:<|$)/;
+      assert.match(caseLink[2], englishNotice, 'Hebrew case link identifies English content');
+      assert.match(fullCaseLink[2], englishNotice, 'Hebrew full case link identifies English content');
+      assert.match(planner[2], englishNotice, 'Hebrew planner link identifies English content');
+    }
     const hub = routeFor(lang,'read');
     const serviceRoute = routeFor(lang,'services',workflowSlug);
     const serviceUrl = canonical(serviceRoute);
