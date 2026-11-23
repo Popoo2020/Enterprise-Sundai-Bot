@@ -1,5 +1,5 @@
 """Production negative checks: no valid lead, subscription or email is created."""
-import json,time,urllib.request,urllib.error
+import json,re,time,urllib.request,urllib.error
 from pathlib import Path
 ORIGIN='https://sundaibot.com'
 expected=json.loads(Path('site/discovery.json').read_text())
@@ -24,14 +24,15 @@ for lang in ['en','da','sv']:
   if status!=200 or not body.startswith(b'%PDF-'):raise AssertionError('PDF unavailable')
   if 'application/pdf' not in headers.get('Content-Type','') or 'attachment' not in headers.get('Content-Disposition',''):raise AssertionError('PDF response headers incorrect')
   if 'noindex' not in headers.get('X-Robots-Tag',''):raise AssertionError('Download indexing header missing')
- # Confirm the new offer survives the production schema rewriter.
+ # The Service survives schema rewriting and visitors can request a tailored quote.
  status,headers,body=request(prefix+'/ai-decision-review/')
  if status!=200:raise AssertionError('Review page unavailable')
- import re
  blocks=re.findall(r'<script[^>]*data-review-schema[^>]*>(.*?)</script>',body.decode(),flags=re.S)
  if len(blocks)!=1:raise AssertionError('Missing published review schema')
- offer=json.loads(blocks[0])['offers']
- if offer.get('price')!='490' or offer.get('priceCurrency')!='EUR':raise AssertionError('Published review price mismatch')
+ service=json.loads(blocks[0])
+ if service.get('@type')!='Service' or 'offers' in service:raise AssertionError('Unexpected review schema')
+ if re.search(r'(?i)€\s*490\b|\b490\s*(?:€|EUR|euro|אירו)',body.decode()):raise AssertionError('Retired review price still published')
+ if 'id="review-request"' not in body.decode():raise AssertionError('Missing review enquiry')
 expect('/api/leads',405,'method_not_allowed',method='PUT')
 expect('/api/leads',403,'origin_not_allowed',method='POST',data={},headers={'Content-Type':'application/json','Origin':'https://example.invalid'})
 expect('/api/leads',400,'unexpected_fields',method='POST',data={'unexpected':'field'},headers={'Content-Type':'application/json','Origin':ORIGIN})
@@ -39,4 +40,4 @@ expect('/api/leads',400,'invalid_fields',method='POST',data={'email':'not-an-ema
 # A synthetic, reserved test address cannot get queued without the security proof.
 expect('/api/leads',403,'turnstile_required',method='POST',data={'email':'funnel-check@example.invalid','lang':'en','guide':'agent-security','followup':'no','startedAt':int(time.time()*1000)-5000,'turnstileToken':''},headers={'Content-Type':'application/json','Origin':ORIGIN})
 for path in ['/api/leads/confirm?t=invalid','/api/leads/unsubscribe?t=invalid']:expect(path,410)
-print('Production negative checks passed: nine guide landing pages and PDF headers; three surviving EUR 490 offer schemas; method, origin, field, missing-security-proof and invalid-preference-link rejection. No valid lead, confirmation, subscription or email was created.')
+print('Production negative checks passed: nine guide landing pages and PDF headers; three quote-based review pages; method, origin, field, missing-security-proof and invalid-preference-link rejection. No valid lead, confirmation, subscription or email was created.')

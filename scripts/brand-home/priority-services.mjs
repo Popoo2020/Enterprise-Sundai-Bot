@@ -84,10 +84,10 @@ export const automation = {
 export const governance = {
   en: {
     category: 'AI governance & vendor reviews', title: ['Ready to approve', 'that AI tool?'],
-    lead: 'For IT leads, CTOs and compliance managers whose teams already use AI. Bring one purchase, integration or access decision to a €490 Decision Review and take a written recommendation to the person who signs off.',
+    lead: 'For IT leads, CTOs and compliance managers whose teams already use AI. Bring one purchase, integration or access decision to a Decision Review and take a written recommendation to the person who signs off.',
     cta: 'Discuss my AI decision', offersHeading: 'Which review fits your decision?',
     offers: [
-      ['Decision Review','€490','One decision', 'A focused 45-minute discussion and a 3–5-page memo covering options, data access, priority risks and three next steps. Get a recommendation to proceed, pause or gather more evidence.', 'Ask about a Decision Review'],
+      ['Decision Review',null,'One decision', 'A focused 45-minute discussion and a 3–5-page memo covering options, data access, priority risks and three next steps. Get a recommendation to proceed, pause or gather more evidence.', 'Get a quote tailored to your company'],
       ['Readiness Review','€1,950','A wider review, when useful', 'For teams that need to know whether their controls work together. We map the agreed AI use cases, review policies and ownership, and hand over a prioritised plan with evidence gaps and owners.', 'Scope a Readiness Review']
     ],
     steps: [
@@ -98,10 +98,10 @@ export const governance = {
   },
   he: {
     category: 'ממשל AI ובדיקת ספקים',title: ['האם לאשר', 'את כלי ה־AI?'],
-    lead: 'למנהלי IT, טכנולוגיה וציות שהצוותים שלהם כבר משתמשים ב־AI. לפני רכישה, חיבור מערכת או מתן גישה לנתונים, בוחנים החלטה אחת ב־490 אירו ומקבלים המלצה כתובה להצגה לגורם המאשר.',
+    lead: 'למנהלי IT, טכנולוגיה וציות שהצוותים שלהם כבר משתמשים ב־AI. לפני רכישה, חיבור מערכת או מתן גישה לנתונים, בוחנים החלטה אחת ומקבלים המלצה כתובה להצגה לגורם המאשר.',
     cta: 'נדבר על החלטת AI אצלכם', offersHeading: 'איזו בדיקה מתאימה להחלטה שלכם?',
     offers: [
-      ['Decision Review','€490','החלטה אחת', 'שיחה ממוקדת של 45 דקות ומסמך של 3–5 עמודים עם חלופות, גבולות גישה לנתונים, סיכונים מרכזיים ושלושה צעדים להמשך. ההמלצה מפרטת אם להתקדם, להמתין או לאסוף ראיות נוספות.', 'לבירור על בדיקת החלטה'],
+      ['Decision Review',null,'החלטה אחת', 'שיחה ממוקדת של 45 דקות ומסמך של 3–5 עמודים עם חלופות, גבולות גישה לנתונים, סיכונים מרכזיים ושלושה צעדים להמשך. ההמלצה מפרטת אם להתקדם, להמתין או לאסוף ראיות נוספות.', 'לקבלת הצעת מחיר מותאמת לחברה שלכם'],
       ['Readiness Review','€1,950','בדיקה רחבה יותר לפי הצורך', 'לצוותים שצריכים להבין אם הבקרות שלהם נותנות מענה לשימוש בפועל. ממפים שימושי AI בהיקף מוסכם, בודקים מדיניות ואחריות ומקבלים תוכנית עבודה מדורגת עם הפערים, הראיות שחסרות והאחראים לטיפול.', 'לתיאום היקף בדיקת מוכנות']
     ],
     steps: [
@@ -112,10 +112,10 @@ export const governance = {
   },
   sv: {
     category: 'AI-styrning och leverantörsgranskning',title: ['Ska ni godkänna', 'AI-verktyget?'],
-    lead: 'För IT-chefer, teknikchefer och ansvariga för regelefterlevnad när AI redan används i teamet. Få en skriftlig rekommendation inför ett inköp, en integration eller ett beslut om åtkomst för 490 €.',
+    lead: 'För IT-chefer, teknikchefer och ansvariga för regelefterlevnad när AI redan används i teamet. Få en skriftlig rekommendation inför ett inköp, en integration eller ett beslut om åtkomst.',
     cta: 'Prata om ett AI-beslut', offersHeading: 'Vilken granskning behöver ni?',
     offers: [
-      ['Decision Review','490 €','Ett beslut', 'Ett fokuserat samtal på 45 minuter och ett beslutsunderlag på 3–5 sidor med alternativ, dataåtkomst, prioriterade risker och tre nästa steg. Ni får en motiverad rekommendation att gå vidare, avvakta eller hämta in mer underlag.', 'Fråga om en beslutsgranskning'],
+      ['Decision Review',null,'Ett beslut', 'Ett fokuserat samtal på 45 minuter och ett beslutsunderlag på 3–5 sidor med alternativ, dataåtkomst, prioriterade risker och tre nästa steg. Ni får en motiverad rekommendation att gå vidare, avvakta eller hämta in mer underlag.', 'Be om en offert för ert företag'],
       ['Readiness Review','1 950 €','Bredare granskning vid behov', 'För team som behöver veta om deras kontroller fungerar tillsammans. Vi kartlägger överenskomna användningsfall, granskar policy och ansvar och lämnar en prioriterad plan med underlag som saknas och vem som ska ta fram det.', 'Avgränsa en beredskapsgranskning']
     ],
     steps: [
@@ -126,10 +126,10 @@ export const governance = {
   },
   da: {
     category: 'AI-styring og leverandørvurdering',title: ['Skal I godkende', 'AI-værktøjet?'],
-    lead: 'Til IT-chefer, teknologichefer og complianceansvarlige, når teamet allerede bruger AI. Få en skriftlig anbefaling om ét indkøb, én integration eller én beslutning om dataadgang for 490 €.',
+    lead: 'Til IT-chefer, teknologichefer og complianceansvarlige, når teamet allerede bruger AI. Få en skriftlig anbefaling om ét indkøb, én integration eller én beslutning om dataadgang.',
     cta: 'Tal med os om et AI-valg', offersHeading: 'Hvilken gennemgang har I brug for?',
     offers: [
-      ['Decision Review','490 €','Én beslutning', 'En fokuseret samtale på 45 minutter og et beslutningsoplæg på 3–5 sider med alternativer, dataadgang, væsentlige risici og tre næste skridt. I får en begrundet anbefaling om at gå videre, afvente eller indhente mere dokumentation.', 'Spørg om en beslutningsgennemgang'],
+      ['Decision Review',null,'Én beslutning', 'En fokuseret samtale på 45 minutter og et beslutningsoplæg på 3–5 sider med alternativer, dataadgang, væsentlige risici og tre næste skridt. I får en begrundet anbefaling om at gå videre, afvente eller indhente mere dokumentation.', 'Få et tilbud tilpasset jeres virksomhed'],
       ['Readiness Review','1.950 €','Bredere gennemgang efter behov', 'Til teams, der skal vide, om deres kontroller virker sammen. Vi kortlægger aftalte anvendelser af AI, gennemgår politikker og ansvar og afleverer en prioriteret plan over manglende dokumentation og de ansvarlige.', 'Aftal omfanget af en parathedsvurdering']
     ],
     steps: [

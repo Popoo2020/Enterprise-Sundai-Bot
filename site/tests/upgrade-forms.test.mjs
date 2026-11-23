@@ -38,6 +38,7 @@ function harness({ lang = 'en', kind = 'booking', result = { status: 202, body: 
   };
   const response = (status, body) => ({ status, ok: status >= 200 && status < 300, async json() { return body; } });
   const window = {
+    getComputedStyle() { return { paddingLeft: '0px', paddingRight: '0px' }; },
     ResizeObserver: class { constructor(callback) { resizeObserver = callback; } observe() {} },
     turnstile: {
       render(_, options) { widgetOptions = options; options.callback('test-challenge-token'); return 1; },
@@ -353,4 +354,39 @@ test('the pilot challenge fits the available form width before and after rotatio
   await h.submit();
   assert.equal(h.status.dataset.state, 'accepted');
   assert.equal(h.metrics.length, 1);
+});
+
+
+test('meeting and service enquiry security checks fit narrow screens and adapt on rotation', async () => {
+  for (const kind of ['booking', 'enquiry']) {
+    const h = harness({kind});
+    await h.resize(248);
+    h.focus();
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(h.options().size, 'compact');
+    await h.resize(360);
+    assert.equal(h.options().size, 'flexible');
+    await h.submit();
+    assert.equal(h.metrics.length, 1);
+  }
+});
+
+test('governance quote forms accept just the two required fields and retain the localized follow-up request', async () => {
+  const {renderGovernanceQuote} = await import('../../scripts/brand-home/governance-quote.mjs');
+  for (const lang of ['en', 'da', 'he', 'sv']) {
+    const html = renderGovernanceQuote(lang);
+    const markup = html.match(/<form\b[^>]*data-upgrade-form[\s\S]+?<\/form>/)[0];
+    const h = harness({lang, kind: 'enquiry'});
+    assert.deepEqual([...markup.matchAll(/<input\b[^>]*name="([^"]+)"[^>]*\brequired\b/g)].map(match => match[1]), ['name', 'email']);
+    const subject = markup.match(/name="message" value="([^"]+)"/)[1];
+    const confirmation = markup.match(/data-accepted-copy="([^"]+)"/)[1];
+    Object.assign(h.fields, {organisation:'', portfolio:'', timezone:'', interest:'', message:subject});
+    h.form.dataset.acceptedCopy = confirmation;
+    await h.submit();
+    const sent = JSON.parse(h.calls.find(call => call.options.method === 'POST').options.body);
+    assert.ok(sent.message.includes(subject));
+    assert.equal(sent.email, h.fields.email);
+    assert.equal(h.status.textContent, confirmation);
+    assert.equal(h.metrics.length, 1);
+  }
 });

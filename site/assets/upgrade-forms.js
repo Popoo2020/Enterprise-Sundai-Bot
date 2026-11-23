@@ -143,12 +143,19 @@
     spinner.className = 'form-spinner'; spinner.textContent = '…'; spinner.hidden = true; spinner.setAttribute('aria-hidden', 'true'); button.appendChild(spinner);
     let token = '', widget, widgetSize, preparing, sending = false, accepted = '';
     // The empty widget container has display:none. Measure the form it will fill.
-    const challengeSize = () => school && form.clientWidth < 300 ? 'compact' : 'flexible';
+    const challengeSize = () => {
+      const style = window.getComputedStyle(form);
+      const width = form.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+      return width < 300 ? 'compact' : 'flexible';
+    };
     const startedAt = String(Date.now());
     const setStatus = (key, error = false) => { status.textContent = school && key === 'invalid' ? school.invalid : t[key]; status.dataset.state = error ? 'error' : key; };
     const acceptedStatus = () => {
       if (school) {
         status.textContent = school.accepted;
+        status.dataset.state = 'accepted';
+      } else if (form.dataset.acceptedCopy) {
+        status.textContent = form.dataset.acceptedCopy;
         status.dataset.state = 'accepted';
       } else {
         setStatus(kind === 'booking' || kind === 'join' ? kind : 'accepted');
@@ -179,13 +186,13 @@
       })();
       return preparing;
     };
-    const fitSchoolChallenge = () => {
-      if (!school || sending || widget === undefined || challengeSize() === widgetSize) return;
+    const fitChallenge = () => {
+      if (sending || !form.clientWidth || widget === undefined || challengeSize() === widgetSize) return;
       window.turnstile.remove(widget);
       widget = undefined; token = '';
       if (!accepted) void prepare();
     };
-    if (school && window.ResizeObserver) new window.ResizeObserver(fitSchoolChallenge).observe(form);
+    if (window.ResizeObserver) new window.ResizeObserver(fitChallenge).observe(form);
     form.addEventListener('focusin', () => { if (!sending && !accepted) void prepare(); });
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -240,7 +247,7 @@
           setStatus(response.status === 429 ? 'rate' : code.startsWith('turnstile_') ? 'security' : code === 'invalid_form_timing' ? 'timing' : code.startsWith('invalid_') ? 'invalid' : code === 'contact_unavailable' ? 'unavailable' : 'failed', true);
         }
       } catch { setStatus('failed', true); }
-      finally { sending = false; button.disabled = false; spinner.hidden = true; form.setAttribute('aria-busy', 'false'); refresh(); fitSchoolChallenge(); }
+      finally { sending = false; button.disabled = false; spinner.hidden = true; form.setAttribute('aria-busy', 'false'); refresh(); fitChallenge(); }
     });
     // Clear custom errors as the visitor edits, allowing native validation to rerun.
     form.addEventListener('input', event => { event.target.setCustomValidity?.(''); });

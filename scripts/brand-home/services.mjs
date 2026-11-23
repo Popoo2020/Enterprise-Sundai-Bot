@@ -140,7 +140,7 @@ function renderCards(lang, c, index) {
 function renderDeliverables(lang, c, t, index) {
  if (c.offers) {
    const topics = ['decision-review','readiness-review'];
-   const offers = c.offers.map(([name,price,fit,description,cta],i)=>`<article class="os-offer"><p class="os-offer-fit">${escapeHtml(fit)}</p><h3><bdi>${escapeHtml(name)}</bdi></h3><bdi class="os-price" dir="ltr">${escapeHtml(price)}</bdi><p class="os-offer-description">${escapeHtml(description)}</p>${i === 0 ? renderMemoJump(lang) : ''}<a class="os-offer-link" href="${callUrl(lang,topics[i],'service')}">${escapeHtml(cta)}${arrow}</a></article>`).join('');
+   const offers = c.offers.map(([name,price,fit,description,cta],i)=>`<article class="os-offer"><p class="os-offer-fit">${escapeHtml(fit)}</p><h3><bdi>${escapeHtml(name)}</bdi></h3>${price ? `<bdi class="os-price" dir="ltr">${escapeHtml(price)}</bdi>` : ''}<p class="os-offer-description">${escapeHtml(description)}</p>${i === 0 ? renderMemoJump(lang) : ''}<a class="os-offer-link" href="${i === 0 ? `${base(lang)}governance-quote/#request` : callUrl(lang,topics[i],'service')}">${escapeHtml(cta)}${arrow}</a></article>`).join('');
    return `<section class="os-deliver" id="review-options" aria-labelledby="outcomes-title"><div class="os-wrap"><h2 id="outcomes-title">${escapeHtml(c.offersHeading)}</h2><div class="os-offers">${offers}</div>${renderDecisionMemo(lang, callUrl(lang, 'decision-review', 'service'))}</div></section>`;
  }
  const illustration = c.example ? `<aside class="os-example"><div><p class="os-example-label">${escapeHtml(c.example[0])}</p><h3>${escapeHtml(c.example[1])}</h3></div><p>${escapeHtml(c.example[2])}</p></aside>` : '';

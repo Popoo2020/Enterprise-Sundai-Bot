@@ -8,7 +8,7 @@ const copy = {
     title:"איזו עבודה ידנית כדאי לחסוך לצוות?", lead:"מתחילים ממשימה שחוזרת בעסק, כמו מענה לפניית לקוח. לפני הפיתוח מסכמים מה נבנה, מה התקציב ואיך נמדוד הצלחה. בניסוי הראשון בודקים כמה זמן וכסף עולה לטפל בפנייה אחת, כולל הזמן שהצוות משקיע בבדיקה.",
     services:[
       ["אוטומציה מאובטחת עם AI", "במקום להעתיק כל פנייה מהמייל, הפרטים נרשמים במערכת ניהול הלקוחות. איש צוות בודק את טיוטת התשובה ומאשר אותה לפני השליחה.", "כמה זמן לוקח לטפל בפנייה, וכמה זה עולה?"],
-      ["ממשל AI ובדיקת ספקים", "לפני שרוכשים כלי AI או נותנים לו גישה לנתונים, בודקים מה הוא צריך לקרוא, מי אחראי לשימוש בו ומה עוד צריך לברר. מקבלים המלצה מנומקת בכתב.", "Decision Review · בדיקה של החלטה אחת ב־<bdi>€490</bdi>."],
+      ["ממשל AI ובדיקת ספקים", "לפני שרוכשים כלי AI או נותנים לו גישה לנתונים, בודקים מה הוא צריך לקרוא, מי אחראי לשימוש בו ומה עוד צריך לברר. מקבלים המלצה מנומקת בכתב.", "לקבלת הצעת מחיר מותאמת לחברה שלכם"],
       ['עוזרי AI למסמכים של החברה','העובדים שואלים שאלה ומקבלים תשובה עם קישור למקום שבו היא מופיעה במסמכי החברה. כל עובד רואה רק מקורות שיש לו הרשאה לקרוא.','פיתוח סוכני AI בשילוב מודלים'],
       ['סייבר ואבטחת ענן','לפני ההשקה בודקים למי יש גישה למערכת ואיך שינויים בקוד מגיעים אליה. תקבלו רשימה מסודרת של מה שדורש תיקון, לפי סדר הדחיפות.','אחרי התיקון בודקים שהבעיה נפתרה.']
     ], call:"לשיחת היכרות ללא עלות · 20 דקות", proof:'כך עובד הצוות ב־Ariel’s Pizza'
@@ -17,7 +17,7 @@ const copy = {
     title:"Too much admin? An AI purchase to approve?", lead:"Before we build, we agree with you on the scope, budget and what success looks like. For an automation pilot, we choose one task, set usage and spending limits and measure the cost to complete it, including your team’s time.",
     services:[
       ["Secure AI Automation", "Still copying enquiries from email to your CRM? Connect the two and give staff a draft reply to approve before sending.", "Track staff minutes, manual entries and AI cost per enquiry."],
-      ["AI governance and vendor reviews", "IT leads, CTOs and compliance managers get a written recommendation before buying an AI tool, connecting systems or granting data access.", "Decision Review · €490 for one decision."],
+      ["AI governance and vendor reviews", "IT leads, CTOs and compliance managers get a written recommendation before buying an AI tool, connecting systems or granting data access.", "Get a quote tailored to your company"],
       ['AI assistants for company knowledge','We connect an assistant to your documents using RAG. Staff get answers with links to passages they have permission to read.','Build agents with multiple AI models'],
       ['Cybersecurity and cloud','Before a release, we review identities, permissions and the delivery process, then prioritise findings by risk.','Findings, a remediation plan and retesting.']
     ], call:"Book a free 20-minute call", proof:'See the work at Ariel’s Pizza'
@@ -26,7 +26,7 @@ const copy = {
     title:"För mycket administration? Dags att köpa in AI?", lead:"Före utvecklingen enas vi om uppdraget, budgeten och hur ni avgör om lösningen fungerar. För en automationspilot väljer vi en uppgift, sätter gränser för användning och kostnad och mäter vad en slutförd uppgift kostar, inklusive er arbetstid.",
     services:[
       ["Säker AI-automatisering", "Kopierar ni kundärenden från mejlen till ert CRM? Vi kopplar ihop systemen och låter en medarbetare godkänna svaret före utskick.", "Mät arbetstid, manuella inmatningar och AI-kostnad per ärende."],
-      ["AI-styrning och leverantörsgranskning", "IT-chefer, teknikchefer och ansvariga för regelefterlevnad får en skriftlig rekommendation inför inköp, integration eller åtkomst till data.", "Decision Review · 490 € för ett beslut."],
+      ["AI-styrning och leverantörsgranskning", "IT-chefer, teknikchefer och ansvariga för regelefterlevnad får en skriftlig rekommendation inför inköp, integration eller åtkomst till data.", "Be om en offert för ert företag"],
       ['AI-assistenter för intern kunskap','Vi kopplar en assistent till era dokument med RAG. Medarbetaren får svar med en länk till det avsnitt som behörigheten ger tillgång till.','AI-agenter med flera språkmodeller'],
       ['Cybersäkerhet och moln','Inför en lansering granskar vi identiteter, behörigheter och utvecklingsflödet. Fynden prioriteras efter risk.','Fynd, åtgärdsplan och kontroll av genomförda åtgärder.']
     ], call:"Boka ett kostnadsfritt samtal på 20 minuter", proof:'Se arbetet på Ariel’s Pizza'
@@ -35,7 +35,7 @@ const copy = {
     title:"For meget administration? Skal I købe et AI-værktøj?", lead:"Før vi bygger, aftaler vi opgaven, budgettet og hvordan I vil vurdere resultatet. I en pilot vælger vi én arbejdsgang, sætter grænser for brug og udgifter og måler prisen pr. afsluttet opgave, inklusive jeres arbejdstid.",
     services:[
       ["Sikker AI-automatisering", "Kopierer I henvendelser fra mail til CRM? Vi forbinder systemerne og lader en medarbejder godkende svaret, før det sendes.", "Mål arbejdstid, manuelle indtastninger og AI-udgift pr. sag."],
-      ["AI-styring og leverandørvurdering", "IT-chefer, teknologichefer og complianceansvarlige får en skriftlig anbefaling før et indkøb, en integration eller en godkendelse af dataadgang.", "Decision Review · 490 € for én beslutning."],
+      ["AI-styring og leverandørvurdering", "IT-chefer, teknologichefer og complianceansvarlige får en skriftlig anbefaling før et indkøb, en integration eller en godkendelse af dataadgang.", "Få et tilbud tilpasset jeres virksomhed"],
       ['AI-assistenter til intern viden','Vi forbinder en assistent med jeres dokumenter ved hjælp af RAG. Medarbejderen får svar med et link til det afsnit, som vedkommende har adgang til.','AI-agenter med flere sprogmodeller'],
       ['Cybersikkerhed og cloud','Før lancering gennemgår vi identiteter, rettigheder og udviklingsforløb. Fund prioriteres efter risiko.','Fund, en plan for udbedring og kontrol af rettelser.']
     ], call:"Book en gratis samtale på 20 minutter", proof:'Se arbejdet hos Ariel’s Pizza'
@@ -55,8 +55,10 @@ export function businessSection(locale, base) {
     const slug = serviceSlugs[i];
     const url = `${base}services/${slug}/`;
     const icon = `<span class="pc-service-icon" aria-hidden="true">${icons[slug]}</span>`;
-    if (slug === 'private-ai-agents-rag') {
-      return `<article class="pc-service biz-agent-card">${icon}<h3><a class="biz-agent-primary" href="${url}">${name}</a></h3><p>${example}</p><a class="biz-result biz-agent-detail" href="${agentWorkflowLink(locale).url}">${result}</a></article>`;
+    const detailUrl = slug === 'private-ai-agents-rag' ? agentWorkflowLink(locale).url
+      : slug === 'compliance-ai-governance' ? `${base}governance-quote/#request` : null;
+    if (detailUrl) {
+      return `<article class="pc-service biz-agent-card">${icon}<h3><a class="biz-agent-primary" href="${url}">${name}</a></h3><p>${example}</p><a class="biz-result biz-agent-detail" href="${detailUrl}">${result}</a></article>`;
     }
     return `<a class="pc-service" href="${url}">${icon}<h3>${name}</h3><p>${example}</p><strong class="biz-result">${result}</strong></a>`;
   });

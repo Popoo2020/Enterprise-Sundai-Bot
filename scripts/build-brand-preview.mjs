@@ -1,3 +1,4 @@
+import {renderGovernanceQuote} from './brand-home/governance-quote.mjs';
 import {rebrandLegacyPages} from './brand-home/legacy-pages.mjs';
 import { agentWorkflowSlug, agentWorkflowLink, renderAgentWorkflows } from './brand-home/agent-workflows.mjs';
 import { shopifyPilotSlug, shopifyPilotLink, renderShopifyPilot } from './brand-home/shopify-first-order.mjs';
@@ -95,6 +96,7 @@ export async function buildReferencePreview(isPublic = false) {
       await writePage(staging, prefix, await renderHome(locale), isPublic, routes);
       await writePage(staging, trustPaths[locale].slice(1,-1), renderTrust(locale), isPublic, routes, trustPaths);
       await writePage(staging, path.join(prefix, 'intro-call'), renderCallPage(locale), isPublic, routes);
+      await writePage(staging, path.join(prefix, 'governance-quote'), renderGovernanceQuote(locale), isPublic, routes);
       const collections = {
         freeGuides: {index:legacyGuideHubPath(locale), label:legacyGuideLabel(locale), items:legacyGuideCards(locale)},
         resources: resourceLibrary(locale),

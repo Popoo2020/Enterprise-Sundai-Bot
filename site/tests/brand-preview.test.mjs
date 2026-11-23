@@ -169,7 +169,7 @@ test('rendered pages use their requested language and have working local links',
           assert.ok(hrefs(html).includes(destination), route + ' missing translated service ' + destination);
         }
         const serviceTopic = slug === workflowSlug ? parentService : slug;
-        const intents = slug === 'compliance-ai-governance' ? ['decision-review','readiness-review'] : [serviceTopic];
+        const intents = slug === 'compliance-ai-governance' ? ['readiness-review'] : [serviceTopic];
         for (const intent of intents) {
           assert.ok(hrefs(html).includes(routeFor(locale, 'intro-call') + '?topic=' + intent + '&via=service'), route + ' contextual service call for ' + intent);
         }
@@ -237,6 +237,23 @@ test('providers can find their local partnership offer through the menu or a cou
     }
     const call = await readFile(publicFile(routeFor(lang, 'intro-call')), 'utf8');
     assert.match(call, /<option value="training-partner" data-heading="[^"]+" data-outcome="[^"]+"/);
+  }
+});
+
+test('governance quotes are reachable and collect contact details in every language', async () => {
+  for (const locale of languages) {
+    const quote = routeFor(locale, 'governance-quote');
+    for (const route of [routeFor(locale), routeFor(locale, 'services', 'compliance-ai-governance')]) {
+      const page = await readFile(publicFile(route), 'utf8');
+      assert.ok(hrefs(main(page)).includes(quote + '#request'), route + ' governance quote link');
+      assert.doesNotMatch(page, /€\s*490\b|\b490\s*(?:€|EUR|euro|אירו)/i, route + ' retired price');
+    }
+    const page = await readFile(publicFile(quote), 'utf8');
+    const content = main(page);
+    assert.match(content, /id="request"/);
+    assert.match(content, /<form\b[^>]*data-kind="enquiry"[^>]*data-accepted-copy="[^"]+"[^>]*action="\/api\/contact"/);
+    assert.match(content, /<input\b[^>]*name="email"/);
+    assert.match(content, /<button\b[^>]*type="submit"/);
   }
 });
 
@@ -316,7 +333,7 @@ test('redesign sitemap covers all discovery pages and each page has reciprocal l
   const xml = await readFile(path.join(target,'sitemap-sundai.xml'),'utf8');
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
   const routes = languages.flatMap(lang=>[
-    routeFor(lang),trustRoutes[lang],routeFor(lang,'read'),
+    routeFor(lang),trustRoutes[lang],routeFor(lang,'read'),routeFor(lang,'governance-quote'),
     routeFor(lang,'free-guides'),...legacyGuideSlugs.map(slug=>routeFor(lang,'free-guides',slug)),
     ...articleSlugs.map(slug=>routeFor(lang,'read',slug)),
     ...courseSlugs.map(slug=>routeFor(lang,'courses',slug)),

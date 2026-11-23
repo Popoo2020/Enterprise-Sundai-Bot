@@ -160,7 +160,7 @@
       }
     }
   ],
-  "contentDigest": "88763e203d7633517b0309979b23c320283bb22ede5a4f6b8ff39099e95052a9",
+  "contentDigest": "9cf888bb4c7d6d0b33131afdd138b741ea86c89d55b525b52827ce7478c2bf07",
   "publisher": {
     "name": "SundAI",
     "legalName": "RIIMON HOLDINGS LTD",
@@ -1356,8 +1356,7 @@
   ],
   "entryReview": {
     "url": "https://sundaibot.com/ai-decision-review/",
-    "price": 490,
-    "currency": "EUR",
+    "pricing": "Tailored quote",
     "scope": "One AI decision; 45-minute discussion and 3–5-page memo. Applicable VAT, scope and timing confirmed before acceptance."
   },
   "leadResources": {
@@ -1365,7 +1364,7 @@
     "selfAssessment": "https://sundaibot.com/ai-security-check/",
     "customerFeedback": "https://sundaibot.com/customer-scenarios/"
   },
-  "commercialModel": "Core services use tailored proposals. A separate AI Decision Review costs EUR 490; applicable VAT is confirmed before acceptance.",
+  "commercialModel": "Core services use tailored proposals. AI Decision Reviews are quoted to scope, with fees and applicable VAT confirmed before acceptance.",
   "contact": "https://sundaibot.com/book/",
   "bookingStatus": "Meeting requests await personal confirmation.",
   "technologyRelationships": "Technology references do not imply official partnerships.",
