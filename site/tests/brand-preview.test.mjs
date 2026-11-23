@@ -429,10 +429,10 @@ test('public pages use localized trust links and publish discoverable guides and
     assert.match(plannerPage, /<[^>]*id="planner"[^>]*data-service-planner/, lang + ' direct link to interactive controls');
     assert.match(plannerPage, new RegExp('<html[^>]*lang="' + expectedLang + '"'), lang + ' planner destination language');
     if (lang === 'he') {
-      const visibleText = value => value.replace(/<[^>]*>/g, '');
-      assert.match(visibleText(caseLink[2]), /באנגלית/, 'Hebrew case link identifies English content');
-      assert.match(visibleText(fullCaseLink[2]), /באנגלית/, 'Hebrew full case link identifies English content');
-      assert.match(visibleText(planner[2]), /באנגלית/, 'Hebrew planner link identifies English content');
+      const englishNotice = /(?:^|>)[^<>]*\(באנגלית\)[^<>]*(?:<|$)/;
+      assert.match(caseLink[2], englishNotice, 'Hebrew case link identifies English content');
+      assert.match(fullCaseLink[2], englishNotice, 'Hebrew full case link identifies English content');
+      assert.match(planner[2], englishNotice, 'Hebrew planner link identifies English content');
     }
     const hub = routeFor(lang,'read');
     const serviceRoute = routeFor(lang,'services',workflowSlug);
