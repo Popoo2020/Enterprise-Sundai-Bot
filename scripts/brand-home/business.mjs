@@ -1,44 +1,45 @@
 import { providerCollaboration } from './provider-collaboration.mjs';
 import { agentWorkflowLink } from './agent-workflows.mjs';
 import { callUrl } from './call.mjs';
+import { projectPaths } from '../home-story.mjs';
 
 const serviceSlugs = ['secure-ai-automation','compliance-ai-governance','private-ai-agents-rag','cloud-security'];
 const copy = {
   he: {
     title:"איזו עבודה ידנית כדאי לחסוך לצוות?", lead:"מתחילים ממשימה שחוזרת בעסק, כמו מענה לפניית לקוח. לפני הפיתוח מסכמים מה נבנה, מה התקציב ואיך נמדוד הצלחה. בניסוי הראשון בודקים כמה זמן וכסף עולה לטפל בפנייה אחת, כולל הזמן שהצוות משקיע בבדיקה.",
     services:[
-      ["אוטומציה מאובטחת עם AI", "במקום להעתיק כל פנייה מהמייל, הפרטים נרשמים במערכת ניהול הלקוחות. איש צוות בודק את טיוטת התשובה ומאשר אותה לפני השליחה.", "כמה זמן לוקח לטפל בפנייה, וכמה זה עולה?"],
+      ["אוטומציה מאובטחת עם AI", "פניות מהמייל נרשמות אוטומטית במערכת ניהול הלקוחות. הצוות מאשר את התשובה לפני השליחה ורואה כמה זמן וכסף עולה כל פנייה.", "במסעדת <bdi>Ariel’s Pizza</bdi> חיבר המייסד שלנו את <bdi>Trello</bdi> וגיליונות העבודה ל־<bdi>WhatsApp</bdi> כדי לתאם משמרות ומשימות."],
       ["ממשל AI ובדיקת ספקים", "לפני שרוכשים כלי AI או נותנים לו גישה לנתונים, בודקים מה הוא צריך לקרוא, מי אחראי לשימוש בו ומה עוד צריך לברר. מקבלים המלצה מנומקת בכתב.", "לקבלת הצעת מחיר מותאמת לחברה שלכם"],
       ['עוזרי AI למסמכים של החברה','העובדים שואלים שאלה ומקבלים תשובה עם קישור למקום שבו היא מופיעה במסמכי החברה. כל עובד רואה רק מקורות שיש לו הרשאה לקרוא.','פיתוח סוכני AI בשילוב מודלים'],
       ['סייבר ואבטחת ענן','לפני ההשקה בודקים למי יש גישה למערכת ואיך שינויים בקוד מגיעים אליה. תקבלו רשימה מסודרת של מה שדורש תיקון, לפי סדר הדחיפות.','אחרי התיקון בודקים שהבעיה נפתרה.']
-    ], call:"לשיחת היכרות ללא עלות · 20 דקות", proof:'כך עובד הצוות ב־Ariel’s Pizza'
+    ], call:"לשיחת היכרות ללא עלות · 20 דקות", proof:'לסיפור המקרה (באנגלית)'
   },
   en: {
     title:"Too much admin? An AI purchase to approve?", lead:"Before we build, we agree with you on the scope, budget and what success looks like. For an automation pilot, we choose one task, set usage and spending limits and measure the cost to complete it, including your team’s time.",
     services:[
-      ["Secure AI Automation", "Still copying enquiries from email to your CRM? Connect the two and give staff a draft reply to approve before sending.", "Track staff minutes, manual entries and AI cost per enquiry."],
+      ["Secure AI Automation", "Move enquiries from email to your CRM. Your team approves replies and tracks time and cost per enquiry.", "At his restaurant, Ariel’s Pizza, our founder connected Trello, Google Sheets and WhatsApp to coordinate shifts and daily tasks."],
       ["AI governance and vendor reviews", "IT leads, CTOs and compliance managers get a written recommendation before buying an AI tool, connecting systems or granting data access.", "Get a quote tailored to your company"],
       ['AI assistants for company knowledge','We connect an assistant to your documents using RAG. Staff get answers with links to passages they have permission to read.','Build agents with multiple AI models'],
       ['Cybersecurity and cloud','Before a release, we review identities, permissions and the delivery process, then prioritise findings by risk.','Findings, a remediation plan and retesting.']
-    ], call:"Book a free 20-minute call", proof:'See the work at Ariel’s Pizza'
+    ], call:"Book a free 20-minute call", proof:'Read the case study'
   },
   sv: {
     title:"För mycket administration? Dags att köpa in AI?", lead:"Före utvecklingen enas vi om uppdraget, budgeten och hur ni avgör om lösningen fungerar. För en automationspilot väljer vi en uppgift, sätter gränser för användning och kostnad och mäter vad en slutförd uppgift kostar, inklusive er arbetstid.",
     services:[
-      ["Säker AI-automatisering", "Kopierar ni kundärenden från mejlen till ert CRM? Vi kopplar ihop systemen och låter en medarbetare godkänna svaret före utskick.", "Mät arbetstid, manuella inmatningar och AI-kostnad per ärende."],
+      ["Säker AI-automatisering", "Låt kundärenden gå direkt från mejlen till ert CRM. Ni godkänner svaren och följer upp tid och kostnad per ärende.", "På sin restaurang Ariel’s Pizza kopplade vår grundare ihop Trello, Google Sheets och WhatsApp för att planera arbetspass och dagliga uppgifter."],
       ["AI-styrning och leverantörsgranskning", "IT-chefer, teknikchefer och ansvariga för regelefterlevnad får en skriftlig rekommendation inför inköp, integration eller åtkomst till data.", "Be om en offert för ert företag"],
       ['AI-assistenter för intern kunskap','Vi kopplar en assistent till era dokument med RAG. Medarbetaren får svar med en länk till det avsnitt som behörigheten ger tillgång till.','AI-agenter med flera språkmodeller'],
       ['Cybersäkerhet och moln','Inför en lansering granskar vi identiteter, behörigheter och utvecklingsflödet. Fynden prioriteras efter risk.','Fynd, åtgärdsplan och kontroll av genomförda åtgärder.']
-    ], call:"Boka ett kostnadsfritt samtal på 20 minuter", proof:'Se arbetet på Ariel’s Pizza'
+    ], call:"Boka ett kostnadsfritt samtal på 20 minuter", proof:'Läs om projektet'
   },
   da: {
     title:"For meget administration? Skal I købe et AI-værktøj?", lead:"Før vi bygger, aftaler vi opgaven, budgettet og hvordan I vil vurdere resultatet. I en pilot vælger vi én arbejdsgang, sætter grænser for brug og udgifter og måler prisen pr. afsluttet opgave, inklusive jeres arbejdstid.",
     services:[
-      ["Sikker AI-automatisering", "Kopierer I henvendelser fra mail til CRM? Vi forbinder systemerne og lader en medarbejder godkende svaret, før det sendes.", "Mål arbejdstid, manuelle indtastninger og AI-udgift pr. sag."],
+      ["Sikker AI-automatisering", "Lad kundehenvendelser gå direkte fra mail til jeres CRM. I godkender svarene og følger tidsforbrug og omkostninger pr. henvendelse.", "På sin restaurant Ariel’s Pizza forbandt vores stifter Trello, Google Sheets og WhatsApp for at planlægge vagter og daglige opgaver."],
       ["AI-styring og leverandørvurdering", "IT-chefer, teknologichefer og complianceansvarlige får en skriftlig anbefaling før et indkøb, en integration eller en godkendelse af dataadgang.", "Få et tilbud tilpasset jeres virksomhed"],
       ['AI-assistenter til intern viden','Vi forbinder en assistent med jeres dokumenter ved hjælp af RAG. Medarbejderen får svar med et link til det afsnit, som vedkommende har adgang til.','AI-agenter med flere sprogmodeller'],
       ['Cybersikkerhed og cloud','Før lancering gennemgår vi identiteter, rettigheder og udviklingsforløb. Fund prioriteres efter risiko.','Fund, en plan for udbedring og kontrol af rettelser.']
-    ], call:"Book en gratis samtale på 20 minutter", proof:'Se arbejdet hos Ariel’s Pizza'
+    ], call:"Book en gratis samtale på 20 minutter", proof:'Læs om projektet'
   }
 };
 
@@ -55,6 +56,10 @@ export function businessSection(locale, base) {
     const slug = serviceSlugs[i];
     const url = `${base}services/${slug}/`;
     const icon = `<span class="pc-service-icon" aria-hidden="true">${icons[slug]}</span>`;
+    if (slug === 'secure-ai-automation') {
+      const caseLocale = locale === 'he' ? 'en' : locale;
+      return `<article class="pc-service biz-agent-card">${icon}<h3><a class="biz-agent-primary" href="${url}">${name}</a></h3><p>${example}</p><div class="biz-result biz-proof">${result} <a class="biz-agent-detail" hreflang="${caseLocale}" href="${projectPaths[caseLocale]}">${c.proof}</a></div></article>`;
+    }
     const detailUrl = slug === 'private-ai-agents-rag' ? agentWorkflowLink(locale).url
       : slug === 'compliance-ai-governance' ? `${base}governance-quote/#request` : null;
     if (detailUrl) {
@@ -62,5 +67,5 @@ export function businessSection(locale, base) {
     }
     return `<a class="pc-service" href="${url}">${icon}<h3>${name}</h3><p>${example}</p><strong class="biz-result">${result}</strong></a>`;
   });
-  return `<div class="pc-sections pc-business"><section class="pc-catalogue" id="organisations" aria-labelledby="biz-title"><div class="pc-wrap"><header class="biz-heading"><h2 id="biz-title">${c.title}</h2><p>${c.lead}</p></header><div class="biz-grid">${cards.join('')}</div><div class="biz-actions"><a class="fr-action" href="${callUrl(locale,'organisations','service')}">${c.call}</a><a href="#evidence">${c.proof}</a></div></div></section>${providerCollaboration(locale)}</div>`;
+  return `<div class="pc-sections pc-business"><section class="pc-catalogue" id="organisations" aria-labelledby="biz-title"><div class="pc-wrap"><header class="biz-heading"><h2 id="biz-title">${c.title}</h2><p>${c.lead}</p></header><div class="biz-grid">${cards.join('')}</div><div class="biz-actions"><a class="fr-action" href="${callUrl(locale,'organisations','service')}">${c.call}</a></div></div></section>${providerCollaboration(locale)}</div>`;
 }

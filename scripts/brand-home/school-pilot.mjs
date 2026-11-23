@@ -2,7 +2,7 @@ import { contactEmail } from './call.mjs';
 
 const copy = {
   en: {
-    jump: 'Explore the 90-minute class pilot', title: 'Try a workshop with one class',
+    quoteCta: 'Get a quote for a 90-minute class workshop', title: 'Try a workshop with one class',
     format: '90 minutes · Grades 8–9 · Up to 24 pupils',
     activity: 'Would you share this clip? Working in pairs, pupils trace who posted it and check one claim against another source. Each pair records its evidence and explains its decision.',
     worksheet: 'Classroom worksheet (PDF)', teacher: 'For the teacher', handout: 'Keep the source-check worksheet and use it again with a new clip.',
@@ -16,7 +16,7 @@ const copy = {
     notice: 'Privacy', privacy: '/privacy.html',
   },
   he: {
-    jump: 'לפרטי שיעור הניסיון של 90 דקות', title: 'שיעור ניסיון לכיתה אחת',
+    quoteCta: 'בקשו הצעה לשיעור ניסיון של 90 דקות', title: 'שיעור ניסיון לכיתה אחת',
     format: '90 דקות · כיתות ח׳–ט׳ · עד 24 תלמידים',
     activity: 'הייתם משתפים את הסרטון הזה? התלמידים עובדים בזוגות, מבררים מי פרסם אותו ובודקים טענה אחת מול מקור נוסף. כל זוג מתעד מה מצא ומנמק אם כדאי לשתף.',
     worksheet: 'דף הפעילות לכיתה (PDF)', teacher: 'למורה', handout: 'דף פעילות לבדיקת מקורות, שאפשר להשתמש בו שוב בכיתה עם סרטון אחר.',
@@ -30,7 +30,7 @@ const copy = {
     notice: 'פרטיות', privacy: '/privacy.html',
   },
   sv: {
-    jump: 'Se pilotpasset på 90 minuter', title: 'Prova ett pass med en klass',
+    quoteCta: 'Be om en offert för ett 90-minuterspass med en klass', title: 'Prova ett pass med en klass',
     format: '90 minuter · Årskurs 8–9 · Högst 24 elever',
     activity: 'Skulle ni dela det här klippet? Eleverna arbetar i par, tar reda på vem som publicerat klippet och kontrollerar ett påstående mot en annan källa. Varje par skriver ner vad de hittat och motiverar sitt beslut.',
     worksheet: 'Arbetsblad för klassen (PDF)', teacher: 'Till läraren', handout: 'Ni får ett arbetsblad för källkritik som ni kan använda igen med ett annat klipp.',
@@ -44,7 +44,7 @@ const copy = {
     notice: 'Integritet', privacy: '/sv/integritet.html',
   },
   da: {
-    jump: 'Se workshoppen på 90 minutter', title: 'Prøv en workshop med én klasse',
+    quoteCta: 'Få et tilbud på 90 minutters workshop for én klasse', title: 'Prøv en workshop med én klasse',
     format: '90 minutter · 8.–9. klasse · Op til 24 elever',
     activity: 'Ville I dele den her video? Eleverne arbejder to og to, finder ud af, hvem der har lagt den ud, og tjekker en påstand i en anden kilde. Hvert par skriver ned, hvad de har fundet, og begrunder, om de vil dele videoen.',
     worksheet: 'Arbejdsark til klassen (PDF)', teacher: 'Til læreren', handout: 'I får et arbejdsark til kildekritik, som I kan bruge igen med en anden video.',
@@ -59,8 +59,8 @@ const copy = {
   },
 };
 
-export function schoolPilotJump(locale) {
-  return `<a class="school-pilot-jump" href="#school-pilot">${copy[locale].jump}<span aria-hidden="true">↓</span></a>`;
+export function schoolPilotQuoteLabel(locale) {
+  return copy[locale].quoteCta;
 }
 
 export function renderSchoolPilot(locale) {
