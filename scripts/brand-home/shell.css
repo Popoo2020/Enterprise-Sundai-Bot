@@ -46,9 +46,9 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 :lang(he) .fr-benefit p{letter-spacing:0;line-height:1.42}
 .fr-banner{margin-block-start:clamp(18px,2.5vw,40px);padding:clamp(42px,5.35vw,84px);background:var(--violet);color:#fff;border-radius:16px;display:grid;grid-template-columns:1.8fr 1fr;gap:7%;align-items:center;min-height:310px}
 .fr-banner h2{font-size:clamp(36px,3.65vw,64px);font-weight:570;letter-spacing:-.055em;line-height:1.02;margin:0;max-width:18ch}
-.fr-banner-side{justify-self:end;width:min(100%,240px)}
+.fr-banner-side{justify-self:end;width:min(100%,19rem)}
 .fr-banner-side p{font-size:15px;line-height:1.45;margin:12px 0 20px;color:#dde5ff}
-.fr-banner-side .fr-action{background:#fff;color:#111;border-color:white;width:100%}
+.fr-banner-side .fr-action{text-wrap:balance;background:#fff;color:#111;border-color:white;width:100%}
 .fr-banner-icons{display:flex;direction:ltr;justify-content:start;padding-inline:0 12px}
 .fr-banner-icons i{width:41px;height:41px;display:grid;place-items:center;border-radius:50%;background:#f7c8dd;color:#222;margin-inline-end:-7px;border:2px solid var(--violet)}
 .fr-banner-icons i:nth-child(2){background:#a0ead1}.fr-banner-icons i:last-child{background:#ffdf86}
