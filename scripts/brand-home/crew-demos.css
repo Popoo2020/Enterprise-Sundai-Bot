@@ -1,5 +1,5 @@
 .crew-lesson h2 { margin-block: 1rem .35rem; }
-.crew-instruction { font-size: .9rem; color: #d4d7e6; margin-block-end: .8rem; }
+.crew-instruction { font-size: 1rem; line-height: 1.5; color: #d4d7e6; margin-block-end: .8rem; }
 /* Both actors look left in the artwork. Keep them on the physical right of
    the amount or draft so they also face the clue on Hebrew pages. */
 .crew-choices {
@@ -30,7 +30,7 @@
 }
 .crew-answer strong, .crew-price { display: block; }
 .crew-answer strong { font-weight: 600; }
-.crew-price, .crew-feedback { font-size: .88rem; line-height: 1.5; color: #d4d7e6; }
+.crew-price, .crew-feedback { font-size: 1rem; line-height: 1.5; color: #d4d7e6; }
 .crew-feedback { padding: .15rem .2rem .75rem; color: #e2e9ff; }
 .crew-feedback bdi:first-of-type { color: white; font-weight: 650; }
 .crew-plus { position: relative; display: block; width: 1rem; height: 1rem; flex: none; }
@@ -44,7 +44,7 @@
 .crew-review summary .crew-plus { margin-inline-start: auto; }
 .crew-review-body { background: #f2f6fc; border-inline-start: 2px solid #507bcb; padding: .75rem 1rem; }
 .crew-review-body dl, .crew-review-body dd { margin: 0; }
-.crew-review-body dt { color: #46546b; font-size: .8rem; font-weight: 600; }
+.crew-review-body dt { color: #46546b; font-size: .875rem; font-weight: 600; }
 .crew-review-body dd { line-height: 1.4; margin-block: .15rem .75rem; }
 .crew-draft-line { display: grid; grid-template-columns: minmax(0, 1fr) clamp(44px, 26%, 62px); gap: .3rem; align-items: center; }
 [dir=rtl] .crew-draft-line { grid-template-columns: clamp(44px, 26%, 62px) minmax(0, 1fr); }
@@ -52,7 +52,7 @@
 [dir=rtl] .crew-draft-line > .crew-bot { grid-column: 1; grid-row: 1; }
 .crew-draft-line mark { color: #252547; background: #dfe5ff; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .crew-draft-line .crew-performer { border-color: #aab6d0; }
-.os-page .crew-review-body p { font-size: .9rem; line-height: 1.5; color: #253550; }
+.os-page .crew-review-body p { font-size: 1rem; line-height: 1.5; color: #253550; }
 @media (max-width: 690px) { .crew-review { grid-column: 1 / -1; } }
 @media (hover: hover) {
   .crew-answer summary:hover { color: #b4ceff; }

@@ -1,11 +1,11 @@
 /* SundAI product theatre */
 #sd-hero-pills{display:flex;align-items:center;flex-wrap:wrap;gap:7px;position:relative;width:fit-content;max-width:100%;color:#fff;line-height:1.1}
 #sd-hero-pills button,.sd-art button{font-family:inherit;text-transform:none;letter-spacing:normal;cursor:pointer}
-#sd-hero-pills .sd-pill{--ink:#7a95fa;--fill-rgb:37,99,236;--reveal:0%;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:31px;border:1px solid var(--ink);border-radius:100px;color:#fff;background:#090a0c;padding:5px 13px 6px 11px;white-space:nowrap;isolation:isolate;overflow:hidden;font-size:clamp(.7rem,.86vw,.88rem);font-weight:600;box-sizing:border-box;line-height:1.15}
+#sd-hero-pills .sd-pill{--ink:#7a95fa;--fill-rgb:37,99,236;--reveal:0%;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:31px;border:1px solid var(--ink);border-radius:100px;color:#fff;background:#090a0c;padding:5px 13px 6px 11px;white-space:nowrap;isolation:isolate;overflow:hidden;font-size:clamp(.875rem,1vw,1rem);font-weight:600;box-sizing:border-box;line-height:1.15}
 #sd-hero-pills .sd-pill::before{content:"";position:absolute;inset:0;z-index:-1;transform:scaleX(var(--ratio,0));transform-origin:left;opacity:0;background:linear-gradient(90deg,rgba(var(--fill-rgb),.98),rgba(var(--fill-rgb),.74));transition:opacity .18s}
 #sd-hero-pills .sd-pill[aria-pressed=true]::before{opacity:1}
 #sd-hero-pills .sd-pill[aria-pressed=true]{box-shadow:0 0 14px rgba(var(--fill-rgb),.18)}
-#sd-hero-pills .sd-pill:nth-of-type(2){--ink:#42d6aa;--fill-rgb:25,157,120}
+#sd-hero-pills .sd-pill:nth-of-type(2){--ink:#42d6aa;--fill-rgb:17,119,90}
 #sd-hero-pills .sd-pill:nth-of-type(3){--ink:#48a8fc;--fill-rgb:37,119,205}
 .sd-star{display:block;width:11px;height:11px;background:var(--ink);clip-path:polygon(50% 0%,65% 35%,100% 50%,65% 65%,50% 100%,35% 65%,0 50%,35% 35%)}
 #sd-hero-pills .sd-pill[aria-pressed=true] .sd-star{background:white}
@@ -33,7 +33,7 @@
 .sd-demo-frame{position:relative;display:block;width:61%;min-width:240px;max-width:330px;padding:clamp(8px,2.6cqw,15px);border-radius:12px;border:1px solid #62636b;color:#fff;background:linear-gradient(132deg,#2c2d33 0%,#202126 29%,#292a31 60%,#202126 100%);box-shadow:0 0 0 3px #0d0e12,0 0 0 4px #343039,0 14px 32px #000b,inset 0 1px 0 #ffffff1a;box-sizing:border-box}
 .sd-demo-frame::before,.sd-rag-panel::before{content:"";position:absolute;inset:3px;border:1px solid #ffffff0c;border-radius:9px;pointer-events:none}
 .sd-widget-head,.sd-result-btn,.sd-rag-top,.sd-source,.sd-chip-action{display:flex;align-items:center;justify-content:space-between}
-.sd-widget-head{gap:8px;padding:0 1px 9px;font-size:clamp(13px,3.15cqw,19px)}
+.sd-widget-head{gap:8px;padding:0 1px 9px;font-size:clamp(1rem,3.15cqw,1.1875rem)}
 .sd-widget-index{font:9px/1.1 ui-monospace,monospace;color:#95959f;letter-spacing:.06em}
 .sd-photo {
   overflow: hidden;
@@ -59,10 +59,10 @@
   min-height: 2.6em;
   margin: 7px 1px;
   color: #e2e2e9;
-  font-size: clamp(12px,2.7cqw,15px);
-  line-height: 1.3;
+  font-size: clamp(.9375rem,2.7cqw,1rem);
+  line-height: 1.45;
 }
-.sd-art .sd-result-btn,.sd-rag-panel button{color:#0e1220;display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:4px;padding:7px 10px;min-height:30px;background:linear-gradient(100deg,#8aa2fa,#6683ed);font-family:inherit;font-size:clamp(11px,2.5cqw,14px);font-weight:700;text-align:start;line-height:1.25;gap:4px}
+.sd-art .sd-result-btn,.sd-rag-panel button{color:#0e1220;display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:4px;padding:7px 10px;min-height:30px;background:linear-gradient(100deg,#8aa2fa,#6683ed);font-family:inherit;font-size:clamp(.875rem,2.5cqw,1rem);font-weight:700;text-align:start;line-height:1.25;gap:4px}
 .sd-sr{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(100%)!important;white-space:nowrap!important}
 .sd-chip-scene{position:relative;width:66%;min-width:235px;max-width:325px;display:grid;place-items:center}
 .sd-socket{width:100%;aspect-ratio:1/1;position:relative;isolation:isolate;display:grid;place-items:center;border-radius:16px;padding:3%;background:linear-gradient(120deg,#25262c,#17181b 29%,#1f2026 75%,#26272c);border:1px solid #64656b;box-shadow:0 0 0 3px #111215,0 20px 30px #000b,inset 0 2px 3px #ffffff16;box-sizing:border-box;overflow:hidden}
@@ -77,7 +77,7 @@
 .sd-chip strong{font-family:inherit;font-size:clamp(22px,5.5cqw,35px);font-weight:750;letter-spacing:-.08em;z-index:1}
 .sd-chip-label,.sd-chip-pins,.sd-chip small{position:absolute;font:600 clamp(7px,1.6cqw,9px)/1.1 ui-monospace,monospace;color:#3f806d;letter-spacing:.04em}
 .sd-chip-label{left:8%;top:8%}.sd-chip-pins{right:7%;top:8%}.sd-chip small{right:7%;bottom:7%;font-size:clamp(6px,1.3cqw,8px);text-align:right}
-.sd-art .sd-chip-action{position:absolute;bottom:6.7%;width:82%;max-width:235px;min-height:26px;gap:6px;border-radius:4px;border:1px solid #5b776c;background:#222e2aeb;padding:5px 8px;color:#d4f1e3;font-size:clamp(10px,2.05cqw,12px);line-height:1.2}
+.sd-art .sd-chip-action{position:absolute;bottom:6.7%;width:82%;max-width:235px;min-height:26px;gap:6px;border-radius:4px;border:1px solid #5b776c;background:#222e2aeb;padding:5px 8px;color:#d4f1e3;font-size:clamp(.875rem,2.05cqw,.9375rem);line-height:1.3}
 .sd-tiny-led{display:inline-block;flex:none;width:6px;height:6px;border-radius:50%;background:#77f1b0;box-shadow:0 0 6px #5cdba860}
 .sd-rag-scene{position:relative;width:62%;min-width:235px;max-width:315px;margin-top:20px}
 .sd-rag-stack{position:absolute;inset:0;z-index:-1;direction:ltr}
@@ -87,12 +87,12 @@
 .sd-rag-top{margin-bottom:10px;font:600 10px/1.1 ui-monospace,monospace;color:#a7c8e3;letter-spacing:.08em}
 .sd-rag-top .sd-tiny-led{background:#81bcff}
 .sd-rag-panel>strong{font-size:clamp(16px,4.4cqw,24px);letter-spacing:-.045em}
-.sd-rag-panel p{margin:8px 0 12px;font-size:clamp(11px,2.8cqw,14px);color:#d1dce9}
-.sd-source{gap:6px;justify-content:flex-start;border:1px solid #4a5667;background:#303b49;border-radius:6px;padding:8px 6px;font-size:clamp(11px,2.8cqw,14px)}
+.sd-rag-panel p{margin:8px 0 12px;font-size:clamp(.875rem,2.8cqw,1rem);color:#d1dce9}
+.sd-source{gap:6px;justify-content:flex-start;border:1px solid #4a5667;background:#303b49;border-radius:6px;padding:8px 6px;font-size:clamp(.875rem,2.8cqw,1rem)}
 .sd-source .sd-document-icon{width:19px;height:19px;color:#93c6ff;flex:none}
 .sd-rag-panel button{margin-top:10px;background:linear-gradient(100deg,#7ac7ff,#5d9be7);color:#0e233d}
 @media (min-width:651px) and (max-width:900px){.sd-art .sd-demo-frame,.sd-art .sd-chip-scene,.sd-art .sd-rag-scene{min-width:min(235px,80%)}}
-@media (max-width:650px){#sd-hero-pills{gap:6px;align-items:flex-start;flex-direction:column;padding-inline-end:35px}#sd-hero-pills .sd-pill{min-height:27px;padding:4px 10px;font-size:11px}.sd-pause{position:absolute;inset-inline-end:0;top:0}.sd-art{width:min(100%,510px);aspect-ratio:1.04}.sd-art .sd-demo-frame{width:65%}.sd-art .sd-chip-scene{width:68%}}
+@media (max-width:650px){#sd-hero-pills{gap:6px;align-items:flex-start;flex-direction:column;padding-inline-end:35px}#sd-hero-pills .sd-pill{min-height:29px;padding:4px 10px;font-size:.8125rem}.sd-pause{position:absolute;inset-inline-end:0;top:0}.sd-art{width:min(100%,510px);aspect-ratio:1.04}.sd-art .sd-demo-frame{width:65%}.sd-art .sd-chip-scene{width:68%}}
 @media(max-width:300px){.sd-art .sd-demo-frame,.sd-art .sd-rag-scene,.sd-art .sd-chip-scene{min-width:83%}}
 @media(prefers-reduced-motion:reduce){.sd-art *,.sd-art *::before,.sd-art *::after,#sd-hero-pills *::before{animation:none!important;transition:none!important}}
 .sd-art{aspect-ratio:.785;max-width:535px}
@@ -200,8 +200,8 @@
   align-items: start;
   min-height: 0;
   margin: 0;
-  font-size: clamp(12px, 2.7cqw, 15px);
-  line-height: 1.3;
+  font-size: clamp(.9375rem, 2.7cqw, 1rem);
+  line-height: 1.45;
 }
 .sd-note-reserve { visibility: hidden; pointer-events: none; }
 .sd-note-reserve::before { content: attr(data-question); }
