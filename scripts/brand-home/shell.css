@@ -15,7 +15,7 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-title span.fr-line{display:flex;align-items:center;gap:.2em;white-space:nowrap}
 .fr-title .fr-mark{border:1px solid #434448;display:inline-grid;place-items:center;border-radius:50%;width:.98em;height:.98em;flex:none}
 .fr-mark svg{width:.32em;height:.32em;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-:lang(he) .fr-title{letter-spacing:-.045em;line-height:1.03}
+:lang(he) .fr-title{letter-spacing:-.02em;line-height:1.1}
 .fr-deck{display:grid;grid-template-columns:minmax(146px,clamp(154px,15.3vw,225px)) minmax(230px,400px);align-items:start;gap:clamp(22px,5.5vw,80px);margin-block-start:clamp(24px,2.8vw,42px)}
 .fr-hero-links{display:grid;gap:8px}
 .fr-action{min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:.6em;background:var(--violet);border:1px solid #546fc8;border-radius:4px;color:white;font-weight:550;font-size:clamp(14px,1.12vw,17px);padding:10px 17px;line-height:1.18;text-align:center;transition:transform .18s,background .18s}
@@ -24,7 +24,7 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 :lang(he) .fr-lead{letter-spacing:0;line-height:1.55}
 .fr-art{width:100%;max-width:580px;justify-self:end;direction:ltr}
 .fr-ribbon{direction:ltr;position:relative;overflow:hidden;background:var(--ink);padding:18px 0 clamp(22px,2.3vw,46px);color:#a4a6aa}
-.fr-ribbon-head{display:flex;align-items:center;gap:8px;padding-inline:clamp(16px,1.4vw,32px);font-size:11px;font-weight:450;line-height:1.2;margin:0 0 10px}
+.fr-ribbon-head{display:flex;align-items:center;gap:8px;padding-inline:clamp(16px,1.4vw,32px);font-size:.875rem;font-weight:450;line-height:1.4;margin:0 0 10px}
 :lang(he) .fr-ribbon-head{direction:rtl}
 .fr-motion{width:27px;height:27px;display:grid;place-items:center;border:1px solid #565961;background:none;color:white;border-radius:50%;cursor:pointer}
 .fr-motion svg{width:12px;height:12px;fill:currentColor}
@@ -42,12 +42,12 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-benefit img{width:132px;height:85px;object-fit:contain;object-position:left center;display:block;margin:0 0 clamp(38px,4.9vw,74px)}
 [dir=rtl] .fr-benefit img{object-position:right center}
 .fr-benefit h2{font-size:clamp(22px,1.82vw,32px);letter-spacing:-.035em;line-height:1.1;margin:0 0 20px;font-weight:620}
-.fr-benefit p{font-size:clamp(16px,1.4vw,22px);letter-spacing:-.014em;line-height:1.28;color:#55565b;margin:0}
-:lang(he) .fr-benefit p{letter-spacing:0;line-height:1.42}
+.fr-benefit p{font-size:clamp(16px,1.4vw,22px);letter-spacing:-.01em;line-height:1.5;color:#55565b;margin:0}
+:lang(he) .fr-benefit p{letter-spacing:0;line-height:1.55}
 .fr-banner{margin-block-start:clamp(18px,2.5vw,40px);padding:clamp(42px,5.35vw,84px);background:var(--violet);color:#fff;border-radius:16px;display:grid;grid-template-columns:1.8fr 1fr;gap:7%;align-items:center;min-height:310px}
 .fr-banner h2{font-size:clamp(36px,3.65vw,64px);font-weight:570;letter-spacing:-.055em;line-height:1.02;margin:0;max-width:18ch}
 .fr-banner-side{justify-self:end;width:min(100%,19rem)}
-.fr-banner-side p{font-size:15px;line-height:1.45;margin:12px 0 20px;color:#dde5ff}
+.fr-banner-side p{font-size:1rem;line-height:1.55;margin:12px 0 20px;color:#fff}
 .fr-banner-side .fr-action{text-wrap:balance;background:#fff;color:#111;border-color:white;width:100%}
 .fr-banner-icons{display:flex;direction:ltr;justify-content:start;padding-inline:0 12px}
 .fr-banner-icons i{width:41px;height:41px;display:grid;place-items:center;border-radius:50%;background:#f7c8dd;color:#222;margin-inline-end:-7px;border:2px solid var(--violet)}

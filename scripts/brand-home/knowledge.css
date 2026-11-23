@@ -11,7 +11,7 @@
 .kn-faq details{border-bottom:1px solid #cacad0}.kn-faq summary{cursor:pointer;font-weight:650;padding:1.1rem 0;font-size:1.1rem;line-height:1.4}
 .kn-faq details p{margin:0 0 1.25rem;max-width:60ch}
 .kn-reading{padding:clamp(45px,7vw,90px) 24px}
-.kn-reading article{width:min(100%,750px);margin:auto}.kn-reading h1{margin:1.55rem 0 1rem}
+.kn-reading article{width:min(100%,43rem);margin:auto}.kn-reading h1{margin:1.55rem 0 1rem}
 .kn-reading .kn-lead{font-size:1.27rem;color:#50505a;margin:0 0 2.5rem}
 .kn-reading h2{font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.2;margin:0 0 .65rem}.kn-reading section{margin:2rem 0}
 .kn-reading p{margin:0}.kn-reading aside{background:var(--brand-pale);border-inline-start:4px solid var(--brand-blue);padding:1.4rem 1.55rem;margin:2rem 0}.kn-reading nav a{display:block;width:fit-content;padding:.45rem 0}
@@ -53,3 +53,9 @@
 html:has(#work-tool:target){scroll-behavior:auto}
 .kn-featured a:focus-visible,.kn-reading :is(.kn-work-jump,.kn-work-call,.kn-refs a):focus-visible{outline:3px solid var(--brand-blue);outline-offset:3px}
 @media(max-width:700px){.kn-featured div{display:grid;gap:.15rem}.kn-featured a{justify-self:start}}
+
+@media (min-width: 761px) {
+  .kn-reading article { font-size: 1.125rem; }
+  .kn-reading p, .kn-reading .kn-checks, .kn-reading .kn-sources ul { font-size: 1.125rem; line-height: 1.65; }
+}
+:lang(he) :is(.kn-reading, .kn-hub) h1 { letter-spacing: -.018em; line-height: 1.12; }

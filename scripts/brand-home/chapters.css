@@ -9,7 +9,7 @@
 .pc-products{background:var(--pc-black);color:#fff;padding:clamp(85px,10vw,155px) 0 clamp(86px,9vw,140px)}
 .pc-section-top{margin-bottom:clamp(65px,9vw,130px)}
 .pc-section-top h2{font-size:clamp(55px,6.76vw,98px);font-weight:600;line-height:.99;letter-spacing:-.065em;max-width:14ch;text-wrap:balance}
-[dir=rtl] .pc-section-top h2{letter-spacing:-.043em;line-height:1.04}
+[dir=rtl] .pc-section-top h2{letter-spacing:-.02em;line-height:1.1}
 .pc-badge{display:inline-flex;width:.66em;height:.66em;border:1px solid #67676e;border-radius:50%;align-items:center;justify-content:center;vertical-align:.035em;margin-inline-end:.16em}
 .pc-badge svg{width:42%;height:42%}
 .pc-chapter{display:flex;align-items:center;justify-content:space-between;gap:clamp(40px,7vw,110px);min-height:510px;margin-bottom:clamp(100px,13vw,195px);direction:ltr}
@@ -25,7 +25,7 @@
 .pc-count{font-variant-numeric:tabular-nums;font-size:15px;letter-spacing:.025em}
 .pc-count i{color:#9c9da5;font-style:normal}
 .pc-chapter-copy h3{color:white;font-size:clamp(38px,3.8vw,55px);font-weight:600;line-height:1.02;letter-spacing:-.052em;margin:25px 0 18px;text-wrap:balance}
-[dir=rtl] .pc-chapter-copy h3,[dir=rtl] .pc-proof h2,[dir=rtl] .pc-courses h2,[dir=rtl] .pc-banner h2{letter-spacing:-.045em}
+[dir=rtl] .pc-chapter-copy h3,[dir=rtl] .pc-proof h2,[dir=rtl] .pc-courses h2,[dir=rtl] .pc-banner h2{letter-spacing:-.02em;line-height:1.1}
 .pc-chapter-copy p{font-size:clamp(17px,1.45vw,21px);line-height:1.47;color:#c4c4ca;max-width:38ch;margin-bottom:29px}
 .pc-button,.pc-doc-btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;text-align:center;border-radius:5px;line-height:1.25;font-size:15px;font-weight:650}
 .pc-button{min-height:50px;padding:13px 22px;transition:background .2s,color .2s,transform .2s}
@@ -72,16 +72,16 @@
 .pc-service{display:flex;min-height:285px;flex-direction:column;align-items:flex-start;padding:clamp(21px,2vw,32px);border:1px solid #dddee3;border-radius:14px;background:#fff;scroll-snap-align:start;transition:border-color .2s,background .2s}
 .pc-service:hover{border-color:#a2a7b8;background:#fafbff}.pc-service-icon{display:grid;place-items:center;height:55px;width:55px;background:var(--pc-co);border:1px solid #0001;border-radius:13px;margin-bottom:25px}.pc-service-icon svg{width:29px;height:29px}
 .pc-service h3{font-size:clamp(23px,2vw,31px);font-weight:600;letter-spacing:-.044em;line-height:1.1;margin:0 0 12px}
-.pc-service p,.pc-courses header p,.pc-proof-copy p{font-size:16px;line-height:1.48;color:#55565d}
+.pc-service p,.pc-courses header p,.pc-proof-copy p{font-size:1rem;line-height:1.55;color:#4e5058}
 .pc-service-go{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:21px;font-size:14px;font-weight:650}.pc-service-go svg{width:15px;height:15px}
 .pc-courses{padding:55px 0 clamp(75px,8vw,125px)}
 .pc-course-layout{display:grid;grid-template-columns:.85fr 1.4fr;align-items:start;gap:clamp(45px,8vw,128px);border-top:1px solid #dadbe0;padding-top:clamp(52px,6vw,87px)}
 .pc-courses header p{max-width:31ch;margin-top:19px}
 .pc-course{border-bottom:1px solid #d2d4d9}.pc-course:first-child{border-top:1px solid #d2d4d9}.pc-course summary{display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;list-style:none;padding:19px 0}
-.pc-course summary::-webkit-details-marker{display:none}.pc-course summary small,.pc-course summary strong{display:block}.pc-course summary small{color:#666770;font-size:12px;line-height:1.4;margin-bottom:5px}.pc-course summary strong{font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.03em}
+.pc-course summary::-webkit-details-marker{display:none}.pc-course summary small,.pc-course summary strong{display:block}.pc-course summary small{color:#555760;font-size:.875rem;line-height:1.4;margin-bottom:5px}.pc-course summary strong{font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.03em}
 .pc-course summary i{flex:0 0 28px;height:28px;border:1px solid #d2d3d7;border-radius:50%;position:relative}.pc-course summary i:before,.pc-course summary i:after{content:"";position:absolute;width:10px;height:1px;background:currentColor;left:8px;top:13px}.pc-course summary i:after{transform:rotate(90deg)}.pc-course[open] summary i:after{transform:none}
-.pc-course-body{padding-bottom:22px}.pc-course-body b,.pc-course-body p{font-size:14px;line-height:1.55}.pc-course-body p{color:#585961;max-width:62ch;margin-top:4px}
-.pc-doc-btn{padding-top:8px;min-height:40px;color:#2343ac!important;font-size:13px}.pc-doc-btn svg{width:15px;height:15px}
+.pc-course-body{padding-bottom:22px}.pc-course-body b,.pc-course-body p{font-size:1rem;line-height:1.55}.pc-course-body p{color:#585961;max-width:62ch;margin-top:4px}
+.pc-doc-btn{padding-top:8px;min-height:44px;color:#2343ac!important;font-size:.9375rem}.pc-doc-btn svg{width:15px;height:15px}
 .pc-proof{padding-bottom:clamp(75px,8vw,120px)}
 .pc-proof-card{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;background:#e4e8f4;border:1px solid #d7ddef;border-radius:16px}
 .pc-proof-copy{padding:clamp(34px,4.8vw,69px)}.pc-proof-copy small{display:block;font-size:13px;color:#505668;margin-bottom:17px}.pc-proof-copy p{margin:18px 0 25px;color:#464454}
@@ -101,7 +101,7 @@
 
 .pc-chapter-1{--pc-tone:#9bb1ff}.pc-chapter-2{--pc-tone:#95e8bd}.pc-chapter-3{--pc-tone:#75caff}
 .pc-service:nth-child(1){--pc-co:#bdf6d6}.pc-service:nth-child(2){--pc-co:#d2dcfe}.pc-service:nth-child(3){--pc-co:#bce4ff}.pc-service:nth-child(4){--pc-co:#ffebac}
-.pc-course-link{display:inline-flex;align-items:center;min-height:42px;margin-inline-end:18px;text-decoration:underline!important;text-underline-offset:3px;font-size:14px;font-weight:650}
+.pc-course-link{display:inline-flex;align-items:center;min-height:42px;margin-inline-end:18px;text-decoration:underline!important;text-underline-offset:3px;font-size:1rem;font-weight:650}
 
 .pc-sections:not(.pc-shelf-enhanced) .pc-shelf-tools{display:none}
 
@@ -114,6 +114,8 @@
 .biz-grid .pc-service{min-height:0;padding:clamp(1.15rem,1.8vw,1.9rem)}
 .biz-grid h3{font-size:clamp(1.3rem,1.8vw,1.7rem);text-wrap:balance}
 .biz-grid .pc-service-icon{margin-bottom:1.35rem}
+.biz-heading:lang(he) h2,.biz-grid:lang(he) h3{letter-spacing:-.02em;line-height:1.14}
+@media(min-width:1001px){.biz-grid .pc-service p{font-size:1.0625rem;color:#43454e}}
 .biz-result{border-top:1px solid #dcdce3;margin-top:1rem;padding-top:.85rem;font-size:1rem;line-height:1.45}
 .biz-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1.4rem;margin-top:1.6rem}
 .biz-grid .pc-service .biz-proof a{display:inline-block;padding-block:.2em;color:var(--brand-ink);text-decoration:underline;text-underline-offset:.2em}
