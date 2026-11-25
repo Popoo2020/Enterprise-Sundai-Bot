@@ -6,7 +6,9 @@ import { secureLlmGuide } from './secure-llm-guide.mjs';
 import { marketEvidenceGuide } from './market-evidence-guide.mjs';
 import { signupEvidenceGuide } from './signup-evidence-guide.mjs';
 
-export const guides = [marketEvidenceGuide, signupEvidenceGuide, secureLlmGuide, ...guidesWork, ...guidesSchool, ...guidesControls];
+import { adoptionGuides } from './adoption-guides.mjs';
+
+export const guides = [marketEvidenceGuide, signupEvidenceGuide, secureLlmGuide, ...guidesWork, ...guidesSchool, ...guidesControls, ...adoptionGuides];
 export const legacyArticleSlugs = ['approve-before-sending','check-before-sharing','assistant-with-sources'];
 
 export const articleSlugs = [...legacyArticleSlugs, ...guides.map(guide => guide.slug)];

@@ -81,7 +81,7 @@ export function articlesFor(lang) {
   const added = guides.map(({slug, category, related, sources, sectionSources, text, published = '2026-11-19'}) => ({
     slug, category, related, sources, sectionSources, ...text[lang], published
   }));
-  return [...added, ...existing];
+  return [...added.sort((a,b) => b.published.localeCompare(a.published)), ...existing];
 }
 
 export function relatedGuide(lang, route) {
@@ -152,8 +152,17 @@ export function renderArticle(lang, slug) {
     ).join(' ');
     return `<section><h2>${escape(heading)}</h2><p>${escape(paragraph)}${refs ? ' <small class="kn-refs" dir="ltr">'+refs+'</small>' : ''}</p>${list}</section>`;
   }).join('');
-  const consultation = slug === secureLlmGuide.slug
-    ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
+  const adoptionTopic = ({
+    'ai-token-waste-architecture-audit': 'secure-ai-automation',
+    'ai-headcount-savings-realised-value': 'secure-ai-automation',
+    'secure-ai-adoption-release-gates': 'decision-review',
+    'secure-ai-adoption-team-handoffs': 'secure-ai-automation'
+  })[slug];
+  const adoptionCallLabel = {en:'Discuss your AI project in a free 20-minute call',he:'לשיחת היכרות ללא עלות · 20 דקות',sv:'Diskutera ert AI-projekt i ett kostnadsfritt samtal på 20 minuter',da:'Tal om jeres AI-projekt i en gratis samtale på 20 minutter'};
+  const consultation = adoptionTopic
+    ? `<p class="kn-article-call"><a href="${callUrl(lang, adoptionTopic, slug)}">${escape(adoptionCallLabel[lang])}</a></p>`
+    : slug === secureLlmGuide.slug
+      ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
   const localizedDate = a.published && new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : lang, {dateStyle:'long', timeZone:'UTC'}).format(new Date(a.published+'T00:00:00Z'));
   const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${localizedDate}</time></p>` : '';
   const sources = a.sources.map(({name, url}, i) =>
