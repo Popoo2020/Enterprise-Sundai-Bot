@@ -520,8 +520,8 @@ test('the library exposes each retained guide at its established URL in the curr
 });
 
 test('secure AI adoption headline and editorial series stay localised and actionable', async () => {
-  const first = {en:'Secure AI Adoption',he:'הטמעת AI מאובטחת',sv:'Säker AI-implementering',da:'Sikker AI-implementering'};
-  const second = {en:'AI workshops.',he:'סדנאות AI לכיתה',sv:'AI-kurser i skolan.',da:'AI-kurser til skoler.'};
+  const first = {en:'Secure AI Adoption.',he:'הטמעת AI מאובטחת.',sv:'Säker AI-implementering.',da:'Sikker AI-implementering.'};
+  const second = {en:'AI Workshops.',he:'סדנאות AI לכיתה.',sv:'AI-kurser i skolan.',da:'AI-kurser til skoler.'};
   const topics = {
     'ai-token-waste-architecture-audit':'secure-ai-automation',
     'ai-headcount-savings-realised-value':'secure-ai-automation',
@@ -532,7 +532,7 @@ test('secure AI adoption headline and editorial series stay localised and action
   for (const lang of languages) {
     const home = await readFile(publicFile(routeFor(lang)), 'utf8');
     const title = home.match(/<h1 class="fr-title" id="fr-title">([\s\S]*?)<\/h1>/)?.[1];
-    assert.ok(title?.includes('<span class="fr-line">'+first[lang]+'</span>'), lang+' headline');
+    assert.ok(title?.includes('<span class="fr-line">'+first[lang]+'</span> <span class="fr-line">'), lang+' headline and separating space');
     assert.ok(title.includes(second[lang]), lang+' retains workshop headline');
     const hub = await readFile(publicFile(routeFor(lang,'read')), 'utf8');
     for (const [slug, topic] of Object.entries(topics)) {
