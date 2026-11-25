@@ -518,3 +518,34 @@ test('the library exposes each retained guide at its established URL in the curr
     assert.ok(hrefs(flagship).includes(routeFor(lang, 'intro-call') + '?topic=decision-review&via=article'));
   }
 });
+
+test('secure AI adoption headline and editorial series stay localised and actionable', async () => {
+  const first = {en:'Secure AI Adoption',he:'הטמעת AI מאובטחת',sv:'Säker AI-implementering',da:'Sikker AI-implementering'};
+  const second = {en:'AI workshops.',he:'סדנאות AI לכיתה',sv:'AI-kurser i skolan.',da:'AI-kurser til skoler.'};
+  const topics = {
+    'ai-token-waste-architecture-audit':'secure-ai-automation',
+    'ai-headcount-savings-realised-value':'secure-ai-automation',
+    'secure-ai-adoption-release-gates':'decision-review',
+    'secure-ai-adoption-team-handoffs':'secure-ai-automation'
+  };
+  assert.equal(new Set(articleSlugs).size,articleSlugs.length);
+  for (const lang of languages) {
+    const home = await readFile(publicFile(routeFor(lang)), 'utf8');
+    const title = home.match(/<h1 class="fr-title" id="fr-title">([\s\S]*?)<\/h1>/)?.[1];
+    assert.ok(title?.includes('<span class="fr-line">'+first[lang]+'</span>'), lang+' headline');
+    assert.ok(title.includes(second[lang]), lang+' retains workshop headline');
+    const hub = await readFile(publicFile(routeFor(lang,'read')), 'utf8');
+    for (const [slug, topic] of Object.entries(topics)) {
+      const route = routeFor(lang,'read',slug);
+      assert.ok(hrefs(hub).includes(route), route+' library link');
+      const article = await readFile(publicFile(route), 'utf8');
+      assert.ok(hrefs(main(article)).includes(routeFor(lang,'intro-call')+'?topic='+topic+'&via='+slug),route+' consultation link');
+      assert.match(article, /datetime="2026-11-25"/);
+      assert.ok(main(article).includes('ISO/IEC') && main(article).includes('42001'),route+' standards');
+      const guide=guides.find(item=>item.slug===slug);
+      assert.equal(guide.text[lang].sections.length,5);
+      assert.ok(guide.text[lang].exercise);
+      for(const source of guide.sources) assert.ok(hrefs(main(article)).includes(source.url),route+' source '+source.url);
+    }
+  }
+});
