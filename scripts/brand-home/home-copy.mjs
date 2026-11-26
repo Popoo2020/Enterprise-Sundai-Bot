@@ -1,30 +1,34 @@
 export const homeCopy = {
   en: {
     title:'AI for schools and organisations | SundAI', first:"Secure AI Adoption.", second:"AI Workshops.",
-    lead:"Give customers a faster reply. We log enquiries in your CRM, draft a response for your team to approve and measure the time saved. In our AI workshops for schools, pupils investigate a suspicious video and build their own website.",
-    schools:'For schools', organisations:'Business services', stack:'Technology and public organisations', pause:'Pause the technology strip', play:'Resume the technology strip', skip:'Skip to content',
-    benefits:[["Secure by Design.", "Before connecting a system, we agree what AI can read, what it can draft and who is allowed to act."], ["Learning through judgement.", "Pupils explain why they trusted a clip. Then they check its source and revisit their first impression."], ["Test the outcome.", "A business compares time and corrections on one task. A class hands its tool to another pair and watches them use it."]],
+    principle:'Compliance first. AI second.', trust:'See how we manage AI risk',
+    lead:"Move enquiries from email to CRM and reply faster with your team’s approval. In school workshops, pupils learn to check sources and judge AI output.",
+    schools:'Explore AI workshops', organisations:'Explore automation', stack:'Technology and public organisations', pause:'Pause the technology strip', play:'Resume the technology strip', skip:'Skip to content',
+    benefits:[["Agree the safeguards before we build", "We review the requirements for your workflow and agree what AI can access, who approves its output and what we test before launch."], ["Practise checking before trusting", "Pupils trace a video to its source, compare evidence and explain whether they would share it."], ["Measure the work you save", "Start with one workflow. Compare time and cost before and after, including the time your team spends reviewing and correcting the output."]],
     banner:'Would your class share this video?',bannerLine:'In one 90-minute session, pupils check who posted a clip and decide whether to share it. Your teacher gets a worksheet to use again.',bannerCta:'Explore the four-session course'
   },
   he: {
     title:'בינה מלאכותית לבתי ספר ולארגונים | SundAI',first:"הטמעת AI מאובטחת.", second:"סדנאות AI לכיתה.",
-    lead:"בעסק, אנחנו מחברים את המייל למערכת ניהול הלקוחות ומכינים תשובות שהצוות בודק לפני השליחה. בכיתה, התלמידים בודקים מי עומד מאחורי סרטון ובונים אתר משלהם.",
-    schools:'סדנאות לבתי ספר', organisations:'שירותים לעסקים', stack:'טכנולוגיות וגופים ציבוריים',pause:'עצירת רצועת הטכנולוגיות',play:'הפעלת רצועת הטכנולוגיות',skip:'דילוג לתוכן',
-    benefits:[["מי רשאי לקרוא ומי רשאי לשלוח?", "לפני שמחברים את המערכות, מסכמים אילו פרטים עוזר ה־AI רשאי לקרוא, איזו טיוטה הוא יכול להכין ומי בצוות מאשר את השליחה."], ["מה גרם לסרטון להיראות אמין?", "כל תלמיד מסביר מה שכנע אותו. אחר כך בודקים מי פרסם את הסרטון ומשוחחים על מה שהשתנה בעקבות הבדיקה."], ["איך יודעים שהשינוי עזר?", "בעסק משווים כמה זמן לקח לטפל באותה משימה לפני השינוי ואחריו, כולל תיקונים. בכיתה נותנים לזוג אחר לנסות את האתר ומתקנים את מה שלא היה ברור לו."]],
+    principle:'קודם דרישות ובקרות. אחר כך AI.', trust:'איך אנחנו מנהלים סיכוני AI',
+    lead:"העבירו פניות מהמייל למערכת ניהול הלקוחות וענו מהר יותר, עם אישור מהצוות לפני השליחה. בסדנאות התלמידים בודקים מקורות ולומדים להעריך תוצרי AI.",
+    schools:'לסדנאות AI', organisations:'לאוטומציה לעסקים', stack:'טכנולוגיות וגופים ציבוריים',pause:'עצירת רצועת הטכנולוגיות',play:'הפעלת רצועת הטכנולוגיות',skip:'דילוג לתוכן',
+    benefits:[["את כללי הבטיחות קובעים לפני הפיתוח", "בודקים אילו דרישות חלות על התהליך ומסכמים לאיזה מידע מותר ל־AI לגשת, מי מאשר את התוצר ומה ייבדק לפני ההשקה."], ["בודקים לפני שסומכים", "התלמידים מאתרים את המקור לסרטון, משווים ראיות ומסבירים אם היו משתפים אותו."], ["מודדים את החיסכון בפועל", "מתחילים מתהליך אחד ומשווים זמן ועלות לפני השינוי ואחריו, כולל הזמן שהצוות משקיע בבדיקה ובתיקונים."]],
     banner:'האם התלמידים שלכם היו משתפים את הסרטון הזה?',bannerLine:'במפגש של 90 דקות התלמידים בודקים מי פרסם סרטון ומנמקים אם כדאי לשתף אותו. המורה מקבל דף פעילות לשימוש חוזר.',bannerCta:'לתוכנית הקורס המלא · 4 מפגשים'
   },
   sv: {
     title:'AI för skolor och organisationer | SundAI', first:"Säker AI-implementering.", second:"AI-kurser i skolan.",
-    lead:"Svara kunderna snabbare. Vi registrerar mejlen som ärenden i ert CRM, tar fram svar som ni godkänner och mäter tiden ni sparar. På våra AI-workshoppar i skolan granskar eleverna ett misstänkt videoklipp och bygger en egen webbplats.",
-    schools:'För skolor',organisations:'Företagstjänster',stack:'Teknik och offentliga organisationer',pause:'Pausa tekniklistan',play:'Starta tekniklistan',skip:'Gå till innehållet',
-    benefits:[["Säkerhet från början.", "Innan vi kopplar in ett system bestämmer vi vad AI får läsa och föreslå och vem som får godkänna en åtgärd."], ["Omdöme går att öva.", "Eleverna förklarar varför ett klipp kändes trovärdigt, granskar källan och omprövar sitt första intryck."], ["Pröva resultatet.", "Företaget mäter tid och rättelser för en uppgift. I skolan låter eleverna ett annat par prova verktyget de byggt."]],
+    principle:'Kraven först. AI sedan.', trust:'Så hanterar vi AI-risker',
+    lead:"Svara kunderna snabbare med automatisering i ert CRM och låt teamet godkänna svaren. På våra AI-workshoppar granskar eleverna källor och övar på att bedöma när AI:s svar går att lita på.",
+    schools:'Se AI-workshopparna',organisations:'Se hur vi automatiserar',stack:'Teknik och offentliga organisationer',pause:'Pausa tekniklistan',play:'Starta tekniklistan',skip:'Gå till innehållet',
+    benefits:[["Bestäm skyddet före utvecklingen", "Vi går igenom kraven för ert arbetsflöde och enas om vad AI får komma åt, vem som godkänner resultatet och vad vi testar före driftsättning."], ["Granska innan du litar på svaret", "Eleverna spårar ett klipp till källan, jämför belägg och motiverar om de skulle dela klippet."], ["Mät arbetet ni sparar", "Börja med ett arbetsflöde. Jämför tid och kostnad före och efter, inklusive tiden som teamet lägger på granskning och rättelser."]],
     banner:'Skulle din klass dela det här klippet?',bannerLine:'Under ett pass på 90 minuter granskar eleverna vem som lagt ut ett klipp och motiverar om de skulle dela det. Läraren får ett arbetsblad att använda igen.',bannerCta:'Se kursens fyra pass'
   },
   da: {
     title:'AI til skoler og organisationer | SundAI', first:"Sikker AI-implementering.", second:"AI-kurser til skoler.",
-    lead:"Giv kunderne hurtigere svar. Vi opretter henvendelser i jeres CRM, skriver svarudkast til jeres godkendelse og måler den tid, I sparer. På vores AI-workshops for skoler undersøger eleverne en mistænkelig video og bygger deres egen hjemmeside.",
-    schools:'For skoler',organisations:'Ydelser til virksomheder',stack:'Teknologi og offentlige organisationer',pause:'Sæt teknologilisten på pause',play:'Start teknologilisten',skip:'Gå til indholdet',
-    benefits:[["Sikkerhed fra starten.", "Før vi forbinder et system, aftaler vi, hvad AI må læse og foreslå, og hvem der må godkende en handling."], ["Dømmekraft kan trænes.", "Eleverne forklarer, hvorfor et klip virkede troværdigt, tjekker kilden og genovervejer deres første indtryk."], ["Afprøv resultatet.", "Virksomheden måler tid og rettelser for én opgave. I klassen lader eleverne et andet par prøve det værktøj, de har bygget."]],
+    principle:'Kravene først. AI bagefter.', trust:'Sådan håndterer vi AI-risici',
+    lead:"Giv kunderne hurtigere svar med automatisering i jeres CRM. Teamet godkender svarene. På vores AI-workshops tjekker eleverne kilder og øver sig i at vurdere, hvornår de kan stole på svar fra AI.",
+    schools:'Se AI-workshops',organisations:'Se AI-automatisering',stack:'Teknologi og offentlige organisationer',pause:'Sæt teknologilisten på pause',play:'Start teknologilisten',skip:'Gå til indholdet',
+    benefits:[["Aftal sikkerheden, før vi bygger", "Vi gennemgår kravene til jeres arbejdsgang og aftaler, hvad AI må få adgang til, hvem der godkender resultatet, og hvad vi tester før lancering."], ["Tjek, før du stoler på svaret", "Eleverne finder kilden til en video, sammenligner belæg og begrunder, om de vil dele videoen."], ["Mål, hvor meget arbejde I sparer", "Start med én arbejdsgang. Sammenlign tid og omkostninger før og efter, inklusive den tid teamet bruger på at tjekke og rette resultatet."]],
     banner:'Ville din klasse dele denne video?',bannerLine:'På 90 minutter undersøger eleverne, hvem der har lagt et klip ud, og begrunder, om de ville dele det. Læreren får et arbejdsark, der kan bruges igen.',bannerCta:'Se hele kursets fire moduler'
   }
 };

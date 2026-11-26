@@ -522,6 +522,8 @@ test('the library exposes each retained guide at its established URL in the curr
 test('secure AI adoption headline and editorial series stay localised and actionable', async () => {
   const first = {en:'Secure AI Adoption.',he:'הטמעת AI מאובטחת.',sv:'Säker AI-implementering.',da:'Sikker AI-implementering.'};
   const second = {en:'AI Workshops.',he:'סדנאות AI לכיתה.',sv:'AI-kurser i skolan.',da:'AI-kurser til skoler.'};
+  const principle = {en:'Compliance first. AI second.',he:'קודם דרישות ובקרות. אחר כך AI.',sv:'Kraven först. AI sedan.',da:'Kravene først. AI bagefter.'};
+  const trust = {en:'/trust/',he:'/he/trust/',sv:'/sv/tillit/',da:'/da/tillid/'};
   const topics = {
     'ai-token-waste-architecture-audit':'secure-ai-automation',
     'ai-headcount-savings-realised-value':'secure-ai-automation',
@@ -534,6 +536,13 @@ test('secure AI adoption headline and editorial series stay localised and action
     const title = home.match(/<h1 class="fr-title" id="fr-title">([\s\S]*?)<\/h1>/)?.[1];
     assert.ok(title?.includes('<span class="fr-line">'+first[lang]+'</span> <span class="fr-line">'), lang+' headline and separating space');
     assert.ok(title.includes(second[lang]), lang+' retains workshop headline');
+    const hero = home.match(/<section class="fr-landing"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(hero?.includes(`<p class="fr-principle">${principle[lang]}</p><h1`), lang+' places the principle above the offer');
+    assert.ok(hrefs(hero).includes(routeFor(lang,'services','secure-ai-automation')), lang+' links to automation');
+    assert.ok(hrefs(hero).includes('#schools'), lang+' links to workshops');
+    assert.ok(hrefs(hero).includes(trust[lang]+'#before-launch'), lang+' links to project evidence');
+    const evidencePage = await readFile(publicFile(trust[lang]), 'utf8');
+    assert.match(evidencePage, /id="before-launch" aria-labelledby="before-launch-title"/);
     const hub = await readFile(publicFile(routeFor(lang,'read')), 'utf8');
     for (const [slug, topic] of Object.entries(topics)) {
       const route = routeFor(lang,'read',slug);

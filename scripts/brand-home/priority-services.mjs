@@ -11,7 +11,7 @@ export const automation = {
       ['A cost per enquiry', 'Track staff time, manual entries, input and output tokens, and model fees per case. Where your provider reports energy use, we can compare that too.']
     ],
     steps: [
-      ['Measure today’s process', 'Choose one task with the founder or team. Record today’s handling time, the customer outcome and a budget that fits the product and its market. Agree in writing what the pilot delivers and what would justify a change.'],
+      ['Agree the baseline and safeguards', 'Choose one task and measure how long it takes today. Before building, agree what data the workflow may use, who approves its actions, the budget and how you’ll judge the pilot.'],
       ['Connect and test', 'Give the workflow only the access it needs. Set input and output token limits, a retry limit and a spending threshold. Test that it pauses for a person when it reaches a limit or a request fails.'],
       ['Compare like with like', 'Compare similar completed requests, including time spent approving and correcting them. Review cost per accepted result and agree whether to stop, adjust or expand. You approve extra work and its price first.']
     ],
@@ -31,7 +31,7 @@ export const automation = {
       ['כמה עולה לטפל בפנייה?', 'לכל פנייה שהושלמה מודדים את זמן העבודה של הצוות ואת עלות השימוש במודל. אפשר לראות כמה טקסט נקרא ונכתב וכמה פרטים עדיין צריך להזין ידנית. אם הספק מדווח על צריכת חשמל, אפשר להביא גם אותה בחשבון.']
     ],
     steps: [
-      ['מסכמים מה נבנה וכמה נשקיע', 'בוחרים איתכם משימה אחת ומודדים כמה זמן היא לוקחת היום. מסכמים בכתב מה הלקוח צריך לקבל, איזה תקציב מתאים למוצר ולשוק שלכם, ומה ייחשב להצלחה.'],
+      ['מגדירים מה מודדים ואילו בקרות נדרשות', 'בוחרים משימה אחת ומודדים כמה זמן היא לוקחת היום. לפני הפיתוח מסכמים איזה מידע מותר למערכת לעבד, מי מאשר פעולות, מה התקציב ומה ייחשב להצלחת הפיילוט.'],
       ['קובעים מתי המערכת עוצרת', 'נותנים למערכת רק את ההרשאות הדרושות למשימה. קובעים תקרה להוצאה, למספר הניסיונות החוזרים ולכמות הטקסט שהמודל קורא וכותב (טוקנים). בודקים שבמקרה של תקלה או הגעה לתקרה, הטיפול חוזר לאדם בצוות.'],
       ['מחליטים אם להרחיב את השימוש', 'משווים את זמן הטיפול ואת העלות של פניות דומות, כולל הזמן שנדרש לבדיקה ולתיקונים. אם כדאי להרחיב את העבודה, נפרט מראש מה יתווסף וכמה זה יעלה. אתם מחליטים אם להתקדם.']
     ],
@@ -51,7 +51,7 @@ export const automation = {
       ['Kostnad per ärende', 'Följ arbetstid, manuella inmatningar, tokenåtgång och modellkostnad per avslutat ärende. Om leverantören redovisar energianvändning kan den också jämföras.']
     ],
     steps: [
-      ['Mät nuläget', 'Välj en uppgift tillsammans med grundaren eller teamet. Skriv ner dagens handläggningstid, vilken nytta kunden ska få och en budget som passar produkten och marknaden. Enas skriftligen om leveransen och vad som skulle motivera en ändring.'],
+      ['Mät nuläget och enas om skyddet', 'Välj en uppgift och mät hur lång tid den tar idag. Innan vi bygger enas vi om vilka uppgifter flödet får använda, vem som godkänner åtgärderna, budgeten och hur ni bedömer piloten.'],
       ['Koppla ihop och testa', 'Ge arbetsflödet enbart nödvändig åtkomst. Sätt gränser för hur mycket text modellen får ta emot och ge tillbaka (token), för antalet nya försök och för kostnaden. Testa att flödet stannar för mänsklig bedömning vid en gräns eller ett fel.'],
       ['Jämför likvärdiga ärenden', 'Jämför likvärdiga avslutade ärenden och räkna med tiden för kontroll och rättelser. Se vad ett godkänt resultat kostar och välj om ni vill avsluta, justera eller utöka. Ni godkänner tillägg och pris i förväg.']
     ],
@@ -71,7 +71,7 @@ export const automation = {
       ['Pris pr. sag', 'Følg arbejdstid, manuelle indtastninger, tokenforbrug og modeludgift pr. afsluttet sag. Hvis leverandøren oplyser energiforbruget, kan vi også sammenligne det.']
     ],
     steps: [
-      ['Mål den nuværende arbejdsgang', 'Vælg én opgave sammen med stifteren eller teamet. Notér den nuværende behandlingstid, kundens ønskede udbytte og et budget, der passer til produktet og markedet. Aftal skriftligt, hvad piloten skal levere, og hvornår en ændring giver mening.'],
+      ['Mål udgangspunktet, og aftal sikkerheden', 'Vælg én opgave, og mål, hvor lang tid den tager i dag. Før vi bygger, aftaler vi, hvilke oplysninger systemet må bruge, hvem der godkender handlinger, hvad budgettet er, og hvordan I vurderer piloten.'],
       ['Forbind og afprøv', 'Giv arbejdsgangen præcis den adgang, den kræver. Sæt grænser for tekst ind og ud af modellen (tokens), antal nye forsøg og forbrug. Test, at opgaven stopper og går videre til en medarbejder ved en fejl, eller når en grænse nås.'],
       ['Sammenlign tilsvarende sager', 'Sammenlign ensartede afsluttede sager, inklusive tid til godkendelse og rettelser. Se prisen pr. godkendt resultat, og vælg, om I vil stoppe, justere eller udvide. I godkender ekstra arbejde og pris på forhånd.']
     ],
