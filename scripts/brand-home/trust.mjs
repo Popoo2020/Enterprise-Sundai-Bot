@@ -37,6 +37,13 @@ const copy = {
 };
 const legalLanguage = {en:'eng', he:'eng', sv:'swe', da:'dan'};
 
+const projectEvidence = {
+  en: ['What we agree before launch', 'We document the workflow, the data it may use and who owns the decision to go live. We agree what the pilot must prove, including access checks, human approval and what happens if the system fails.', 'Explore secure AI automation', 'Eric Ariel Rimón’s training and credentials'],
+  he: ['מה מסכמים לפני ההשקה', 'מתעדים איך התהליך יעבוד, לאיזה מידע מותר למערכת לגשת ומי מחליט אם להפעיל אותה. מסכמים מה הפיילוט צריך להוכיח: שההרשאות מוגבלות, שאישור אנושי מתקבל כשצריך ושהצוות יודע מה לעשות במקרה של תקלה.', 'לאוטומציה מאובטחת עם AI', 'ההכשרות והתעודות של אריאל רימון (באנגלית)'],
+  sv: ['Det här enas vi om före driftsättning', 'Vi dokumenterar arbetsflödet, vilka uppgifter det får använda och vem som fattar beslutet om driftsättning. Vi enas om vad piloten ska visa, bland annat hur behörighet och mänskligt godkännande kontrolleras och vad som händer vid fel.', 'Se säker AI-automatisering', 'Eric Ariel Rimóns utbildning och meriter (på engelska)'],
+  da: ['Det aftaler vi før lancering', 'Vi dokumenterer arbejdsgangen, hvilke oplysninger den må bruge, og hvem der beslutter, om den må sættes i drift. Vi aftaler, hvad piloten skal vise, herunder hvordan vi tester adgang, godkendelse og håndtering af fejl.', 'Se sikker AI-automatisering', 'Eric Ariel Rimóns uddannelse og kvalifikationer (på engelsk)']
+};
+
 function officialSource(id, lang) {
   const addresses = {
     soc2: 'https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services',
@@ -88,6 +95,9 @@ export function renderTrust(lang) {
 
   // Platform names appear in each link caption, so its logo is decorative.
   body = body.replace(/(<a data-brand="[^"]+"[^>]*><img [^>]*?) alt="[^"]*"/g, '$1 alt=""');
+  const [evidenceTitle, evidenceText, workflowLink, credentialsLink] = projectEvidence[lang];
+  const evidence = `<section class="section" id="before-launch" aria-labelledby="before-launch-title"><div class="container"><h2 id="before-launch-title">${evidenceTitle}</h2><p>${evidenceText}</p><div class="actions"><a class="button secondary" href="${base}services/secure-ai-automation/">${workflowLink}</a><a class="button secondary" href="https://github.com/Popoo2020/Popoo2020/blob/main/career-portfolio/education-and-training.md" hreflang="en">${credentialsLink}</a></div></div></section>`;
+  body = body.replace('<section class="section framework-details"', evidence + '<section class="section framework-details"');
   const eu = '<article id="framework-eu-ai-act"><p class="framework-detail-label">'+t.euLabel+'</p><h3>EU AI Act</h3><p>'+t.euText+'</p></article>';
   body = body.replace(/(<\/article>)(\s*<\/div>\s*<p class="framework-note">)/, '$1'+eu+'$2')
     .replace(/<article id="framework-([\w-]+)">([\s\S]*?)<\/article>/g, (_,id,card) => {

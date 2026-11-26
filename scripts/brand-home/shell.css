@@ -11,6 +11,7 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-landing{background:var(--ink);color:#fff;overflow:clip}
 .fr-layout{width:min(100%,1760px);margin:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,33.5%);align-items:center;column-gap:5%;min-height:clamp(560px,50.2vw,880px);padding:32px clamp(16px,1.4vw,32px) 42px}
 .fr-copy{min-width:0;display:grid;gap:0;align-content:center;justify-items:start}
+.fr-principle{margin:0 0 clamp(12px,1.4vw,21px);padding-inline-start:.7rem;border-inline-start:2px solid #7e9cff;color:#b6c8ff;font-size:clamp(.875rem,1.12vw,1rem);line-height:1.4;font-weight:650}
 .fr-title{font-size:clamp(64px,6.74vw,117px);font-weight:600;letter-spacing:-.062em;line-height:.98;margin:0 0 clamp(20px,2.1vw,34px)}
 .fr-title span.fr-line{display:flex;align-items:center;gap:.2em;white-space:nowrap}
 .fr-title .fr-mark{border:1px solid #434448;display:inline-grid;place-items:center;border-radius:50%;width:.98em;height:.98em;flex:none}
@@ -21,6 +22,8 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-action{min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:.6em;background:var(--violet);border:1px solid #546fc8;border-radius:4px;color:white;font-weight:550;font-size:clamp(14px,1.12vw,17px);padding:10px 17px;line-height:1.18;text-align:center;transition:transform .18s,background .18s}
 .fr-action:hover{background:#4266de;transform:translateY(-2px)}.fr-action-outline{background:transparent;border-color:#747579}.fr-action-outline:hover{background:#242529}
 .fr-lead{font-size:clamp(17px,1.48vw,23px);line-height:1.47;letter-spacing:-.018em;margin:0;max-width:27ch}
+.fr-trust-link{display:inline-flex;align-items:center;min-height:44px;color:#b6c8ff;font-size:.9375rem;line-height:1.4;font-weight:550;text-decoration:underline;text-underline-offset:.2em}
+.fr-trust-link:is(:hover,:focus-visible){color:#fff}
 :lang(he) .fr-lead{letter-spacing:0;line-height:1.55}
 .fr-art{width:100%;max-width:580px;justify-self:end;direction:ltr}
 .fr-ribbon{direction:ltr;position:relative;overflow:hidden;background:var(--ink);padding:18px 0 clamp(22px,2.3vw,46px);color:#a4a6aa}
@@ -74,3 +77,4 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 .fr-beginner-link{display:flex;align-items:center;min-height:44px;color:var(--brand-light,#a9beff);font-size:1rem;line-height:1.45;text-decoration:underline;text-underline-offset:.17em}
 .fr-beginner-link:is(:hover,:focus-visible){color:white}
 @media(max-width:760px){.fr-beginner-link{flex-basis:100%}}
+@media(max-width:760px){.fr-hero-intro{order:2;margin-block-end:12px}.fr-hero-intro .fr-lead{margin-block-end:0}}
