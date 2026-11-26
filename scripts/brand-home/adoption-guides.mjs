@@ -38,7 +38,7 @@ export const adoptionGuides = [
     "text": {
       "en": {
         "title": "Is your AI burning the budget it was meant to save?",
-        "summary": "Find the architecture choices that turn a useful AI pilot into an expensive operation. Reduce unnecessary inference without lowering quality or security.",
+        "summary": "Two ways to handle the same 2,000 enquiries can produce very different model bills. Compare cost per accepted case while holding review quality and access rights constant.",
         "sections": [
           [
             "The invoice is a symptom, not a diagnosis",
@@ -57,22 +57,22 @@ export const adoptionGuides = [
           ],
           [
             "Why security is also financial protection",
-            "An uncontrolled agent may run up costs through accidental loops or deliberate abuse. OWASP identifies unbounded consumption as an LLM security risk. Set authenticated usage quotas, per-workflow spending limits, alerts and an application-level circuit breaker. Keep secrets and unnecessary personal data out of traces. A cheaper answer is not a saving if it leaks data or causes an unauthorised action."
+            "An uncontrolled agent may run up costs through accidental loops or deliberate abuse. OWASP identifies unbounded consumption as an LLM security risk. Set authenticated usage quotas, per-workflow spending limits, alerts and an application-level circuit breaker. Keep secrets and unnecessary personal data out of traces. A cheaper answer is not a saving if it leaks data or causes an unauthorised action. ISO/IEC 27001 and ISO/IEC 42001 can help the team assign responsibility for those controls."
           ],
           [
             "A controlled comparison",
             "Illustration, not a client result or provider price: two designs each complete 2,000 accepted cases per month at equivalent quality, review effort and security. If the first consumes €0.60 in model and tool charges per case and the second €0.18, the variable charge falls from €1,200 to €360: €840 a month before implementation and other costs. Confirm the comparison with actual invoices, failure rates and end-to-end traces. Do not cut protective controls just to reach a target."
           ],
           [
-            "What SundAI does differently",
-            "Rather than treating model selection as the entire project, SundAI proposes to map the workflow, instrument the costly steps, benchmark alternatives and agree quality, permissions and cost ceilings with your team. ISO/IEC 27001 and ISO/IEC 42001 inform the security and governance work; they are not promises of certification. Bring a redacted usage report to a free 20-minute call and we can identify a useful first investigation."
+            "What to ask for at the pilot review",
+            "Ask for one row per design showing completed cases, model and tool charges, minutes spent checking answers, and failures sent back to staff. At SundAI we would rerun the same sample after a price or model change. The person approving the pilot can then see whether a lower bill came with more corrections or wider access."
           ]
         ],
         "exercise": "Choose one costly workflow. Record calls, retries, model, authorised context size, accepted results and total charges for a representative sample. Agree the quality threshold before testing a revised design."
       },
       "he": {
         "title": "האם מערכת ה־AI מבזבזת את התקציב שהיא נועדה לחסוך?",
-        "summary": "כך מזהים החלטות ארכיטקטוניות שמייקרות מערכות AI, ומצמצמים שימוש מיותר במודלים בלי להתפשר על איכות התוצרים או על אבטחת המידע.",
+        "summary": "שתי מערכות שמטפלות באותן 2,000 פניות יכולות להניב חשבונות שונים מאוד. השוו עלות לפנייה שאושרה, כשהרשאות הגישה ורף האיכות זהים.",
         "sections": [
           [
             "החשבון החודשי הוא סימפטום, לא אבחנה",
@@ -91,22 +91,22 @@ export const adoptionGuides = [
           ],
           [
             "גם אבטחה מגינה על התקציב",
-            "סוכן בלתי מבוקר עלול להיכנס ללולאה בגלל תקלה או בעקבות שימוש לרעה. OWASP מזהה צריכת משאבים בלתי מוגבלת כסיכון אבטחה במערכות LLM. קבעו מכסות לפי זהות ותהליך, מגבלות תקציב, התרעות ומנגנון עצירה. אל תכניסו סודות או מידע אישי מיותר ליומני הפעילות. תשובה זולה יותר אינה חיסכון אם היא גורמת לחשיפה או לפעולה ללא הרשאה."
+            "סוכן בלתי מבוקר עלול להיכנס ללולאה בגלל תקלה או בעקבות שימוש לרעה. OWASP מזהה צריכת משאבים בלתי מוגבלת כסיכון אבטחה במערכות LLM. קבעו מכסות לפי זהות ותהליך, מגבלות תקציב, התרעות ומנגנון עצירה. אל תכניסו סודות או מידע אישי מיותר ליומני הפעילות. תשובה זולה יותר אינה חיסכון אם היא גורמת לחשיפה או לפעולה ללא הרשאה. תקני ISO/IEC 27001 ו־ISO/IEC 42001 יכולים לסייע לצוות להגדיר מי אחראי לבקרות האלה."
           ],
           [
             "דוגמה להשוואה מבוקרת",
             "דוגמה להמחשה בלבד: שני תכנונים מטפלים ב־2,000 פניות מאושרות בחודש באותה איכות, באותו זמן בדיקה ובאותה רמת אבטחה. אם עלות המודלים והכלים בתכנון הראשון היא 0.60 אירו לפנייה ובשני 0.18 אירו, ההוצאה המשתנה יורדת מ־1,200 ל־360 אירו בחודש. ההפרש הוא 840 אירו לפני עלויות הפיתוח ושאר ההוצאות. יש לאמת אותו לפי חשבוניות, תקלות ותוצאות בפועל, ולא באמצעות ויתור על בקרות."
           ],
           [
-            "כך SundAI ניגשת לבעיה",
-            "במקום להסתפק בבחירת מודל, אנחנו מציעים למפות את התהליך, למדוד את השלבים היקרים, להשוות חלופות ולקבוע עם הצוות שלכם רף איכות, הרשאות ותקרת הוצאה. תקני ISO/IEC 27001 ו־42001 משמשים מסגרת לעבודה בתחום האבטחה וממשל ה־AI; אין בכך הבטחה להסמכה. הביאו לשיחת היכרות חינם בת 20 דקות דוח שימוש ללא פרטים מזהים, ונבחן היכן כדאי להתחיל."
+            "מה לבקש בסיכום הפיילוט",
+            "בקשו שורה לכל חלופה ובה מספר הפניות שהושלמו, עלות המודלים והכלים, דקות הבדיקה ומספר הפניות שחזרו לטיפול הצוות. ב־SundAI היינו מריצים את אותו מדגם שוב אחרי שינוי מחיר או החלפת מודל. כך מי שמאשר את הפיילוט יכול לראות אם הירידה בחשבון באה עם יותר תיקונים או עם הרחבת גישה."
           ]
         ],
         "exercise": "בחרו תהליך יקר אחד. תעדו קריאות למודלים, ניסיונות חוזרים, כמות ההקשר המותר, תוצרים שאושרו והעלות הכוללת במדגם מייצג. קבעו רף איכות לפני השוואת תכנונים."
       },
       "sv": {
         "title": "Äter AI upp budgeten som tekniken skulle spara?",
-        "summary": "Granska de arkitekturval som driver upp AI-kostnaden och minska onödiga modellkörningar utan att tumma på kvalitet eller säkerhet.",
+        "summary": "Två lösningar kan hantera samma 2 000 ärenden och ge helt olika fakturor. Jämför kostnaden per godkänt ärende med samma kvalitetskrav och behörigheter.",
         "sections": [
           [
             "Fakturan visar ett symptom",
@@ -125,22 +125,22 @@ export const adoptionGuides = [
           ],
           [
             "Säkerhet skyddar också ekonomin",
-            "En agent kan fastna i loopar genom fel eller missbruk. OWASP beskriver obegränsad resursförbrukning som en säkerhetsrisk för språkmodeller. Sätt autentiserade kvoter, kostnadstak, larm och en stoppmekanism i applikationen. Logga inte nycklar eller onödiga personuppgifter. En billigare körning är ingen vinst om den röjer uppgifter."
+            "En agent kan fastna i loopar genom fel eller missbruk. OWASP beskriver obegränsad resursförbrukning som en säkerhetsrisk för språkmodeller. Sätt autentiserade kvoter, kostnadstak, larm och en stoppmekanism i applikationen. Logga inte nycklar eller onödiga personuppgifter. En billigare körning är ingen vinst om den röjer uppgifter. ISO/IEC 27001 och ISO/IEC 42001 kan hjälpa teamet att fördela ansvaret för kontrollerna."
           ],
           [
             "Jämför två lösningar under samma villkor",
             "Räkneexempel, inte ett kundresultat: båda lösningarna klarar 2 000 godkända ärenden per månad med samma kvalitet, granskningstid och säkerhet. Modell- och verktygskostnaden är 0,60 respektive 0,18 euro per ärende. Kostnaden sjunker från 1 200 till 360 euro, en skillnad på 840 euro före införande och andra kostnader. Kontrollera utfallet med fakturor och kördata."
           ],
           [
-            "Så arbetar SundAI",
-            "Vi föreslår att kartlägga arbetsflödet, mäta kostsamma steg, jämföra alternativ och avtala kvalitetskrav, behörigheter och budgettak med er. ISO/IEC 27001 och 42001 vägleder säkerhets- och styrningsarbetet; det är ingen garanti om certifiering. Ta med en avidentifierad användningsrapport till ett kostnadsfritt samtal på 20 minuter."
+            "Vad behöver ni se när piloten utvärderas?",
+            "Be om en rad per lösning med antal avslutade ärenden, modell- och verktygskostnader, granskningstid och antal ärenden som gick tillbaka till personalen. På SundAI skulle vi köra samma urval igen efter ett pris- eller modellbyte. Då ser den som godkänner piloten om en lägre faktura krävde fler rättelser eller bredare åtkomst."
           ]
         ],
         "exercise": "Välj ett dyrt arbetsflöde. Mät anrop, omförsök, modell, mängd tillåten kontext, godkända resultat och kostnad. Bestäm kvalitetskravet innan ni testar en ändring."
       },
       "da": {
         "title": "Æder AI det budget, teknologien skulle spare?",
-        "summary": "Find de arkitekturvalg, der driver AI-udgifterne op, og fjern unødvendige modelkald uden at gå på kompromis med kvalitet eller sikkerhed.",
+        "summary": "To løsninger kan behandle de samme 2.000 henvendelser og give vidt forskellige regninger. Sammenlign prisen pr. godkendt sag med samme kvalitetskrav og adgangsrettigheder.",
         "sections": [
           [
             "Fakturaen er et symptom",
@@ -159,20 +159,37 @@ export const adoptionGuides = [
           ],
           [
             "Sikkerhed beskytter også økonomien",
-            "En agent kan gå i ring ved fejl eller misbrug. OWASP beskriver ubegrænset ressourceforbrug som en sikkerhedsrisiko for sprogmodeller. Indfør autentificerede kvoter, udgiftslofter, alarmer og en stopmekanisme i applikationen. Hold nøgler og unødvendige personoplysninger ude af loggen. En billigere kørsel er ingen gevinst, hvis den lækker oplysninger."
+            "En agent kan gå i ring ved fejl eller misbrug. OWASP beskriver ubegrænset ressourceforbrug som en sikkerhedsrisiko for sprogmodeller. Indfør autentificerede kvoter, udgiftslofter, alarmer og en stopmekanisme i applikationen. Hold nøgler og unødvendige personoplysninger ude af loggen. En billigere kørsel er ingen gevinst, hvis den lækker oplysninger. ISO/IEC 27001 og ISO/IEC 42001 kan hjælpe teamet med at placere ansvaret for kontrollerne."
           ],
           [
             "Sammenlign to løsninger på samme vilkår",
             "Regneeksempel, ikke et kunderesultat: begge løsninger afslutter 2.000 godkendte sager pr. måned med samme kvalitet, kontroltid og sikkerhed. Model- og værktøjsudgiften er henholdsvis 0,60 og 0,18 euro pr. sag. Udgiften falder fra 1.200 til 360 euro, en forskel på 840 euro før implementering og øvrige omkostninger. Kontrollér resultatet mod fakturaer og kørselsdata."
           ],
           [
-            "Sådan arbejder SundAI",
-            "Vi foreslår at kortlægge arbejdsgangen, måle de dyre trin, sammenligne alternativer og aftale kvalitetskrav, adgange og budgetloft med jer. ISO/IEC 27001 og 42001 danner ramme for sikkerheds- og governancearbejdet; det er ikke et løfte om certificering. Tag en afidentificeret forbrugsrapport med til en gratis samtale på 20 minutter."
+            "Hvad skal I se, når piloten evalueres?",
+            "Bed om en række for hver løsning med antal afsluttede sager, udgifter til modeller og værktøjer, tid brugt på kontrol og antal sager, som medarbejderne fik tilbage. Hos SundAI ville vi køre den samme stikprøve igen efter en prisændring eller et modelskift. Så kan den ansvarlige se, om en lavere regning krævede flere rettelser eller bredere adgang."
           ]
         ],
         "exercise": "Vælg én dyr arbejdsgang. Registrer kald, gentagelser, model, mængde tilladt kontekst, godkendte resultater og omkostning. Fastlæg kvalitetskravet inden testen."
       }
-    }
+    },
+    "sectionSources": [
+      [
+        0
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [],
+      []
+    ],
+    "modified": "2026-11-26"
   },
   {
     "slug": "ai-headcount-savings-realised-value",
@@ -204,7 +221,7 @@ export const adoptionGuides = [
     "text": {
       "en": {
         "title": "Before replacing headcount with AI, prove the savings reach the budget",
-        "summary": "A business case based on hours saved can hide expensive subscriptions, review queues and new risks. Separate financial savings from additional capacity before scaling.",
+        "summary": "An AI assistant frees up 100 staff hours. Which invoice will actually fall? A worked example shows how a €300 monthly gain can become a €200 loss.",
         "sections": [
           [
             "Do not confuse time recovered with money recovered",
@@ -223,15 +240,15 @@ export const adoptionGuides = [
             "Do not remove operational expertise before the new workflow has proven it can handle routine and unusual cases. Agree minimum acceptance quality, escalation capacity, maximum spending, incident recovery and rollback. Track actual payroll and invoices separately from capacity released. Review performance and risk after supplier, model or data changes. ISO/IEC 42001, ISO/IEC 27001 and NIST AI RMF can inform that management discipline; none guarantees commercial performance."
           ],
           [
-            "The SundAI approach",
-            "We propose an AI Value & Cost Baseline before implementation: one agreed outcome, a comparison of alternatives, a budget and a security boundary. We then measure the completed workflow with your staff and help you interpret the result. The objective is to decide whether to improve, expand or stop the investment — not to sell more tokens. Discuss a process with us in a free 20-minute call."
+            "A question for the next budget meeting",
+            "Give Finance two columns. In the first, name the expense that will fall, who owns it and which invoice or overtime record will show the change. In the second, name the work the team can do with the hours it recovers. At the end of the pilot, compare both columns with the baseline before signing a longer contract."
           ]
         ],
         "exercise": "Ask Finance and the process owner to identify the expenses that would actually disappear, the capacity that would instead be reused, and the point at which rising AI costs trigger a review."
       },
       "he": {
         "title": "לפני שמחליפים תקני כוח אדם ב־AI, בודקים אם הכסף באמת נחסך",
-        "summary": "הבטחה לחסוך שעות עבודה עלולה להסתיר הוצאות רישוי, בדיקה אנושית ותשתיות. כך מפרידים בין התייעלות לבין חיסכון ממשי בתקציב.",
+        "summary": "עוזר AI מפנה 100 שעות עבודה. איזו הוצאה באמת תרד? חישוב לדוגמה מראה כיצד שיפור חודשי של 300 אירו יכול להפוך להפסד של 200 אירו.",
         "sections": [
           [
             "זמן שהתפנה אינו בהכרח כסף שנחסך",
@@ -250,15 +267,15 @@ export const adoptionGuides = [
             "לא מוותרים על הידע של הצוות לפני שהמערכת הוכיחה שהיא מטפלת הן במקרים שגרתיים והן בחריגים. מגדירים רף איכות, יכולת העברת טיפול לעובד, תקרת הוצאה ותוכנית חזרה לתהליך הקודם. עוקבים בנפרד אחר חשבוניות, הוצאות שכר וזמן שהתפנה. בודקים מחדש אחרי שינוי ספק, מודל או מקור מידע. תקני ISO/IEC 42001 ו־27001 ומסגרת NIST AI RMF מסייעים לבנות משמעת ניהולית, אך אינם מבטיחים רווחיות."
           ],
           [
-            "מה SundAI מציעה",
-            "אנחנו מציעים לקבוע לפני הפיתוח מדדי בסיס לערך ולעלות: תוצאה עסקית רצויה, השוואת חלופות, תקציב וגבולות אבטחה. עם הצוות שלכם מודדים את התהליך השלם ובוחנים אם כדאי לשפר, להרחיב או לעצור את ההשקעה. המטרה אינה למכור עוד טוקנים, אלא לעזור לכם לקבל החלטה כלכלית טובה יותר. אפשר להתחיל בשיחה ללא עלות בת 20 דקות."
+            "שאלה לישיבת התקציב הבאה",
+            "הציגו לצוות הכספים שתי עמודות. בראשונה רשמו איזו הוצאה צפויה לרדת, מי אחראי עליה ובאיזו חשבונית או רשומת שעות נוספות ייראה השינוי. בשנייה רשמו מה יעשה הצוות בשעות שיתפנו. בסיום הפיילוט השוו את שתי העמודות לנתוני הבסיס לפני חתימה על חוזה ארוך יותר."
           ]
         ],
         "exercise": "בקשו ממנהל הכספים ומהאחראי לתהליך לציין אילו הוצאות ייעלמו בפועל, אילו שעות יופנו למשימות אחרות, ובאיזו עלות AI תידרש בחינה מחדש."
       },
       "sv": {
         "title": "Innan AI ersätter bemanning: visa att besparingen syns i budgeten",
-        "summary": "Sparade timmar kan dölja licenser, granskningsköer och risker. Skilj frigjord kapacitet från faktiska kostnadsminskningar innan ni skalar upp.",
+        "summary": "En AI-assistent frigör 100 arbetstimmar. Vilken utgift minskar faktiskt? Ett räkneexempel visar hur en månadsvinst på 300 euro kan bli en förlust på 200 euro.",
         "sections": [
           [
             "Frigjord tid är inte automatiskt sparade pengar",
@@ -277,15 +294,15 @@ export const adoptionGuides = [
             "Behåll kompetensen tills lösningen har klarat både rutinärenden och undantag. Sätt kvalitetskrav, eskalering, kostnadstak och en plan för återgång. Följ faktiska löner och fakturor separat från frigjord tid. Granska på nytt när modell, leverantör eller data ändras. ISO/IEC 42001, ISO/IEC 27001 och NIST AI RMF ger stöd för styrningen, inte en garanti om lönsamhet."
           ],
           [
-            "SundAI:s arbetssätt",
-            "Vi föreslår en baslinje för värde och kostnad: ett verksamhetsmål, jämförda alternativ, budget och säkerhetsgränser. Tillsammans mäter vi hela arbetsflödet och bedömer om investeringen bör förbättras, utökas eller stoppas. Målet är inte att sälja fler tokens. Boka ett kostnadsfritt samtal på 20 minuter."
+            "En fråga till nästa budgetmöte",
+            "Ge ekonomiavdelningen två kolumner. Ange i den första vilken utgift som sjunker, vem som ansvarar för den och på vilken faktura eller övertidsrad förändringen ska synas. Skriv i den andra vad teamet kan göra med tiden som frigörs. Jämför båda kolumnerna med utgångsläget innan ni tecknar ett längre avtal."
           ]
         ],
         "exercise": "Be ekonomi och processägaren ange vilka utgifter som verkligen försvinner, vilken tid som används till annat och när en ny kostnadsprövning ska göras."
       },
       "da": {
         "title": "Før AI erstatter bemanding: vis, at besparelsen når budgettet",
-        "summary": "Frigjorte timer kan skjule licenser, kontrolarbejde og risici. Skeln mellem ekstra kapacitet og reelle besparelser, inden I skalerer.",
+        "summary": "En AI-assistent frigør 100 arbejdstimer. Hvilken udgift falder faktisk? Et regneeksempel viser, hvordan en månedlig gevinst på 300 euro kan blive til et tab på 200 euro.",
         "sections": [
           [
             "Frigjort tid er ikke automatisk sparede penge",
@@ -304,13 +321,30 @@ export const adoptionGuides = [
             "Behold kompetencerne, indtil løsningen har klaret både rutinesager og undtagelser. Aftal kvalitetskrav, eskalation, budgetloft og en plan for tilbagevenden. Følg løn og fakturaer adskilt fra frigjort tid. Revurdér ved ændring af model, leverandør eller data. ISO/IEC 42001, ISO/IEC 27001 og NIST AI RMF kan understøtte styringen, men garanterer ikke rentabilitet."
           ],
           [
-            "SundAIs tilgang",
-            "Vi foreslår en baseline for værdi og omkostning: ét forretningsmål, sammenlignede alternativer, budget og sikkerhedsgrænser. Sammen måler vi hele arbejdsgangen og vurderer, om investeringen skal forbedres, udvides eller stoppes. Målet er ikke at sælge flere tokens. Book en gratis samtale på 20 minutter."
+            "Et spørgsmål til næste budgetmøde",
+            "Giv økonomiafdelingen to kolonner. Skriv i den første, hvilken udgift der falder, hvem der har ansvaret, og hvilken faktura eller overtidsregistrering der vil vise ændringen. Skriv i den anden, hvad teamet kan bruge de frigjorte timer til. Sammenlign begge kolonner med udgangspunktet, før I underskriver en længere kontrakt."
           ]
         ],
         "exercise": "Bed økonomi og procesejeren angive, hvilke udgifter der reelt forsvinder, hvilken tid der bruges på andre opgaver, og hvornår omkostningen skal revurderes."
       }
-    }
+    },
+    "sectionSources": [
+      [
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [],
+      [
+        2,
+        3,
+        4
+      ],
+      []
+    ],
+    "modified": "2026-11-26"
   },
   {
     "slug": "secure-ai-adoption-release-gates",
@@ -341,12 +375,16 @@ export const adoptionGuides = [
       {
         "name": "OWASP · LLM06:2026 Unbounded Consumption",
         "url": "https://genai.owasp.org/llm2026/llm062026-unbounded-consumption/"
+      },
+      {
+        "name": "ISO · Checking the status of a certification",
+        "url": "https://www.iso.org/certification.html"
       }
     ],
     "text": {
       "en": {
         "title": "Secure AI adoption: who decides when a system is ready to go live?",
-        "summary": "Turn GRC into a practical release decision: define responsibilities, evidence, approval criteria and conditions for stopping an AI rollout.",
+        "summary": "An assistant drafts a customer quote from an expired price list. Follow that example to decide who can stop the send, what a certificate covers and who can approve a restart.",
         "sections": [
           [
             "One accountable decision instead of disconnected checklists",
@@ -371,15 +409,15 @@ export const adoptionGuides = [
             "Define a change threshold. A new model, prompt, price list, integration or user population can invalidate earlier evidence. Repeat relevant evaluation and access checks; document the approval or rollback. Track incidents, quality and unit cost with the owner. A signed decision is not proof that a system remains safe forever."
           ],
           [
-            "Where SundAI helps",
-            "We propose one decision record that connects the evidence to a recommendation: proceed, proceed with conditions, redesign or pause. For implementation work, we can agree an acceptance test with your team and build the relevant controls into the workflow. Our approach draws on recognised standards without claiming that using them confers certification or guarantees legal compliance. Bring a concrete decision to a free introductory call."
+            "What does the supplier’s certificate cover?",
+            "If a supplier cites ISO/IEC 27001 or ISO/IEC 42001, ask for the certificate. Check the named organisation, the activities and locations in scope, the issuer and the dates. Confirm its status with the issuer and see whether the proposed service falls within scope. In a test workspace, give the assistant a fictional, expired price list. Record whether it withheld the quote and who could authorise a restart with the current list. Those are two different pieces of evidence a buyer can inspect."
           ]
         ],
         "exercise": "Choose one pending AI release. Write its purpose, owner, three acceptance tests, one hard stop and the person who can approve restart. Identify which evidence is still missing."
       },
       "he": {
         "title": "הטמעת AI מאובטחת: מי מחליט שהמערכת מוכנה לעלות לאוויר?",
-        "summary": "הופכים ממשל, סיכונים וציות להחלטה מעשית: חלוקת אחריות, ראיות, תנאי אישור וקריטריונים לעצירת ההטמעה.",
+        "summary": "עוזר AI מכין הצעת מחיר לפי מחירון שפג תוקפו. בעזרת הדוגמה אפשר לבדוק מי עוצר את השליחה, מה מכסה תעודת הספק ומי רשאי לאשר חזרה לעבודה.",
         "sections": [
           [
             "החלטה אחת במקום רשימות בדיקה מנותקות",
@@ -404,15 +442,15 @@ export const adoptionGuides = [
             "שינוי מודל, הנחיות, מחירון, חיבור למערכת או קבוצת משתמשים עלול להפוך ראיות קודמות ללא רלוונטיות. חוזרים על בדיקות האיכות וההרשאות הנדרשות ומתעדים אישור או חזרה לגרסה קודמת. עוקבים יחד עם האחראי אחר אירועים, איכות ועלות ליחידת עבודה. החלטה חתומה אינה הוכחה שמערכת תישאר בטוחה לאורך זמן."
           ],
           [
-            "איך SundAI מסייעת",
-            "אנחנו מציעים לרכז את הראיות במסמך החלטה עם המלצה: להתקדם, להתקדם בתנאים, לתכנן מחדש או לעצור. במסגרת הטמעה ניתן להגדיר יחד מבחני קבלה ולשלב את הבקרות בתהליך עצמו. העבודה נשענת על תקנים מוכרים בלי לטעון שהם מקנים הסמכה או מבטיחים עמידה בחוק. הביאו החלטת AI אחת לשיחת היכרות ללא עלות."
+            "מה מכסה תעודת ההסמכה של הספק?",
+            "אם הספק מציג הסמכה לפי ISO/IEC 27001 או ISO/IEC 42001, בקשו לראות את התעודה. בדקו על שם איזה ארגון הונפקה, אילו פעילויות ואתרים היא מכסה, מי הנפיק אותה ומה תוקפה. אמתו את מעמדה מול הגוף המנפיק ובדקו אם השירות המוצע כלול בה. בסביבת בדיקה תנו לעוזר מחירון בדוי שפג תוקפו. תעדו אם הצעת המחיר נעצרה ומי רשאי לאשר חזרה לעבודה עם המחירון העדכני. כך אפשר לבדוק גם את ההסמכה וגם את התהליך הספציפי."
           ]
         ],
         "exercise": "בחרו מערכת לפני עלייה לאוויר. הגדירו מטרה, אחראי, שלושה מבחני קבלה, תנאי עצירה ומי רשאי לאשר חזרה לפעילות. ציינו אילו ראיות עוד חסרות."
       },
       "sv": {
         "title": "Säker AI-implementering: vem avgör när systemet får tas i drift?",
-        "summary": "Gör styrning, risk och regelefterlevnad till ett praktiskt driftsättningsbeslut med ansvar, bevis, acceptanskrav och stoppvillkor.",
+        "summary": "En assistent tar fram en offert från en inaktuell prislista. Följ exemplet för att avgöra vem som får stoppa utskicket, vad ett certifikat omfattar och vem som får godkänna en omstart.",
         "sections": [
           [
             "Ett samlat beslut i stället för separata checklistor",
@@ -437,15 +475,15 @@ export const adoptionGuides = [
             "Byte av modell, instruktion, prislista, integration eller användargrupp kan göra tidigare bevis inaktuella. Upprepa relevanta tester och dokumentera godkännande eller återgång. Följ incidenter, kvalitet och enhetskostnad med ansvarig. Ett undertecknat beslut garanterar inte fortsatt säkerhet."
           ],
           [
-            "Så kan SundAI hjälpa",
-            "Vi föreslår ett beslutsunderlag som leder till en rekommendation: gå vidare, gå vidare med villkor, gör om eller avvakta. Vid införande kan vi avtala acceptanstest och bygga kontroller i själva arbetsflödet. Standarder vägleder arbetet men innebär ingen garanti för certifiering eller regelefterlevnad. Ta med ett konkret AI-beslut till ett kostnadsfritt samtal."
+            "Vad täcker leverantörens certifikat?",
+            "Om en leverantör hänvisar till certifiering enligt ISO/IEC 27001 eller ISO/IEC 42001, be att få se certifikatet. Kontrollera organisation, verksamheter, platser, utfärdare och giltighetstid. Bekräfta status hos utfärdaren och se om den erbjudna tjänsten omfattas. Ge sedan assistenten en påhittad, utgången prislista i en testmiljö. Anteckna om offerten stoppades och vem som får godkänna en omstart med den aktuella listan. Då kan köparen granska både certifikatet och hur arbetsflödet faktiskt fungerar."
           ]
         ],
         "exercise": "Välj en planerad driftsättning. Ange syfte, ansvarig, tre acceptanstest, ett stoppvillkor och vem som får godkänna en omstart. Lista vilket underlag som saknas."
       },
       "da": {
         "title": "Sikker AI-implementering: hvem afgør, hvornår systemet må gå i drift?",
-        "summary": "Gør governance, risiko og compliance til en praktisk beslutning om idriftsættelse med ansvar, dokumentation, acceptkrav og stopkriterier.",
+        "summary": "En assistent udarbejder et tilbud ud fra en forældet prisliste. Brug eksemplet til at afgøre, hvem der kan standse afsendelsen, hvad et certifikat dækker, og hvem der kan godkende en genstart.",
         "sections": [
           [
             "Én samlet beslutning frem for separate tjeklister",
@@ -470,13 +508,34 @@ export const adoptionGuides = [
             "En ny model, instruktion, prisliste, integration eller brugergruppe kan gøre tidligere dokumentation forældet. Gentag relevante test, og dokumentér godkendelse eller tilbageførsel. Følg hændelser, kvalitet og enhedsomkostning med den ansvarlige. En underskrevet beslutning garanterer ikke vedvarende sikkerhed."
           ],
           [
-            "Sådan kan SundAI hjælpe",
-            "Vi foreslår et beslutningsgrundlag med en anbefaling: fortsæt, fortsæt med betingelser, omarbejd eller afvent. Ved implementering kan vi aftale accepttest og indbygge kontroller i arbejdsgangen. Standarder vejleder arbejdet, men er ingen garanti for certificering eller efterlevelse af lovgivningen. Tag en konkret AI-beslutning med til en gratis introduktionssamtale."
+            "Hvad dækker leverandørens certifikat?",
+            "Hvis en leverandør henviser til certificering efter ISO/IEC 27001 eller ISO/IEC 42001, så bed om at se certifikatet. Tjek organisation, aktiviteter, lokationer, udsteder og gyldighedsperiode. Bekræft status hos udstederen, og se, om den tilbudte tjeneste er omfattet. Giv derefter assistenten en fiktiv, udløbet prisliste i et testmiljø. Notér, om tilbuddet blev standset, og hvem der må godkende en genstart med den aktuelle liste. Så kan køberen undersøge både certifikatet og den konkrete arbejdsgang."
           ]
         ],
         "exercise": "Vælg en planlagt idriftsættelse. Notér formål, ansvarlig, tre accepttest, ét stopkriterium og hvem der må godkende genstart. Angiv, hvilken dokumentation der mangler."
       }
-    }
+    },
+    "sectionSources": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ],
+      [],
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        6
+      ]
+    ],
+    "modified": "2026-11-26"
   },
   {
     "slug": "secure-ai-adoption-team-handoffs",
@@ -504,7 +563,7 @@ export const adoptionGuides = [
     "text": {
       "en": {
         "title": "Your AI works. Does your team know when not to use it?",
-        "summary": "Make secure AI adoption part of everyday work with role-specific training, clear handoffs and measurable acceptance criteria.",
+        "summary": "Two price lists, one customer and a convincing draft. Use this short workshop exercise to practise when a colleague should approve, correct or stop an AI-generated quote.",
         "sections": [
           [
             "The operational gap after launch",
@@ -529,15 +588,15 @@ export const adoptionGuides = [
             "Compare accepted results, correction time, escalations and repeat contacts with the baseline. A faster draft is not a successful outcome if review queues grow or staff stop reporting errors. Use aggregated operational measures where possible and set appropriate privacy safeguards before collecting employee-level data. Review patterns with staff and refine the workflow or training."
           ],
           [
-            "What SundAI brings together",
-            "Our proposed delivery combines implementation, access controls, process design and hands-on training. Rather than handing over a tool and leaving staff to adapt around it, we work with the responsible team to define the handoff, test edge cases and measure the results. The aim is secure AI adoption that fits how your business actually works. Discuss one handoff in a free 20-minute call."
+            "Try the handoff in a workshop",
+            "Give two colleagues a fictional enquiry and two price lists. One has expired. Ask the first colleague to prepare the quote and point to the price and effective date. Ask the second to decide whether it can be sent. Repeat with the dates removed. An acceptable handoff leaves the quote unsent, names the missing information and assigns someone to find it."
           ]
         ],
         "exercise": "Choose one AI-supported task. Ask two colleagues to complete three fictional cases: routine, ambiguous and suspicious. Record completion quality, review time and when they escalate."
       },
       "he": {
         "title": "ה־AI עובד. האם העובדים יודעים גם מתי אסור להסתמך עליו?",
-        "summary": "הטמעה מאובטחת של AI מתחילה בחיבור בין המערכת לעבודה היומיומית: הדרכה לפי תפקיד, העברת אחריות ברורה ומדידת איכות.",
+        "summary": "שני מחירונים, לקוח אחד וטיוטה משכנעת. תרגיל קצר לסדנה מאפשר לצוות לתרגל מתי מאשרים הצעת מחיר שנוסחה בעזרת AI, מתי מתקנים ומתי עוצרים.",
         "sections": [
           [
             "הפער התפעולי שמתגלה אחרי ההשקה",
@@ -562,15 +621,15 @@ export const adoptionGuides = [
             "משווים למדדי הבסיס את איכות התוצרים המאושרים, זמן התיקונים, החריגים ופניות חוזרות. טיוטה מהירה אינה הישג אם התור לבדיקה מתארך או אם העובדים מפסיקים לדווח על טעויות. ככל האפשר משתמשים בנתונים תפעוליים מצרפיים וקובעים הגנות פרטיות לפני איסוף נתונים אישיים על עובדים. בודקים את התוצאות עם הצוות ומשפרים את התהליך או את ההדרכה."
           ],
           [
-            "החיבור ש־SundAI מציעה",
-            "אנחנו מציעים לשלב פיתוח, בקרות גישה, תכנון תהליכים והדרכה מעשית. במקום למסור כלי ולהשאיר לעובדים את ההתמודדות עם השינוי, מגדירים יחד עם האחראים איך מעבירים טיפול, בודקים מקרי קצה ומודדים את התוצאה. כך אפשר להטמיע AI בצורה שמתאימה לאופן שבו העסק פועל באמת. אפשר להביא תהליך אחד לשיחת היכרות חינם בת 20 דקות."
+            "תרגיל לסדנה בזוגות",
+            "תנו לשני עמיתים פנייה בדויה ושני מחירונים, שאחד מהם כבר אינו בתוקף. בקשו מהראשון להכין הצעה ולהצביע על המחיר ועל תאריך התחולה. בקשו מהשני להחליט אם אפשר לשלוח אותה. חזרו על התרגיל אחרי שהסרתם את התאריכים. הפעם ההצעה צריכה להישאר בטיוטה, ומי שבודק אותה צריך לציין איזה מידע חסר ומי יברר אותו."
           ]
         ],
         "exercise": "בחרו משימה שמשלבת AI. בקשו משני עובדים לטפל בשלושה מקרים פיקטיביים: רגיל, לא חד־משמעי וחשוד. תעדו איכות, זמן בדיקה ומתי הטיפול הועבר לגורם אנושי."
       },
       "sv": {
         "title": "AI fungerar. Vet medarbetarna också när de inte ska lita på den?",
-        "summary": "Gör säker AI-användning till en del av vardagen med rollanpassad utbildning, tydliga överlämningar och mätbara kvalitetskrav.",
+        "summary": "Två prislistor, en kund och ett övertygande utkast. I den här korta övningen tränar ni på att godkänna, rätta eller stoppa en AI-genererad offert.",
         "sections": [
           [
             "Glappet efter lanseringen",
@@ -595,15 +654,15 @@ export const adoptionGuides = [
             "Jämför godkända resultat, rättelsetid, eskaleringar och återkommande kontakter med baslinjen. Snabba utkast hjälper inte om granskningskön växer. Använd aggregerade driftmått där det går och lämpligt integritetsskydd innan uppgifter om enskilda medarbetare samlas in. Förbättra processen tillsammans med personalen."
           ],
           [
-            "SundAI knyter ihop arbetet",
-            "Vi föreslår ett införande som förenar utveckling, åtkomstkontroller, processdesign och praktisk utbildning. I stället för att bara lämna över ett verktyg definierar vi överlämningen, testar undantag och mäter utfallet med ansvariga. Diskutera ett arbetsflöde under ett kostnadsfritt samtal på 20 minuter."
+            "Pröva överlämningen på en workshop",
+            "Ge två kollegor en påhittad förfrågan och två prislistor. Den ena har gått ut. Be den första kollegan skriva ett offertutkast och visa priset och giltighetsdatumet. Den andra avgör om offerten får skickas. Upprepa övningen utan datum. Nu ska offerten ligga kvar som utkast. Kollegorna ska kunna säga vilken uppgift som saknas och vem som tar reda på den."
           ]
         ],
         "exercise": "Välj en AI-stödd uppgift. Be två medarbetare hantera tre fiktiva fall: normalt, oklart och misstänkt. Notera kvalitet, granskningstid och när de eskalerar."
       },
       "da": {
         "title": "AI virker. Ved medarbejderne også, hvornår de ikke skal stole på den?",
-        "summary": "Gør sikker AI-anvendelse til en del af hverdagen med rollebaseret oplæring, tydelig overdragelse og målbare kvalitetskrav.",
+        "summary": "To prislister, én kunde og et overbevisende udkast. Brug denne korte øvelse til at træne, hvornår en kollega skal godkende, rette eller standse et AI-genereret tilbud.",
         "sections": [
           [
             "Det operationelle hul efter lanceringen",
@@ -628,12 +687,24 @@ export const adoptionGuides = [
             "Sammenlign godkendte resultater, rettelsestid, eskalationer og gentagne henvendelser med baselinen. Hurtige udkast hjælper ikke, hvis kontrolkøen vokser. Brug så vidt muligt aggregerede driftsmål, og fastlæg passende databeskyttelse, før I indsamler data om individuelle medarbejdere. Forbedr processen sammen med teamet."
           ],
           [
-            "SundAI forbinder arbejdet",
-            "Vi foreslår et forløb, der kombinerer udvikling, adgangskontrol, procesdesign og praktisk oplæring. I stedet for blot at aflevere et værktøj definerer vi overdragelsen, tester undtagelser og måler resultatet med de ansvarlige. Tal med os om én arbejdsgang i en gratis samtale på 20 minutter."
+            "Prøv overdragelsen på en workshop",
+            "Giv to kolleger en fiktiv henvendelse og to prislister. Den ene er udløbet. Bed den første kollega udarbejde et tilbud og pege på prisen og gyldighedsdatoen. Den anden afgør, om tilbuddet må sendes. Gentag øvelsen uden datoerne. Nu skal tilbuddet blive liggende som kladde. Kollegerne skal kunne sige, hvilken oplysning der mangler, og hvem der skaffer den."
           ]
         ],
         "exercise": "Vælg én AI-understøttet opgave. Bed to medarbejdere håndtere tre fiktive sager: normal, uklar og mistænkelig. Notér kvalitet, kontroltid og tidspunkt for eskalation."
       }
-    }
+    },
+    "sectionSources": [
+      [],
+      [],
+      [
+        0,
+        1,
+        2
+      ],
+      [],
+      []
+    ],
+    "modified": "2026-11-26"
   }
 ];

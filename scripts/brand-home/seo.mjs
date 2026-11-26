@@ -1,4 +1,5 @@
 import { locales, searchCopy } from './search-copy.mjs';
+import { adoptionGuides } from './adoption-guides.mjs';
 import { guideIndex } from './knowledge-data.mjs';
 import { legacyGuideLabel } from './legacy-guides.mjs';
 const origin = 'https://sundaibot.com';
@@ -26,6 +27,8 @@ export function optimisePage(html, route, isPublic = false, languagePaths) {
     Object.assign(entity,{inLanguage:lang,headline:entity.name,publisher:org,mainEntityOfPage:canonical});
     const publication = html.match(/<time\b[^>]*\bdatetime="(\d{4}-\d{2}-\d{2})"/i);
     if (publication) Object.assign(entity,{author:org,datePublished:publication[1]});
+    const revision = html.match(/<time itemprop="dateModified" datetime="(\d{4}-\d{2}-\d{2})"/);
+    if (revision) entity.dateModified = revision[1];
   }
   if (pageType==='CollectionPage') Object.assign(entity,{inLanguage:lang,publisher:org});
   if(pageType==='WebPage') Object.assign(entity,{inLanguage:lang,publisher:org});
@@ -41,8 +44,12 @@ export function optimisePage(html, route, isPublic = false, languagePaths) {
     breadcrumb = structuredData({'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:pages.map((page,i)=>({'@type':'ListItem',position:i+1,...page}))});
   }
   const feed = kind==='read' && !slug ? '<link rel="alternate" type="application/rss+xml" title="'+escape(entity.name)+'" href="'+canonical+'feed.xml">' : '';
+  const seriesCard = kind === 'read' && (!slug || adoptionGuides.some(guide => guide.slug === slug));
+  const imageMeta = seriesCard
+    ? '<meta property="og:image" content="'+origin+'/assets/brand-home/compliance-first.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Compliance first. AI second. · SundAI">'
+    : '<meta property="og:image" content="'+origin+'/assets/social-card.png">';
   const meta = '<title>'+escape(title)+'</title><meta name="description" content="'+escape(desc)+'"><meta name="robots" content="'+(isPublic&&kind!=='intro-call'?'index,follow':'noindex,follow')+'"><link rel="canonical" href="'+canonical+'">'+alternatives+
-    '<meta property="og:site_name" content="SundAI"><meta property="og:type" content="'+(pageType==='Article'?'article':'website')+'"><meta property="og:title" content="'+escape(title)+'"><meta property="og:description" content="'+escape(desc)+'"><meta property="og:url" content="'+canonical+'"><meta property="og:image" content="'+origin+'/assets/social-card.png"><meta name="twitter:card" content="summary_large_image">'+
+    '<meta property="og:site_name" content="SundAI"><meta property="og:type" content="'+(pageType==='Article'?'article':'website')+'"><meta property="og:title" content="'+escape(title)+'"><meta property="og:description" content="'+escape(desc)+'"><meta property="og:url" content="'+canonical+'">'+imageMeta+'<meta name="twitter:card" content="summary_large_image">'+
     structuredData(entity)+breadcrumb+feed+'<link rel="stylesheet" href="/assets/brand-home/brand.css">';
   return html.replace(/<title>[\s\S]*?<\/title>|<meta name="(?:description|robots)"[^>]*>|<link rel="(?:alternate|canonical)"[^>]*>/g,'').replace('</head>',meta+'</head>');
 }

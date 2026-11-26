@@ -1,3 +1,4 @@
+import { trustPaths } from './framework-strip.mjs';
 import { searchCopy } from './search-copy.mjs';
 import { callUrl } from './call.mjs';
 import { secureLlmGuide } from './secure-llm-guide.mjs';
@@ -41,6 +42,35 @@ function literacyQuestion(lang) {
  return [question, answer + ' <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4">' + actLabel + '</a> · <a href="https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers">' + faqLabel + '</a>'];
 }
 
+const releaseGuide = 'secure-ai-adoption-release-gates';
+const handoffGuide = 'secure-ai-adoption-team-handoffs';
+const editorialCopy = {
+  en: {
+    feature: 'Who can stop an AI-generated quote?',
+    intro: 'A price list has expired. Follow one quote from draft to approval and see what a buyer can check before connecting an inbox.',
+    link: 'Read the release guide', updated: 'Updated', trust: 'What SundAI checks before launch',
+    classroom: 'Try a source-checking exercise in the classroom'
+  },
+  he: {
+    feature: 'מי יכול לעצור הצעת מחיר שניסח AI?',
+    intro: 'תוקף המחירון פג. עקבו אחר הצעת מחיר מהטיוטה ועד האישור, וראו מה אפשר לבדוק עוד לפני שמחברים את תיבת הדואר.',
+    link: 'למדריך הבדיקה לפני העלייה לאוויר', updated: 'עודכן', trust: 'מה בודקים ב־SundAI לפני העלייה לאוויר',
+    classroom: 'תרגיל מקביל לכיתה בבדיקת מקורות'
+  },
+  sv: {
+    feature: 'Vem kan stoppa en AI-genererad offert?',
+    intro: 'Prislistan har gått ut. Följ en offert från utkast till godkännande och se vad ni kan kontrollera innan ni kopplar in inkorgen.',
+    link: 'Läs guiden inför driftstart', updated: 'Uppdaterad', trust: 'Det här kontrollerar SundAI inför driftstart',
+    classroom: 'Prova en övning i källkritik i klassrummet'
+  },
+  da: {
+    feature: 'Hvem kan standse et AI-genereret tilbud?',
+    intro: 'Prislisten er udløbet. Følg et tilbud fra kladde til godkendelse, og se, hvad I kan kontrollere, før I tilslutter indbakken.',
+    link: 'Læs guiden til idriftsættelse', updated: 'Opdateret', trust: 'Det tjekker SundAI før idriftsættelse',
+    classroom: 'Prøv en øvelse i kildekritik i klassen'
+  }
+};
+
 const categories = ['work', 'school', 'governance'];
 
 const shopifyServiceLabel = {
@@ -78,8 +108,8 @@ export function articlesFor(lang) {
       title: a[0], summary: a[1], sections: [[a[2], a[3]], [a[4], a[5]], [a[6], a[7]]], exercise: a[8]
     };
   });
-  const added = guides.map(({slug, category, related, sources, sectionSources, text, published = '2026-11-19'}) => ({
-    slug, category, related, sources, sectionSources, ...text[lang], published
+  const added = guides.map(({slug, category, related, sources, sectionSources, text, modified, published = '2026-11-19'}) => ({
+    slug, category, related, sources, sectionSources, ...text[lang], published, modified
   }));
   return [...added.sort((a,b) => b.published.localeCompare(a.published)), ...existing];
 }
@@ -131,7 +161,12 @@ export function renderHub(lang, {freeGuides, archive, resources}) {
   const more = collectionSection('checklists', t.checklists, freeGuides.items, freeGuides.index, freeGuides.label, lang)
     + collectionSection('tools', t.tools, resources.items, resources.index, t.allTools, archiveLang)
     + collectionSection('archive', t.archive, archive.articles, archive.index, t.allArticles, archiveLang);
-  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header>${renderFeaturedWorkGuides(lang, articles)}<nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}${more}</div></main>`;
+  const feature = editorialCopy[lang];
+  const spotlight = `<section class="kn-spotlight" aria-labelledby="kn-spotlight-title">
+    <img src="/assets/brand-home/compliance-first.jpg" alt="Compliance first. AI second." lang="en" dir="ltr" width="1200" height="630">
+    <div><h2 id="kn-spotlight-title">${escape(feature.feature)}</h2><p>${escape(feature.intro)}</p><a href="${articleUrl(lang, releaseGuide)}">${escape(feature.link)}</a></div>
+  </section>`;
+  const main = `<main class="kn-home kn-hub" id="main"><div class="kn-section"><a class="kn-back" href="${base(lang)}">${c.home}</a><header><h1>${c.title}</h1><p>${c.summary}</p></header>${spotlight}${renderFeaturedWorkGuides(lang, articles)}<nav class="kn-topics" aria-label="${c.topics}">${links}</nav>${groups}${more}</div></main>`;
   return readingPage(lang, c.title, c.summary, {innerPage:true, hub:true}, main);
 }
 
@@ -163,11 +198,15 @@ export function renderArticle(lang, slug) {
     ? `<p class="kn-article-call"><a href="${callUrl(lang, adoptionTopic, slug)}">${escape(adoptionCallLabel[lang])}</a></p>`
     : slug === secureLlmGuide.slug
       ? `<p class="kn-article-call"><a href="${callUrl(lang, 'decision-review', 'article')}">${collectionCopy[lang].call}</a></p>` : '';
-  const localizedDate = a.published && new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : lang, {dateStyle:'long', timeZone:'UTC'}).format(new Date(a.published+'T00:00:00Z'));
-  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${localizedDate}</time></p>` : '';
+  const formatDate = date => new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : lang, {dateStyle:'long', timeZone:'UTC'}).format(new Date(date+'T00:00:00Z'));
+  const updated = a.modified ? `<span>${editorialCopy[lang].updated} <time itemprop="dateModified" datetime="${a.modified}">${formatDate(a.modified)}</time></span>` : '';
+  const byline = a.published ? `<p class="kn-byline"><span>${c.byline}</span> <time datetime="${a.published}">${formatDate(a.published)}</time>${updated}</p>` : '';
   const sources = a.sources.map(({name, url}, i) =>
     `<li id="reference-${i+1}"><a href="${escape(url)}" dir="auto">${escape(name)}</a></li>`).join('');
-  const sourceList = tool ? 'ol' : 'ul';
+  const sourceList = a.sectionSources ? 'ol' : 'ul';
+  let evidenceLink = '';
+  if (slug === releaseGuide) evidenceLink = `<a href="${trustPaths[lang]}#before-launch">${editorialCopy[lang].trust}</a>`;
+  if (slug === handoffGuide) evidenceLink = `<a href="${articleUrl(lang,'verify-deepfake-video-in-class')}">${editorialCopy[lang].classroom}</a>`;
   const shopifyLink = slug === marketEvidenceGuide.slug
     ? `<a href="${base(lang)}services/shopify-first-order/">${shopifyServiceLabel[lang]}</a>` : '';
   const action = tool ? `<p class="kn-article-call"><a class="kn-work-call" href="${callUrl(lang,'secure-ai-automation',slug)}">${escape(actions[1])}</a></p>` : '';
@@ -176,7 +215,7 @@ export function renderArticle(lang, slug) {
     <header><h1>${escape(a.title)}</h1>${byline}<p class="kn-lead">${escape(a.summary)}</p>${tool ? '<a class="kn-work-jump" href="#work-tool">'+escape(actions[0])+'</a>' : ''}</header>
     ${body}${consultation}${tool}<aside><h2>${knowledge[lang].apply}</h2><p>${escape(a.exercise)}</p>${action}</aside>
     <section class="kn-sources"><h2>${c.sources}</h2><${sourceList}>${sources}</${sourceList}></section>
-    <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a>${shopifyLink}<a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
+    <nav aria-label="${knowledge[lang].further}"><h2>${knowledge[lang].further}</h2><a href="${base(lang) + a.related}">${c.services[a.related]}</a>${shopifyLink}${evidenceLink}<a href="${articleUrl(lang, next.slug)}">${escape(next.title)}</a></nav>
   </article></main>`;
   return readingPage(lang, a.title, a.summary, {innerPage:true, article:slug}, main, Boolean(tool));
 }

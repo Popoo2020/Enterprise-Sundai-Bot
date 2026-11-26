@@ -477,13 +477,20 @@ test('public pages use localized trust links and publish discoverable guides and
       assert.ok(entries.articles.some(entry=>entry.url===url && entry.title===article.headline),route);
       assert.ok(llms.includes(url), route+' missing from plain-text directory');
       assert.match(html,/<meta name="robots" content="index,follow">/);
-      if (guide.sectionSources) {
+      if (['market-research-with-ai','diagnose-signup-dropoff'].includes(guide.slug)) {
         assert.equal(article.datePublished, guide.published, route);
         assert.ok(hrefs(hubHtml).includes(route+'#work-tool'),route+' missing tool shortcut');
         assert.ok(hrefs(main(html)).includes('#work-tool'),route+' missing article shortcut');
         assert.match(html,/id="work-tool"/);
         assert.ok(html.includes('/assets/brand-home/editorial-tools.js'),route);
         assert.ok(hrefs(main(html)).includes(routeFor(lang,'intro-call')+'?topic=secure-ai-automation&via='+guide.slug),route);
+      }
+      if (guide.modified) {
+        assert.equal(article.dateModified, guide.modified, route);
+        assert.ok(html.includes('<time itemprop="dateModified" datetime="'+guide.modified+'">'), route+' visible revision');
+      }
+      if (guide.sectionSources) {
+        assert.match(main(html), /<ol><li id="reference-1">/, route+' numbered sources');
         for (const index of guide.sectionSources.flat()) {
           assert.ok(guide.sources[index] && hrefs(main(html)).includes('#reference-'+(index+1)),route+' missing inline source');
           assert.ok(html.includes('id="reference-'+(index+1)+'"'),route+' missing reference target');
