@@ -62,6 +62,19 @@ export function legalUpdate(lang) {
     '<a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai">' + timeline + '</a></aside>';
 }
 
+const cprUpdate = {
+  en: ['Update · 26 November 2026', 'The Danish ministry reports that the October incident concerned unauthorised access to data on about 8.8 million registered people. It also reported a separate incident affecting about 11,000 people. New monitoring of register lookups helped stop the second incident. The ministry said police were investigating both cases.', 'Ministry statement', 'Data Protection Agency investigation'],
+  da: ['Opdateret 26. november 2026', 'Ifølge ministeriet fik uvedkommende i den første sag adgang til oplysninger om cirka 8,8 millioner registrerede personer. Ministeriet har også oplyst om en særskilt hændelse, som berørte cirka 11.000 personer. Ny overvågning af opslag i registret var med til at standse den anden hændelse. Ifølge ministeriet efterforsker politiet begge sager.', 'Ministeriets meddelelse', 'Datatilsynets undersøgelse'],
+  sv: ['Uppdatering 26 november 2026', 'Enligt det danska ministeriet fick obehöriga i det första fallet tillgång till uppgifter om cirka 8,8 miljoner registrerade personer. Ministeriet har också rapporterat en separat händelse som berörde cirka 11 000 personer. Ny övervakning av sökningar i registret bidrog till att stoppa den andra händelsen. Enligt ministeriet utreder polisen båda fallen.', 'Ministeriets besked', 'Datatillsynens utredning']
+};
+
+function cprNote(lang) {
+  const [heading, text, ministry, regulator] = cprUpdate[lang];
+  return '<aside class="ar-update"><strong>' + heading + '</strong><p>' + text + '</p>' +
+    '<a href="https://via.ritzau.dk/pressemeddelelse/15313498/trusselsbilledet-skaerper-krav-til-cpr-systemet?lang=da&amp;publisherId=2869389">' + ministry + '</a> · ' +
+    '<a href="https://www.datatilsynet.dk/presse-og-nyheder/nyhedsarkiv/2026/okt/datatilsynet-indleder-formel-undersoegelse-af-cpr-sagen">' + regulator + '</a></aside>';
+}
+
 export async function rebrandLegacyArchive(staging, isPublic) {
   for (const lang of languages) {
     const { index, articles } = archiveLibrary(lang);
@@ -77,6 +90,9 @@ export async function rebrandLegacyArchive(staging, isPublic) {
       // The original guide and its publication date are retained below this dated correction.
       if (['/insights/article-50-transparency-checklist.html', '/insights/eu-ai-act-2026-what-applies-now.html'].includes(languagePaths.en)) {
         document = document.replace(/(<main\b[^>]*>[\s\S]*?<\/section>)/, '$1' + legalUpdate(lang));
+      }
+      if (languagePaths.en === '/insights/denmark-cpr-access-security.html') {
+        document = document.replace(/(<main\b[^>]*>[\s\S]*?<\/section>)/, '$1' + cprNote(lang));
       }
       if (hub) {
         const base = lang === 'en' ? '/' : '/' + lang + '/';

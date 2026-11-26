@@ -50,7 +50,7 @@ export const guidesWork = [
     }
   },
   {
-    slug: 'calculate-automation-roi-staff-time',
+    slug: 'calculate-automation-roi-staff-time', modified: '2026-11-26',
     category: 'work', related: 'services/secure-ai-automation/',
     sources: [
       {name: 'Microsoft Learn · Savings in Power Automate', url: 'https://learn.microsoft.com/en-us/power-automate/savings'},
@@ -63,7 +63,7 @@ export const guidesWork = [
         sections: [
           ['Time the work that occupies a person', 'Pick one kind of case and define what finished means, for example a quote request assigned to the right adviser with all required fields. Record hands-on minutes per completed case for a representative week. Separate those minutes from the wait for a customer to reply. Repeat the measurement during the pilot with a similar mix of simple cases and exceptions. Include review and correction time.'],
           ['Work through a small example', 'Suppose a team completes 300 comparable cases each month. If average handling time falls from eight minutes to five, it releases 900 minutes, or 15 hours. At an assumed fully loaded labour cost of €30 an hour, that time is worth €450. Subtract €120 a month for tools and maintenance to obtain €330 of monthly capacity value. These are illustrative inputs you can replace with your own.'],
-          ['Decide whether the benefit can be realised', 'At €990 in one-off setup costs, payback is three months if the volume, quality and value of the released time hold. Over twelve months the illustrative ROI is about 122%, calculated as (€5,400 − €2,430) ÷ €2,430. A shorter queue or extra billable work may make the released time useful. A lower payroll bill requires an actual change in spending.']
+          ['Decide whether the benefit can be realised', 'At €330 of usable capacity per month, it takes three months to earn back the €990 setup cost in capacity value. Cash payback depends on an actual increase in income or reduction in spending. Over twelve months the illustrative return on capacity is about 122%, calculated as (€5,400 − €2,430) ÷ €2,430. A shorter queue or extra billable work may make the released time useful. A lower payroll bill requires an actual change in spending.']
         ],
         exercise: 'Run the calculation again at half the expected volume while keeping monthly tool costs fixed. Ask the process owner what the team would do with those hours and check whether more errors or reopened cases would change the decision.'
       },
@@ -73,7 +73,7 @@ export const guidesWork = [
         sections: [
           ['מודדים את הזמן של הצוות', 'בחרו פניות מסוג אחד והגדירו מה נחשב לסיום. למשל, בקשה להצעת מחיר הועברה ליועצת הנכונה וכל השדות הדרושים מולאו. במשך שבוע מייצג מדדו כמה דקות עובד משקיע בכל פנייה שהושלמה. רשמו בנפרד את זמן ההמתנה ללקוח. חזרו על המדידה בפיילוט עם תמהיל דומה של פניות רגילות וחריגות, וספרו גם את הזמן שהושקע בבדיקת טעויות ובתיקונן.'],
           ['מחשבים את ערך השעות שהתפנו', 'בדוגמה להמחשה, צוות מסיים 300 פניות דומות בחודש. ירידה משמונה לחמש דקות לפנייה מפנה 900 דקות, כלומר 15 שעות. אם עלות שעת עבודה מלאה היא 30 אירו, השעות שהתפנו שוות 450 אירו. אחרי ניכוי 120 אירו בחודש על כלים ותחזוקה, הערך החודשי הצפוי הוא 330 אירו. החליפו את כל ההנחות במספרים מהעסק שלכם.'],
-          ['בודקים מה יעשה העסק בזמן שהתפנה', 'אם ההקמה עולה 990 אירו, תקופת ההחזר בדוגמה היא שלושה חודשים, בהנחה שהיקף הפעילות והאיכות נשמרים ושיש שימוש לזמן שהתפנה. בשנה מתקבל ערך של 5,400 אירו מול עלות של 2,430 אירו. ההפרש חלקי העלות נותן תשואה של כ־122%. ייתכן שהערך יתבטא בקיצור תורים או ביכולת לקבל עוד עבודה. חיסכון כספי בפועל מחייב ירידה בהוצאה.']
+          ['בודקים מה יעשה העסק בזמן שהתפנה', 'אם הצוות מנצל את הזמן שהתפנה בשווי 330 אירו בחודש, ערכו המצטבר מכסה את עלות ההקמה של 990 אירו אחרי שלושה חודשים. החזר במזומן תלוי בתוספת הכנסה או בירידה ממשית בהוצאות. בשנה מתקבל ערך של 5,400 אירו מול עלות של 2,430 אירו. ההפרש חלקי העלות נותן תשואה של כ־122%. ייתכן שהערך יתבטא בקיצור תורים או ביכולת לקבל עוד עבודה. חיסכון כספי בפועל מחייב ירידה בהוצאה.']
         ],
         exercise: 'חשבו שוב בהנחה שכמות הפניות תרד לחצי ועלות הכלים תישאר קבועה. בקשו מהאחראי לציין מה יעשה הצוות בשעות שהתפנו וכמה פניות שנפתחו מחדש עלולות לשנות את ההחלטה.'
       },
@@ -83,7 +83,7 @@ export const guidesWork = [
         sections: [
           ['Mät den tid någon arbetar aktivt', 'Välj en ärendetyp och bestäm vad färdig betyder. En offertförfrågan kan till exempel räknas som klar när rätt rådgivare har fått den med alla uppgifter ifyllda. Mät aktiva arbetsminuter per avslutat ärende under en representativ vecka. Bokför väntan på kundens svar separat. Upprepa mätningen under piloten med en jämförbar blandning av lätta ärenden och undantag. Ta med tid för kontroll och rättelser.'],
           ['Räkna på ett exempel', 'Anta att teamet avslutar 300 jämförbara ärenden i månaden. Om handläggningen går från åtta till fem minuter i snitt frigörs 900 minuter, alltså 15 timmar. Vid en antagen total arbetskostnad på 30 euro i timmen är tiden värd 450 euro. Efter 120 euro för månadens verktyg och underhåll återstår ett kapacitetsvärde på 330 euro. Byt ut exemplets antaganden mot era egna siffror.'],
-          ['Bestäm vad ni ska använda tiden till', 'Om installationen kostar 990 euro blir återbetalningstiden tre månader, förutsatt att volym, kvalitet och värdet av tiden håller. På tolv månader blir avkastningen cirka 122 procent. Ta skillnaden mellan nyttan på 5 400 euro och kostnaden på 2 430 euro och dela den med kostnaden. Tiden kan ge kortare köer eller mer fakturerbart arbete. För en besparing i kassan behöver en utgift faktiskt minska.']
+          ['Bestäm vad ni ska använda tiden till', 'Om teamet använder den frigjorda tiden till ett värde av 330 euro i månaden täcker kapacitetsvärdet startkostnaden på 990 euro efter tre månader. För att investeringen ska betala sig i pengar behöver intäkterna öka eller utgifterna minska. På tolv månader blir avkastningen cirka 122 procent. Ta skillnaden mellan nyttan på 5 400 euro och kostnaden på 2 430 euro och dela den med kostnaden. Tiden kan ge kortare köer eller mer fakturerbart arbete. För en besparing i kassan behöver en utgift faktiskt minska.']
         ],
         exercise: 'Gör om kalkylen med halva ärendevolymen och samma månadskostnad för verktygen. Be den ansvariga beskriva vad teamet skulle göra med tiden och hur återöppnade ärenden skulle påverka beslutet.'
       },
@@ -93,7 +93,7 @@ export const guidesWork = [
         sections: [
           ['Mål de minutter, hvor en medarbejder arbejder', 'Vælg én sagstype, og aftal, hvornår den er færdig. En tilbudsforespørgsel kan tælle som færdig, når den rette rådgiver har modtaget den med alle oplysninger. Mål den aktive arbejdstid pr. afsluttet sag i en repræsentativ uge. Registrer ventetid på kunden særskilt. Gentag målingen under piloten med en tilsvarende fordeling af enkle sager og undtagelser. Medregn også medarbejderens kontrol og rettelser.'],
           ['Sæt tal på den frigjorte tid', 'Forestil dig et team, der afslutter 300 sammenlignelige sager om måneden. Falder den gennemsnitlige behandlingstid fra otte til fem minutter, frigør det 900 minutter eller 15 timer. Med en antaget samlet lønomkostning på 30 euro i timen er tiden 450 euro værd. Træk 120 euro om måneden til værktøjer og vedligeholdelse fra. Tilbage er en månedlig kapacitetsgevinst på 330 euro. Erstat eksemplets tal med jeres egne.'],
-          ['Afgør, hvor gevinsten skal hentes', 'Med en opstartspris på 990 euro er tilbagebetalingstiden tre måneder, hvis volumen, kvalitet og værdien af tiden holder. På et år er afkastet cirka 122 procent. Træk omkostningerne på 2.430 euro fra gevinsten på 5.400 euro, og divider forskellen med omkostningerne. Timerne kan bruges til at afkorte køen eller tage flere fakturerbare opgaver. En kontant besparelse forudsætter, at en udgift falder.']
+          ['Afgør, hvor gevinsten skal hentes', 'Bruger teamet den frigjorte tid til en værdi af 330 euro om måneden, dækker værdien af kapaciteten opstarten på 990 euro efter tre måneder. En tilbagebetaling i kroner og øre kræver højere indtægter eller lavere udgifter. På et år er afkastet cirka 122 procent. Træk omkostningerne på 2.430 euro fra gevinsten på 5.400 euro, og divider forskellen med omkostningerne. Timerne kan bruges til at afkorte køen eller tage flere fakturerbare opgaver. En kontant besparelse forudsætter, at en udgift falder.']
         ],
         exercise: 'Gentag beregningen med den halve sagsmængde og samme faste udgift til værktøjer. Bed den ansvarlige forklare, hvad teamet skal bruge timerne til, og hvor mange genåbnede sager der vil ændre vurderingen.'
       }
